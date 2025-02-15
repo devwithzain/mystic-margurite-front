@@ -6,6 +6,15 @@ export default function LoaderTwo() {
 	const [showText, setShowText] = useState(false);
 	const [currentLine, setCurrentLine] = useState(0);
 
+	const textLines = [
+		"All is the creation of Divine Love",
+		"life and cosmos",
+		"beings manifest or etheric",
+		"dwellers in light and darkness",
+		"We dance together",
+		"weaving an infinite web of Becoming.",
+	];
+
 	const handleTimeUpdate = (event: React.SyntheticEvent<HTMLVideoElement>) => {
 		const currentTime = (event.target as HTMLVideoElement).currentTime;
 		if (currentTime >= 0.5 && !showText) {
@@ -25,16 +34,7 @@ export default function LoaderTwo() {
 
 			return () => clearInterval(interval);
 		}
-	}, [showText]);
-
-	const textLines = [
-		"All is the creation of Divine Love",
-		"life and cosmos",
-		"beings manifest or etheric",
-		"dwellers in light and darkness",
-		"We dance together",
-		"weaving an infinite web of Becoming.",
-	];
+	}, [showText, textLines.length]);
 
 	return (
 		<div className="relative w-full h-screen flex items-center justify-center overflow-hidden bg-black">
