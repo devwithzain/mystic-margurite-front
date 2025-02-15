@@ -6,7 +6,7 @@ export default function StackedCards() {
 	const [hovered, setHovered] = useState<number | null>(null);
 
 	return (
-		<div className="w-full flex justify-center items-center h-screen">
+		<div className="w-full flex justify-center items-center min-h-screen overflow-hidden">
 			<div className="relative flex justify-center items-center">
 				{cardsItems.map((card, index) => {
 					// Curve the cards slightly using rotateZ

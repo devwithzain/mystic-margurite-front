@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { heroBg, videoThumbnail } from "@/assets";
+import { introVideo2, videoThumbnail } from "@/assets";
 
 export default function VideoModal() {
 	const [isOpen, setIsOpen] = useState(false);
@@ -47,9 +47,10 @@ export default function VideoModal() {
 						<video
 							className="w-full"
 							controls
+							muted
 							autoPlay>
 							<source
-								src={heroBg}
+								src={introVideo2}
 								type="video/mp4"
 							/>
 							Your browser does not support the video tag.

@@ -3,7 +3,7 @@ import { footerLogo, formBg, gradientCircle, star } from "@/assets";
 export default function Form() {
 	return (
 		<div className="w-full border-b border-[#C3BEB6]">
-			<div className="w-full flex items-center">
+			<div className="w-full flex">
 				<div className="flex-1">
 					<img
 						src={formBg}
@@ -11,20 +11,20 @@ export default function Form() {
 						className="w-full h-full object-cover"
 					/>
 				</div>
-				<div className="flex-1 p-10">
+				<div className="flex-1 flex flex-col p-10 gap-10">
 					<div className="w-full flex items-center justify-between gap-2">
 						<img
 							src={gradientCircle}
 							alt="gradientCircleImg"
-							className="w-[150px] object-cover"
+							className="w-[150px] lg:w-[100px] md:w-[80px] object-cover"
 						/>
-						<h3 className="text-[#7E78FF] heading forum capitalize leading-tight tracking-tight">
+						<h3 className="text-[#7E78FF] subHeading forum capitalize leading-tight tracking-tight text-center">
 							Energy Healing with <br /> Life Alignment
 						</h3>
 						<img
 							src={footerLogo}
 							alt="footerLogoImg"
-							className="w-[150px] object-cover"
+							className="w-[150px] lg:w-[100px] md:w-[80px] object-cover"
 						/>
 					</div>
 					<form
