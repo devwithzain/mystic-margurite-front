@@ -28,7 +28,7 @@ export default function LogoMarquee({
 	const x = useTransform(baseX, (v) => `${wrap(-20, -45, v)}%`);
 
 	const directionFactor = useRef<number>(1);
-	useAnimationFrame((t, delta) => {
+	useAnimationFrame((_, delta) => {
 		let moveBy = directionFactor.current * baseVelocity * (delta / 1000);
 
 		if (velocityFactor.get() < 0) {
@@ -41,7 +41,6 @@ export default function LogoMarquee({
 
 		baseX.set(baseX.get() + moveBy);
 	});
-
 	return (
 		<div className="overflow-hidden flex flex-wrap">
 			<motion.div

@@ -6,6 +6,7 @@ import {
 	client04,
 	eyes,
 } from "@/assets";
+// @ts-expect-error - Temporary workaround for type mismatch
 import "swiper/css";
 import { useRef } from "react";
 import { Navigation } from "swiper/modules";
