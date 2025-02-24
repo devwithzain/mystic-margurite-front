@@ -1,5 +1,6 @@
 import Lenis from "lenis";
 import { useEffect } from "react";
+import NewsLetter from "./news-letter";
 import Hero from "@/container/home/hero";
 import Form from "@/container/home/form";
 import Video from "@/container/home/video";
@@ -33,6 +34,7 @@ export default function HomePage() {
 			<StackedCards />
 			<Video />
 			<Articles />
+			<NewsLetter />
 			<Footer />
 		</>
 	);
