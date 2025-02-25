@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 
 export default function Footer() {
 	return (
-		<footer className="w-full bg-white padding-y">
-			<div className="w-full flex sm:flex-col xm:flex-col justify-between gap-5 padding-x">
+		<footer className="w-full bg-white pb-8">
+			<div className="w-full flex sm:flex-col xm:flex-col justify-between gap-5 padding-y padding-x">
 				<div className="flex flex-col gap-6">
 					<img
 						src={footerLogo}

@@ -3,9 +3,9 @@ import { MdEmail } from "react-icons/md";
 export default function NewsLetter() {
 	return (
 		<section className="flex items-center justify-center padding-x padding-y testimonialsBg">
-			<div className="w-full max-w-7xl flex flex-col gap-5 padding-x padding-y bg-white shadow-lg rounded-2xl text-center">
+			<div className="w-full max-w-7xl flex flex-col gap-5 padding-x py-14 bg-white shadow-lg rounded-2xl text-center">
 				<div className="flex flex-col">
-					<h2 className="heading font-semibold text-black tracking-tight leading-tight forum">
+					<h2 className="heading font-semibold text-[#936d42] tracking-tight leading-tight forum">
 						Subscribe to our <br /> Newsletter
 					</h2>
 				</div>
@@ -17,16 +17,16 @@ export default function NewsLetter() {
 				<div className="flex items-center gap-2 justify-center pt-3">
 					<div className="relative">
 						<MdEmail
-							className="text-[#7E78FF] absolute left-3 top-1/2 transform -translate-y-1/2"
+							className="text-[#000] absolute left-3 top-1/2 transform -translate-y-1/2"
 							size={24}
 						/>
 						<input
 							type="email"
 							placeholder="Enter Your Email"
-							className="paragraph text-black font-normal montserrat leading-tight tracking-tight pl-12 pr-4 py-3 border-[2px] border-[#7a74ef] outline-none rounded-full"
+							className="paragraph text-black font-normal montserrat leading-tight tracking-tight pl-12 pr-4 py-3 border-[2px] border-[#000] outline-none rounded-full"
 						/>
 					</div>
-					<button className="paragraph bg-[#7a74ef] font-normal montserrat leading-tight tracking-tight px-6 py-3 text-white hover:bg-[#857ff3] transition rounded-full">
+					<button className="paragraph bg-[#000] font-normal montserrat leading-tight tracking-tight px-6 py-3 text-white hover:bg-[#000] transition rounded-full">
 						Subscribe
 					</button>
 				</div>

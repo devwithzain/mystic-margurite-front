@@ -63,6 +63,14 @@ export default function Navbar() {
 							title2="Planetary Meditations"
 						/>
 					</Link>
+					<Link
+						to="/stars-and-planets"
+						className="text-center text-black text-lg leading-tight tracking-tight font-normal montserrat hover">
+						<TextHover
+							title1="Stars and Planets"
+							title2="Stars and Planets"
+						/>
+					</Link>
 				</ul>
 				<Link
 					to="/contact-us"

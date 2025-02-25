@@ -50,3 +50,35 @@ export { default as cardVirgo } from './card virgo.png';
 
 export { default as introVideo } from './intro.mp4';
 export { default as introVideo2 } from './intro2.mp4';
+
+
+export { default as about01 } from './about01.png';
+export { default as about02 } from './about02.png';
+export { default as planetry01 } from './planetry01.png';
+export { default as planetry02 } from './planetry02.png';
+export { default as planetry03 } from './planetry03.png';
+export { default as planetry04 } from './planetry04.png';
+export { default as planetry05 } from './planetry05.png';
+export { default as planetry06 } from './planetry06.png';
+export { default as planetry07 } from './planetry07.png';
+export { default as planetry08 } from './planetry08.png';
+export { default as planetry09 } from './planetry09.png';
+export { default as planetry10 } from './planetry10.png';
+export { default as planetry11 } from './planetry11.png';
+export { default as planetry12 } from './planetry12.png';
+
+export { default as blog01 } from './blog01.png';
+export { default as blog02 } from './blog02.png';
+export { default as blog03 } from './blog03.png';
+export { default as blog04 } from './blog04.png';
+export { default as blog05 } from './blog05.png';
+export { default as blog06 } from './blog06.png';
+export { default as blog07 } from './blog07.png';
+export { default as blog08 } from './blog08.png';
+export { default as blog09 } from './blog9.png';
+export { default as blog10 } from './blog10.png';
+export { default as blog11 } from './blog11.png';
+export { default as blog12 } from './blog12.png';
+export { default as comment01 } from './comment01.png';
+export { default as comment02 } from './comment02.png';
+

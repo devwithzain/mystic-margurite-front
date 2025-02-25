@@ -1,7 +1,12 @@
 import { useState } from "react";
-import { introVideo2, videoThumbnail } from "@/assets";
 
-export default function VideoModal() {
+export default function VideoModal({
+	thumbnail,
+	videoSrc,
+}: {
+	thumbnail: string;
+	videoSrc: string;
+}) {
 	const [isOpen, setIsOpen] = useState(false);
 
 	const openVideoModal = () => setIsOpen(true);
@@ -15,7 +20,7 @@ export default function VideoModal() {
 				className="w-full relative cursor-pointer h-[500px]"
 				onClick={openVideoModal}>
 				<img
-					src={videoThumbnail}
+					src={thumbnail}
 					alt="Video Thumbnail"
 					className="w-full h-full object-cover"
 				/>
@@ -38,11 +43,11 @@ export default function VideoModal() {
 			</div>
 			{isOpen && (
 				<div className="fixed inset-0 flex items-center justify-center z-50">
-					<div className="relative w-11/12 max-w-2xl bg-white overflow-hidden">
+					<div className="relative w-full max-w-4xl bg-white overflow-hidden">
 						<button
 							className="absolute top-2 right-2 text-gray-500 hover:text-gray-700 z-50 text-3xl"
 							onClick={closeVideoModal}>
-							&times;
+							×
 						</button>
 						<video
 							className="w-full"
@@ -50,7 +55,7 @@ export default function VideoModal() {
 							muted
 							autoPlay>
 							<source
-								src={introVideo2}
+								src={videoSrc}
 								type="video/mp4"
 							/>
 							Your browser does not support the video tag.

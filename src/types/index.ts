@@ -149,3 +149,22 @@ export type TlogoMarqueeProps = {
    children: React.ReactNode;
    baseVelocity: number;
 };
+
+export type TModalProps = {
+   isOpen?: boolean;
+   onClose: () => void;
+   onSubmit: () => void;
+   title?: string;
+   body?: React.ReactElement;
+   footer?: React.ReactElement;
+   actionLabel: string;
+   disabled?: boolean;
+   secondaryAction?: () => void;
+   secondaryActionLabel?: string;
+};
+
+export type ThooksProps = {
+   isOpen: boolean;
+   onOpen: () => void;
+   onClose: () => void;
+};

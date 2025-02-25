@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { articleItems } from "@/constants";
 
 export default function Articles() {
@@ -20,7 +21,7 @@ export default function Articles() {
 						<img
 							src={item.img}
 							alt={item.title}
-							className="w-full h-full object-cover"
+							className="w-full h-[600px] object-cover"
 						/>
 						<h1 className="subHeading text-[#936D42] forum leading-tight tracking-tight uppercase">
 							{item.title}
@@ -31,9 +32,11 @@ export default function Articles() {
 								alt={item.title}
 								className="w-5 h-5 object-cover"
 							/>
-							<p className="text-center paragraph text-[#433E37] montserrat leading-normal tracking-tight capitalize">
+							<Link
+								to=""
+								className="text-center paragraph text-[#433E37] montserrat leading-normal tracking-tight capitalize">
 								{item.btn}
-							</p>
+							</Link>
 						</div>
 					</div>
 				))}
