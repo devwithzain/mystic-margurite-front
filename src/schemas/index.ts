@@ -30,10 +30,20 @@ export const profileFormSchema = z.object({
    }),
 });
 
-export const billboardFormSchema = z.object({
-   label: z.string().min(1, {
-      message: "Label is required",
-   }),
+export const contactFormSchema = z.object({
+   name: z.string().min(1),
+   email: z.string().email(),
+   specialMessage: z.string(),
+});
+
+export const bookNowFormSchema = z.object({
+   name: z.string().min(1),
+   lastName: z.string().min(1),
+   services: z.string().min(1),
+   healingTopics: z.string().min(1),
+   preferredTime: z.string().min(1),
+   cityAndState: z.string().min(1),
+   specialMessage: z.string().min(1),
 });
 
 export const servicesFormSchema = z.object({
@@ -161,7 +171,8 @@ export type TloginFormData = z.infer<typeof loginFormSchema>;
 export type TprofileFormData = z.infer<typeof profileFormSchema>;
 export type TserviceFormData = z.infer<typeof servicesFormSchema>;
 export type TregisterFormData = z.infer<typeof registerFormSchema>;
-export type TbillboardFormData = z.infer<typeof billboardFormSchema>;
+export type TcontactFormData = z.infer<typeof contactFormSchema>;
+export type TbookNowFormData = z.infer<typeof bookNowFormSchema>;
 export type TproductFormData = z.infer<typeof productHeroFormSchema>;
 export type TservicesColumnProps = z.infer<typeof servicesColumnSchema>;
 export type TproductsColumnProps = z.infer<typeof productsColumnSchema>;

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import HomePage from "./home-page";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
@@ -11,8 +11,21 @@ export default function Loader() {
 	const [exploreClicked, setExploreClicked] = useState(false);
 	const [contactClicked, setContactClicked] = useState(false);
 
+	const hasLoaderCompleted = localStorage.getItem("loaderCompleted");
+
+	useEffect(() => {
+		if (!hasLoaderCompleted) {
+			localStorage.setItem("loaderCompleted", "false");
+		}
+	}, [hasLoaderCompleted]);
+
 	const handleExploreClick = () => {
 		setExploreClicked(true);
+		localStorage.setItem("loaderCompleted", "true");
+	};
+
+	const handlePlametaryClick = () => {
+		localStorage.setItem("loaderCompleted", "true");
 	};
 
 	const handleContactClick = () => {
@@ -30,7 +43,7 @@ export default function Loader() {
 		return <LoaderTwo />;
 	}
 
-	if (exploreClicked) {
+	if (exploreClicked || hasLoaderCompleted === "true") {
 		return <HomePage />;
 	}
 
@@ -51,7 +64,7 @@ export default function Loader() {
 					{showText && (
 						<div className="flex flex-col gap-4 z-10 items-center">
 							<AnimatedText
-								text="Mystic Margurite Certified Astrologer"
+								text="Mystic Marguerite Certified Astrologer"
 								className="text-[#fff] heading font-normal smythe capitalize leading-tight tracking-tight"
 							/>
 							<AnimatedText
@@ -67,18 +80,21 @@ export default function Loader() {
 							animate={{ opacity: 1, y: 0 }}
 							transition={{ duration: 0.5, easings: "easeInOut" }}>
 							<motion.div
+								onClick={handlePlametaryClick}
 								initial={{ opacity: 0, y: 20 }}
 								animate={{ opacity: 1, y: 0 }}
 								transition={{ duration: 0.5, delay: 0.2 }}>
-								<div className="w-fit flex items-center gap-2 px-6 py-3 bg-[#7a74ef]">
+								<Link
+									to="/planetary-meditations"
+									className="w-fit flex items-center gap-2 px-6 py-3 bg-[#7a74ef]">
 									<button className="text-center text-white text-lg font-normal leading-tight tracking-tight montserrat">
-										Get Started
+										Planetary Maditation
 									</button>
 									<img
 										src={arrowGo}
 										alt="arrowGoImg"
 									/>
-								</div>
+								</Link>
 							</motion.div>
 							<motion.div
 								initial={{ opacity: 0, y: 20 }}
@@ -89,7 +105,7 @@ export default function Loader() {
 									className="w-fit flex items-center gap-2 px-6 py-3 bg-[#7a74ef]"
 									onClick={handleExploreClick}>
 									<button className="text-center text-white text-lg font-normal leading-tight tracking-tight montserrat">
-										Explore Now
+										Enter Website
 									</button>
 									<img
 										src={arrowGo}
@@ -105,7 +121,7 @@ export default function Loader() {
 									className="w-fit flex items-center gap-2 px-6 py-3 bg-[#7a74ef] cursor-pointer"
 									onClick={handleContactClick}>
 									<button className="text-center text-white text-lg font-normal leading-tight tracking-tight montserrat">
-										Contact Us
+										Life Aligment & Healing
 									</button>
 									<img
 										src={arrowGo}

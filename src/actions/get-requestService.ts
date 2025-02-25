@@ -1,4 +1,4 @@
-const apiUrl = `https://themountingking.com/backend/api/requestService`;
+const apiUrl = `https://freequote4financialprotection.com/backend/api/requestService`;
 
 const getRequestService = async (id: string) => {
    const response = await fetch(`${apiUrl}/${id}`);

@@ -22,6 +22,7 @@ export default function HomePage() {
 
 		requestAnimationFrame(raf);
 	}, []);
+
 	return (
 		<>
 			<Navbar />

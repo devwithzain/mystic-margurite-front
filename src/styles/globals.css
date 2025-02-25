@@ -25,10 +25,10 @@ body {
 		@apply font-[Montserrat];
 	}
 	.padding-x {
-		@apply px-[100px] lg:px-[40px] md:px-[30px] sm:px-[20px] xm:px-[20px];
+		@apply px-[80px] lg:px-[40px] md:px-[30px] sm:px-[20px] xm:px-[20px];
 	}
 	.padding-y {
-		@apply py-[100px] lg:py-[40px] md:py-[30px] sm:py-[20px] xm:py-[20px];
+		@apply py-[80px] lg:py-[40px] md:py-[30px] sm:py-[20px] xm:py-[20px];
 	}
 	.heading {
 		@apply text-[80px] lg:text-[60px] md:text-[50px] sm:text-[35px] xm:text-[30px];

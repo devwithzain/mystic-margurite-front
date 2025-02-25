@@ -13,15 +13,24 @@ export default function Footer() {
 						className="w-[150px] object-cover"
 					/>
 					<p className="paragraph tracking-tight montserrat text-black leading-normal">
-						Lorem ipsum dolor sit amet, <br /> consectetuer adipiscing elit.{" "}
-						Aenean commodo <br /> ligula eget dolor.
+						Discover the mystical guidance of our expert <br />
+						astrologer, offering profound insights into your cosmic
+						<br />
+						journey.Let the stars illuminate your path forward.{" "}
 					</p>
 				</div>
 				<div>
 					<h3 className="text-[#7E78FF] subHeading mb-4 forum uppercase">
 						Quick Links
 					</h3>
-					<ul className="space-y-3">
+					<ul className="space-y-2">
+						<li>
+							<Link
+								to="/"
+								className="flex gap-3 items-center text-black hover:text-[#7E78FF] montserrat paragraph">
+								Home
+							</Link>
+						</li>
 						<li>
 							<Link
 								to="/about-us"
@@ -38,16 +47,23 @@ export default function Footer() {
 						</li>
 						<li>
 							<Link
-								to="/fees"
+								to="/astrology-blog"
 								className="text-black hover:text-[#7E78FF] montserrat paragraph">
-								Meditations
+								Astrology Blog
 							</Link>
 						</li>
 						<li>
 							<Link
-								to="/services"
+								to="/planetary-meditations"
 								className="text-black hover:text-[#7E78FF] montserrat paragraph">
-								Blogs
+								Planetary Meditation
+							</Link>
+						</li>
+						<li>
+							<Link
+								to="/stars-and-planets"
+								className="text-black hover:text-[#7E78FF] montserrat paragraph">
+								Stars And Planets
 							</Link>
 						</li>
 					</ul>
@@ -56,7 +72,7 @@ export default function Footer() {
 					<h3 className="text-[#7E78FF] subHeading mb-4 forum uppercase">
 						Privacy
 					</h3>
-					<ul className="space-y-3">
+					<ul className="space-y-2">
 						<li>
 							<Link
 								to="/fees"
@@ -86,7 +102,7 @@ export default function Footer() {
 									className="text-[#7E78FF]"
 									size={24}
 								/>
-								name@yourwebsite.com
+								info@mysticmarguerite.com
 							</Link>
 						</li>
 					</ul>
@@ -94,7 +110,7 @@ export default function Footer() {
 			</div>
 			<div className="w-full mt-8 border-t border-[#C3BEB6] pt-8 flex sm:flex-col xm:flex-col items-center justify-center">
 				<p className="text-center md:text-left text-black paragraph montserrat leading-tight tracking-tight font-normal">
-					Copyright &copy; 2025. All rights reserved.
+					© {new Date().getFullYear()} Mysticmarguerite. All rights reserved.
 				</p>
 			</div>
 		</footer>

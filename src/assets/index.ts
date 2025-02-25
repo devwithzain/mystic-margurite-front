@@ -82,3 +82,28 @@ export { default as blog12 } from './blog12.png';
 export { default as comment01 } from './comment01.png';
 export { default as comment02 } from './comment02.png';
 
+export { default as star01 } from './star01.png';
+export { default as star02 } from './star02.png';
+export { default as star03 } from './star03.png';
+export { default as star04 } from './star04.png';
+export { default as star05 } from './star05.png';
+export { default as star06 } from './star06.png';
+export { default as star07 } from './star07.png';
+export { default as star08 } from './star08.png';
+export { default as star09 } from './star09.png';
+export { default as star10 } from './star10.png';
+export { default as arrowRight1 } from './arrowRight1.png';
+export { default as arrowLeft1 } from './arrowLeft1.png';
+
+export { default as plan01 } from './plan01.png';
+export { default as plan02 } from './plan02.png';
+export { default as plan03 } from './plan03.png';
+export { default as plan04 } from './plan04.png';
+export { default as plan05 } from './plan05.png';
+export { default as plan06 } from './plan06.png';
+export { default as plan07 } from './plan07.png';
+export { default as plan08 } from './plan08.png';
+export { default as plan09 } from './plan09.png';
+export { default as plan10 } from './plan10.png';
+export { default as plan11 } from './plan11.png';
+export { default as plan12 } from './plan12.png';

@@ -29,7 +29,7 @@ export default function LoginForm() {
 
 	const onSubmits = async (data: TloginFormData) => {
 		await axios
-			.post(`https://themountingking.com/backend/api/login`, data)
+			.post(`https://freequote4financialprotection.com/backend/api/login`, data)
 			.then((response) => {
 				if (response?.data?.success) {
 					toast.success(response.data.success);

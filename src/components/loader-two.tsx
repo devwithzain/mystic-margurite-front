@@ -1,10 +1,12 @@
-import { introVideo2 } from "@/assets";
+import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { arrowGo, introVideo2 } from "@/assets";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function LoaderTwo() {
 	const [showText, setShowText] = useState(false);
 	const [currentLine, setCurrentLine] = useState(0);
+	const [showButton, setShowButton] = useState(false);
 
 	const textLines = [
 		"All is the creation of Divine Love",
@@ -22,12 +24,17 @@ export default function LoaderTwo() {
 		}
 	};
 
+	const handleContactClick = () => {
+		localStorage.setItem("loaderCompleted", "true");
+	};
+
 	useEffect(() => {
 		if (showText) {
 			const interval = setInterval(() => {
 				setCurrentLine((prev) => {
 					if (prev < textLines.length - 1) return prev + 1;
 					clearInterval(interval);
+					setShowButton(true);
 					return prev;
 				});
 			}, 2000);
@@ -66,6 +73,20 @@ export default function LoaderTwo() {
 							),
 					)}
 				</AnimatePresence>
+				{showButton && (
+					<Link
+						to="/contact-us"
+						onClick={handleContactClick}
+						className="w-fit flex items-center gap-2 px-6 py-3 bg-[#7a74ef]">
+						<button className="text-center text-white text-lg font-normal leading-tight tracking-tight montserrat">
+							Contact Us
+						</button>
+						<img
+							src={arrowGo}
+							alt="arrowGoImg"
+						/>
+					</Link>
+				)}
 			</div>
 		</div>
 	);

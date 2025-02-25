@@ -19,10 +19,10 @@ export default function Planetary() {
 					/>
 				</div>
 				<div className="w-full flex items-center gap-10 flex-col">
-					<div className="w-full flex items-center justify-center gap-4">
-						<div className="flex-1 border-dashed border-2 p-4 rounded-t-full border-black/20">
+					<div className="w-full flex items-center justify-center gap-10">
+						<div className="flex-1">
 							<img
-								src={planetaryItem.src}
+								src={planetaryItem.src1}
 								alt={planetaryItem.title}
 								className="w-full h-full object-cover rounded-t-full"
 							/>
