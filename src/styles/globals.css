@@ -162,3 +162,10 @@ body {
 	background-size: cover;
 	background-repeat: no-repeat;
 }
+
+.formBg {
+	background-image: url("../assets/formBg.jpg");
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+}

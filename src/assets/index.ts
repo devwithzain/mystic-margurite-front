@@ -1,4 +1,4 @@
-export { default as fromImage } from './img.png';
+export { default as fromImage } from './img.jpg';
 export { default as placeholder } from './placeholder.png';
 export { default as logo } from './logo.png';
 export { default as heroBg } from './heroBg.png';
@@ -107,3 +107,11 @@ export { default as plan09 } from './plan09.png';
 export { default as plan10 } from './plan10.png';
 export { default as plan11 } from './plan11.png';
 export { default as plan12 } from './plan12.png';
+
+export { default as product01 } from './product01.webp';
+export { default as product02 } from './product02.jpg';
+export { default as product03 } from './product03.png';
+export { default as product04 } from './product04.jpg';
+export { default as product05 } from './product05.webp';
+export { default as product06 } from './product06.jpg';
+export { default as product07 } from './product07.jfif';

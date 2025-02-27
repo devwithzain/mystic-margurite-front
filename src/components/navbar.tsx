@@ -3,8 +3,34 @@ import { motion } from "framer-motion";
 import { navVarients } from "@/motion";
 import { Link } from "react-router-dom";
 import { arrowGo, logo } from "@/assets";
+import { ShoppingBag } from "lucide-react";
+import { getToken } from "@/lib/get-token";
+import { useEffect, useState } from "react";
+import UserMenu from "./user-menu";
 
 export default function Navbar() {
+	const token = getToken();
+	const [cartItems, setCartItems] = useState<any[]>([]);
+	useEffect(() => {
+		const fetchCartItems = async () => {
+			try {
+				const response = await fetch(`http://127.0.0.1:8000/api/cart`, {
+					headers: {
+						Authorization: `Bearer ${token}`,
+					},
+				});
+				const data = await response.json();
+				setCartItems(data);
+			} catch (error: unknown) {
+				if (error instanceof Error) {
+					console.log(error.message);
+				} else {
+					console.log("An unknown error occurred");
+				}
+			}
+		};
+		fetchCartItems();
+	}, [token]);
 	return (
 		<motion.nav
 			initial="initial"
@@ -23,14 +49,6 @@ export default function Navbar() {
 					</Link>
 				</div>
 				<ul className="flex items-center gap-10">
-					<Link
-						to="/"
-						className="text-center text-black text-lg leading-tight tracking-tight font-normal montserrat hover">
-						<TextHover
-							title1="Home"
-							title2="Home"
-						/>
-					</Link>
 					<Link
 						to="/about-us"
 						className="text-center text-black text-lg leading-tight tracking-tight font-normal montserrat hover">
@@ -64,6 +82,14 @@ export default function Navbar() {
 						/>
 					</Link>
 					<Link
+						to="/products"
+						className="text-center text-black text-lg leading-tight tracking-tight font-normal montserrat hover">
+						<TextHover
+							title1="Products"
+							title2="Products"
+						/>
+					</Link>
+					<Link
 						to="/stars-and-planets"
 						className="text-center text-black text-lg leading-tight tracking-tight font-normal montserrat hover">
 						<TextHover
@@ -72,17 +98,28 @@ export default function Navbar() {
 						/>
 					</Link>
 				</ul>
-				<Link
-					to="/contact-us"
-					className="w-fit flex items-center gap-2 px-6 py-3 bg-[#7a74ef]">
-					<button className="text-center text-white text-lg font-normal leading-tight tracking-tight montserrat">
-						Contact Us
-					</button>
-					<img
-						src={arrowGo}
-						alt="arrowGoImg"
-					/>
-				</Link>
+				<div className="flex items-center gap-2">
+					<Link
+						to="/cart"
+						className="bg-[#7a74ef] px-4 py-2 relative rounded-lg text-white">
+						<span className="absolute right-3 top-1 px-[5px] py-[2px] text-white font-Monstrate rounded-full bg-black text-[8px]">
+							{cartItems.length}
+						</span>
+						<ShoppingBag size={30} />
+					</Link>
+					<Link
+						to="/contact-us"
+						className="w-fit flex items-center gap-2 px-6 py-3 bg-[#7a74ef] rounded-lg">
+						<button className="text-center text-white text-lg font-normal leading-tight tracking-tight montserrat">
+							Contact Us
+						</button>
+						<img
+							src={arrowGo}
+							alt="arrowGoImg"
+						/>
+					</Link>
+					<UserMenu />
+				</div>
 			</div>
 		</motion.nav>
 	);

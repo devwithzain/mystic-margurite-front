@@ -55,6 +55,13 @@ import {
 	planetry10,
 	planetry11,
 	planetry12,
+	product01,
+	product02,
+	product03,
+	product04,
+	product05,
+	product06,
+	product07,
 	Sagittarius,
 	Scorpio,
 	service1,
@@ -344,6 +351,58 @@ export const planetryItems = [
 		title: "Meditation on Chiron",
 		src: planetry12,
 		src1: plan12,
+	},
+];
+
+export const productsItems = [
+	{
+		id: 1,
+		title: "One Hour Birthday Solar Return CD or MP3",
+		desc: "Comprehensive analysis of trends and predictions for your upcoming birthday year. Get detailed insights into what the solar return chart reveals about your personal growth, opportunities, and potential challenges in the year ahead.",
+		src: product01,
+		price: 150,
+	},
+	{
+		id: 2,
+		title: "One Hour Natal Chart Analysis CD or MP3",
+		desc: "In-depth exploration of your natal chart including past lives and soul growth path, detailed character analysis, early family dynamics, relationship patterns, health predispositions, career potentials, and karmic lessons to be learned in this lifetime.",
+		src: product02,
+		price: 150,
+	},
+	{
+		id: 3,
+		title: "One Hour Current Planetary Transits Analysis CD or MP3",
+		desc: "Detailed examination of how current planetary movements and transits impact your natal chart. Discover the timing of important life events, understand current challenges, and learn how to best utilize upcoming opportunities for personal growth and success.",
+		src: product03,
+		price: 150,
+	},
+	{
+		id: 4,
+		title: "One Hour Relationship CD or MP3",
+		desc: "Comprehensive analysis of the relationship dynamics between any two individuals, examining compatibility, challenges, and growth opportunities. Birth information required for both parties to create detailed synastry and composite charts for deeper insights.",
+		src: product04,
+		price: 150,
+	},
+	{
+		id: 5,
+		title: "One Hour Natal Asteroids and Stars CD or MP3",
+		desc: "Detailed analysis of asteroids and fixed stars prominently placed in your natal chart and their profound meaning. The asteroids represent subtle yet powerful features in the psyche, some offering beneficial qualities while others reflect inherited behavioral patterns from the unconscious. Primary stars in conjunction with natal planets bestow unique gifts or present specific challenges in your destined life path.",
+		src: product05,
+		price: 150,
+	},
+	{
+		id: 6,
+		title: "One Hour Natal Lilith CD or MP3",
+		desc: "Comprehensive exploration of Dark Moon Lilith, Black Moon Lilith, and Asteroid Lilith in your natal chart. This sacred feminine principle, important for both men and women, reveals areas of life that initially bring challenges and emotional difficulties but hold tremendous potential for deep healing and personal transformation when properly understood.",
+		src: product06,
+		price: 150,
+	},
+	{
+		id: 7,
+		title: "Your Profile as a Magic Worker CD or MP3",
+		desc: "Extensive analysis of your natal chart specifically oriented towards understanding your magical and spiritual capabilities. Learn about your innate occult talents, natural abilities for working with different realms, and discover how to develop your unique connection with the Otherworlds for personal and spiritual growth.",
+		src: product07,
+		price: 150,
 	},
 ];
 

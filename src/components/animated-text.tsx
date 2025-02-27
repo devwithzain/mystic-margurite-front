@@ -21,7 +21,7 @@ export default function AnimatedText({
 					}}
 					viewport={{ once: true }}
 					key={index}
-					className="inline-block whitespace-nowrap mr-2">
+					className="inline-block mr-2">
 					{word}
 				</motion.p>
 			))}

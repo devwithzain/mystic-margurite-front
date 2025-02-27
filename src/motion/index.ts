@@ -29,3 +29,42 @@ export const itemVariants = {
    hidden: { opacity: 0, y: 20 },
    visible: { opacity: 1, y: 0 },
 };
+
+export const wrapperVariants = {
+   open: {
+      scaleY: 1,
+      transition: {
+         when: "beforeChildren",
+         staggerChildren: 0.1,
+      },
+   },
+   closed: {
+      scaleY: 0,
+      transition: {
+         when: "afterChildren",
+         staggerChildren: 0.1,
+      },
+   },
+};
+
+export const iconVariants = {
+   open: {
+      opacity: 1,
+      y: 0,
+      transition: {
+         when: "beforeChildren",
+      },
+   },
+   closed: {
+      opacity: 0,
+      y: -15,
+      transition: {
+         when: "afterChildren",
+      },
+   },
+};
+
+export const actionIconVariants = {
+   open: { scale: 1, y: 0 },
+   closed: { scale: 0, y: -7 },
+};

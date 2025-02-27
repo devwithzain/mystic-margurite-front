@@ -20,7 +20,7 @@ export default function Form() {
 	const onSubmits = async (data: TbookNowFormData) => {
 		try {
 			const response = await axios.post(
-				`https://freequote4financialprotection.com/backend/api/book-now`,
+				`http://127.0.0.1:8000/api/book-now`,
 				data,
 			);
 			if (response.data.success) {
