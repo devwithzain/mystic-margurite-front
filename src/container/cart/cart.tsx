@@ -141,7 +141,7 @@ export default function Cart() {
 								className={`text-center transition-all duration-300 ease-in-out px-6 py-3 paragraph rounded-full montserrat leading-tight tracking-tight ${
 									cartItems.length === 0
 										? "cursor-not-allowed bg-gray-600 text-white"
-										: " bg-[#F99A03]"
+										: " bg-[#7a74ef] text-white"
 								}`}>
 								Checkout
 							</button>

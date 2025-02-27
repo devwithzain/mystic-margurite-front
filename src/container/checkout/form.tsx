@@ -111,8 +111,6 @@ export default function Form() {
 			if (error) {
 				toast.error(error.message || "Payment failed. Try again.");
 			} else if (paymentIntent?.status === "succeeded") {
-				toast.success("Payment successful!");
-
 				const orderData = {
 					user_id: user?.id,
 					cart_items: cartItems.map((item) => ({
@@ -131,7 +129,19 @@ export default function Form() {
 					agreed_terms: formData.agreedTerms,
 				};
 
-				await axios.post("http://127.0.0.1:8000/api/placedOrder", orderData);
+				const orderResponse = await axios.post(
+					"http://127.0.0.1:8000/api/placedOrder",
+					orderData,
+				);
+				await axios.put(
+					`http://127.0.0.1:8000/api/orders/${orderResponse.data.order_id}/status`,
+					{
+						status: "paid",
+					},
+				);
+
+				toast.success("Payment successful!");
+
 				await axios.delete("http://127.0.0.1:8000/api/cart", {
 					headers: {
 						Authorization: `Bearer ${token}`,
@@ -139,14 +149,13 @@ export default function Form() {
 				});
 				setCartItems([]);
 				setCartTotal(0);
-
-				navigate("/thank-you");
 			}
 		} catch (err) {
-			console.error("Error during payment or order placement:", err);
 			toast.error("Payment failed. Try again.");
+			console.error("Error during payment or order placement:", err);
 		} finally {
 			setLoading(false);
+			navigate("/thank-you");
 		}
 	};
 
