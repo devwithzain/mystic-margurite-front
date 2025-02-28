@@ -1,12 +1,12 @@
 import Lenis from "lenis";
 import { useEffect } from "react";
-import Hero from "@/container/blog/hero";
-import Blogs from "@/container/blog/blogs";
 import { Footer, Navbar } from "@/components";
 import Marquee from "@/container/home/marquee";
 import NewsLetter from "@/components/news-letter";
+import Hero from "@/container/lifehealing-detail/hero";
+import LifeHealing from "@/container/lifehealing-detail/life-healing";
 
-export default function Blog() {
+export default function LifeHealingDetailPage() {
 	useEffect(() => {
 		const lenis = new Lenis();
 		function raf(time: number) {
@@ -21,7 +21,7 @@ export default function Blog() {
 			<Navbar />
 			<Hero />
 			<Marquee />
-			<Blogs />
+			<LifeHealing />
 			<NewsLetter />
 			<Footer />
 		</>

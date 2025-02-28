@@ -1,22 +1,38 @@
 import axios from "axios";
 import toast from "react-hot-toast";
-import { TuserProps } from "@/types";
 import { TextMask } from "@/components";
 import { getToken } from "@/lib/get-token";
-import { productsItems } from "@/constants";
 import { useEffect, useState } from "react";
+import getProduct from "@/actions/get-product";
 import { getUserData } from "@/actions/get-user";
 import AnimatedText from "@/components/animated-text";
+import { TproductColumnProps, TuserProps } from "@/types";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 
-export default function Product() {
+export default function ProductDetail() {
 	const token = getToken();
 	const { id } = useParams();
 	const navigate = useNavigate();
 	const location = useLocation();
 	const [user, setUser] = useState<TuserProps>();
 	const [cartItems, setCartItems] = useState<any[]>([]);
-	const productsItem = productsItems.find((item) => item.id === Number(id));
+	const [product, setProduct] = useState<TproductColumnProps | null>(null);
+
+	useEffect(() => {
+		const fetchProducts = async () => {
+			try {
+				if (id) {
+					const response = await getProduct(id);
+					setProduct(response.product);
+				} else {
+					console.error("Product ID is undefined");
+				}
+			} catch (err) {
+				console.error("Error fetching products:", err);
+			}
+		};
+		fetchProducts();
+	}, [id]);
 
 	useEffect(() => {
 		const fetchCartItems = async () => {
@@ -47,7 +63,7 @@ export default function Product() {
 		fetchUserData();
 	}, [token]);
 
-	const addToCart = async (productId: string) => {
+	const addToCart = async (productId: string | bigint | undefined) => {
 		if (!token) {
 			navigate("/login", { state: { from: location.pathname } });
 		} else {
@@ -76,37 +92,35 @@ export default function Product() {
 		}
 	};
 
-	if (!productsItem) {
-		return <div>Product not found</div>;
-	}
-
 	return (
 		<div className="w-full padding-y padding-x">
 			<div className="w-full flex justify-center gap-10">
 				<>
 					<div className="w-1/2">
 						<img
-							src={productsItem.src}
-							alt={productsItem.title}
+							src={`http://127.0.0.1:8000/storage/${
+								product?.image ? JSON.parse(product.image)[0] : ""
+							}`}
+							alt={product?.title}
 							className="w-full object-cover"
 						/>
 					</div>
 					<div className="w-1/2 flex flex-col gap-5">
 						<AnimatedText
-							text={productsItem.title}
+							text={product?.title || ""}
 							className="text-black heading font-normal smythe leading-tight tracking-tight"
 						/>
 						<p className="text-black paragraph font-normal montserrat leading-loose tracking-normal">
-							<TextMask>{[`${productsItem.desc}`]}</TextMask>
+							<TextMask>{[`${product?.description}`]}</TextMask>
 						</p>
 						<div className="flex items-center justify-between">
 							<span className="paragraph text-black leading-tight tracking-tight montserrat font-medium">
-								Price: ${productsItem.price}
+								Price: ${product?.price}
 							</span>
 							<Link
 								className={`w-fit bg-[#936d42] btn text-center transition-all duration-300 ease-in-out text-white px-6 py-3 rounded-lg text-[20px] montserrat leading-tight tracking-tight`}
-								onClick={() => addToCart(productsItem?.id.toString())}
-								to={`/product/${productsItem.id}`}>
+								onClick={() => addToCart(product?.id?.toString())}
+								to={`/product/${product?.id}`}>
 								add to cart
 							</Link>
 						</div>

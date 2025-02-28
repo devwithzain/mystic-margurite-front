@@ -29,6 +29,7 @@ export default function NewsLetter() {
 				"http://127.0.0.1:8000/api/newsletter/subscribe",
 				{
 					email,
+					redirect_url: window.location.href,
 				},
 			);
 			if (response.data.success) {

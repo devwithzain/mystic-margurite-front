@@ -48,7 +48,7 @@ export default function Navbar() {
 						/>
 					</Link>
 				</div>
-				<ul className="flex items-center gap-10">
+				<ul className="flex items-center gap-7">
 					<Link
 						to="/about-us"
 						className="text-center text-black text-lg leading-tight tracking-tight font-normal montserrat hover">
@@ -90,6 +90,14 @@ export default function Navbar() {
 						/>
 					</Link>
 					<Link
+						to="/life-healing"
+						className="text-center text-black text-lg leading-tight tracking-tight font-normal montserrat hover">
+						<TextHover
+							title1="Life & Healing"
+							title2="Life & Healing"
+						/>
+					</Link>
+					<Link
 						to="/stars-and-planets"
 						className="text-center text-black text-lg leading-tight tracking-tight font-normal montserrat hover">
 						<TextHover
@@ -109,14 +117,10 @@ export default function Navbar() {
 					</Link>
 					<Link
 						to="/contact-us"
-						className="w-fit flex items-center gap-2 px-6 py-3 bg-[#7a74ef] rounded-lg">
+						className="w-fit px-6 py-3 bg-[#7a74ef] rounded-lg">
 						<button className="text-center text-white text-lg font-normal leading-tight tracking-tight montserrat">
 							Contact Us
 						</button>
-						<img
-							src={arrowGo}
-							alt="arrowGoImg"
-						/>
 					</Link>
 					<UserMenu />
 				</div>

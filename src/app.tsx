@@ -13,10 +13,12 @@ import Register from "./pages/Register";
 import Services from "./pages/Services";
 import Planatery from "./pages/Planatery";
 import BlogDetail from "./pages/BlogDetail";
+import LifeHealing from "./pages/LifeHealing";
 import ProductDetailPage from "./pages/ProductDetail";
 import ServiceDetailPage from "./pages/ServiceDetail";
 import StarsAndPlanets from "./pages/StarsAndPlanets";
 import PlanetaryDetailPage from "./pages/PlanetaryDetail";
+import LifeHealingDetailPage from "./pages/LifeHealingDetail";
 
 export default function App() {
 	return (
@@ -60,6 +62,14 @@ export default function App() {
 			<Route
 				path="/planetary-meditations"
 				element={<Planatery />}
+			/>
+			<Route
+				path="/life-healing"
+				element={<LifeHealing />}
+			/>
+			<Route
+				path="/life-healing/:id"
+				element={<LifeHealingDetailPage />}
 			/>
 			<Route
 				path="/planetary-meditations/:id"
