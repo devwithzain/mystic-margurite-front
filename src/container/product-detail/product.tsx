@@ -15,8 +15,10 @@ export default function ProductDetail() {
 	const navigate = useNavigate();
 	const location = useLocation();
 	const [user, setUser] = useState<TuserProps>();
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const [cartItems, setCartItems] = useState<any[]>([]);
 	const [product, setProduct] = useState<TproductColumnProps | null>(null);
+	console.log(cartItems);
 
 	useEffect(() => {
 		const fetchProducts = async () => {

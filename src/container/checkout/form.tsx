@@ -16,6 +16,7 @@ export default function Form() {
 	const token = getToken();
 	const navigate = useNavigate();
 	const [user, setUser] = useState<TuserProps>();
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const [cartItems, setCartItems] = useState<any[]>([]);
 	const [cartTotal, setCartTotal] = useState<number>(0);
 
@@ -36,6 +37,7 @@ export default function Form() {
 					},
 				});
 				const data = await response.json();
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				const total = data.reduce((total: number, item: any) => {
 					const quantity = item.quantity || 1;
 					const price = parseFloat(item.product?.price || "0");
@@ -94,6 +96,7 @@ export default function Form() {
 					currency: "usd",
 				},
 			);
+			console.log(data);
 
 			const { error, paymentIntent } = await stripe.confirmPayment({
 				elements,

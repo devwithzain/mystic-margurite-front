@@ -1,8 +1,8 @@
+import { logo } from "@/assets";
 import TextHover from "./text-hover";
 import { motion } from "framer-motion";
 import { navVarients } from "@/motion";
 import { Link } from "react-router-dom";
-import { arrowGo, logo } from "@/assets";
 import { ShoppingBag } from "lucide-react";
 import { getToken } from "@/lib/get-token";
 import { useEffect, useState } from "react";
@@ -10,6 +10,7 @@ import UserMenu from "./user-menu";
 
 export default function Navbar() {
 	const token = getToken();
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const [cartItems, setCartItems] = useState<any[]>([]);
 	useEffect(() => {
 		const fetchCartItems = async () => {
