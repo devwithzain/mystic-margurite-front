@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AtSign, Eye, EyeOff, Lock, User } from "lucide-react";
+import { AtSign, Eye, EyeOff, Loader2, Lock, User } from "lucide-react";
 import { registerFormSchema, TregisterFormData } from "@/schemas/index.ts";
 
 export default function RegisterForm() {
@@ -195,12 +195,16 @@ export default function RegisterForm() {
 									</div>
 								</div>
 							</div>
-							<input
+							<button
 								type="submit"
-								value={`${isSubmitting ? "Loading..." : "Sign Up"}`}
 								className="w-full bg-[#2f1d88] rounded-lg p-4 text-[16px] text-white font-normal text-center leading-tight tracking-tight cursor-pointer montserrat"
-								disabled={isSubmitting}
-							/>
+								disabled={isSubmitting}>
+								{isSubmitting ? (
+									<Loader2 className="animate-spin mx-auto" />
+								) : (
+									"Sign Up"
+								)}
+							</button>
 						</form>
 					</div>
 				</div>
