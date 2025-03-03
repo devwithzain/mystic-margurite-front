@@ -139,27 +139,30 @@ export const articleItems = [
 export const servicesItems = [
 	{
 		id: 1,
-		title: "Past, Present and Future",
+		title: "Planetary Meditations",
 		desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
 		img: brownStar,
 		src: service1,
 		btn: "Learn more",
+		href: "planetary-meditations",
 	},
 	{
 		id: 2,
-		title: "Past, Present and Future",
+		title: "Life and Healing",
 		desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
 		img: brownStar,
 		src: service2,
 		btn: "Learn more",
+		href: "life-healing",
 	},
 	{
 		id: 3,
-		title: "Past, Present and Future",
+		title: "Stars And Planets",
 		desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
 		img: brownStar,
 		src: service3,
 		btn: "Learn more",
+		href: "stars-and-planets",
 	},
 ];
 
@@ -616,7 +619,7 @@ export const zodiacSigns = [
 			"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500.",
 		longDescription:
 			"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500.",
-		src: star01,
+		src: star08,
 	},
 	{
 		id: 2,
@@ -676,7 +679,7 @@ export const zodiacSigns = [
 			"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500.",
 		longDescription:
 			"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500.",
-		src: star06,
+		src: star09,
 	},
 	{
 		id: 7,
@@ -700,7 +703,7 @@ export const zodiacSigns = [
 			"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500.",
 		longDescription:
 			"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500.",
-		src: star08,
+		src: star01,
 	},
 	{
 		id: 9,
@@ -712,7 +715,7 @@ export const zodiacSigns = [
 			"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500.",
 		longDescription:
 			"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500.",
-		src: star09,
+		src: star06,
 	},
 	{
 		id: 10,

@@ -8,12 +8,14 @@ import { getUserData } from "@/actions/get-user";
 import AnimatedText from "@/components/animated-text";
 import { TproductColumnProps, TuserProps } from "@/types";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { Loader2 } from "lucide-react";
 
 export default function ProductDetail() {
 	const token = getToken();
 	const { id } = useParams();
 	const navigate = useNavigate();
 	const location = useLocation();
+	const [loading, setLoading] = useState(false);
 	const [user, setUser] = useState<TuserProps>();
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const [cartItems, setCartItems] = useState<any[]>([]);
@@ -70,6 +72,7 @@ export default function ProductDetail() {
 			navigate("/login", { state: { from: location.pathname } });
 		} else {
 			try {
+				setLoading(true);
 				const response = await axios.post(
 					`http://127.0.0.1:8000/api/cart`,
 					{
@@ -84,6 +87,7 @@ export default function ProductDetail() {
 					},
 				);
 				toast.success(response.data.success);
+				setLoading(false);
 			} catch (error: unknown) {
 				if (error instanceof Error) {
 					toast.error(error.message);
@@ -115,15 +119,19 @@ export default function ProductDetail() {
 						<p className="text-black paragraph font-normal montserrat leading-loose tracking-normal">
 							<TextMask>{[`${product?.description}`]}</TextMask>
 						</p>
-						<div className="flex items-center justify-between">
-							<span className="paragraph text-black leading-tight tracking-tight montserrat font-medium">
-								Price: ${product?.price}
-							</span>
+						<span className="paragraph text-black leading-tight tracking-tight montserrat font-medium">
+							Price: ${product?.price}
+						</span>
+						<div className="w-full flex items-center gap-4 flex-col">
 							<Link
-								className={`w-fit bg-[#936d42] btn text-center transition-all duration-300 ease-in-out text-white px-6 py-3 rounded-lg text-[20px] montserrat leading-tight tracking-tight`}
+								className={`w-full bg-[#936d42] btn text-center transition-all duration-300 ease-in-out text-white px-6 py-3 rounded-lg text-[20px] montserrat leading-tight tracking-tight`}
 								onClick={() => addToCart(product?.id?.toString())}
 								to={`/product/${product?.id}`}>
-								add to cart
+								{loading ? (
+									<Loader2 className="animate-spin mx-auto" />
+								) : (
+									"add to cart"
+								)}
 							</Link>
 						</div>
 					</div>

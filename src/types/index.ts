@@ -48,3 +48,21 @@ export type ThooksProps = {
    onOpen: () => void;
    onClose: () => void;
 };
+
+export type Order = {
+   id: number;
+   user: {
+      name: string;
+      email: string;
+   };
+   items: OrderItem[];
+};
+
+export type OrderItem = {
+   service: {
+      image: string;
+      title: string;
+      price: number;
+   };
+   quantity: number;
+};

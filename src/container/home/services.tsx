@@ -31,7 +31,7 @@ export default function Services() {
 								className="w-5 h-5 object-cover"
 							/>
 							<Link
-								to={`/services/${item.id}`}
+								to={item.href}
 								className="text-center paragraph text-[#433E37] montserrat leading-normal tracking-tight">
 								{item.btn}
 							</Link>
