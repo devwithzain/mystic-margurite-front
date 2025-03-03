@@ -120,3 +120,6 @@ export { default as life03 } from './life03.png';
 export { default as life031 } from './life031.png';
 export { default as life032 } from './life032.png';
 export { default as life04 } from './life04.gif';
+
+export { default as lineDown } from './lineDown.png';
+export { default as lineUp } from './lineUp.png';
