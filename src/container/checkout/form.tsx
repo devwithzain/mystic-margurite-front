@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { getUserData } from "@/actions/get-user";
 import React, { useEffect, useState } from "react";
 import AnimatedText from "@/components/animated-text";
+import { Loader2 } from "lucide-react";
 
 export default function Form() {
 	const token = getToken();
@@ -356,7 +357,11 @@ export default function Form() {
 						type="submit"
 						disabled={loading}
 						className="w-fit bg-[#7a74ef] mt-4 flex items-center gap-2 btn transition-all duration-300 ease-in-out text-white px-4 py-4 capitalize montserrat paragraph leading-tight tracking-tight rounded-md">
-						{loading ? "Processing..." : "Place Order"}
+						{loading ? (
+							<Loader2 className="animate-spin mx-auto" />
+						) : (
+							"Place Order"
+						)}
 					</button>
 				</form>
 				<div className="w-full border-l-2 border-black/10 pl-10 py-10">

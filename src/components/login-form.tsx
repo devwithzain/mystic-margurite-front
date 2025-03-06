@@ -5,13 +5,15 @@ import toast from "react-hot-toast";
 import { fromImage } from "@/assets";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import useLoginModal from "@/hooks/use-login-modal";
 import { zodResolver } from "@hookform/resolvers/zod";
+import useRegisterModal from "@/hooks/use-register-modal";
 import { loginFormSchema, TloginFormData } from "@/schemas";
-import { AtSign, Eye, EyeOff, Loader2, Lock } from "lucide-react";
+import { AtSign, Eye, EyeOff, Loader2, Lock, X } from "lucide-react";
 
-export default function LoginForm() {
-	const router = useNavigate();
+export default function LoginForm({ onClose }: { onClose: () => void }) {
+	const loginModal = useLoginModal();
+	const registerModal = useRegisterModal();
 
 	const [showPassword, setShowPassword] = useState(false);
 
@@ -35,7 +37,7 @@ export default function LoginForm() {
 					toast.success(response.data.success);
 					const { access_token } = response.data;
 					Cookies.set("authToken", access_token, { expires: 1 });
-					router("/");
+					loginModal.onClose();
 				}
 			})
 			.catch((err) => {
@@ -50,7 +52,14 @@ export default function LoginForm() {
 			initial={{ y: "115%" }}
 			animate={{ y: "0%" }}
 			transition={{ duration: 1, ease: "easeInOut" }}
-			className="w-[50%] bg-[#04031b] rounded-xl py-5 h-[80vh]">
+			className="w-[50%] bg-[#04031b] rounded-xl py-5 h-[80vh] relative">
+			<div className="absolute top-4 right-4">
+				<button
+					className="w-fit bg-[#2f1d88] text-white py-2 px-4 text-lg rounded-lg"
+					onClick={onClose}>
+					<X />
+				</button>
+			</div>
 			<div className="w-full h-full flex justify-between items-center">
 				<div className="w-1/2 h-full pointer-events-none pl-5">
 					<img
@@ -66,14 +75,17 @@ export default function LoginForm() {
 								LogIn
 							</h1>
 							<div className="flex items-center gap-2">
-								<button className="text-sm text-[#ADABB8] font-normal leading-tight tracking-tight montserrat">
+								<p className="text-sm text-[#ADABB8] font-normal leading-tight tracking-tight montserrat">
 									Don't have an account?
-								</button>
-								<Link
-									to="/register"
+								</p>
+								<button
+									onClick={() => {
+										loginModal.onClose();
+										registerModal.onOpen();
+									}}
 									className="text-sm text-[#9887c9] font-normal leading-tight tracking-tight underline montserrat">
 									Create
-								</Link>
+								</button>
 							</div>
 						</div>
 						<form

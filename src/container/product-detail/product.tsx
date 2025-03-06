@@ -7,14 +7,14 @@ import getProduct from "@/actions/get-product";
 import { getUserData } from "@/actions/get-user";
 import AnimatedText from "@/components/animated-text";
 import { TproductColumnProps, TuserProps } from "@/types";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Loader2 } from "lucide-react";
+import useLoginModal from "@/hooks/use-login-modal";
 
 export default function ProductDetail() {
 	const token = getToken();
 	const { id } = useParams();
-	const navigate = useNavigate();
-	const location = useLocation();
+	const loginModal = useLoginModal();
 	const [loading, setLoading] = useState(false);
 	const [user, setUser] = useState<TuserProps>();
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -71,8 +71,8 @@ export default function ProductDetail() {
 	}, [token]);
 
 	const addToCart = async (productId: string | bigint | undefined) => {
-		if (!token) {
-			navigate("/login", { state: { from: location.pathname } });
+		if (!user || !token) {
+			loginModal.onOpen();
 		} else {
 			try {
 				setLoading(true);
@@ -126,16 +126,15 @@ export default function ProductDetail() {
 							Price: ${product?.price}
 						</span>
 						<div className="w-full flex items-center gap-4 flex-col">
-							<Link
+							<button
 								className={`w-full bg-[#936d42] btn text-center transition-all duration-300 ease-in-out text-white px-6 py-3 rounded-lg text-[20px] montserrat leading-tight tracking-tight`}
-								onClick={() => addToCart(product?.id?.toString())}
-								to={`/product/${product?.id}`}>
+								onClick={() => addToCart(product?.id?.toString())}>
 								{loading ? (
 									<Loader2 className="animate-spin mx-auto" />
 								) : (
 									"add to cart"
 								)}
-							</Link>
+							</button>
 						</div>
 					</div>
 				</>

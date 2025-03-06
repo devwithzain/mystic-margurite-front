@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Order, OrderItem } from "@/types";
 import { getToken } from "@/lib/get-token";
 import { useEffect, useState } from "react";
@@ -13,7 +14,7 @@ export default function OrderPage() {
 				const response = await getOrders(token);
 				setOrders(response);
 			} catch (err) {
-				console.error("Error fetching products:", err);
+				console.error("Error fetching orders:", err);
 			}
 		};
 		fetchOrders();
@@ -23,91 +24,109 @@ export default function OrderPage() {
 		<div className="w-full p-4 flex gap-2">
 			<div className="w-full gap-1 flex flex-col px-6 pb-5">
 				{orders.length === 0 ? (
-					<div className="w-full flex py-10">
-						<h1 className="text-xl font-MonstrateMedium">
+					<div className="flex py-10 flex-col">
+						<h1 className="text-xl montserrat">
 							You don't have any orders yet.
 						</h1>
+						<Link
+							to="/products"
+							className="w-fit bg-[#7a74ef] mt-4 flex gap-2 btn transition-all duration-300 ease-in-out text-white px-4 py-4 capitalize montserrat paragraph leading-tight tracking-tight rounded-md">
+							Brows Products
+						</Link>
 					</div>
 				) : (
 					<div className="w-full overflow-x-auto">
 						<table className="min-w-full bg-white border border-gray-200">
 							<thead>
 								<tr>
-									<th className="border border-gray-200 px-4 py-2 text-left font-MonstrateMedium">
+									<th className="border border-gray-200 px-4 py-2 text-left montserrat">
 										IMAGE
 									</th>
-									<th className="border border-gray-200 px-4 py-2 text-left font-MonstrateMedium">
+									<th className="border border-gray-200 px-4 py-2 text-left montserrat">
 										SERVICE
 									</th>
-
-									<th className="border border-gray-200 px-4 py-2 text-left font-MonstrateMedium">
+									<th className="border border-gray-200 px-4 py-2 text-left montserrat">
 										NAME
 									</th>
-									<th className="border border-gray-200 px-4 py-2 text-left font-MonstrateMedium">
+									<th className="border border-gray-200 px-4 py-2 text-left montserrat">
 										EMAIL
 									</th>
-
-									<th className="border border-gray-200 px-4 py-2 text-left font-MonstrateMedium">
+									<th className="border border-gray-200 px-4 py-2 text-left montserrat">
 										PRICE
 									</th>
-									<th className="border border-gray-200 px-4 py-2 text-left font-MonstrateMedium">
+									<th className="border border-gray-200 px-4 py-2 text-left montserrat">
 										QUANTITY
+									</th>
+									<th className="border border-gray-200 px-4 py-2 text-left montserrat">
+										STATUS
 									</th>
 								</tr>
 							</thead>
 							<tbody>
-								{orders.map((item: Order) => (
-									<tr>
+								{orders.map((order: Order) => (
+									<tr key={order.id}>
 										<td className="border border-gray-200 px-4 py-2 w-fit">
 											<div>
-												{item.items.slice(0, 1).map((item: OrderItem) => (
+												{order.items.slice(0, 1).map((item: OrderItem) => (
 													<img
-														src={`https://mobilednanow.com/backend/public/${item.service.image}`}
+														src={`https://freequote4financialprotection.com/backend/storage/${
+															item?.product.image
+																? JSON.parse(item.product.image)[0]
+																: ""
+														}`}
 														alt="serviceImg"
-														className="w-full h-14"
+														className="w-full h-20 object-cover"
 													/>
 												))}
 											</div>
 										</td>
 										<td className="border border-gray-200 px-4 py-2 w-fit">
 											<div>
-												{item.items.slice(0, 1).map((item) => (
-													<h1 className="text-[15px] text-black font-medium font-MonstrateMedium">
-														{item.service.title}
+												{order.items.slice(0, 1).map((item: OrderItem) => (
+													<h1 className="text-[15px] text-black font-medium montserrat">
+														{item.product.title}
 													</h1>
 												))}
 											</div>
 										</td>
 										<td className="border border-gray-200 px-4 py-2 w-fit">
 											<div>
-												<h1 className="text-[15px] text-black font-medium font-MonstrateMedium">
-													{item.user.name}
+												<h1 className="text-[15px] text-black font-medium montserrat">
+													{order.checkout_detail.first_name}{" "}
+													{order.checkout_detail.last_name}
 												</h1>
 											</div>
 										</td>
 										<td className="border border-gray-200 px-4 py-2 w-fit">
 											<div>
-												<h1 className="text-[15px] text-black font-medium font-MonstrateMedium">
-													{item.user.email}
+												<h1 className="text-[15px] text-black font-medium montserrat">
+													{order.checkout_detail.email}
 												</h1>
 											</div>
 										</td>
 										<td className="border border-gray-200 px-4 py-2 w-fit">
 											<div>
-												{item.items.slice(0, 1).map((item) => (
-													<h1 className="text-[15px] text-black font-medium font-MonstrateMedium">
-														{item.service.price}$
+												{order.items.slice(0, 1).map((item: OrderItem) => (
+													<h1 className="text-[15px] text-black font-medium montserrat">
+														${item.product.price}.00
 													</h1>
 												))}
 											</div>
 										</td>
 										<td className="border border-gray-200 px-4 py-2 w-fit">
 											<div>
-												{item.items.slice(0, 1).map((item) => (
-													<h1 className="text-[15px] text-black font-medium font-MonstrateMedium">
+												{order.items.slice(0, 1).map((item: OrderItem) => (
+													<h1 className="text-[15px] text-black font-medium montserrat">
 														{item.quantity}
 													</h1>
 												))}
+											</div>
+										</td>
+										<td className="border border-gray-200 px-4 py-2 w-fit">
+											<div>
+												<h1 className="text-[15px] text-black font-medium montserrat capitalize">
+													{order.status}
+												</h1>
 											</div>
 										</td>
 									</tr>

@@ -5,13 +5,15 @@ import toast from "react-hot-toast";
 import { fromImage } from "@/assets";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import useLoginModal from "@/hooks/use-login-modal";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AtSign, Eye, EyeOff, Loader2, Lock, User } from "lucide-react";
+import useRegisterModal from "@/hooks/use-register-modal";
+import { AtSign, Eye, EyeOff, Loader2, Lock, User, X } from "lucide-react";
 import { registerFormSchema, TregisterFormData } from "@/schemas/index.ts";
 
-export default function RegisterForm() {
-	const navigate = useNavigate();
+export default function RegisterForm({ onClose }: { onClose: () => void }) {
+	const loginModal = useLoginModal();
+	const registerModal = useRegisterModal();
 	const [showPassword, setShowPassword] = useState(false);
 	const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
@@ -41,13 +43,16 @@ export default function RegisterForm() {
 			return;
 		}
 		await axios
-			.post(`https://mobilednanow.com/backend/api/register`, data)
+			.post(
+				`https://freequote4financialprotection.com/backend/api/register`,
+				data,
+			)
 			.then((response) => {
 				if (response?.data?.success) {
 					toast.success(response.data.success);
 					const { access_token } = response.data;
 					Cookies.set("authToken", access_token, { expires: 1 });
-					navigate("/");
+					registerModal.onClose();
 				}
 			})
 			.catch((err) => {
@@ -63,7 +68,14 @@ export default function RegisterForm() {
 			initial={{ y: "115%" }}
 			animate={{ y: "0%" }}
 			transition={{ duration: 1, ease: "easeInOut" }}
-			className="w-[60%] h-[80vh] bg-[#04031b] rounded-xl py-5">
+			className="w-[60%] h-[80vh] bg-[#04031b] rounded-xl py-5 relative">
+			<div className="absolute top-4 right-4">
+				<button
+					className="w-fit bg-[#2f1d88] text-white py-2 px-4 text-lg rounded-lg"
+					onClick={onClose}>
+					<X />
+				</button>
+			</div>
 			<div className="w-full h-full flex justify-between items-center pl-5">
 				<div className="w-1/2 h-full pointer-events-none">
 					<img
@@ -79,14 +91,17 @@ export default function RegisterForm() {
 								Create an account
 							</h1>
 							<div className="flex items-center gap-2">
-								<button className="text-sm  text-[#ADABB8] font-normal leading-tight tracking-tight montserrat">
+								<p className="text-sm  text-[#ADABB8] font-normal leading-tight tracking-tight montserrat">
 									Already have an account?
-								</button>
-								<Link
-									to="/login"
+								</p>
+								<button
+									onClick={() => {
+										registerModal.onClose();
+										loginModal.onOpen();
+									}}
 									className="text-sm text-[#9887c9] font-normal leading-tight tracking-tight underline montserrat">
 									LogIn
-								</Link>
+								</button>
 							</div>
 						</div>
 						<form

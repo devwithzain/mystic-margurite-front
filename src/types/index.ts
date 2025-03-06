@@ -56,13 +56,31 @@ export type Order = {
       email: string;
    };
    items: OrderItem[];
+   status: string;
+   checkout_detail: {
+      first_name: string;
+      last_name: string;
+      address: string;
+      city: string;
+      state: string;
+      zip: string;
+      country: string;
+      phone: string;
+      email: string;
+   };
 };
 
 export type OrderItem = {
-   service: {
+   product: {
       image: string;
       title: string;
       price: number;
    };
    quantity: number;
+};
+
+export type TModalProps = {
+   isOpen?: boolean;
+   onClose: () => void;
+   body?: React.ReactElement;
 };

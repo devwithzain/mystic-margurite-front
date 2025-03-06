@@ -5,11 +5,10 @@ import Blog from "./pages/Blog";
 import Cart from "./pages/Cart";
 import Thank from "./pages/Thank";
 import About from "./pages/About";
-import Login from "./pages/Login";
+import Orders from "./pages/Orders";
 import Contact from "./pages/Contact";
 import Product from "./pages/Products";
 import Checkout from "./pages/Checkout";
-import Register from "./pages/Register";
 import Services from "./pages/Services";
 import Planatery from "./pages/Planatery";
 import BlogDetail from "./pages/BlogDetail";
@@ -26,14 +25,6 @@ export default function App() {
 			<Route
 				path="/"
 				element={<Home />}
-			/>
-			<Route
-				path="/login"
-				element={<Login />}
-			/>
-			<Route
-				path="/register"
-				element={<Register />}
 			/>
 			<Route
 				path="/about-us"
@@ -94,6 +85,10 @@ export default function App() {
 			<Route
 				path="/thank-you"
 				element={<Thank />}
+			/>
+			<Route
+				path="/my-orders"
+				element={<Orders />}
 			/>
 			<Route
 				path="/contact-us"

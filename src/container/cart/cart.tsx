@@ -1,7 +1,7 @@
 import axios from "axios";
 import { getToken } from "@/lib/get-token";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Cart() {
 	const token = getToken();
@@ -73,9 +73,16 @@ export default function Cart() {
 				<div className="w-full flex justify-between gap-5 pt-10 mb-14 xm:flex-col sm:flex-col">
 					<div className="w-full flex flex-col gap-5">
 						{cartItems.length === 0 ? (
-							<p className="montserrat paragraph leading-tight text-black font-medium pb-2">
-								Your cart is empty!
-							</p>
+							<div className="flex flex-col">
+								<p className="montserrat paragraph leading-tight text-black font-medium pb-2">
+									Your cart is empty!
+								</p>
+								<Link
+									to="/products"
+									className="w-fit bg-[#7a74ef] mt-4 flex gap-2 btn transition-all duration-300 ease-in-out text-white px-4 py-4 capitalize montserrat paragraph leading-tight tracking-tight rounded-md">
+									Brows Products
+								</Link>
+							</div>
 						) : (
 							<>
 								{cartItems.map((item) => {

@@ -67,18 +67,6 @@ export { default as planetry10 } from './planetry10.png';
 export { default as planetry11 } from './planetry11.png';
 export { default as planetry12 } from './planetry12.png';
 
-export { default as blog01 } from './blog01.png';
-export { default as blog02 } from './blog02.png';
-export { default as blog03 } from './blog03.png';
-export { default as blog04 } from './blog04.png';
-export { default as blog05 } from './blog05.png';
-export { default as blog06 } from './blog06.png';
-export { default as blog07 } from './blog07.png';
-export { default as blog08 } from './blog08.png';
-export { default as blog09 } from './blog9.png';
-export { default as blog10 } from './blog10.png';
-export { default as blog11 } from './blog11.png';
-export { default as blog12 } from './blog12.png';
 export { default as comment01 } from './comment01.png';
 export { default as comment02 } from './comment02.png';
 
