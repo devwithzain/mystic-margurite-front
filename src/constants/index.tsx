@@ -115,7 +115,7 @@ export const marqueeItems = [
 export const articleItems = [
 	{
 		id: 1,
-		title: "healing topics",
+		title: "balance topics",
 		img: article01,
 		src: brownStar,
 		btn: "Read More",
@@ -148,7 +148,7 @@ export const servicesItems = [
 	},
 	{
 		id: 2,
-		title: "Life and Healing",
+		title: "Life and Balances",
 		desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
 		img: brownStar,
 		src: service2,
@@ -358,13 +358,13 @@ export const lifehealingItems = [
 	{
 		id: 1,
 		title:
-			"An Introduction to the Life Alignment Healing Method By Marguerite Hafeman.",
+			"An Introduction to the Life Alignment Balances Method By Marguerite Hafeman.",
 		desc: "We are each a piece of art, shaped and colored by experience as we grow up and journey through life.  Body, mind, heart and soul are tempered through trauma, family patterning, social and religious mandates and challenging encounters with others.",
 		src: life01,
 	},
 	{
 		id: 2,
-		title: "Distant Healing With Life Alignment.",
+		title: "Distant Balances With Life Alignment.",
 		desc: "The turbulence and change occurring on our planet forced a lot of “normal” life to go online. From work and fitness to personal well-being and self-care, many tools for transformation initially relied on online platforms. Now there are many more people who prefer the convenience of non-local treatments, being able to connect to offerings and practitioners all over the world.",
 		src: life02,
 	},

@@ -75,11 +75,11 @@ export default function LoaderTwo() {
 				</AnimatePresence>
 				{showButton && (
 					<Link
-						to="/contact-us"
+						to="/life-healing"
 						onClick={handleContactClick}
 						className="w-fit flex items-center gap-2 px-6 py-3 bg-[#7a74ef]">
 						<button className="text-center text-white text-lg font-normal leading-tight tracking-tight montserrat">
-							Contact Us
+							Life & Balances
 						</button>
 						<img
 							src={arrowGo}

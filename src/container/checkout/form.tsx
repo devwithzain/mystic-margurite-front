@@ -31,11 +31,14 @@ export default function Form() {
 	useEffect(() => {
 		const fetchCartItems = async () => {
 			try {
-				const response = await fetch(`http://127.0.0.1:8000/api/cart`, {
-					headers: {
-						Authorization: `Bearer ${token}`,
+				const response = await fetch(
+					`https://freequote4financialprotection.com/backend/api/cart`,
+					{
+						headers: {
+							Authorization: `Bearer ${token}`,
+						},
 					},
-				});
+				);
 				const data = await response.json();
 				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				const total = data.reduce((total: number, item: any) => {
@@ -90,7 +93,7 @@ export default function Form() {
 		try {
 			const amountInCents = cartTotal * 100;
 			const { data } = await axios.post(
-				"http://127.0.0.1:8000/api/payment-intent",
+				"https://freequote4financialprotection.com/backend/api/payment-intent",
 				{
 					amount: amountInCents,
 					currency: "usd",
@@ -133,11 +136,11 @@ export default function Form() {
 				};
 
 				const orderResponse = await axios.post(
-					"http://127.0.0.1:8000/api/placedOrder",
+					"https://freequote4financialprotection.com/backend/api/placedOrder",
 					orderData,
 				);
 				await axios.put(
-					`http://127.0.0.1:8000/api/orders/${orderResponse.data.order_id}/status`,
+					`https://freequote4financialprotection.com/backend/api/orders/${orderResponse.data.order_id}/status`,
 					{
 						status: "paid",
 					},
@@ -145,11 +148,14 @@ export default function Form() {
 
 				toast.success("Payment successful!");
 
-				await axios.delete("http://127.0.0.1:8000/api/cart", {
-					headers: {
-						Authorization: `Bearer ${token}`,
+				await axios.delete(
+					"https://freequote4financialprotection.com/backend/api/cart",
+					{
+						headers: {
+							Authorization: `Bearer ${token}`,
+						},
 					},
-				});
+				);
 				setCartItems([]);
 				setCartTotal(0);
 			}

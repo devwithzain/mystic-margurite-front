@@ -68,7 +68,7 @@ export default function Loader() {
 								className="text-[#fff] heading font-normal smythe capitalize leading-tight tracking-tight"
 							/>
 							<AnimatedText
-								text="Life Alignment Healing"
+								text="Life Alignment Balances"
 								className="text-[#fff] heading font-normal smythe capitalize leading-tight tracking-tight"
 							/>
 						</div>
@@ -121,7 +121,7 @@ export default function Loader() {
 									className="w-fit flex items-center gap-2 px-6 py-3 bg-[#7a74ef] cursor-pointer"
 									onClick={handleContactClick}>
 									<button className="text-center text-white text-lg font-normal leading-tight tracking-tight montserrat">
-										Life Aligment & Healing
+										Life Aligment & Balances
 									</button>
 									<img
 										src={arrowGo}

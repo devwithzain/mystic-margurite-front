@@ -27,7 +27,7 @@ export default function Blog() {
 			<div className="flex flex-col gap-10">
 				<div className="flex items-center justify-center flex-col gap-10">
 					<img
-						src={`http://127.0.0.1:8000/${blog?.image}`}
+						src={`https://freequote4financialprotection.com/backend/${blog?.image}`}
 						alt={blog?.title}
 						className="w-full h-[600px] object-cover object-center"
 					/>

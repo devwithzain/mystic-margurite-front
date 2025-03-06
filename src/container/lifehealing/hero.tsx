@@ -4,7 +4,7 @@ export default function Hero() {
 	return (
 		<div className="w-full h-[60vh] flex items-center justify-center heroBg">
 			<AnimatedText
-				text="Life and Healing"
+				text="Life & Balance"
 				className="text-[#936d42] heading font-normal forum uppercase leading-tight tracking-normal"
 			/>
 		</div>

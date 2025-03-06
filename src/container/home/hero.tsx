@@ -14,7 +14,7 @@ export default function Hero() {
 					/>
 					<div className="flex items-center gap-5">
 						<AnimatedText
-							text="Healing With"
+							text="Balance With"
 							className="text-[#936d42] heading font-normal forum uppercase leading-tight tracking-tight"
 						/>
 					</div>

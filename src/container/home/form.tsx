@@ -20,7 +20,7 @@ export default function Form() {
 	const onSubmits = async (data: TbookNowFormData) => {
 		try {
 			const response = await axios.post(
-				`http://127.0.0.1:8000/api/book-now`,
+				`https://freequote4financialprotection.com/backend/api/book-now`,
 				data,
 			);
 			if (response.data.success) {
@@ -57,7 +57,7 @@ export default function Form() {
 							className="w-[150px] lg:w-[100px] md:w-[80px] object-cover"
 						/>
 						<h3 className="text-[#7E78FF] subHeading forum capitalize leading-tight tracking-tight text-center">
-							Energy Healing with <br /> Life Alignment
+							Energy Balance with <br /> Life Alignment
 						</h3>
 						<img
 							src={footerLogo}
@@ -114,15 +114,15 @@ export default function Form() {
 								<label
 									htmlFor="healingTopics"
 									className="text-[#040112] paragraph font-normal montserrat leading-tight tracking-tight">
-									Healing Topics
+									Balance Topics
 								</label>
 								<select
 									{...register("healingTopics", { required: true })}
 									className="w-full px-5 py-2 bg-white/20 border border-[#040112]/30 backdrop-blur-xl outline-none  montserrat">
-									<option value="">Select a healing topic</option>
-									<option value="Healing Topic 1">Healing Topic 1</option>
-									<option value="Healing Topic 2">Healing Topic 2</option>
-									<option value="Healing Topic 3">Healing Topic 3</option>
+									<option value="">Select a balance topic</option>
+									<option value="Balance Topic 1">Balance Topic 1</option>
+									<option value="Balance Topic 2">Balance Topic 2</option>
+									<option value="Balance Topic 3">Balance Topic 3</option>
 								</select>
 							</div>
 						</div>

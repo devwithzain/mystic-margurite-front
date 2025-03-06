@@ -39,7 +39,7 @@ export default function Products() {
 									to={`/product/${item.id}`}
 									className="w-full relative">
 									<img
-										src={`http://127.0.0.1:8000/storage/${
+										src={`https://freequote4financialprotection.com/backend/storage/${
 											JSON.parse(item?.image)[0]
 										}`}
 										alt={item?.title}

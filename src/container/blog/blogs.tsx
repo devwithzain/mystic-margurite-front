@@ -61,7 +61,7 @@ export default function Blogs() {
 							className="flex flex-col items-center gap-4">
 							<div className="w-full relative flex flex-col gap-4">
 								<img
-									src={`http://127.0.0.1:8000/${item?.image}`}
+									src={`https://freequote4financialprotection.com/backend/${item?.image}`}
 									alt="blog"
 									className="w-full object-cover"
 								/>

@@ -9,6 +9,7 @@ export default function Slider() {
 	const [direction, setDirection] = useState(0);
 	const [currentIndex, setCurrentIndex] = useState(0);
 	const [showContent, setShowContent] = useState(false);
+	console.log(direction);
 
 	const nextSlide = () => {
 		setDirection(1);
