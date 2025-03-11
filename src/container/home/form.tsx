@@ -4,11 +4,15 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { bookNowFormSchema, TbookNowFormData } from "@/schemas";
 import { footerLogo, formBg, gradientCircle, star } from "@/assets";
+import { ChevronDown } from "lucide-react";
+import { useState } from "react";
 
 export default function Form() {
 	const form = useForm<TbookNowFormData>({
 		resolver: zodResolver(bookNowFormSchema),
 	});
+	const [isFilterOpen, setIsFilterOpen] = useState(false);
+	const [isFilterOpen1, setIsFilterOpen1] = useState(false);
 
 	const {
 		handleSubmit,
@@ -95,35 +99,57 @@ export default function Form() {
 							</div>
 						</div>
 						<div className="w-full flex items-center justify-between gap-5">
-							<div className="w-full flex flex-col gap-3">
+							<div className="w-full flex flex-col gap-3 relative">
 								<label
 									htmlFor="services"
 									className="text-[#040112] paragraph font-normal montserrat leading-tight tracking-tight">
 									Services
 								</label>
 								<select
+									onClick={() => setIsFilterOpen((prev) => !prev)}
 									{...register("services", { required: true })}
-									className="w-full px-5 py-2 bg-white/20 border border-[#040112]/30 backdrop-blur-xl outline-none  montserrat">
+									className="w-full px-5 py-2 bg-white/20 border border-[#040112]/30 backdrop-blur-xl outline-none  montserrat appearance-none">
 									<option value="">Select a service</option>
 									<option value="Service 1">Service 1</option>
 									<option value="Service 2">Service 2</option>
 									<option value="Service 3">Service 3</option>
 								</select>
+								<ChevronDown
+									className={`absolute right-3 top-1/2 translate-y-1/2 w-5 h-5 pointer-events-none transform transition-transform ${
+										isFilterOpen ? "rotate-180" : ""
+									}`}
+								/>
+								<ChevronDown
+									className={`absolute right-3 top-1/2 translate-y-1/2 w-5 h-5 pointer-events-none transform transition-transform ${
+										isFilterOpen ? "rotate-180" : ""
+									}`}
+								/>
 							</div>
-							<div className="w-full flex flex-col gap-3">
+							<div className="w-full flex flex-col gap-3 relative">
 								<label
 									htmlFor="healingTopics"
 									className="text-[#040112] paragraph font-normal montserrat leading-tight tracking-tight">
 									Balance Topics
 								</label>
 								<select
+									onClick={() => setIsFilterOpen1((prev) => !prev)}
 									{...register("healingTopics", { required: true })}
-									className="w-full px-5 py-2 bg-white/20 border border-[#040112]/30 backdrop-blur-xl outline-none  montserrat">
+									className="w-full px-5 py-2 bg-white/20 border border-[#040112]/30 backdrop-blur-xl outline-none  montserrat appearance-none">
 									<option value="">Select a balance topic</option>
 									<option value="Balance Topic 1">Balance Topic 1</option>
 									<option value="Balance Topic 2">Balance Topic 2</option>
 									<option value="Balance Topic 3">Balance Topic 3</option>
 								</select>
+								<ChevronDown
+									className={`absolute right-3 top-1/2 translate-y-1/2 w-5 h-5 pointer-events-none transform transition-transform ${
+										isFilterOpen1 ? "rotate-180" : ""
+									}`}
+								/>
+								<ChevronDown
+									className={`absolute right-3 top-1/2 translate-y-1/2 w-5 h-5 pointer-events-none transform transition-transform ${
+										isFilterOpen1 ? "rotate-180" : ""
+									}`}
+								/>
 							</div>
 						</div>
 						<div className="w-full flex items-center justify-between gap-5">

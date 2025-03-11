@@ -35,7 +35,7 @@ export default function Footer() {
 							<Link
 								to="/about-us"
 								className="flex gap-3 items-center text-black hover:text-[#7E78FF] montserrat paragraph">
-								About
+								About Us
 							</Link>
 						</li>
 						<li>
@@ -57,6 +57,20 @@ export default function Footer() {
 								to="/planetary-meditations"
 								className="text-black hover:text-[#7E78FF] montserrat paragraph">
 								Planetary Meditation
+							</Link>
+						</li>
+						<li>
+							<Link
+								to="/products"
+								className="text-black hover:text-[#7E78FF] montserrat paragraph">
+								Products
+							</Link>
+						</li>
+						<li>
+							<Link
+								to="/life-healing"
+								className="text-black hover:text-[#7E78FF] montserrat paragraph">
+								Life & Balance
 							</Link>
 						</li>
 						<li>

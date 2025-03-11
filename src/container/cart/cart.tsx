@@ -1,7 +1,8 @@
 import axios from "axios";
 import { getToken } from "@/lib/get-token";
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import RoundButton from "@/components/round-button";
 
 export default function Cart() {
 	const token = getToken();
@@ -77,11 +78,15 @@ export default function Cart() {
 								<p className="montserrat paragraph leading-tight text-black font-medium pb-2">
 									Your cart is empty!
 								</p>
-								<Link
-									to="/products"
-									className="w-fit bg-[#7a74ef] mt-4 flex gap-2 btn transition-all duration-300 ease-in-out text-white px-4 py-4 capitalize montserrat paragraph leading-tight tracking-tight rounded-md">
-									Brows Products
-								</Link>
+								<div className="w-fit bg-[#7a74ef] flex items-center justify-between bg-secondry cursor-pointer rounded-md group">
+									<RoundButton
+										href="/products"
+										title="Brows Products"
+										className="bg-white text-black"
+										bgcolor="#000"
+										style={{ color: "#fff" }}
+									/>
+								</div>
 							</div>
 						) : (
 							<>

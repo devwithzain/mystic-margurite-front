@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { lifehealingItems } from "@/constants";
+import RoundButton from "@/components/round-button";
 
 export default function LifeHealing() {
 	return (
@@ -30,12 +31,14 @@ export default function LifeHealing() {
 									<p className="paragraph leading-normal text-white font-normal montserrat">
 										{item.desc.split(" ").slice(0, 8).join(" ")}...
 									</p>
-									<div className="flex items-center justify-between">
-										<Link
-											className={`w-fit bg-[#936d42] btn text-center transition-all duration-300 ease-in-out text-white px-6 py-3 rounded-lg text-[20px] montserrat leading-tight tracking-tight`}
-											to={`/life-healing/${item?.id}`}>
-											View Detail
-										</Link>
+									<div className="w-fit bg-[#936d42] flex items-center justify-between bg-secondry cursor-pointer rounded-md group">
+										<RoundButton
+											href={`/life-healing/${item?.id}`}
+											title="View Detail"
+											className="bg-white text-black"
+											bgcolor="#7a74ef"
+											style={{ color: "#fff" }}
+										/>
 									</div>
 								</div>
 							</Link>

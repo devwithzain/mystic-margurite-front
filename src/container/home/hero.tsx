@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { TextMask } from "@/components";
-import { circle1, circle2, star } from "@/assets";
+import { circle1, circle2 } from "@/assets";
+import RoundButton from "@/components/round-button";
 import AnimatedText from "@/components/animated-text";
 
 export default function Hero() {
@@ -34,18 +35,15 @@ export default function Hero() {
 						]}
 					</TextMask>
 				</p>
-				<a
-					href="/contact-us"
-					className="w-fit flex items-center gap-2 px-6 py-3 bg-[#7a74ef]">
-					<img
-						src={star}
-						alt="star"
-						className="w-5 h-5 object-cover"
+				<div className="w-fit bg-[#7a74ef] flex items-center justify-between bg-secondry cursor-pointer rounded-md group">
+					<RoundButton
+						href="/contact-us"
+						title="Appointment"
+						className="bg-white text-black"
+						bgcolor="#000"
+						style={{ color: "#fff" }}
 					/>
-					<button className="text-center text-white paragraph font-normal leading-tight tracking-tight montserrat">
-						Appointment
-					</button>
-				</a>
+				</div>
 			</div>
 			<div className="w-full h-full flex-1 flex justify-center items-center relative">
 				<div className="relative w-[80%] max-w-[600px] aspect-square flex justify-center items-center">
@@ -58,7 +56,7 @@ export default function Hero() {
 						}}
 						src={circle1}
 						alt=""
-						className="absolute w-full h-full object-contain"
+						className="absolute w-full h-full object-contain transform-origin-center"
 					/>
 					<motion.img
 						animate={{ rotate: -360 }}
@@ -69,7 +67,7 @@ export default function Hero() {
 						}}
 						src={circle2}
 						alt=""
-						className="absolute w-[80%] h-[80%]"
+						className="absolute w-full h-full object-contain transform-origin-center"
 					/>
 				</div>
 			</div>

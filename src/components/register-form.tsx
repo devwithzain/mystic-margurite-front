@@ -68,7 +68,7 @@ export default function RegisterForm({ onClose }: { onClose: () => void }) {
 			initial={{ y: "115%" }}
 			animate={{ y: "0%" }}
 			transition={{ duration: 1, ease: "easeInOut" }}
-			className="w-[60%] h-[80vh] bg-[#04031b] rounded-xl py-5 relative">
+			className="w-[50%] h-[80vh] bg-[#04031b] rounded-xl py-5 relative">
 			<div className="absolute top-4 right-4">
 				<button
 					className="w-fit bg-[#2f1d88] text-white py-2 px-4 text-lg rounded-lg"
@@ -88,7 +88,7 @@ export default function RegisterForm({ onClose }: { onClose: () => void }) {
 					<div className="w-full px-10 flex justify-center flex-col gap-8">
 						<div className="flex flex-col gap-2">
 							<h1 className="subHeading text-white font-bold leading-tight tracking-tight montserrat">
-								Create an account
+								Create an Account
 							</h1>
 							<div className="flex items-center gap-2">
 								<p className="text-sm  text-[#ADABB8] font-normal leading-tight tracking-tight montserrat">

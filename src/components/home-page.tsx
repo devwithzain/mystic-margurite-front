@@ -1,4 +1,3 @@
-import Lenis from "lenis";
 import { useEffect } from "react";
 import NewsLetter from "./news-letter";
 import Hero from "@/container/home/hero";
@@ -14,13 +13,10 @@ import StackedCards from "@/container/home/stacke-cards";
 
 export default function HomePage() {
 	useEffect(() => {
-		const lenis = new Lenis();
-		function raf(time: number) {
-			lenis.raf(time);
-			requestAnimationFrame(raf);
-		}
-
-		requestAnimationFrame(raf);
+		(async () => {
+			const LocomotiveScroll = (await import("locomotive-scroll")).default;
+			new LocomotiveScroll();
+		})();
 	}, []);
 
 	return (

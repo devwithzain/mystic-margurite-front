@@ -1,8 +1,8 @@
-import { Link } from "react-router-dom";
 import { Order, OrderItem } from "@/types";
 import { getToken } from "@/lib/get-token";
 import { useEffect, useState } from "react";
 import getOrders from "@/actions/get-orders";
+import RoundButton from "@/components/round-button";
 
 export default function OrderPage() {
 	const token = getToken();
@@ -28,11 +28,15 @@ export default function OrderPage() {
 						<h1 className="text-xl montserrat">
 							You don't have any orders yet.
 						</h1>
-						<Link
-							to="/products"
-							className="w-fit bg-[#7a74ef] mt-4 flex gap-2 btn transition-all duration-300 ease-in-out text-white px-4 py-4 capitalize montserrat paragraph leading-tight tracking-tight rounded-md">
-							Brows Products
-						</Link>
+						<div className="w-fit bg-[#7a74ef] flex items-center justify-between bg-secondry cursor-pointer rounded-md group">
+							<RoundButton
+								href="/products"
+								title="Brows Products"
+								className="bg-white text-black"
+								bgcolor="#000"
+								style={{ color: "#fff" }}
+							/>
+						</div>
 					</div>
 				) : (
 					<div className="w-full overflow-x-auto">

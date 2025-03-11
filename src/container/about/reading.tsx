@@ -1,11 +1,14 @@
 import { about01 } from "@/assets";
 import { TextMask } from "@/components";
 import AnimatedText from "@/components/animated-text";
+import RoundButton from "@/components/round-button";
+import Rounded from "@/components/rounded";
+import { ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export default function Reading() {
 	return (
-		<div className="w-full padding-x padding-y">
+		<div className="w-full padding-x padding-y bg-white relative z-50">
 			<div className="w-full flex justify-center gap-10 items-center">
 				<div className="flex-1">
 					<img
@@ -33,20 +36,35 @@ export default function Reading() {
 						</TextMask>
 					</p>
 					<div className="w-full flex items-center gap-4">
-						<Link
-							to="/astrology-blog"
-							className="w-full flex items-center justify-center gap-2 px-6 py-4 text-center bg-[#7a74ef]">
-							<button className="text-center text-white text-lg font-medium leading-tight tracking-tight montserrat">
-								Explore More
-							</button>
-						</Link>
-						<Link
-							to="/contact-us"
-							className="w-full flex items-center justify-center gap-2 px-6 py-4 text-center border-black border">
-							<button className="text-center text-black text-lg font-medium leading-tight tracking-tight montserrat">
-								Contact Now
-							</button>
-						</Link>
+						<div className="w-fit bg-[#7a74ef] flex items-center justify-between bg-secondry cursor-pointer rounded-md group">
+							<RoundButton
+								href="/astrology-blog"
+								title="Explore More"
+								className="bg-white text-black"
+								bgcolor="#000"
+								style={{ color: "#fff" }}
+							/>
+						</div>
+						<div className="flex items-center justify-between bg-transparent cursor-pointer rounded-md group border border-[#936D42]">
+							<Link
+								className="text-center text-white paragraph font-normal leading-tight tracking-tight montserrat"
+								to="/contact-us">
+								<Rounded
+									className="py-[4px]"
+									backgroundColor="#936D42">
+									<p className="z-10 px-[10px] ml-[15px] py-[6px] group-hover:text-white text-black">
+										Contact Now
+									</p>
+									<div className="bg-black group-hover:bg-white text-black p-[10px] rounded-full scale-[0.3] mr-[10px] group-hover:scale-[0.9] transition-all z-10 transform duration-[0.3s] ease-[.215,.61,.355,1]">
+										<ArrowUpRight
+											strokeWidth={1.5}
+											size={30}
+											className="scale-[0] group-hover:scale-[1]"
+										/>
+									</div>
+								</Rounded>
+							</Link>
+						</div>
 					</div>
 				</div>
 			</div>

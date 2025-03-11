@@ -84,3 +84,9 @@ export type TModalProps = {
    onClose: () => void;
    body?: React.ReactElement;
 };
+
+export type TRoundedProps = {
+   children: React.ReactNode;
+   className?: string;
+   backgroundColor: string;
+};

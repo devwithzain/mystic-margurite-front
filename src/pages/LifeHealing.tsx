@@ -1,4 +1,3 @@
-import Lenis from "lenis";
 import { useEffect } from "react";
 import { Footer, Navbar } from "@/components";
 import Marquee from "@/container/home/marquee";
@@ -8,13 +7,10 @@ import LifeHealing from "@/container/lifehealing/lifehealing";
 
 export default function LifeHealingPage() {
 	useEffect(() => {
-		const lenis = new Lenis();
-		function raf(time: number) {
-			lenis.raf(time);
-			requestAnimationFrame(raf);
-		}
-
-		requestAnimationFrame(raf);
+		(async () => {
+			const LocomotiveScroll = (await import("locomotive-scroll")).default;
+			new LocomotiveScroll();
+		})();
 	}, []);
 	return (
 		<>

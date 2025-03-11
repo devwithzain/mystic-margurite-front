@@ -24,18 +24,18 @@ export default function Services() {
 						<p className="text-center paragraph text-[#433E37] montserrat leading-normal tracking-tight">
 							{item.desc}
 						</p>
-						<div className="flex items-center gap-2">
+						<Link
+							className="flex items-center gap-2 box"
+							to={item.href}>
 							<img
 								src={item.img}
 								alt={item.title}
 								className="w-5 h-5 object-cover"
 							/>
-							<Link
-								to={item.href}
-								className="text-center paragraph text-[#433E37] montserrat leading-normal tracking-tight">
+							<p className="no-underline cursor-pointer outline-none border-none bg-transparent text-center text-[#936d42] paragraph font-normal leading-tight tracking-tight montserrat capitalize z-50 relative">
 								{item.btn}
-							</Link>
-						</div>
+							</p>
+						</Link>
 					</div>
 				))}
 			</div>

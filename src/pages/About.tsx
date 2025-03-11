@@ -1,4 +1,3 @@
-import Lenis from "lenis";
 import { useEffect } from "react";
 import Hero from "@/container/about/hero";
 import Video from "@/container/about/video";
@@ -10,13 +9,10 @@ import NewsLetter from "@/components/news-letter";
 
 export default function About() {
 	useEffect(() => {
-		const lenis = new Lenis();
-		function raf(time: number) {
-			lenis.raf(time);
-			requestAnimationFrame(raf);
-		}
-
-		requestAnimationFrame(raf);
+		(async () => {
+			const LocomotiveScroll = (await import("locomotive-scroll")).default;
+			new LocomotiveScroll();
+		})();
 	}, []);
 	return (
 		<>

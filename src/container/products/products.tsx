@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { TproductColumnProps } from "@/types";
 import getProducts from "@/actions/get-products";
+import RoundButton from "@/components/round-button";
 
 export default function Products() {
 	const [products, setProducts] = useState<TproductColumnProps[] | null>([]);
@@ -52,15 +53,20 @@ export default function Products() {
 										<p className="paragraph leading-normal text-white font-normal montserrat">
 											{item?.description.split(" ").slice(0, 8).join(" ")}...
 										</p>
+
 										<div className="flex items-center justify-between">
 											<span className="paragraph text-white leading-tight tracking-tight montserrat font-semibold">
 												${item?.price}.00
 											</span>
-											<Link
-												className={`w-fit bg-[#936d42] btn text-center transition-all duration-300 ease-in-out text-white px-6 py-3 rounded-lg text-[20px] montserrat leading-tight tracking-tight`}
-												to={`/product/${item?.id}`}>
-												View Detail
-											</Link>
+											<div className="w-fit bg-[#936d42] flex items-center justify-between bg-secondry cursor-pointer rounded-md group">
+												<RoundButton
+													href={`/product/${item?.id}`}
+													title="View Detail"
+													className="bg-white text-black"
+													bgcolor="#7a74ef"
+													style={{ color: "#fff" }}
+												/>
+											</div>
 										</div>
 									</div>
 								</Link>

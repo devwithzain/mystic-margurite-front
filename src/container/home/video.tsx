@@ -1,13 +1,14 @@
-import VideoModal from "@/components/video-modal";
-import { introVideo2, videoThumbnail } from "@/assets";
+import { introVideo2 } from "@/assets";
+import PlayVideo from "@/components/play-video";
 
 export default function Video() {
 	return (
 		<>
-			<VideoModal
+			{/* <VideoModal
 				thumbnail={videoThumbnail}
 				videoSrc={introVideo2}
-			/>
+			/> */}
+			<PlayVideo videosrc={introVideo2} />
 		</>
 	);
 }

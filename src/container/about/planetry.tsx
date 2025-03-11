@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 export default function Planetary() {
 	return (
-		<div className="w-full padding-y padding-x">
+		<div className="w-full padding-y padding-x bg-white relative z-50">
 			<div className="flex items-center justify-center flex-col gap-10">
 				<div className="">
 					<AnimatedText

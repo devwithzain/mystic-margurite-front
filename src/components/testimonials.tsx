@@ -52,8 +52,8 @@ export default function Testimonials() {
 									/>
 								</button>
 								<div className="p-7 rounded-[30px] min-h-[250px] flex flex-col items-center">
-									<p className="subHeading text-[#936D42] forum text-center leading-tight tracking-tight">
-										"Sit amet luctus venenatis letus magna fringilla urna
+									<p className="subHeading text-[#000] forum text-center leading-tight tracking-tight">
+										"Sit amet luctus venenatis letus magna <br /> fringilla urna
 										porttor rhoncus."
 									</p>
 									<p className="text-center paragraph text-[#433E37] montserrat leading-normal tracking-tight">
@@ -83,8 +83,8 @@ export default function Testimonials() {
 									/>
 								</button>
 								<div className="p-7 rounded-[30px] min-h-[250px] flex flex-col items-center">
-									<p className="subHeading text-[#936D42] forum text-center leading-tight tracking-tight">
-										"Sit amet luctus venenatis letus magna fringilla urna
+									<p className="subHeading text-[#000] forum text-center leading-tight tracking-tight">
+										"Sit amet luctus venenatis letus magna <br /> fringilla urna
 										porttor rhoncus."
 									</p>
 									<p className="text-center paragraph text-[#433E37] montserrat leading-normal tracking-tight">
@@ -114,8 +114,8 @@ export default function Testimonials() {
 									/>
 								</button>
 								<div className="p-7 rounded-[30px] min-h-[250px] flex flex-col items-center">
-									<p className="subHeading text-[#936D42] forum text-center leading-tight tracking-tight">
-										"Sit amet luctus venenatis letus magna fringilla urna
+									<p className="subHeading text-[#000] forum text-center leading-tight tracking-tight">
+										"Sit amet luctus venenatis letus magna <br /> fringilla urna
 										porttor rhoncus."
 									</p>
 									<p className="text-center paragraph text-[#433E37] montserrat leading-normal tracking-tight">
@@ -145,8 +145,8 @@ export default function Testimonials() {
 									/>
 								</button>
 								<div className="p-7 rounded-[30px] min-h-[250px] flex flex-col items-center">
-									<p className="subHeading text-[#936D42] forum text-center leading-tight tracking-tight">
-										"Sit amet luctus venenatis letus magna fringilla urna
+									<p className="subHeading text-[#000] forum text-center leading-tight tracking-tight">
+										"Sit amet luctus venenatis letus magna <br /> fringilla urna
 										porttor rhoncus."
 									</p>
 									<p className="text-center paragraph text-[#433E37] montserrat leading-normal tracking-tight">
