@@ -37,7 +37,7 @@ export default function LoaderTwo() {
 					setShowButton(true);
 					return prev;
 				});
-			}, 2000);
+			}, 4000);
 
 			return () => clearInterval(interval);
 		}

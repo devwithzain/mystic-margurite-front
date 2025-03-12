@@ -111,3 +111,4 @@ export { default as life04 } from './life04.gif';
 
 export { default as lineDown } from './lineDown.png';
 export { default as lineUp } from './lineUp.png';
+export { default as M83 } from './M83.mp3';

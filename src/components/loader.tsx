@@ -34,7 +34,7 @@ export default function Loader() {
 
 	const handleTimeUpdate = (event: React.SyntheticEvent<HTMLVideoElement>) => {
 		const currentTime = (event.target as HTMLVideoElement).currentTime;
-		if (currentTime >= 2.7 && !showText) {
+		if (currentTime >= 2.5 && !showText) {
 			setShowText(true);
 		}
 	};

@@ -1,11 +1,12 @@
 import { plan11 } from "@/assets";
-import { TextMask } from "@/components";
+import { MediaPlayer, TextMask } from "@/components";
 import AnimatedText from "@/components/animated-text";
 
 export default function Planetary11() {
 	return (
 		<div className="w-full padding-y padding-x">
 			<div className="flex items-center justify-center flex-col gap-10">
+				<MediaPlayer />
 				<div className="">
 					<AnimatedText
 						text="Meditation on Pluto"
