@@ -120,44 +120,50 @@ export default function Blogs() {
 						/>
 					</div>
 					<div className="grid grid-cols-4 gap-6">
-						{filteredBlogs?.map((item, index) => (
-							<motion.div
-								initial={{ opacity: 0, y: 20 }}
-								whileInView={{ opacity: 1, y: 0 }}
-								transition={{
-									duration: 0.8,
-									delay: index * 0.1,
-									ease: "linear",
-								}}
-								viewport={{ once: true }}
-								key={index}
-								className="flex flex-col items-center gap-4">
-								<div className="w-full relative flex flex-col gap-4">
-									<img
-										src={`https://freequote4financialprotection.com/backend/${item?.image}`}
-										alt="blog"
-										className="w-full object-cover"
-									/>
-									<div className="flex flex-col">
-										<h3 className="text-black subHeading font-normal forum leading-tight">
-											{item?.title}
-										</h3>
-										<p className="text-black montserrat text-sm font-normal forum leading-normal">
-											{item?.short_description
-												.split(" ")
-												.slice(0, 13)
-												.join(" ")}
-											...{" "}
-											<Link
-												to={`/astrology-blog/${item?.id}`}
-												className="text-blue-600 hover:underline">
-												Read More
-											</Link>
-										</p>
+						{filteredBlogs?.length > 0 ? (
+							filteredBlogs.map((item, index) => (
+								<motion.div
+									initial={{ opacity: 0, y: 20 }}
+									whileInView={{ opacity: 1, y: 0 }}
+									transition={{
+										duration: 0.8,
+										delay: index * 0.1,
+										ease: "linear",
+									}}
+									viewport={{ once: true }}
+									key={index}
+									className="flex flex-col items-center gap-4">
+									<div className="w-full relative flex flex-col gap-4">
+										<img
+											src={`https://freequote4financialprotection.com/backend/${item?.image}`}
+											alt="blog"
+											className="w-full object-cover"
+										/>
+										<div className="flex flex-col">
+											<h3 className="text-black subHeading font-normal forum leading-tight">
+												{item?.title}
+											</h3>
+											<p className="text-black montserrat text-sm font-normal forum leading-normal">
+												{item?.short_description
+													.split(" ")
+													.slice(0, 13)
+													.join(" ")}
+												...{" "}
+												<Link
+													to={`/astrology-blog/${item?.id}`}
+													className="text-blue-600 hover:underline">
+													Read More
+												</Link>
+											</p>
+										</div>
 									</div>
-								</div>
-							</motion.div>
-						))}
+								</motion.div>
+							))
+						) : (
+							<div className="col-span-4 text-center text-black subHeading font-normal montserrat">
+								No blogs found in this category
+							</div>
+						)}
 					</div>
 				</div>
 			</div>

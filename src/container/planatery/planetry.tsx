@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { planetryItems } from "@/constants";
 import AnimatedText from "@/components/animated-text";
-import { Link } from "react-router-dom";
+import { DirectionAwareHover } from "@/components/direction-aware-hover";
 
 export default function Planetary() {
 	return (
@@ -25,16 +26,10 @@ export default function Planetary() {
 							<Link
 								to={`/planetary-meditations/${item.id}`}
 								className="w-full relative">
-								<img
-									src={item.src}
-									alt={item.title}
-									className="w-full h-[250px] object-cover"
+								<DirectionAwareHover
+									children={item.title}
+									imageUrl={item.src}
 								/>
-								<div className="absolute bottom-5 left-5">
-									<h3 className="text-white paragraph font-normal montserrat leading-tight">
-										{item.title}
-									</h3>
-								</div>
 							</Link>
 						</motion.div>
 					))}
