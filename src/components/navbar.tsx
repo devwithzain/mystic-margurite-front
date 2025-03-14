@@ -1,4 +1,5 @@
 import { logo } from "@/assets";
+import UserMenu from "./user-menu";
 import TextHover from "./text-hover";
 import { motion } from "framer-motion";
 import { navVarients } from "@/motion";
@@ -6,35 +7,39 @@ import { Link } from "react-router-dom";
 import { ShoppingBag } from "lucide-react";
 import { getToken } from "@/lib/get-token";
 import { useEffect, useState } from "react";
-import UserMenu from "./user-menu";
+import { AnimatePresence } from "framer-motion";
 
 export default function Navbar() {
 	const token = getToken();
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const [cartItems, setCartItems] = useState<any[]>([]);
+	const [showStarsDropdown, setShowStarsDropdown] = useState(false);
+	const [showAstrologyDropdown, setShowAstrologyDropdown] = useState(false);
+
 	useEffect(() => {
 		const fetchCartItems = async () => {
 			try {
 				const response = await fetch(
 					`https://freequote4financialprotection.com/backend/api/cart`,
 					{
-						headers: {
-							Authorization: `Bearer ${token}`,
-						},
+						headers: { Authorization: `Bearer ${token}` },
 					},
 				);
 				const data = await response.json();
 				setCartItems(data);
-			} catch (error: unknown) {
-				if (error instanceof Error) {
-					console.log(error.message);
-				} else {
-					console.log("An unknown error occurred");
-				}
+			} catch (error) {
+				console.log(
+					error instanceof Error ? error.message : "An unknown error occurred",
+				);
 			}
 		};
 		fetchCartItems();
 	}, [token]);
+
+	const dropdownVariants = {
+		hidden: { opacity: 0, x: "-50%", y: -5, transition: { duration: 0.2 } },
+		visible: { opacity: 1, x: "-50%", y: 0, transition: { duration: 0.2 } },
+	};
+
 	return (
 		<motion.nav
 			initial="initial"
@@ -55,7 +60,7 @@ export default function Navbar() {
 				<ul className="flex items-center gap-7">
 					<Link
 						to="/about-us"
-						className="text-center text-black text-lg leading-tight tracking-tight font-normal montserrat hover">
+						className="text-lg font-normal montserrat hover">
 						<TextHover
 							title1="About Us"
 							title2="About Us"
@@ -63,23 +68,44 @@ export default function Navbar() {
 					</Link>
 					<Link
 						to="/services"
-						className="text-center text-black text-lg leading-tight tracking-tight font-normal montserrat hover">
+						className="text-lg font-normal montserrat hover">
 						<TextHover
 							title1="Services"
 							title2="Services"
 						/>
 					</Link>
-					<Link
-						to="/astrology-blog"
-						className="text-center text-black text-lg leading-tight tracking-tight font-normal montserrat hover">
-						<TextHover
-							title1="Astrology Blog"
-							title2="Astrology Blog"
-						/>
-					</Link>
+					<div
+						className="relative"
+						onMouseEnter={() => setShowAstrologyDropdown(true)}
+						onMouseLeave={() => setShowAstrologyDropdown(false)}>
+						<button className="text-lg font-normal montserrat flex items-center">
+							Blogs
+						</button>
+						<AnimatePresence>
+							{showAstrologyDropdown && (
+								<motion.div
+									initial="hidden"
+									animate="visible"
+									exit="hidden"
+									variants={dropdownVariants}
+									className="absolute top-full left-1/2 bg-[#7A75EF] shadow-lg rounded-md p-3 min-w-[170px] mt-1">
+									<Link
+										to="/blogs/astrology"
+										className="block text-lg montserrat text-white font-normal leading-tight tracking-tight px-3 py-2 hover:bg-white/20">
+										Astrology
+									</Link>
+									{/* <Link
+										to="/blogs/astrodialogues"
+										className="block text-lg montserrat text-white font-normal leading-tight tracking-tight px-3 py-2 hover:bg-white/20">
+										Astrodialogues
+									</Link> */}
+								</motion.div>
+							)}
+						</AnimatePresence>
+					</div>
 					<Link
 						to="/planetary-meditations"
-						className="text-center text-black text-lg leading-tight tracking-tight font-normal montserrat hover">
+						className="text-lg font-normal montserrat hover">
 						<TextHover
 							title1="Planetary Meditations"
 							title2="Planetary Meditations"
@@ -87,7 +113,7 @@ export default function Navbar() {
 					</Link>
 					<Link
 						to="/products"
-						className="text-center text-black text-lg leading-tight tracking-tight font-normal montserrat hover">
+						className="text-lg font-normal montserrat hover">
 						<TextHover
 							title1="Products"
 							title2="Products"
@@ -95,21 +121,45 @@ export default function Navbar() {
 					</Link>
 					<Link
 						to="/life-healing"
-						className="text-center text-black text-lg leading-tight tracking-tight font-normal montserrat hover">
+						className="text-lg font-normal montserrat hover">
 						<TextHover
 							title1="Life & Balances"
 							title2="Life & Balances"
 						/>
 					</Link>
-					<Link
-						to="/stars-and-planets"
-						className="text-center text-black text-lg leading-tight tracking-tight font-normal montserrat hover">
-						<TextHover
-							title1="Stars and Planets"
-							title2="Stars and Planets"
-						/>
-					</Link>
+
+					{/* Stars and Planets Dropdown */}
+					<div
+						className="relative"
+						onMouseEnter={() => setShowStarsDropdown(true)}
+						onMouseLeave={() => setShowStarsDropdown(false)}>
+						<button className="text-lg font-normal montserrat flex items-center">
+							Stars and Planets
+						</button>
+						<AnimatePresence>
+							{showStarsDropdown && (
+								<motion.div
+									initial="hidden"
+									animate="visible"
+									exit="hidden"
+									variants={dropdownVariants}
+									className="absolute top-full left-1/2 bg-[#7A75EF] shadow-lg rounded-md p-3 min-w-[170px] mt-1">
+									<Link
+										to="/stars-and-planets/solar-system"
+										className="block text-lg montserrat text-white font-normal leading-tight tracking-tight px-3 py-2 hover:bg-white/20">
+										Solar System
+									</Link>
+									<Link
+										to="/stars-and-planets/constellations"
+										className="block text-lg montserrat text-white font-normal leading-tight tracking-tight px-3 py-2 hover:bg-white/20">
+										Constellations
+									</Link>
+								</motion.div>
+							)}
+						</AnimatePresence>
+					</div>
 				</ul>
+
 				<div className="flex items-center gap-2">
 					<Link
 						to="/cart"
@@ -122,7 +172,7 @@ export default function Navbar() {
 					<Link
 						to="/contact-us"
 						className="w-fit px-6 py-3 bg-[#7a74ef] rounded-lg">
-						<button className="text-center text-white text-lg font-normal leading-tight tracking-tight montserrat">
+						<button className="text-white text-lg font-normal montserrat">
 							Contact Us
 						</button>
 					</Link>

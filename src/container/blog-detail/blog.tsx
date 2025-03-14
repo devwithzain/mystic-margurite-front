@@ -1,3 +1,4 @@
+import parse from "html-react-parser";
 import { TextMask } from "@/components";
 import getBlog from "@/actions/get-blog";
 import { useEffect, useState } from "react";
@@ -37,7 +38,7 @@ export default function Blog() {
 						<h3 className="text-black heading font-normal leading-tight forum">
 							{blog?.title}
 						</h3>
-						<div className="flex items-center gap-4">
+						<div className="flex items-center gap-4 shrink-0">
 							<div className="flex items-center">
 								<div className="w-12 h-4 bg-[#7A75EF]" />
 								<div className="w-32 h-1 bg-[#A8948E]" />
@@ -53,10 +54,13 @@ export default function Blog() {
 					</div>
 					<div className="flex flex-col gap-4">
 						<p className="text-black paragraph font-normal montserrat leading-loose tracking-normal">
-							<TextMask>{[`${blog?.short_description}`]}</TextMask>
+							<TextMask>{[blog?.short_description || ""]}</TextMask>
 						</p>
 						<p className="text-black paragraph font-normal montserrat leading-loose tracking-normal">
-							<TextMask>{[`${blog?.description}`]}</TextMask>
+							{/* @tss-ignore */}
+							<TextMask>
+								{[blog?.description ? parse(blog.description) : ""]}
+							</TextMask>
 						</p>
 					</div>
 				</div>

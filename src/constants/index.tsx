@@ -67,6 +67,44 @@ import {
 	Virgo,
 } from "@/assets";
 
+export const navbarItems = [
+	{
+		id: 1,
+		title: "About Us",
+		href: "/about-us",
+	},
+	{
+		id: 2,
+		title: "Services",
+		href: "/services",
+	},
+	{
+		id: 3,
+		title: "Blogs",
+		href: "#",
+	},
+	{
+		id: 4,
+		title: "Planetary Meditations",
+		href: "/planetary-meditations",
+	},
+	{
+		id: 5,
+		title: "Products",
+		href: "/products",
+	},
+	{
+		id: 6,
+		title: "Life & Balances",
+		href: "/life-&-balances",
+	},
+	{
+		id: 7,
+		title: "Stars and Planets",
+		href: "/stars-and-planets",
+	},
+];
+
 export const marqueeItems = [
 	{
 		id: 1,

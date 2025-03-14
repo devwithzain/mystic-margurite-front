@@ -31,11 +31,19 @@ export default function App() {
 				element={<About />}
 			/>
 			<Route
-				path="/astrology-blog"
+				path="/blogs/astrology"
 				element={<Blog />}
 			/>
 			<Route
-				path="/astrology-blog/:id"
+				path="/blogs/astrology/:id"
+				element={<BlogDetail />}
+			/>
+			<Route
+				path="/blogs/astrodialogues"
+				element={<Blog />}
+			/>
+			<Route
+				path="/blogs/astrodialogues/:id"
 				element={<BlogDetail />}
 			/>
 			<Route

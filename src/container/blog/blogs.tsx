@@ -119,7 +119,7 @@ export default function Blogs() {
 							}`}
 						/>
 					</div>
-					<div className="grid grid-cols-4 gap-6">
+					<div className="grid grid-cols-3 gap-6">
 						{filteredBlogs?.length > 0 ? (
 							filteredBlogs.map((item, index) => (
 								<motion.div
@@ -132,16 +132,18 @@ export default function Blogs() {
 									}}
 									viewport={{ once: true }}
 									key={index}
-									className="flex flex-col items-center gap-4">
+									className="w-full flex flex-col items-center gap-4">
 									<div className="w-full relative flex flex-col gap-4">
-										<img
-											src={`https://freequote4financialprotection.com/backend/${item?.image}`}
-											alt="blog"
-											className="w-full object-cover"
-										/>
+										<div className="w-full h-[300px]">
+											<img
+												src={`https://freequote4financialprotection.com/backend/${item?.image}`}
+												alt="blog"
+												className="w-full h-full object-cover"
+											/>
+										</div>
 										<div className="flex flex-col">
 											<h3 className="text-black subHeading font-normal forum leading-tight">
-												{item?.title}
+												{item?.title?.split(" ").slice(0, 3).join(" ")} ...
 											</h3>
 											<p className="text-black montserrat text-sm font-normal forum leading-normal">
 												{item?.short_description
@@ -150,7 +152,7 @@ export default function Blogs() {
 													.join(" ")}
 												...{" "}
 												<Link
-													to={`/astrology-blog/${item?.id}`}
+													to={`/blogs/astrology/${item?.id}`}
 													className="text-blue-600 hover:underline">
 													Read More
 												</Link>
