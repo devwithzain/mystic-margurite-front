@@ -1,9 +1,6 @@
 import {
 	Aquarius,
 	Aries,
-	article01,
-	article02,
-	article03,
 	brownStar,
 	Cancer,
 	Capricorn,
@@ -16,6 +13,19 @@ import {
 	cardLibra,
 	cardVirgo,
 	Gemini,
+	guide01,
+	guide02,
+	guide03,
+	guide04,
+	guide05,
+	guide06,
+	guide07,
+	guide08,
+	guide09,
+	guide10,
+	guide11,
+	guide12,
+	guide13,
 	Leo,
 	Libra,
 	life01,
@@ -101,7 +111,7 @@ export const navbarItems = [
 	{
 		id: 7,
 		title: "Stars and Planets",
-		href: "/stars-and-planets",
+		href: "/stars",
 	},
 ];
 
@@ -138,35 +148,11 @@ export const marqueeItems = [
 	},
 ];
 
-export const articleItems = [
-	{
-		id: 1,
-		title: "balance topics",
-		img: article01,
-		src: brownStar,
-		btn: "Read More",
-	},
-	{
-		id: 2,
-		title: "month astrology blog",
-		img: article02,
-		src: brownStar,
-		btn: "Read More",
-	},
-	{
-		id: 3,
-		title: "of astrological interest",
-		img: article03,
-		src: brownStar,
-		btn: "Read More",
-	},
-];
-
 export const servicesItems = [
 	{
 		id: 1,
 		title: "Planetary Meditations",
-		desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
+		desc: "Experience deep meditation techniques aligned with planetary energies to enhance your spiritual connection and personal growth.",
 		img: brownStar,
 		src: service1,
 		btn: "Learn more",
@@ -175,7 +161,7 @@ export const servicesItems = [
 	{
 		id: 2,
 		title: "Life and Balances",
-		desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
+		desc: "Discover harmony in all aspects of your life through holistic approaches to balance your mind, body, and spirit.",
 		img: brownStar,
 		src: service2,
 		btn: "Learn more",
@@ -184,11 +170,11 @@ export const servicesItems = [
 	{
 		id: 3,
 		title: "Stars And Planets",
-		desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
+		desc: "Explore the cosmic influences of celestial bodies and learn how their positions impact your daily life and future path.",
 		img: brownStar,
 		src: service3,
 		btn: "Learn more",
-		href: "stars-and-planets",
+		href: "stars/star-&-planets",
 	},
 ];
 
@@ -631,5 +617,73 @@ export const zodiacSigns = [
 		longDescription:
 			"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500.",
 		src: star10,
+	},
+];
+
+export const starGuidanceItems = [
+	{
+		id: 1,
+		title: "The Birthday Horoscope",
+		src: guide01,
+	},
+	{
+		id: 2,
+		title: "The Solar Return Chart",
+		src: guide02,
+	},
+	{
+		id: 3,
+		title: "A Timely Tune-Up",
+		src: guide03,
+	},
+	{
+		id: 4,
+		title: "Relating: Table for Two",
+		src: guide04,
+	},
+	{
+		id: 5,
+		title: "Relating: It's Showtime!",
+		src: guide05,
+	},
+	{
+		id: 6,
+		title: "Ask the Stars: What Will Happen or Where is It?",
+		src: guide06,
+	},
+	{
+		id: 7,
+		title: "When Should I Do It?",
+		src: guide07,
+	},
+	{
+		id: 8,
+		title: "Career and Money",
+		src: guide08,
+	},
+	{
+		id: 9,
+		title: "Past Lives-Future Path",
+		src: guide09,
+	},
+	{
+		id: 10,
+		title: "Exotic Nuts and Bolts",
+		src: guide10,
+	},
+	{
+		id: 11,
+		title: "The Astrology of Asteroids",
+		src: guide11,
+	},
+	{
+		id: 12,
+		title: "Four Faces of Lilith",
+		src: guide12,
+	},
+	{
+		id: 13,
+		title: "Moon Faces",
+		src: guide13,
 	},
 ];

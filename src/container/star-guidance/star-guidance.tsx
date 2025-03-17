@@ -1,0 +1,40 @@
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import { starGuidanceItems } from "@/constants";
+import AnimatedText from "@/components/animated-text";
+import { DirectionAwareHover } from "@/components/direction-aware-hover";
+
+export default function StarGuidance() {
+	return (
+		<div className="w-full padding-y padding-x">
+			<div className="flex items-center justify-center flex-col gap-10">
+				<div className="">
+					<AnimatedText
+						text="StarGuidance"
+						className="text-[#936d42] heading font-normal forum capitalize leading-tight"
+					/>
+				</div>
+				<div className="grid grid-cols-4 gap-6">
+					{starGuidanceItems.map((item, index) => (
+						<motion.div
+							initial={{ opacity: 0, y: 20 }}
+							whileInView={{ opacity: 1, y: 0 }}
+							transition={{ duration: 0.8, delay: index * 0.1, ease: "linear" }}
+							viewport={{ once: true }}
+							key={index}
+							className="flex flex-col items-center gap-4">
+							<Link
+								to={`/stars/star-guidance/${item.id}`}
+								className="w-full relative">
+								<DirectionAwareHover
+									children={item.title}
+									imageUrl={item.src}
+								/>
+							</Link>
+						</motion.div>
+					))}
+				</div>
+			</div>
+		</div>
+	);
+}

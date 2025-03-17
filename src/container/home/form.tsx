@@ -12,7 +12,7 @@ export default function Form() {
 		resolver: zodResolver(bookNowFormSchema),
 	});
 	const [isFilterOpen, setIsFilterOpen] = useState(false);
-	const [isFilterOpen1, setIsFilterOpen1] = useState(false);
+	// const [isFilterOpen1, setIsFilterOpen1] = useState(false);
 
 	const {
 		handleSubmit,
@@ -77,7 +77,7 @@ export default function Form() {
 								<label
 									htmlFor="name"
 									className="text-[#040112] paragraph font-normal montserrat leading-tight tracking-tight">
-									Name
+									First Name
 								</label>
 								<input
 									type="text"
@@ -98,6 +98,18 @@ export default function Form() {
 								/>
 							</div>
 						</div>
+						<div className="w-full flex flex-col gap-3">
+							<label
+								htmlFor="email"
+								className="text-[#040112] paragraph font-normal montserrat leading-tight tracking-tight">
+								Your Email
+							</label>
+							<input
+								type="email"
+								{...register("email", { required: true })}
+								className="w-full px-5 py-2 bg-white/20 border border-[#040112]/30 backdrop-blur-xl outline-none  montserrat"
+							/>
+						</div>
 						<div className="w-full flex items-center justify-between gap-5">
 							<div className="w-full flex flex-col gap-3 relative">
 								<label
@@ -110,9 +122,8 @@ export default function Form() {
 									{...register("services", { required: true })}
 									className="w-full px-5 py-2 bg-white/20 border border-[#040112]/30 backdrop-blur-xl outline-none  montserrat appearance-none">
 									<option value="">Select a service</option>
-									<option value="Service 1">Service 1</option>
-									<option value="Service 2">Service 2</option>
-									<option value="Service 3">Service 3</option>
+									<option value="Service 1">60-70 Minute Consultation</option>
+									<option value="Service 1">130-140 Minute Consultation</option>
 								</select>
 								<ChevronDown
 									className={`absolute right-3 top-1/2 translate-y-1/2 w-5 h-5 pointer-events-none transform transition-transform ${
@@ -125,7 +136,7 @@ export default function Form() {
 									}`}
 								/>
 							</div>
-							<div className="w-full flex flex-col gap-3 relative">
+							{/* <div className="w-full flex flex-col gap-3 relative">
 								<label
 									htmlFor="healingTopics"
 									className="text-[#040112] paragraph font-normal montserrat leading-tight tracking-tight">
@@ -150,7 +161,7 @@ export default function Form() {
 										isFilterOpen1 ? "rotate-180" : ""
 									}`}
 								/>
-							</div>
+							</div> */}
 						</div>
 						<div className="w-full flex items-center justify-between gap-5">
 							<div className="w-full flex flex-col gap-3">

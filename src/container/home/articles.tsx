@@ -1,7 +1,22 @@
 import { Link } from "react-router-dom";
-import { articleItems } from "@/constants";
+import getBlogs from "@/actions/get-blogs";
+import { useEffect, useState } from "react";
+import { TblogsColumnProps } from "@/types";
 
 export default function Articles() {
+	const [blogs, setBlogs] = useState<TblogsColumnProps[]>([]);
+
+	useEffect(() => {
+		const fetchBlogs = async () => {
+			try {
+				const response = await getBlogs();
+				setBlogs(response.blogs);
+			} catch (err) {
+				console.error("Error fetching blogs:", err);
+			}
+		};
+		fetchBlogs();
+	}, []);
 	return (
 		<div className="w-full min-h-screen padding-x padding-y flex items-center justify-center flex-col gap-20 bg-white z-50 relative">
 			<div className="flex flex-col gap-2 items-center">
@@ -14,30 +29,27 @@ export default function Articles() {
 				</p>
 			</div>
 			<div className="w-full flex items-center justify-center gap-5">
-				{articleItems.map((item) => (
+				{blogs.slice(0, 3).map((item) => (
 					<div
-						className={`flex flex-col gap-5 items-start`}
+						className={`flex flex-col gap-2`}
 						key={item.id}>
 						<img
-							src={item.img}
-							alt={item.title}
-							className="w-full h-[600px] object-cover"
+							src={`https://freequote4financialprotection.com/backend/${item?.image}`}
+							alt="blog"
+							className="w-full h-[500px] object-cover"
 						/>
-						<h1 className="subHeading text-[#936D42] forum leading-tight tracking-tight uppercase">
-							{item.title}
-						</h1>
-						<div className="flex items-center gap-2 box">
-							<img
-								src={item.src}
-								alt={item.title}
-								className="w-5 h-5 object-cover"
-							/>
+						<h3 className="text-black subHeading font-normal forum leading-tight">
+							{item?.title?.split(" ").slice(0, 3).join(" ")} ...
+						</h3>
+						<p className="text-black montserrat  font-normal paragraph leading-normal tracking-tight">
+							{item?.short_description.split(" ").slice(0, 15).join(" ")}
+							...{" "}
 							<Link
-								to="/astrology-blog"
-								className="no-underline cursor-pointer outline-none border-none bg-transparent text-center text-[#936d42] paragraph font-normal leading-tight tracking-tight montserrat capitalize z-50 relative">
-								{item.btn}
+								to={`/blogs/astrology/${item?.id}`}
+								className="text-blue-600 hover:underline">
+								Read More
 							</Link>
-						</div>
+						</p>
 					</div>
 				))}
 			</div>

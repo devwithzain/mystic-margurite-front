@@ -1,4 +1,4 @@
-import { about01 } from "@/assets";
+import { aboutImg } from "@/assets";
 import { TextMask } from "@/components";
 import AnimatedText from "@/components/animated-text";
 import RoundButton from "@/components/round-button";
@@ -9,36 +9,69 @@ import { Link } from "react-router-dom";
 export default function Reading() {
 	return (
 		<div className="w-full padding-x padding-y bg-white relative z-50">
-			<div className="w-full flex justify-center gap-10 items-center">
-				<div className="flex-1">
+			<div className="w-full flex flex-col justify-center gap-10 items-center">
+				<div className="w-full">
 					<img
-						src={about01}
-						alt="formBgImg"
+						src={aboutImg}
+						alt="aboutImg"
 						className="w-full object-cover"
 					/>
 				</div>
-				<div className="flex-1 flex flex-col gap-10">
+				<div className="w-full flex flex-col gap-5">
 					<div className="flex flex-col">
 						<AnimatedText
-							text="Astrology Readings"
-							className="text-[#936d42] heading font-normal forum capitalize leading-tight"
-						/>
-						<AnimatedText
-							text="for You"
+							text="Who Is Marguerite?"
 							className="text-[#936d42] heading font-normal forum capitalize leading-tight"
 						/>
 					</div>
-					<p className="text-black paragraph font-normal montserrat leading-loose tracking-normal">
-						<TextMask>
-							{[
-								"The science and art of astrology can be used to explore so many avenues of our life experience. On its own merits, an analysis of the birth chart can yield much in-depth information about the natal challenges, talents and potentials unique to each individual. Ancestral inheritance, family of origin, karmic and developmental themes, past lives and path of soul growth can be delineated from the heavens, as can the nature of relationship.",
-							]}
-						</TextMask>
-					</p>
+					<div className="flex flex-col gap-3">
+						<p className="text-black paragraph font-normal montserrat leading-loose tracking-normal">
+							<TextMask>
+								{[
+									"Spirit song has called to me from earliest memory, leading to many encounters with synchronicity as I grew up. To this day my practice is to witness, learn from and participate with the in-breath and out-breath of the intelligent Life force vitalizing all things. My roots rest in astral twilight zones and the bowers of earthly nature alike. Astrology service with clients began in 1980 and has continued since that time; my best effort is directed towards journeying with others to their own portals of expanded awareness.",
+								]}
+							</TextMask>
+						</p>
+						<p className="text-black paragraph font-normal montserrat leading-loose tracking-normal">
+							<TextMask>
+								{[
+									"Formal education includes a Bachelors of Science in Horticulture from Colorado State University and a Masters of Science degree in Horticulture, awarded from Pennsylvania State University. Becoming a horticulturist requires an understanding of the chemistry, physiology, pathology, anatomy and Latin of plants, plus a dose of practical business savvy thrown in. Formal scientific training also expanded my ability to follow developments in other fields such as physics and astronomy. Many years were spent working as a commercial horticulturist, newspaper writer and editor, office manager, and other assorted jobs; restless, curious Gemini rules my natal second house of money, values and asset management.",
+								]}
+							</TextMask>
+						</p>
+						<p className="text-black paragraph font-normal montserrat leading-loose tracking-normal">
+							<TextMask>
+								{[
+									"I have been an NCGR (National Council for Geocosmic Research)Level 4 Certified Professional Consulting Astrologer since 2005. Practical experience accrued from doing several years of international phone service with AstroLive Link, over 10 years of service at numerous metaphysical fair venues, and a private practice stretching over 30 years. I enjoy giving astrology presentations and have taught classes in various esoteric subjects, in addition to teaching beginning and advanced astrology classes at Colorado Free University. Published writing projects include contributions made to local astrology club newsletters, essays published in Dell Horoscope Magazine and a piece published in the Mountain Astrologer. I do have aspirations to produce a book or two.",
+								]}
+							</TextMask>
+						</p>
+						<p className="text-black paragraph font-normal montserrat leading-loose tracking-normal">
+							<TextMask>
+								{[
+									"Along the way I realized that although astrology does an excellent job of delineating the blue print of incarnation and how planetary transits can paint a useful picture of past, present and future experience, it cannot address all levels of healing and releasing experience needed to free up baggage. I was guided to develop proficiency in energy balancing through Life Alignment. This is an extensive healing technique developed over 30 years and more by Jeff Kline, an extremely talented healer from South Africa.",
+								]}
+							</TextMask>
+						</p>
+						<p className="text-black paragraph font-normal montserrat leading-loose tracking-normal">
+							<TextMask>
+								{[
+									"The remarkable package of healing skills and expansion of soul consciousness that Jeff has put together cannot be praised enough. His methods apply to healing not only people and pets, but to cleansing and energising water and food, restoring right balance to any dwelling or professional space, even re-aligning the frequencies of whole cities and waterworks. Today as a Level 3 Certified Practitioner I can offer balancing sessions in person and long-distance, to facilitate any aspect of liberation, growth or past-life resolution a client may wish to pursue. A specific Life Alignment balance can be paired with astrology to facilitate catalytic experiences, preferably in support of a preliminary astrology reading.",
+								]}
+							</TextMask>
+						</p>
+						<p className="text-black paragraph font-normal montserrat leading-loose tracking-normal">
+							<TextMask>
+								{[
+									"The art work displayed on this site are channelings of the resonance that moves through my visions. I continue to absorb technique and insight from many sources including global myth, the Golden Dawn, Kabbala, tale-tellers, mystics and philosophers. I have past-life affinity for Neolithic stones, sacred springs, the Tao, also classical Egyptian, Indian and Old European culture. Colorado is my native home, I love the spirits of the high mountains; but the song of the sea enchants me too.",
+								]}
+							</TextMask>
+						</p>
+					</div>
 					<div className="w-full flex items-center gap-4">
 						<div className="w-fit bg-[#7a74ef] flex items-center justify-between bg-secondry cursor-pointer rounded-md group">
 							<RoundButton
-								href="/astrology-blog"
+								href="/blogs/astrology"
 								title="Explore More"
 								className="bg-white text-black"
 								bgcolor="#000"

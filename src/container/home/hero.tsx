@@ -11,18 +11,18 @@ export default function Hero() {
 				<div className="flex flex-col">
 					<AnimatedText
 						text="Energy"
-						className="text-[#936d42] heading font-normal forum uppercase leading-tight tracking-tight"
+						className="text-[#000000] heading font-normal forum uppercase leading-tight tracking-tight"
 					/>
 					<div className="flex items-center gap-5">
 						<AnimatedText
 							text="Balance With"
-							className="text-[#936d42] heading font-normal forum uppercase leading-tight tracking-tight"
+							className="text-[#000000] heading font-normal forum uppercase leading-tight tracking-tight"
 						/>
 					</div>
 					<div className="flex items-center gap-5">
 						<AnimatedText
 							text="Life Alignment"
-							className="text-[#936d42] heading font-normal forum uppercase leading-tight tracking-tight"
+							className="text-[#000000] heading font-normal forum uppercase leading-tight tracking-tight"
 						/>
 					</div>
 				</div>

@@ -75,7 +75,7 @@ export default function Footer() {
 						</li>
 						<li>
 							<Link
-								to="/stars-and-planets"
+								to="/stars/star-&-planets"
 								className="text-black hover:text-[#7E78FF] montserrat paragraph">
 								Stars And Planets
 							</Link>

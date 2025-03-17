@@ -18,6 +18,8 @@ import ServiceDetailPage from "./pages/ServiceDetail";
 import StarsAndPlanets from "./pages/StarsAndPlanets";
 import PlanetaryDetailPage from "./pages/PlanetaryDetail";
 import LifeHealingDetailPage from "./pages/LifeHealingDetail";
+import StarGuidancePage from "./pages/StarGuidance";
+import StarGuidanceDetailPage from "./pages/StarGuidanceDetail";
 
 export default function App() {
 	return (
@@ -83,8 +85,16 @@ export default function App() {
 				element={<ProductDetailPage />}
 			/>
 			<Route
-				path="/stars-and-planets"
+				path="/stars/star-&-planets"
 				element={<StarsAndPlanets />}
+			/>
+			<Route
+				path="/stars/star-guidance"
+				element={<StarGuidancePage />}
+			/>
+			<Route
+				path="/stars/star-guidance/:id"
+				element={<StarGuidanceDetailPage />}
 			/>
 			<Route
 				path="/checkout"

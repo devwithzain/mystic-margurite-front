@@ -45,8 +45,11 @@ export const contactFormSchema = z.object({
 export const bookNowFormSchema = z.object({
    name: z.string().min(1),
    lastName: z.string().min(1),
+   email: z.string().email({
+      message: "Email is required",
+   }),
    services: z.string().min(1),
-   healingTopics: z.string().min(1),
+   // healingTopics: z.string().min(1),
    preferredTime: z.string().min(1),
    cityAndState: z.string().min(1),
    specialMessage: z.string().min(1),

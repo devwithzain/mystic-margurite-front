@@ -22,9 +22,6 @@ export { default as client02 } from './client02.png';
 export { default as client03 } from './client03.png';
 export { default as client04 } from './client04.png';
 export { default as videoThumbnail } from './videoThumbnail.png';
-export { default as article01 } from './article01.png';
-export { default as article02 } from './article02.png';
-export { default as article03 } from './article03.png';
 export { default as cardBack } from './card back.png';
 
 export { default as Aquarius } from './Aquarius.png';
@@ -52,8 +49,7 @@ export { default as introVideo } from './intro.mp4';
 export { default as introVideo2 } from './intro2.mp4';
 
 
-export { default as about01 } from './about01.png';
-export { default as about02 } from './about02.png';
+export { default as aboutImg } from './aboutImg.jpg';
 export { default as planetry01 } from './planetry01.png';
 export { default as planetry02 } from './planetry02.png';
 export { default as planetry03 } from './planetry03.png';
@@ -96,6 +92,20 @@ export { default as plan10 } from './plan10.png';
 export { default as plan11 } from './plan11.png';
 export { default as plan12 } from './plan12.png';
 
+export { default as guide01 } from './guide01.jpg';
+export { default as guide02 } from './guide02.jpg';
+export { default as guide03 } from './guide03.jpg';
+export { default as guide04 } from './guide04.jpg';
+export { default as guide05 } from './guide05.jpg';
+export { default as guide06 } from './guide06.jpg';
+export { default as guide07 } from './guide07.jpg';
+export { default as guide08 } from './guide08.jpg';
+export { default as guide09 } from './guide09.jpg';
+export { default as guide10 } from './guide10.jpg';
+export { default as guide11 } from './guide11.jpg';
+export { default as guide12 } from './guide12.jpg';
+export { default as guide13 } from './guide13.jpg';
+
 export { default as life01 } from './life01.jpg';
 export { default as life011 } from './life011.jpg';
 export { default as life012 } from './life012.jpg';
@@ -112,3 +122,5 @@ export { default as life04 } from './life04.gif';
 export { default as lineDown } from './lineDown.png';
 export { default as lineUp } from './lineUp.png';
 export { default as M83 } from './M83.mp3';
+
+export { default as mystic } from './mystic.jpg';

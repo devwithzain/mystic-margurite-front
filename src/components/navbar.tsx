@@ -60,7 +60,7 @@ export default function Navbar() {
 				<ul className="flex items-center gap-7">
 					<Link
 						to="/about-us"
-						className="text-lg font-normal montserrat hover">
+						className="paragraph font-normal montserrat hover">
 						<TextHover
 							title1="About Us"
 							title2="About Us"
@@ -68,7 +68,7 @@ export default function Navbar() {
 					</Link>
 					<Link
 						to="/services"
-						className="text-lg font-normal montserrat hover">
+						className="paragraph font-normal montserrat hover">
 						<TextHover
 							title1="Services"
 							title2="Services"
@@ -78,7 +78,7 @@ export default function Navbar() {
 						className="relative"
 						onMouseEnter={() => setShowAstrologyDropdown(true)}
 						onMouseLeave={() => setShowAstrologyDropdown(false)}>
-						<button className="text-lg font-normal montserrat flex items-center">
+						<button className="paragraph font-normal montserrat flex items-center">
 							Blogs
 						</button>
 						<AnimatePresence>
@@ -88,24 +88,24 @@ export default function Navbar() {
 									animate="visible"
 									exit="hidden"
 									variants={dropdownVariants}
-									className="absolute top-full left-1/2 bg-[#7A75EF] shadow-lg rounded-md p-3 min-w-[170px] mt-1">
+									className="absolute top-full left-1/2 bg-[#7A75EF] shadow-lg rounded-md min-w-[170px] mt-1">
 									<Link
 										to="/blogs/astrology"
-										className="block text-lg montserrat text-white font-normal leading-tight tracking-tight px-3 py-2 hover:bg-white/20">
+										className="block paragraph montserrat text-white font-normal leading-tight tracking-tight p-3 hover:bg-white/20">
 										Astrology
 									</Link>
-									{/* <Link
+									<Link
 										to="/blogs/astrodialogues"
-										className="block text-lg montserrat text-white font-normal leading-tight tracking-tight px-3 py-2 hover:bg-white/20">
+										className="block paragraph montserrat text-white font-normal leading-tight tracking-tight p-3 hover:bg-white/20">
 										Astrodialogues
-									</Link> */}
+									</Link>
 								</motion.div>
 							)}
 						</AnimatePresence>
 					</div>
 					<Link
 						to="/planetary-meditations"
-						className="text-lg font-normal montserrat hover">
+						className="paragraph font-normal montserrat hover">
 						<TextHover
 							title1="Planetary Meditations"
 							title2="Planetary Meditations"
@@ -113,7 +113,7 @@ export default function Navbar() {
 					</Link>
 					<Link
 						to="/products"
-						className="text-lg font-normal montserrat hover">
+						className="paragraph font-normal montserrat hover">
 						<TextHover
 							title1="Products"
 							title2="Products"
@@ -121,20 +121,18 @@ export default function Navbar() {
 					</Link>
 					<Link
 						to="/life-healing"
-						className="text-lg font-normal montserrat hover">
+						className="paragraph font-normal montserrat hover">
 						<TextHover
 							title1="Life & Balances"
 							title2="Life & Balances"
 						/>
 					</Link>
-
-					{/* Stars and Planets Dropdown */}
 					<div
 						className="relative"
 						onMouseEnter={() => setShowStarsDropdown(true)}
 						onMouseLeave={() => setShowStarsDropdown(false)}>
-						<button className="text-lg font-normal montserrat flex items-center">
-							Stars and Planets
+						<button className="paragraph font-normal montserrat flex items-center">
+							Stars
 						</button>
 						<AnimatePresence>
 							{showStarsDropdown && (
@@ -143,16 +141,16 @@ export default function Navbar() {
 									animate="visible"
 									exit="hidden"
 									variants={dropdownVariants}
-									className="absolute top-full left-1/2 bg-[#7A75EF] shadow-lg rounded-md p-3 min-w-[170px] mt-1">
+									className="absolute top-full left-1/2 bg-[#7A75EF] shadow-lg rounded-md min-w-[180px] mt-1">
 									<Link
-										to="/stars-and-planets/solar-system"
-										className="block text-lg montserrat text-white font-normal leading-tight tracking-tight px-3 py-2 hover:bg-white/20">
-										Solar System
+										to="/stars/star-&-planets"
+										className="block paragraph montserrat text-white font-normal leading-tight tracking-tight p-3 hover:bg-white/20">
+										Star & Planets
 									</Link>
 									<Link
-										to="/stars-and-planets/constellations"
-										className="block text-lg montserrat text-white font-normal leading-tight tracking-tight px-3 py-2 hover:bg-white/20">
-										Constellations
+										to="/stars/star-guidance"
+										className="block paragraph montserrat text-white font-normal leading-tight tracking-tight p-3 hover:bg-white/20">
+										Star Guidance
 									</Link>
 								</motion.div>
 							)}
@@ -172,7 +170,7 @@ export default function Navbar() {
 					<Link
 						to="/contact-us"
 						className="w-fit px-6 py-3 bg-[#7a74ef] rounded-lg">
-						<button className="text-white text-lg font-normal montserrat">
+						<button className="text-white paragraph font-normal montserrat">
 							Contact Us
 						</button>
 					</Link>
