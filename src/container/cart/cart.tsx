@@ -14,14 +14,11 @@ export default function Cart() {
 	useEffect(() => {
 		const fetchCartItems = async () => {
 			try {
-				const response = await fetch(
-					`https://freequote4financialprotection.com/backend/api/cart`,
-					{
-						headers: {
-							Authorization: `Bearer ${token}`,
-						},
+				const response = await fetch(`http://127.0.0.1:8000/api/cart`, {
+					headers: {
+						Authorization: `Bearer ${token}`,
 					},
-				);
+				});
 				const data = await response.json();
 				setCartItems(data);
 				const total = data
@@ -45,14 +42,11 @@ export default function Cart() {
 
 	const deleteCartItem = async (id: string) => {
 		try {
-			await axios.delete(
-				`https://freequote4financialprotection.com/backend/api/cart/${id}`,
-				{
-					headers: {
-						Authorization: `Bearer ${token}`,
-					},
+			await axios.delete(`http://127.0.0.1:8000/api/cart/${id}`, {
+				headers: {
+					Authorization: `Bearer ${token}`,
 				},
-			);
+			});
 			setCartItems(cartItems.filter((item) => item.id !== id));
 		} catch (error: unknown) {
 			if (error instanceof Error) {

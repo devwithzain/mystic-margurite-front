@@ -1,6 +1,6 @@
 import { footerLogo } from "@/assets";
-import { MdEmail } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { MdEmail } from "react-icons/md";
 
 export default function Footer() {
 	return (
@@ -122,10 +122,21 @@ export default function Footer() {
 					</ul>
 				</div>
 			</div>
-			<div className="w-full mt-8 border-t border-[#C3BEB6] pt-8 flex sm:flex-col xm:flex-col items-center justify-center">
+			<div className="w-full mt-8 border-t border-[#C3BEB6] pt-8 flex sm:flex-col xm:flex-col items-center justify-between padding-x">
 				<p className="text-center md:text-left text-black paragraph montserrat leading-tight tracking-tight font-normal">
 					© {new Date().getFullYear()} Mysticmarguerite. All rights reserved.
 				</p>
+				<div className="flex items-center gap-2">
+					<p className="text-center md:text-left text-black paragraph montserrat leading-tight tracking-tight font-normal">
+						Privacy Policy
+					</p>
+					<p className="text-center md:text-left text-black paragraph montserrat leading-tight tracking-tight font-normal">
+						|
+					</p>
+					<p className="text-center md:text-left text-black paragraph montserrat leading-tight tracking-tight font-normal">
+						Terms & Conditions
+					</p>
+				</div>
 			</div>
 		</footer>
 	);

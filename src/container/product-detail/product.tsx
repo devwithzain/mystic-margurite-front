@@ -41,14 +41,11 @@ export default function ProductDetail() {
 	useEffect(() => {
 		const fetchCartItems = async () => {
 			try {
-				const response = await fetch(
-					`https://freequote4financialprotection.com/backend/api/cart`,
-					{
-						headers: {
-							Authorization: `Bearer ${token}`,
-						},
+				const response = await fetch(`http://127.0.0.1:8000/api/cart`, {
+					headers: {
+						Authorization: `Bearer ${token}`,
 					},
-				);
+				});
 				const data = await response.json();
 				setCartItems(data);
 			} catch (error: unknown) {
@@ -77,7 +74,7 @@ export default function ProductDetail() {
 			try {
 				setLoading(true);
 				const response = await axios.post(
-					`https://freequote4financialprotection.com/backend/api/cart`,
+					`http://127.0.0.1:8000/api/cart`,
 					{
 						user_id: user?.id,
 						product_id: productId,

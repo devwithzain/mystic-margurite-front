@@ -33,7 +33,7 @@ export default function LoginForm({ onClose }: { onClose: () => void }) {
 
 	const onSubmits = async (data: TloginFormData) => {
 		await axios
-			.post(`https://freequote4financialprotection.com/backend/api/login`, data)
+			.post(`http://127.0.0.1:8000/api/login`, data)
 			.then((response) => {
 				if (response?.data?.success) {
 					toast.success(response.data.success);
