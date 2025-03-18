@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import { fromImage } from "@/assets";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import useLoginModal from "@/hooks/use-login-modal";
 import { zodResolver } from "@hookform/resolvers/zod";
 import useRegisterModal from "@/hooks/use-register-modal";
@@ -12,6 +13,7 @@ import { loginFormSchema, TloginFormData } from "@/schemas";
 import { AtSign, Eye, EyeOff, Loader2, Lock, X } from "lucide-react";
 
 export default function LoginForm({ onClose }: { onClose: () => void }) {
+	const router = useNavigate();
 	const loginModal = useLoginModal();
 	const registerModal = useRegisterModal();
 
@@ -38,6 +40,7 @@ export default function LoginForm({ onClose }: { onClose: () => void }) {
 					const { access_token } = response.data;
 					Cookies.set("authToken", access_token, { expires: 1 });
 					loginModal.onClose();
+					router(0);
 				}
 			})
 			.catch((err) => {

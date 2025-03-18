@@ -132,7 +132,7 @@ export default function ProductDetail() {
 								{loading ? (
 									<Loader2 className="animate-spin mx-auto" />
 								) : (
-									"add to cart"
+									"Add to Cart"
 								)}
 							</button>
 						</div>

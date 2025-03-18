@@ -15,7 +15,9 @@ export type TtextHoverProps = {
 export type TServicesColumnProps = {
    id: bigint;
    title: string;
+   price: string;
    description: string;
+   image: string;
    createdAt: string;
 };
 

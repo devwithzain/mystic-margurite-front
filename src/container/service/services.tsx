@@ -1,11 +1,26 @@
+import { mystic } from "@/assets";
+import parse from "html-react-parser";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
 import { TextMask } from "@/components";
+import { useEffect, useState } from "react";
+import { TServicesColumnProps } from "@/types";
+import getServices from "@/actions/get-services";
 import RoundButton from "@/components/round-button";
 import AnimatedText from "@/components/animated-text";
-import { mystic, planetry12, planetry09 } from "@/assets";
 
 export default function Services() {
+	const [services, setServices] = useState<TServicesColumnProps[] | null>([]);
+	useEffect(() => {
+		const fetchServices = async () => {
+			try {
+				const response = await getServices();
+				setServices(response.services);
+			} catch (err) {
+				console.error("Error fetching services:", err);
+			}
+		};
+		fetchServices();
+	}, []);
 	return (
 		<div className="w-full padding-y padding-x">
 			<div className="w-full flex justify-center flex-col gap-10">
@@ -114,82 +129,44 @@ export default function Services() {
 					className="text-[#936d42] subHeading font-semibold forum capitalize leading-tight"
 				/>
 				<div className="w-full flex gap-4 justify-between">
-					<motion.div
-						initial={{ opacity: 0, y: 20 }}
-						whileInView={{ opacity: 1, y: 0 }}
-						transition={{ duration: 0.8, ease: "linear" }}
-						viewport={{ once: true }}
-						className="w-full flex flex-col items-center gap-4 bg-[#000] relative rounded-lg overflow-hidden shadow-lg hover:shadow-lg cursor-pointer group">
-						<Link
-							to="/contact-us"
-							className="w-full relative">
-							<img
-								src={planetry09}
-								alt={"asd"}
-								className="w-full h-[350px] object-cover"
-							/>
-							<div className="p-4 w-full flex flex-col justify-between gap-4">
-								<h3 className="text-white subHeading font-normal smythe leading-tight tracking-tight">
-									60-70 Minute Consultation
-								</h3>
-								<p className="paragraph leading-normal text-white font-normal montserrat">
-									Recommended for established clients and updates.
-								</p>
-								<div className="w-full flex items-center justify-between gap-5">
-									<span className="paragraph text-white leading-tight tracking-tight montserrat font-semibold">
-										Price: $150.00
-									</span>
-									<div className="w-fit bg-[#936d42] flex items-center justify-between bg-secondry cursor-pointer rounded-md group">
-										<RoundButton
-											href="/contact-us"
-											title="Book now"
-											className="bg-white text-black"
-											bgcolor="#7a74ef"
-											style={{ color: "#fff" }}
-										/>
+					{services?.map((item) => (
+						<motion.div
+							initial={{ opacity: 0, y: 20 }}
+							whileInView={{ opacity: 1, y: 0 }}
+							transition={{ duration: 0.8, ease: "linear" }}
+							viewport={{ once: true }}
+							className="w-full flex flex-col items-center gap-4 bg-[#000] relative rounded-lg overflow-hidden shadow-lg hover:shadow-lg">
+							<div className="w-full relative">
+								<img
+									src={`https://freequote4financialprotection.com/backend/${item?.image}`}
+									alt="service"
+									className="w-full h-[500px] object-cover"
+								/>
+								<div className="p-4 w-full flex flex-col justify-between gap-5">
+									<h3 className="text-white subHeading font-normal smythe leading-tight tracking-tight">
+										{item.title}
+									</h3>
+									<p className="paragraph leading-normal text-white font-normal montserrat">
+										{[item?.description ? parse(item.description) : ""]}
+									</p>
+									<div className="w-full flex items-center justify-between gap-5">
+										<span className="paragraph text-white leading-tight tracking-tight montserrat font-semibold w-fit bg-[#936d42] flex items-center justify-between bg-secondry rounded-md pointer-events-none p-5">
+											Price: ${item.price}.00
+										</span>
+										<div className="w-fit bg-[#936d42] flex items-center justify-between cursor-pointer rounded-md group">
+											<RoundButton
+												href={`/services/${item.id}`}
+												title="Book now"
+												className="bg-white text-black"
+												bgcolor="#7a74ef"
+												style={{ color: "#fff" }}
+											/>
+										</div>
 									</div>
 								</div>
 							</div>
-						</Link>
-					</motion.div>
-					<motion.div
-						initial={{ opacity: 0, y: 20 }}
-						whileInView={{ opacity: 1, y: 0 }}
-						transition={{ duration: 0.8, ease: "linear" }}
-						viewport={{ once: true }}
-						className="w-full flex flex-col items-center gap-4 bg-[#000] relative rounded-lg overflow-hidden shadow-lg hover:shadow-lg cursor-pointer group">
-						<Link
-							to="/contact-us"
-							className="w-full relative">
-							<img
-								alt={"asd"}
-								src={planetry12}
-								className="w-full h-[350px] object-cover"
-							/>
-							<div className="p-4 w-full flex flex-col justify-between gap-4">
-								<h3 className="text-white subHeading font-normal smythe leading-tight tracking-tight">
-									130-140 Minute Consultation
-								</h3>
-								<p className="paragraph leading-normal text-white font-normal montserrat">
-									Recommended for first time clients and complex questions.
-								</p>
-								<div className="w-full flex gap-5 justify-between items-center">
-									<span className="paragraph text-white leading-tight tracking-tight montserrat font-semibold">
-										Price: $200.00
-									</span>
-									<div className="w-fit bg-[#936d42] flex items-center justify-between bg-secondry cursor-pointer rounded-md group">
-										<RoundButton
-											href="/contact-us"
-											title="Book now"
-											className="bg-white text-black"
-											bgcolor="#7a74ef"
-											style={{ color: "#fff" }}
-										/>
-									</div>
-								</div>
-							</div>
-						</Link>
-					</motion.div>
+						</motion.div>
+					))}
 				</div>
 			</div>
 		</div>
