@@ -1,25 +1,12 @@
-import axios from "axios";
-import toast from "react-hot-toast";
 import parse from "html-react-parser";
-import { Loader2 } from "lucide-react";
-import { getToken } from "@/lib/get-token";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import getService from "@/actions/get-service";
-import { getUserData } from "@/actions/get-user";
-import useLoginModal from "@/hooks/use-login-modal";
-import { TServicesColumnProps, TuserProps } from "@/types";
+import { TServicesColumnProps } from "@/types";
+import { Link, useParams } from "react-router-dom";
 
 export default function Blog() {
-	const token = getToken();
 	const { id } = useParams();
-	const loginModal = useLoginModal();
-	const [loading, setLoading] = useState(false);
-	const [user, setUser] = useState<TuserProps>();
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	const [cartItems, setCartItems] = useState<any[]>([]);
 	const [service, setService] = useState<TServicesColumnProps | null>(null);
-	console.log(cartItems);
 
 	useEffect(() => {
 		const fetchService = async () => {
@@ -35,64 +22,6 @@ export default function Blog() {
 		fetchService();
 	}, [id]);
 
-	useEffect(() => {
-		const fetchCartItems = async () => {
-			try {
-				const response = await fetch(`http://127.0.0.1:8000/api/cart`, {
-					headers: {
-						Authorization: `Bearer ${token}`,
-					},
-				});
-				const data = await response.json();
-				setCartItems(data);
-			} catch (error: unknown) {
-				if (error instanceof Error) {
-					console.log(error.message);
-				} else {
-					console.log("An unknown error occurred");
-				}
-			}
-		};
-		fetchCartItems();
-	}, [token]);
-
-	useEffect(() => {
-		const fetchUserData = async () => {
-			const userData = await getUserData(token);
-			setUser(userData);
-		};
-		fetchUserData();
-	}, [token]);
-
-	const addToCart = async (productId: string | bigint | undefined) => {
-		if (!user || !token) {
-			loginModal.onOpen();
-		} else {
-			try {
-				setLoading(true);
-				const response = await axios.post(
-					`http://127.0.0.1:8000/api/cart`,
-					{
-						user_id: user?.id,
-						service_id: productId,
-					},
-					{
-						headers: {
-							Authorization: `Bearer ${token}`,
-						},
-					},
-				);
-				toast.success(response.data.success);
-				setLoading(false);
-			} catch (error: unknown) {
-				if (error instanceof Error) {
-					toast.error(error.message);
-				} else {
-					toast.error("An unknown error occurred");
-				}
-			}
-		}
-	};
 	return (
 		<div className="w-full padding-y padding-x">
 			<div className="w-full flex justify-between gap-10">
@@ -116,15 +45,11 @@ export default function Blog() {
 						</p>
 					</div>
 					<div className="w-full flex items-center gap-4 flex-col">
-						<button
-							className={`w-full bg-[#936d42] btn text-center transition-all duration-300 ease-in-out text-white px-6 py-3 rounded-lg text-[20px] montserrat leading-tight tracking-tight`}
-							onClick={() => addToCart(service?.id?.toString())}>
-							{loading ? (
-								<Loader2 className="animate-spin mx-auto" />
-							) : (
-								"Book Now"
-							)}
-						</button>
+						<Link
+							to="/booking-form"
+							className={`w-full bg-[#936d42] btn text-center transition-all duration-300 ease-in-out text-white px-6 py-3 rounded-lg text-[20px] montserrat leading-tight tracking-tight`}>
+							Book Now
+						</Link>
 					</div>
 				</div>
 			</div>

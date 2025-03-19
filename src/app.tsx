@@ -20,6 +20,7 @@ import PlanetaryDetailPage from "./pages/PlanetaryDetail";
 import LifeHealingDetailPage from "./pages/LifeHealingDetail";
 import StarGuidancePage from "./pages/StarGuidance";
 import StarGuidanceDetailPage from "./pages/StarGuidanceDetail";
+import BookingForm from "./pages/BookingForm ";
 
 export default function App() {
 	return (
@@ -99,6 +100,10 @@ export default function App() {
 			<Route
 				path="/checkout"
 				element={<Checkout />}
+			/>
+			<Route
+				path="/booking-form"
+				element={<BookingForm />}
 			/>
 			<Route
 				path="/thank-you"
