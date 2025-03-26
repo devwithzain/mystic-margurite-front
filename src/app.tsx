@@ -102,7 +102,7 @@ export default function App() {
 				element={<Checkout />}
 			/>
 			<Route
-				path="/booking-form"
+				path="/services/:id/booking-form"
 				element={<BookingForm />}
 			/>
 			<Route

@@ -1,25 +1,53 @@
 import {
-	PaymentElement,
-	useElements,
-	useStripe,
-} from "@stripe/react-stripe-js";
+	TServicesColumnProps,
+	TtimeslotsColumnProps,
+	TuserProps,
+} from "@/types";
 import axios from "axios";
-import { TuserProps } from "@/types";
+import { Loader2 } from "lucide-react";
 import { toast } from "react-hot-toast";
 import { getToken } from "@/lib/get-token";
-import { useNavigate } from "react-router-dom";
+import getService from "@/actions/get-service";
 import { getUserData } from "@/actions/get-user";
+import getTimeSlots from "@/actions/get-timeslots";
 import React, { useEffect, useState } from "react";
 import AnimatedText from "@/components/animated-text";
-import { Loader2 } from "lucide-react";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function Form() {
 	const token = getToken();
+	const { id } = useParams();
 	const navigate = useNavigate();
+	const [loading, setLoading] = useState(false);
 	const [user, setUser] = useState<TuserProps>();
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	const [cartItems, setCartItems] = useState<any[]>([]);
-	const [cartTotal, setCartTotal] = useState<number>(0);
+	const [timeslots, setTimeSlot] = useState<TtimeslotsColumnProps[]>([]);
+	const [service, setService] = useState<TServicesColumnProps | null>(null);
+
+	useEffect(() => {
+		const fetchTimeSlots = async () => {
+			try {
+				const response = await getTimeSlots(token);
+				setTimeSlot(response.timeslots);
+			} catch (err) {
+				console.error("Error fetching timeslots:", err);
+			}
+		};
+		fetchTimeSlots();
+	}, [token]);
+
+	useEffect(() => {
+		const fetchService = async () => {
+			try {
+				if (id) {
+					const response = await getService(id);
+					setService(response.service);
+				}
+			} catch (err) {
+				console.error("Error fetching service:", err);
+			}
+		};
+		fetchService();
+	}, [id]);
 
 	useEffect(() => {
 		const fetchUserData = async () => {
@@ -29,137 +57,93 @@ export default function Form() {
 		fetchUserData();
 	}, [token]);
 
-	useEffect(() => {
-		const fetchCartItems = async () => {
-			try {
-				const response = await fetch(`http://127.0.0.1:8000/api/cart`, {
-					headers: {
-						Authorization: `Bearer ${token}`,
-					},
-				});
-				const data = await response.json();
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				const total = data.reduce((total: number, item: any) => {
-					const quantity = item.quantity || 1;
-					const price = parseFloat(item.product?.price || "0");
-					return total + quantity * price;
-				}, 0);
-				setCartItems(data);
-				setCartTotal(total);
-			} catch (error: unknown) {
-				if (error instanceof Error) {
-					console.log(error.message);
-				} else {
-					console.log("An unknown error occurred");
-				}
-			}
-		};
-		fetchCartItems();
-	}, [token]);
-
-	const stripe = useStripe();
-	const elements = useElements();
-	const [loading, setLoading] = useState(false);
 	const [formData, setFormData] = useState({
-		firstName: "",
-		lastName: "",
+		birth_date: "",
+		birth_time: "",
+		birth_place: "",
+		first_name: "",
+		last_name: "",
 		phone: "",
 		email: "",
 		country: "",
-		streetAddress: "",
-		townCity: "",
+		street_address: "",
+		town_city: "",
 		state: "",
 		zip: "",
-		agreedTerms: false,
+		notes: "",
+		status: "panding",
+		time_slot_id: "",
+		meeting_link: "",
+		timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
 	});
 
-	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const { id, value, type, checked } = e.target;
+	const handleInputChange = (
+		e: React.ChangeEvent<
+			HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+		>,
+	) => {
+		const { id, value, type } = e.target;
 		setFormData((prev) => ({
 			...prev,
-			[id]: type === "checkbox" ? checked : value,
+			[id]:
+				type === "checkbox" ? (e.target as HTMLInputElement).checked : value,
 		}));
 	};
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		if (!stripe || !elements) {
-			return;
-		}
 		setLoading(true);
-
 		try {
-			const amountInCents = cartTotal * 100;
-			const { data } = await axios.post(
-				"http://127.0.0.1:8000/api/payment-intent",
-				{
-					amount: amountInCents,
-					currency: "usd",
-				},
-			);
-			console.log(data);
+			const meetingLink = `https://meet.google.com/${Math.random()
+				.toString(36)
+				.substring(2, 10)}`;
 
-			const { error, paymentIntent } = await stripe.confirmPayment({
-				elements,
-				confirmParams: {
-					payment_method_data: {
-						billing_details: {
-							name: `${formData.firstName} ${formData.lastName}`,
-							email: formData.email,
-						},
-					},
-				},
-				redirect: "if_required",
-			});
-
-			if (error) {
-				toast.error(error.message || "Payment failed. Try again.");
-			} else if (paymentIntent?.status === "succeeded") {
-				const orderData = {
-					user_id: user?.id,
-					cart_items: cartItems.map((item) => ({
-						product_id: item.product.id,
-						quantity: item.quantity || 1,
-					})),
-					first_name: formData.firstName,
-					last_name: formData.lastName,
-					email: formData.email,
-					phone: formData.phone,
-					country: formData.country,
-					street_address: formData.streetAddress,
-					town_city: formData.townCity,
-					state: formData.state,
-					zip: formData.zip,
-					agreed_terms: formData.agreedTerms,
-				};
-
-				const orderResponse = await axios.post(
-					"http://127.0.0.1:8000/api/placedOrder",
-					orderData,
-				);
-				await axios.put(
-					`http://127.0.0.1:8000/api/orders/${orderResponse.data.order_id}/status`,
+			const bookingData = {
+				user_id: user?.id,
+				service_id: service?.id,
+				cart_items: [
 					{
-						status: "paid",
+						service_id: service?.id,
 					},
-				);
+				],
+				time_slot_id: formData.time_slot_id,
+				birth_date: formData.birth_date,
+				birth_time: formData.birth_time,
+				birth_place: formData.birth_place,
+				first_name: formData.first_name,
+				last_name: formData.last_name,
+				phone: formData.phone,
+				email: formData.email,
+				country: formData.country,
+				street_address: formData.street_address,
+				town_city: formData.town_city,
+				state: formData.state,
+				zip: formData.zip,
+				timezone: formData.timezone,
+				notes: formData.notes,
+				meeting_link: meetingLink,
+				status: formData.status,
+			};
 
-				toast.success("Payment successful!");
-
-				await axios.delete("http://127.0.0.1:8000/api/cart", {
+			const bookingResponse = await axios.post(
+				"http://127.0.0.1:8000/api/placedBooking",
+				bookingData,
+				{
 					headers: {
 						Authorization: `Bearer ${token}`,
 					},
-				});
-				setCartItems([]);
-				setCartTotal(0);
-			}
+				},
+			);
+			console.log("first", bookingData, "asd", bookingResponse);
+			toast.success("Booking successful!");
 		} catch (err) {
-			toast.error("Payment failed. Try again.");
-			console.error("Error during payment or order placement:", err);
+			console.log("Booking error:", err);
+			toast.error(
+				err.response?.data?.message || "Booking failed. Please try again.",
+			);
 		} finally {
 			setLoading(false);
-			navigate("/thank-you");
+			// navigate("/thank-you");
 		}
 	};
 
@@ -169,7 +153,7 @@ export default function Form() {
 				<div className="w-fit pb-2 border-b-4 border-black">
 					<AnimatedText
 						className="text-[#080808] smythe heading font-medium leading-tight capitalize"
-						text="Billing details"
+						text="Booking details"
 					/>
 				</div>
 				<div className="w-fit pb-2 border-b-4 border-black">
@@ -187,14 +171,14 @@ export default function Form() {
 						<div className="w-full flex flex-col gap-3">
 							<label
 								className="text-black paragraph leading-tight tracking-tight font-medium montserrat"
-								htmlFor="firstName">
+								htmlFor="first_name">
 								First Name *
 							</label>
 							<input
 								onChange={handleInputChange}
-								value={formData.firstName}
+								value={formData.first_name}
 								type="text"
-								id="firstName"
+								id="first_name"
 								required
 								className="border-[#C6C6C6] border-2 px-4 py-2 w-full outline-none paragraph font-MonstrateRegular"
 							/>
@@ -202,15 +186,60 @@ export default function Form() {
 						<div className="w-full flex flex-col gap-3">
 							<label
 								className="text-black paragraph leading-tight tracking-tight font-medium montserrat"
-								htmlFor="lastName">
+								htmlFor="last_name">
 								Last Name *
 							</label>
 							<input
 								onChange={handleInputChange}
-								value={formData.lastName}
+								value={formData.last_name}
 								type="text"
-								id="lastName"
+								id="last_name"
 								required
+								className="border-[#C6C6C6] border-2 px-4 py-2 w-full outline-none paragraph font-MonstrateRegular"
+							/>
+						</div>
+					</div>
+					<div className="w-full flex items-center gap-5">
+						<div className="w-full flex flex-col gap-3">
+							<label
+								className="text-black paragraph leading-tight tracking-tight font-medium montserrat"
+								htmlFor="birth_date">
+								Birth Date *
+							</label>
+							<input
+								onChange={handleInputChange}
+								value={formData.birth_date}
+								type="date"
+								id="birth_date"
+								required
+								className="border-[#C6C6C6] border-2 px-4 py-2 w-full outline-none paragraph font-MonstrateRegular"
+							/>
+						</div>
+						<div className="w-full flex flex-col gap-3">
+							<label
+								className="text-black paragraph leading-tight tracking-tight font-medium montserrat"
+								htmlFor="birth_time">
+								Birth Time *
+							</label>
+							<input
+								onChange={handleInputChange}
+								value={formData.birth_time}
+								type="time"
+								id="birth_time"
+								className="border-[#C6C6C6] border-2 px-4 py-2 w-full outline-none paragraph font-MonstrateRegular"
+							/>
+						</div>
+						<div className="w-full flex flex-col gap-3">
+							<label
+								className="text-black paragraph leading-tight tracking-tight font-medium montserrat"
+								htmlFor="birth_place">
+								Birth Place
+							</label>
+							<input
+								onChange={handleInputChange}
+								value={formData.birth_place}
+								type="text"
+								id="birth_place"
 								className="border-[#C6C6C6] border-2 px-4 py-2 w-full outline-none paragraph font-MonstrateRegular"
 							/>
 						</div>
@@ -247,52 +276,80 @@ export default function Form() {
 							/>
 						</div>
 					</div>
-					<div className="w-full flex items-center gap-5">
-						<div className="w-full flex flex-col gap-3">
-							<label
-								className="text-black paragraph leading-tight tracking-tight font-medium montserrat"
-								htmlFor="country">
-								Country / Region *
-							</label>
-							<input
-								onChange={handleInputChange}
-								value={formData.country}
-								type="text"
-								id="country"
-								required
-								className="border-[#C6C6C6] border-2 px-4 py-2 w-full outline-none paragraph font-MonstrateRegular"
-							/>
-						</div>
+					<div className="w-full flex flex-col gap-3">
+						<label
+							className="text-black paragraph leading-tight tracking-tight font-medium montserrat"
+							htmlFor="time_slot_id">
+							Select Time Slot *
+						</label>
+						<select
+							onChange={handleInputChange}
+							value={formData.time_slot_id}
+							id="time_slot_id"
+							required
+							className="border-[#C6C6C6] border-2 px-4 py-2 w-full outline-none paragraph font-MonstrateRegular">
+							<option value="">Select a time slot</option>
+							{timeslots.map((slot) => (
+								<option
+									key={slot.id}
+									value={slot.id}
+									disabled={
+										slot.status === "booked" || slot.status === "unavailable"
+									}
+									className={`${
+										slot.status === "booked" || slot.status === "unavailable"
+											? "line-through"
+											: ""
+									}`}>
+									{slot.status === "unavailable" || slot.status === "booked"
+										? `${slot.start_time} - ${slot.end_time} (Booked)`
+										: `${slot.start_time} - ${slot.end_time}`}
+								</option>
+							))}{" "}
+						</select>
+					</div>
+					<div className="w-full flex flex-col gap-3">
+						<label
+							className="text-black paragraph leading-tight tracking-tight font-medium montserrat"
+							htmlFor="country">
+							Country / Region *
+						</label>
+						<input
+							onChange={handleInputChange}
+							value={formData.country}
+							type="text"
+							id="country"
+							required
+							className="border-[#C6C6C6] border-2 px-4 py-2 w-full outline-none paragraph font-MonstrateRegular"
+						/>
+					</div>
+					<div className="w-full flex flex-col gap-3">
+						<label
+							className="text-black paragraph leading-tight tracking-tight font-medium montserrat"
+							htmlFor="street_address">
+							Street address *
+						</label>
+						<input
+							onChange={handleInputChange}
+							value={formData.street_address}
+							type="text"
+							id="street_address"
+							required
+							className="border-[#C6C6C6] border-2 px-4 py-2 w-full outline-none paragraph font-MonstrateRegular"
+						/>
 					</div>
 					<div className="w-full flex items-center gap-5">
 						<div className="w-full flex flex-col gap-3">
 							<label
 								className="text-black paragraph leading-tight tracking-tight font-medium montserrat"
-								htmlFor="streetAddress">
-								Street address *
-							</label>
-							<input
-								onChange={handleInputChange}
-								value={formData.streetAddress}
-								type="text"
-								id="streetAddress"
-								required
-								className="border-[#C6C6C6] border-2 px-4 py-2 w-full outline-none paragraph font-MonstrateRegular"
-							/>
-						</div>
-					</div>
-					<div className="w-full flex items-center gap-5">
-						<div className="w-full flex flex-col gap-3">
-							<label
-								className="text-black paragraph leading-tight tracking-tight font-medium montserrat"
-								htmlFor="townCity">
+								htmlFor="town_city">
 								Town / City*
 							</label>
 							<input
 								onChange={handleInputChange}
-								value={formData.townCity}
+								value={formData.town_city}
 								type="text"
-								id="townCity"
+								id="town_city"
 								required
 								className="border-[#C6C6C6] border-2 px-4 py-2 w-full outline-none paragraph font-MonstrateRegular"
 							/>
@@ -316,7 +373,7 @@ export default function Form() {
 							<label
 								className="text-black paragraph leading-tight tracking-tight font-medium montserrat"
 								htmlFor="zip">
-								Zip
+								ZIP/Postal Code
 							</label>
 							<input
 								onChange={handleInputChange}
@@ -327,26 +384,44 @@ export default function Form() {
 							/>
 						</div>
 					</div>
+					<div className="w-full flex flex-col gap-3">
+						<label
+							className="text-black paragraph leading-tight tracking-tight font-medium montserrat"
+							htmlFor="timezone">
+							Timezone
+						</label>
+						<select
+							onChange={handleInputChange}
+							value={formData.timezone}
+							id="timezone"
+							className="border-[#C6C6C6] border-2 px-4 py-2 w-full outline-none paragraph font-MonstrateRegular">
+							<option value="America/New_York">Eastern Time (ET)</option>
+							<option value="America/Chicago">Central Time (CT)</option>
+							<option value="America/Denver">Mountain Time (MT)</option>
+							<option value="America/Los_Angeles">Pacific Time (PT)</option>
+							<option value="UTC">UTC/GMT</option>
+						</select>
+					</div>
+					<div className="w-full flex flex-col gap-3">
+						<label
+							className="text-black paragraph leading-tight tracking-tight font-medium montserrat"
+							htmlFor="notes">
+							Notes
+						</label>
+						<textarea
+							onChange={handleInputChange}
+							value={formData.notes}
+							id="notes"
+							rows={3}
+							className="border-[#C6C6C6] border-2 px-4 py-2 w-full outline-none paragraph font-MonstrateRegular"
+						/>
+					</div>
+
 					<p className="text-black paragraph leading-normal tracking-tight font-MonstrateRegular">
 						Your personal data will be used to process your order, support your
 						experience throughout this website, and for other purposes described
 						in our privacy policy.
 					</p>
-					<div className="flex items-center gap-2">
-						<input
-							onChange={handleInputChange}
-							checked={formData.agreedTerms}
-							id="agreedTerms"
-							type="checkbox"
-							required
-							className="w-5 h-5 outline-none border-none"
-						/>
-						<label
-							htmlFor="agreedTerms"
-							className="paragraph text-[#000] leading-tight tracking-tight font-MonstrateRegular">
-							I have read and agree to the website terms and conditions.
-						</label>
-					</div>
 					<button
 						type="submit"
 						disabled={loading}
@@ -354,13 +429,10 @@ export default function Form() {
 						{loading ? (
 							<Loader2 className="animate-spin mx-auto" />
 						) : (
-							"Place Order"
+							`Pay ${service ? `$${service.price}` : ""}`
 						)}
 					</button>
 				</form>
-				<div className="w-full border-l-2 border-black/10 pl-10 py-10">
-					<PaymentElement />
-				</div>
 			</div>
 		</div>
 	);

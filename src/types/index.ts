@@ -40,6 +40,16 @@ export type TuserProps = {
    created_at: string;
 };
 
+export type TtimeslotsColumnProps = {
+   id: string;
+   user_id: string;
+   date: string;
+   start_time: string;
+   end_time: string;
+   status: string;
+   created_at: string;
+};
+
 export type TlogoMarqueeProps = {
    children: React.ReactNode;
    baseVelocity: number;

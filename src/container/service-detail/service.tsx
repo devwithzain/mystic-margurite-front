@@ -46,7 +46,7 @@ export default function Blog() {
 					</div>
 					<div className="w-full flex items-center gap-4 flex-col">
 						<Link
-							to="/booking-form"
+							to={`/services/${id}/booking-form`}
 							className={`w-full bg-[#936d42] btn text-center transition-all duration-300 ease-in-out text-white px-6 py-3 rounded-lg text-[20px] montserrat leading-tight tracking-tight`}>
 							Book Now
 						</Link>
