@@ -3,6 +3,11 @@ import {
 	TtimeslotsColumnProps,
 	TuserProps,
 } from "@/types";
+import {
+	PaymentElement,
+	useElements,
+	useStripe,
+} from "@stripe/react-stripe-js";
 import axios from "axios";
 import { Loader2 } from "lucide-react";
 import { toast } from "react-hot-toast";
@@ -17,7 +22,9 @@ import { useNavigate, useParams } from "react-router-dom";
 export default function Form() {
 	const token = getToken();
 	const { id } = useParams();
+	const stripe = useStripe();
 	const navigate = useNavigate();
+	const elements = useElements();
 	const [loading, setLoading] = useState(false);
 	const [user, setUser] = useState<TuserProps>();
 	const [timeslots, setTimeSlot] = useState<TtimeslotsColumnProps[]>([]);
@@ -26,7 +33,7 @@ export default function Form() {
 	useEffect(() => {
 		const fetchTimeSlots = async () => {
 			try {
-				const response = await getTimeSlots(token);
+				const response = await getTimeSlots();
 				setTimeSlot(response.timeslots);
 			} catch (err) {
 				console.error("Error fetching timeslots:", err);
@@ -71,7 +78,7 @@ export default function Form() {
 		state: "",
 		zip: "",
 		notes: "",
-		status: "panding",
+		status: "pending",
 		time_slot_id: "",
 		meeting_link: "",
 		timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
@@ -90,60 +97,133 @@ export default function Form() {
 		}));
 	};
 
+	const generateJitsiMeeting = async () => {
+		try {
+			const response = await axios.get(
+				"http://127.0.0.1:8000/api/generate-meeting",
+			);
+			const link = response.data.meetingLink;
+			return link;
+		} catch (error) {
+			console.error("Error generating Jitsi meeting:", error);
+			toast.error("Failed to create meeting room");
+			throw error;
+		}
+	};
+
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+		if (!stripe || !elements) {
+			return;
+		}
 		setLoading(true);
+
 		try {
-			const meetingLink = `https://meet.google.com/${Math.random()
-				.toString(36)
-				.substring(2, 10)}`;
+			const meetingLink = await generateJitsiMeeting();
 
-			const bookingData = {
-				user_id: user?.id,
-				service_id: service?.id,
-				cart_items: [
-					{
-						service_id: service?.id,
-					},
-				],
-				time_slot_id: formData.time_slot_id,
-				birth_date: formData.birth_date,
-				birth_time: formData.birth_time,
-				birth_place: formData.birth_place,
-				first_name: formData.first_name,
-				last_name: formData.last_name,
-				phone: formData.phone,
-				email: formData.email,
-				country: formData.country,
-				street_address: formData.street_address,
-				town_city: formData.town_city,
-				state: formData.state,
-				zip: formData.zip,
-				timezone: formData.timezone,
-				notes: formData.notes,
-				meeting_link: meetingLink,
-				status: formData.status,
-			};
+			const amountInCents = service?.price
+				? Math.round(Number(service.price) * 100)
+				: 100;
 
-			const bookingResponse = await axios.post(
-				"http://127.0.0.1:8000/api/placedBooking",
-				bookingData,
-				{
-					headers: {
-						Authorization: `Bearer ${token}`,
+			await axios.post("http://127.0.0.1:8000/api/payment-intent", {
+				amount: amountInCents,
+				currency: "usd",
+			});
+
+			const { error, paymentIntent } = await stripe.confirmPayment({
+				elements,
+				confirmParams: {
+					return_url: window.location.origin + "/thank-you",
+					payment_method_data: {
+						billing_details: {
+							name: `${formData.first_name} ${formData.last_name}`,
+							email: formData.email,
+						},
 					},
 				},
-			);
-			console.log("first", bookingData, "asd", bookingResponse);
-			toast.success("Booking successful!");
+				redirect: "if_required",
+			});
+
+			if (error) {
+				toast.error(error.message || "Payment failed. Try again.");
+				return;
+			}
+
+			if (paymentIntent?.status === "succeeded") {
+				const bookingData = {
+					user_id: user?.id,
+					service_id: service?.id,
+					cart_items: [
+						{
+							service_id: service?.id,
+						},
+					],
+					time_slot_id: formData.time_slot_id,
+					birth_date: formData.birth_date,
+					birth_time: formData.birth_time,
+					birth_place: formData.birth_place,
+					first_name: formData.first_name,
+					last_name: formData.last_name,
+					phone: formData.phone,
+					email: formData.email,
+					country: formData.country,
+					street_address: formData.street_address,
+					town_city: formData.town_city,
+					state: formData.state,
+					zip: formData.zip,
+					timezone: formData.timezone,
+					notes: formData.notes,
+					meeting_link: meetingLink,
+					status: "",
+				};
+
+				const bookingResponse = await axios.post(
+					"http://127.0.0.1:8000/api/placedBooking",
+					bookingData,
+					{
+						headers: {
+							Authorization: `Bearer ${token}`,
+						},
+					},
+				);
+
+				await axios.post(
+					`http://127.0.0.1:8000/api/send-book-form`,
+					bookingData,
+				);
+
+				toast.success(
+					"Booking successful! Check your email for meeting details.",
+				);
+
+				await axios.put(
+					`http://127.0.0.1:8000/api/bookings/${bookingResponse.data.booking_id}/status`,
+					{
+						status: "paid",
+					},
+				);
+
+				await axios.put(
+					`http://127.0.0.1:8000/api/bookings/${bookingResponse.data.booking_id}/status`,
+					{
+						status: "paid",
+					},
+				);
+
+				await axios.post(
+					`http://127.0.0.1:8000/api/timeslot/${timeslots[0].id}`,
+					{
+						status: "booked",
+					},
+				);
+
+				navigate("/thank-you");
+			}
 		} catch (err) {
-			console.log("Booking error:", err);
-			toast.error(
-				err.response?.data?.message || "Booking failed. Please try again.",
-			);
+			console.log("Error processing payment:", err);
+			toast.error("Booking failed. Please try again.");
 		} finally {
 			setLoading(false);
-			// navigate("/thank-you");
 		}
 	};
 
@@ -301,11 +381,36 @@ export default function Form() {
 											? "line-through"
 											: ""
 									}`}>
-									{slot.status === "unavailable" || slot.status === "booked"
-										? `${slot.start_time} - ${slot.end_time} (Booked)`
-										: `${slot.start_time} - ${slot.end_time}`}
+									{new Date(slot.date).toLocaleDateString("en-US", {
+										day: "numeric",
+										month: "long",
+										year: "numeric",
+									})}{" "}
+									-{" "}
+									{new Date(`1970-01-01T${slot.start_time}`).toLocaleTimeString(
+										"en-US",
+										{
+											hour: "2-digit",
+											minute: "2-digit",
+											hour12: true,
+										},
+									)}{" "}
+									-{" "}
+									{new Date(`1970-01-01T${slot.end_time}`).toLocaleTimeString(
+										"en-US",
+										{
+											hour: "2-digit",
+											minute: "2-digit",
+											hour12: true,
+										},
+									)}{" "}
+									{slot.status === "unavailable"
+										? " (Unavailable)"
+										: slot.status === "booked"
+										? " (Booked)"
+										: ""}
 								</option>
-							))}{" "}
+							))}
 						</select>
 					</div>
 					<div className="w-full flex flex-col gap-3">
@@ -427,12 +532,17 @@ export default function Form() {
 						disabled={loading}
 						className="w-fit bg-[#7a74ef] mt-4 flex items-center gap-2 btn transition-all duration-300 ease-in-out text-white px-4 py-4 capitalize montserrat paragraph leading-tight tracking-tight rounded-md">
 						{loading ? (
-							<Loader2 className="animate-spin mx-auto" />
+							<div className="flex items-center gap-2">
+								<Loader2 className="animate-spin mx-auto" /> Loading...
+							</div>
 						) : (
-							`Pay ${service ? `$${service.price}` : ""}`
+							"Book Now"
 						)}
 					</button>
 				</form>
+				<div className="w-1/2 border-l-2 border-black/10 pl-10 py-10">
+					<PaymentElement />
+				</div>
 			</div>
 		</div>
 	);

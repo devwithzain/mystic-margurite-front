@@ -33,8 +33,8 @@ export default function Form() {
 				toast.error("An error occurred");
 			}
 		}
-		console.log(data);
 	};
+
 	return (
 		<div className="w-full padding-y padding-x">
 			<div className="flex items-center justify-center flex-col gap-10">

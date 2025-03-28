@@ -1,12 +1,8 @@
 const apiUrl = `http://127.0.0.1:8000/api/timeslot`;
 
-const getTimeSlot = async (id: string, token: string | undefined | null) => {
+const getTimeSlot = async (id: string) => {
    try {
-      const response = await fetch(`${apiUrl}/${id}`, {
-         headers: {
-            Authorization: `Bearer ${token}`,
-         },
-      });
+      const response = await fetch(`${apiUrl}/${id}`);
       const data = await response.json();
       return data;
    } catch (error) {

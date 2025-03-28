@@ -10,9 +10,14 @@ export const animation = {
    }),
 };
 
-export const navVarients = {
-   initial: { opacity: 0, y: "-100%", transition: { duration: 1.3, ease: [0.76, 0, 0.24, 1] } },
-   vissible: { opacity: 1, y: "0%", transition: { duration: 1.3, ease: [0.76, 0, 0.24, 1] } },
+export const navVariants = {
+   hidden: { y: "-100%", transition: { ease: [0.76, 0, 0.24, 1], duration: 1 } },
+   vissible: { y: 0, transition: { ease: [0.76, 0, 0.24, 1], duration: 1 }, }
+};
+
+export const dropdownVariants = {
+   hidden: { opacity: 0, x: "-50%", y: -5, transition: { duration: 0.2 } },
+   visible: { opacity: 1, x: "-50%", y: 0, transition: { duration: 0.2 } },
 };
 
 export const containerVariants = {

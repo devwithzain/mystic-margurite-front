@@ -1,16 +1,18 @@
 import { logo } from "@/assets";
 import UserMenu from "./user-menu";
 import TextHover from "./text-hover";
-import { motion } from "framer-motion";
-import { navVarients } from "@/motion";
 import { Link } from "react-router-dom";
 import { ShoppingBag } from "lucide-react";
 import { getToken } from "@/lib/get-token";
 import { useEffect, useState } from "react";
 import { AnimatePresence } from "framer-motion";
+import { dropdownVariants, navVariants } from "@/motion";
+import { motion, useMotionValueEvent, useScroll } from "framer-motion";
 
 export default function Navbar() {
 	const token = getToken();
+	const { scrollY } = useScroll();
+	const [hidden, setHidden] = useState(false);
 	const [cartItems, setCartItems] = useState<any[]>([]);
 	const [showStarsDropdown, setShowStarsDropdown] = useState(false);
 	const [showAstrologyDropdown, setShowAstrologyDropdown] = useState(false);
@@ -32,18 +34,24 @@ export default function Navbar() {
 		fetchCartItems();
 	}, [token]);
 
-	const dropdownVariants = {
-		hidden: { opacity: 0, x: "-50%", y: -5, transition: { duration: 0.2 } },
-		visible: { opacity: 1, x: "-50%", y: 0, transition: { duration: 0.2 } },
-	};
+	useMotionValueEvent(scrollY, "change", (latest) => {
+		const previous = scrollY.getPrevious();
+		if (previous && latest > previous) {
+			setHidden(true);
+		} else {
+			setHidden(false);
+		}
+	});
 
 	return (
 		<motion.nav
-			initial="initial"
-			whileInView="vissible"
-			viewport={{ once: true }}
-			variants={navVarients}
-			className="w-full padding-x py-5 absolute top-0 left-0 z-[999]">
+			variants={navVariants}
+			className="w-full padding-x py-5 fixed top-0 left-0 z-[999] flex items-center justify-between xm:hidden sm:hidden md:hidden backdrop-blur-sm"
+			animate={hidden ? "hidden" : "visible"}
+			transition={{
+				duration: 0.5,
+				type: "tween",
+			}}>
 			<div className="w-full flex items-center justify-between">
 				<div>
 					<Link to="/">
