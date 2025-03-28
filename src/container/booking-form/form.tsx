@@ -174,7 +174,7 @@ export default function Form() {
 					timezone: formData.timezone,
 					notes: formData.notes,
 					meeting_link: meetingLink,
-					status: "",
+					status: "panding",
 				};
 
 				const bookingResponse = await axios.post(
