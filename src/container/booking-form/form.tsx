@@ -18,6 +18,7 @@ import getTimeSlots from "@/actions/get-timeslots";
 import React, { useEffect, useState } from "react";
 import AnimatedText from "@/components/animated-text";
 import { useNavigate, useParams } from "react-router-dom";
+import getTimeSlot from "@/actions/get-timeslot";
 
 export default function Form() {
 	const token = getToken();
@@ -27,14 +28,15 @@ export default function Form() {
 	const elements = useElements();
 	const [loading, setLoading] = useState(false);
 	const [user, setUser] = useState<TuserProps>();
-	const [timeslots, setTimeSlot] = useState<TtimeslotsColumnProps[]>([]);
+	const [timeslot, setTimeSlot] = useState<TtimeslotsColumnProps>();
+	const [timeslots, setTimeSlots] = useState<TtimeslotsColumnProps[]>([]);
 	const [service, setService] = useState<TServicesColumnProps | null>(null);
 
 	useEffect(() => {
 		const fetchTimeSlots = async () => {
 			try {
 				const response = await getTimeSlots();
-				setTimeSlot(response.timeslots);
+				setTimeSlots(response.timeslots);
 			} catch (err) {
 				console.error("Error fetching timeslots:", err);
 			}
@@ -83,6 +85,18 @@ export default function Form() {
 		meeting_link: "",
 		timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
 	});
+
+	useEffect(() => {
+		const fetchTimeSlot = async () => {
+			try {
+				const response = await getTimeSlot(formData.time_slot_id);
+				setTimeSlot(response.timeslot);
+			} catch (err) {
+				console.error("Error fetching timeslots:", err);
+			}
+		};
+		fetchTimeSlot();
+	}, [formData.time_slot_id]);
 
 	const handleInputChange = (
 		e: React.ChangeEvent<
@@ -158,7 +172,7 @@ export default function Form() {
 							service_id: service?.id,
 						},
 					],
-					time_slot_id: formData.time_slot_id,
+					time_slot_id: timeslot?.id,
 					birth_date: formData.birth_date,
 					birth_time: formData.birth_time,
 					birth_place: formData.birth_place,
@@ -211,7 +225,7 @@ export default function Form() {
 				);
 
 				await axios.post(
-					`http://127.0.0.1:8000/api/timeslot/${timeslots[0].id}`,
+					`http://127.0.0.1:8000/api/timeslot/${formData.time_slot_id}`,
 					{
 						status: "booked",
 					},

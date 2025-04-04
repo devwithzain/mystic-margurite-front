@@ -501,121 +501,141 @@ export const zodiacSigns = [
 	{
 		id: 1,
 		sign: "SCORPIO",
+
 		description:
-			"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500.",
+			"Scorpio is a Water sign known for intensity, passion, and emotional depth. They are determined, resourceful, and often mysterious.",
 		specialEffects: "Special effects:",
+
 		additionalInfo:
-			"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500.",
+			"Ruled by Pluto and Mars, Scorpios possess powerful intuition and the ability to see beneath the surface. They are natural investigators and healers.",
 		longDescription:
-			"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500.",
+			"Scorpios are the most intense and powerful sign of the zodiac. They have an innate ability to transform themselves and others. Their magnetic personality and deep emotional understanding make them excellent leaders and trusted confidants.",
 		src: star08,
 	},
 	{
 		id: 2,
 		sign: "TAURUS",
+
 		description:
-			"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500.",
+			"Taurus is an Earth sign characterized by stability, reliability, and a strong connection to the material world. They are patient and determined.",
 		specialEffects: "Special effects:",
+
 		additionalInfo:
-			"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500.",
+			"Ruled by Venus, Taureans have a deep appreciation for beauty, comfort, and luxury. They are known for their practical approach to life and strong work ethic.",
 		longDescription:
-			"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500.",
+			"Taurus individuals are the builders of the zodiac, creating solid foundations in all aspects of life. They value security and comfort, approaching life with steady determination and unwavering persistence.",
 		src: star02,
 	},
 	{
 		id: 3,
 		sign: "GEMINI",
+
 		description:
-			"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500.",
+			"Gemini is an Air sign representing duality, communication, and intellectual curiosity. They are versatile, adaptable, and quick-witted.",
 		specialEffects: "Special effects:",
+
 		additionalInfo:
-			"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500.",
+			"Ruled by Mercury, Geminis excel in communication and learning. They have a natural ability to gather and share information, making them excellent communicators.",
 		longDescription:
-			"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500.",
+			"Geminis are the intellectuals of the zodiac, constantly seeking new knowledge and experiences. Their dual nature allows them to see multiple perspectives and adapt to any situation with ease.",
 		src: star03,
 	},
 	{
 		id: 4,
 		sign: "CANCER",
+
 		description:
-			"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500.",
+			"Cancer is a Water sign associated with emotions, nurturing, and home life. They are deeply intuitive and highly protective of loved ones.",
 		specialEffects: "Special effects:",
+
 		additionalInfo:
-			"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500.",
+			"Ruled by the Moon, Cancerians are deeply connected to their emotions and the feelings of others. They are natural caregivers with strong protective instincts.",
 		longDescription:
-			"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500.",
+			"Cancers are the nurturers of the zodiac, creating safe spaces for themselves and others. Their emotional intelligence and intuitive nature make them excellent friends and family members.",
 		src: star04,
 	},
 	{
 		id: 5,
 		sign: "LEO",
+
 		description:
-			"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500.",
+			"Leo is a Fire sign known for confidence, creativity, and natural leadership. They are generous, warm-hearted, and love being in the spotlight.",
 		specialEffects: "Special effects:",
+
 		additionalInfo:
-			"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500.",
+			"Ruled by the Sun, Leos radiate warmth and charisma. They have a natural flair for drama and entertainment, often taking center stage in life.",
 		longDescription:
-			"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500.",
+			"Leos are the natural leaders of the zodiac, bringing light and warmth to those around them. Their creative energy and generous spirit make them magnetic personalities who inspire others.",
 		src: star05,
 	},
 	{
 		id: 6,
 		sign: "SAGITTARIUS",
+
 		description:
-			"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500.",
+			"Sagittarius is a Fire sign representing adventure, philosophy, and optimism. They are truth-seekers with a love for exploration and learning.",
 		specialEffects: "Special effects:",
+
 		additionalInfo:
-			"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500.",
+			"Ruled by Jupiter, Sagittarians are naturally lucky and optimistic. They have an insatiable curiosity about life and a desire for personal growth.",
 		longDescription:
-			"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500.",
+			"Sagittarians are the philosophers of the zodiac, always seeking higher knowledge and new horizons. Their optimistic nature and love for adventure make them inspiring teachers and travelers.",
 		src: star09,
 	},
 	{
 		id: 7,
 		sign: "LIBRA",
+
 		description:
-			"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500.",
+			"Libra is an Air sign symbolizing balance, harmony, and justice. They are diplomatic, fair-minded, and naturally seek peace in all situations.",
 		specialEffects: "Special effects:",
+
 		additionalInfo:
-			"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500.",
+			"Ruled by Venus, Librans have a strong sense of justice and beauty. They excel in creating harmony and maintaining relationships.",
 		longDescription:
-			"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500.",
+			"Libras are the peacekeepers of the zodiac, always striving for balance and fairness. Their diplomatic nature and charm make them excellent mediators and partners.",
 		src: star07,
 	},
 	{
 		id: 8,
 		sign: "ARIES",
+
 		description:
-			"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500.",
+			"Aries is a Fire sign known for leadership, courage, and dynamic energy. They are natural pioneers who love taking initiative and starting new projects.",
 		specialEffects: "Special effects:",
+
 		additionalInfo:
-			"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500.",
+			"Ruled by Mars, Arians are natural warriors with boundless energy and enthusiasm. They excel in leadership and taking bold action.",
 		longDescription:
-			"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500.",
+			"Aries individuals are the pioneers of the zodiac, leading the way with courage and determination. Their energetic nature and enthusiasm make them natural leaders and innovators.",
 		src: star01,
 	},
 	{
 		id: 9,
 		sign: "VIRGO",
+
 		description:
-			"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500.",
+			"Virgo is an Earth sign characterized by analytical thinking, attention to detail, and practical approach to life. They are methodical and service-oriented.",
 		specialEffects: "Special effects:",
+
 		additionalInfo:
-			"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500.",
+			"Ruled by Mercury, Virgos have a sharp analytical mind and eye for detail. They excel in organization and problem-solving.",
 		longDescription:
-			"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500.",
+			"Virgos are the perfectionists of the zodiac, always striving to improve themselves and their environment. Their practical nature and attention to detail make them excellent problem-solvers and healers.",
 		src: star06,
 	},
 	{
 		id: 10,
 		sign: "CAPRICORN",
+
 		description:
-			"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500.",
+			"Capricorn is an Earth sign representing ambition, discipline, and practical wisdom. They are natural leaders with a strong drive for success.",
 		specialEffects: "Special effects:",
+
 		additionalInfo:
-			"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500.",
+			"Ruled by Saturn, Capricorns are masters of discipline and structure. They excel in building lasting foundations and achieving long-term goals.",
 		longDescription:
-			"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500.",
+			"Capricorns are the achievers of the zodiac, climbing the mountain of success with patience and determination. Their practical wisdom and disciplined approach make them excellent managers and leaders.",
 		src: star10,
 	},
 ];

@@ -91,7 +91,7 @@ export default function Services() {
 										</span>
 										<div className="w-fit bg-[#936d42] flex items-center justify-between cursor-pointer rounded-md group">
 											<RoundButton
-												href={`/services/${item.id}`}
+												href={`/services/${item.id}/booking-form`}
 												title="View Detail"
 												className="bg-white text-black"
 												bgcolor="#7a74ef"

@@ -47,7 +47,7 @@ export default function Footer() {
 						</li>
 						<li>
 							<Link
-								to="/astrology-blog"
+								to="/blogs/astrology"
 								className="text-black hover:text-[#7E78FF] montserrat paragraph">
 								Astrology Blog
 							</Link>
