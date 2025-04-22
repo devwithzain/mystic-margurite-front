@@ -34,7 +34,7 @@ export default function Articles() {
 						className={`flex flex-col gap-2`}
 						key={item.id}>
 						<img
-							src={`https://freequote4financialprotection.com/backend/${item?.image}`}
+							src={`http://127.0.0.1:8000/${item?.image}`}
 							alt="blog"
 							className="w-full h-[500px] object-cover"
 						/>

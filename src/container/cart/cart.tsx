@@ -90,7 +90,7 @@ export default function Cart() {
 										if (item.product?.image) {
 											const imageData = JSON.parse(item.product.image);
 											if (Array.isArray(imageData) && imageData.length > 0) {
-												imageSrc = `https://freequote4financialprotection.com/backend/storage/${imageData[0]}`;
+												imageSrc = `http://127.0.0.1:8000/storage/${imageData[0]}`;
 											}
 										}
 									} catch (error) {

@@ -74,7 +74,7 @@ export default function Services() {
 							className="w-full flex flex-col items-center gap-4 bg-[#000] relative rounded-lg overflow-hidden shadow-lg hover:shadow-lg">
 							<div className="w-full relative">
 								<img
-									src={`https://freequote4financialprotection.com/backend/${item?.image}`}
+									src={`http://127.0.0.1:8000/${item?.image}`}
 									alt="service"
 									className="w-full h-[500px] object-cover"
 								/>

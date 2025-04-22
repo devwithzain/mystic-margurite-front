@@ -104,7 +104,7 @@ export default function ProductDetail() {
 				<>
 					<div className="w-1/2">
 						<img
-							src={`https://freequote4financialprotection.com/backend/storage/${
+							src={`http://127.0.0.1:8000/storage/${
 								product?.image ? JSON.parse(product.image)[0] : ""
 							}`}
 							alt={product?.title}

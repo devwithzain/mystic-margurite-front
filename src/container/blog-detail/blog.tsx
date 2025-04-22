@@ -28,7 +28,7 @@ export default function Blog() {
 			<div className="flex flex-col gap-10">
 				<div className="flex items-center justify-center flex-col gap-10">
 					<img
-						src={`https://freequote4financialprotection.com/backend/${blog?.image}`}
+						src={`http://127.0.0.1:8000/${blog?.image}`}
 						alt={blog?.title}
 						className="w-full h-[600px] object-cover object-center"
 					/>
@@ -56,12 +56,9 @@ export default function Blog() {
 						<p className="text-black paragraph font-normal montserrat leading-loose tracking-normal">
 							<TextMask>{[blog?.short_description || ""]}</TextMask>
 						</p>
-						<p className="text-black paragraph font-normal montserrat leading-loose tracking-normal">
-							{/* @tss-ignore */}
-							<TextMask>
-								{[blog?.description ? parse(blog.description) : ""]}
-							</TextMask>
-						</p>
+						<div className="text-black paragraph font-normal montserrat leading-loose tracking-normal">
+							{blog?.description ? parse(blog.description) : ""}
+						</div>
 					</div>
 				</div>
 			</div>
