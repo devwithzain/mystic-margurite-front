@@ -41,7 +41,7 @@ export default function Form() {
 				<div className="">
 					<AnimatedText
 						text="Leave A Message"
-						className="text-[#936d42] heading font-normal forum capitalize leading-tight"
+						className="text-[#2E073F] heading font-normal forum capitalize leading-tight"
 					/>
 				</div>
 				<div className="w-full flex items-center justify-center">

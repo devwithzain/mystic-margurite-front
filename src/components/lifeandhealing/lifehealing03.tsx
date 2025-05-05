@@ -19,7 +19,7 @@ export default function Lifehealing03() {
 							<div className="">
 								<AnimatedText
 									text="Discover the Miracle in You By Margarete."
-									className="text-[#936d42] heading font-normal forum capitalize leading-tight"
+									className="text-[#2E073F] heading font-normal forum capitalize leading-tight"
 								/>
 							</div>
 							<p className="text-black paragraph font-normal montserrat leading-loose tracking-normal">
@@ -47,7 +47,7 @@ export default function Lifehealing03() {
 							<div className="">
 								<AnimatedText
 									text="How do I create miracles with Life Alignment?"
-									className="text-[#936d42] heading font-normal forum capitalize leading-tight"
+									className="text-[#2E073F] heading font-normal forum capitalize leading-tight"
 								/>
 							</div>
 							<p className="text-black paragraph font-normal montserrat leading-loose tracking-normal">
@@ -101,7 +101,7 @@ export default function Lifehealing03() {
 							<div className="">
 								<AnimatedText
 									text="What happens in a Life Alignment balance?"
-									className="text-[#936d42] heading font-normal forum capitalize leading-tight"
+									className="text-[#2E073F] heading font-normal forum capitalize leading-tight"
 								/>
 							</div>
 							<p className="text-black paragraph font-normal montserrat leading-loose tracking-normal">

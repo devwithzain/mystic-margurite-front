@@ -19,7 +19,7 @@ export default function Lifehealing02() {
 							<div className="">
 								<AnimatedText
 									text="An Interview with Life Alignment Founder Dr. Jeff Levin."
-									className="text-[#936d42] heading font-normal forum capitalize leading-tight"
+									className="text-[#2E073F] heading font-normal forum capitalize leading-tight"
 								/>
 							</div>
 							<p className="text-black paragraph font-normal montserrat leading-loose tracking-normal">
@@ -216,7 +216,7 @@ export default function Lifehealing02() {
 							<div className="">
 								<AnimatedText
 									text="Heart Card (Love)."
-									className="text-[#936d42] heading font-normal forum capitalize leading-tight"
+									className="text-[#2E073F] heading font-normal forum capitalize leading-tight"
 								/>
 							</div>
 							<p className="text-black paragraph font-normal montserrat leading-loose tracking-normal">

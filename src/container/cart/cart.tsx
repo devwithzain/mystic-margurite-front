@@ -61,7 +61,7 @@ export default function Cart() {
 		<div className="w-full flex gap-5 justify-between padding-x padding-y shadow-md">
 			<div className="w-full h-fit border-t border-gray-50">
 				<div className="flex justify-between border-b pb-4 items-center">
-					<h1 className="font-bold forum heading leading-tight text-black">
+					<h1 className="font-bold forum heading leading-tight text-[#2E073F]">
 						Shopping Cart
 					</h1>
 				</div>

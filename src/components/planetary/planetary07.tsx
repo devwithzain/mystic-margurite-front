@@ -1,4 +1,4 @@
-import { plan07 } from "@/assets";
+import { TheCatchFull, plan07 } from "@/assets";
 import { MediaPlayer, TextMask } from "@/components";
 import AnimatedText from "@/components/animated-text";
 
@@ -6,11 +6,11 @@ export default function Planetary07() {
 	return (
 		<div className="w-full padding-y padding-x">
 			<div className="flex items-center justify-center flex-col gap-10">
-				<MediaPlayer />
+				<MediaPlayer src={TheCatchFull} />
 				<div className="">
 					<AnimatedText
 						text="Meditation on Jupiter"
-						className="text-[#936d42] heading font-normal forum capitalize leading-tight"
+						className="text-[#2E073F] heading font-normal forum capitalize leading-tight"
 					/>
 				</div>
 				<div className="w-full flex items-center gap-10 flex-col">

@@ -1,4 +1,4 @@
-import { plan09 } from "@/assets";
+import { AuroraFull, plan09 } from "@/assets";
 import { MediaPlayer, TextMask } from "@/components";
 import AnimatedText from "@/components/animated-text";
 
@@ -6,11 +6,11 @@ export default function Planetary09() {
 	return (
 		<div className="w-full padding-y padding-x">
 			<div className="flex items-center justify-center flex-col gap-10">
-				<MediaPlayer />
+				<MediaPlayer src={AuroraFull} />
 				<div className="">
 					<AnimatedText
 						text="Meditation on the Uranus"
-						className="text-[#936d42] heading font-normal forum capitalize leading-tight"
+						className="text-[#2E073F] heading font-normal forum capitalize leading-tight"
 					/>
 				</div>
 				<div className="w-full flex items-center gap-10 flex-col">

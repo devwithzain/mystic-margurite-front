@@ -9,7 +9,7 @@ export default function StarGuidance04() {
 				<div className="">
 					<AnimatedText
 						text="Relating: Table for Two"
-						className="text-[#936d42] heading font-normal forum capitalize leading-tight"
+						className="text-[#2E073F] heading font-normal forum capitalize leading-tight"
 					/>
 				</div>
 				<div className="w-full flex items-center gap-10 flex-col">

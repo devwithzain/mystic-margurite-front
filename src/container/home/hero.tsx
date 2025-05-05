@@ -1,40 +1,28 @@
 import { motion } from "framer-motion";
-import { TextMask } from "@/components";
 import { circle1, circle2 } from "@/assets";
+import TextReveal from "@/components/text-reveal";
 import RoundButton from "@/components/round-button";
-import AnimatedText from "@/components/animated-text";
 
 export default function Hero() {
 	return (
 		<div className="w-full h-screen flex items-center justify-between padding-x heroBg">
 			<div className="flex-1 flex flex-col gap-5">
 				<div className="flex flex-col">
-					<AnimatedText
-						text="Energy"
-						className="text-[#000000] heading font-normal forum uppercase leading-tight tracking-tight"
-					/>
-					<div className="flex items-center gap-5">
-						<AnimatedText
-							text="Balance With"
-							className="text-[#000000] heading font-normal forum uppercase leading-tight tracking-tight"
-						/>
-					</div>
-					<div className="flex items-center gap-5">
-						<AnimatedText
-							text="Life Alignment"
-							className="text-[#000000] heading font-normal forum uppercase leading-tight tracking-tight"
-						/>
-					</div>
+					<TextReveal>
+						<h1 className="text-[#2E073F] heading font-normal smythe leading-tight tracking-tight">
+							Energy Balance
+							<br />
+							with Life Alignment
+						</h1>
+					</TextReveal>
 				</div>
-				<p className="text-[#433e37] paragraph font-normal montserrat leading-normal">
-					<TextMask>
-						{[
-							"Learn about astrology, zodiac signs, retrogrades, and more! Your ",
-							"world becomes clear once you understand how the universe influences ",
-							"it.",
-						]}
-					</TextMask>
-				</p>
+				<TextReveal>
+					<h1 className="text-black paragraph font-normal montserrat leading-normal">
+						Learn about astrology, zodiac signs, retrogrades, and more! Your,
+						world becomes clear once you understand how the universe influences
+						it.
+					</h1>
+				</TextReveal>
 				<div className="w-fit bg-[#7a74ef] flex items-center justify-between bg-secondry cursor-pointer rounded-md group">
 					<RoundButton
 						href="/contact-us"

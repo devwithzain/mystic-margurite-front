@@ -1,4 +1,4 @@
-import { plan01 } from "@/assets";
+import { AuroraFull, plan01 } from "@/assets";
 import { MediaPlayer, TextMask } from "@/components";
 import AnimatedText from "@/components/animated-text";
 
@@ -6,11 +6,11 @@ export default function Planetary01() {
 	return (
 		<div className="w-full padding-y padding-x">
 			<div className="flex items-center justify-center flex-col gap-10">
-				<MediaPlayer />
+				<MediaPlayer src={AuroraFull} />
 				<div className="">
 					<AnimatedText
 						text="Meditation on the Sun"
-						className="text-[#936d42] heading font-normal forum capitalize leading-tight"
+						className="text-[#2E073F] heading font-normal forum capitalize leading-tight"
 					/>
 				</div>
 				<div className="w-full flex items-center gap-10 flex-col">
@@ -162,12 +162,12 @@ export default function Planetary01() {
 						</div>
 						<div className="w-full border-t border-black/20 pt-2">
 							<AnimatedText
-								text="Sun in Pisces:"
+								text="Sun in Libra:"
 								className="text-[#000] subHeading font-normal forum capitalize leading-tight smythe"
 							/>
 							<p className="text-black paragraph font-normal montserrat leading-tight tracking-normal">
-								Sublimely spiritual or low down in the depths of delusion, the
-								ends will definitely justify the means.
+								Balance and harmony seeker; partnership oriented with a focus on
+								fairness, beauty, and diplomatic relations.
 							</p>
 						</div>
 						<div className="w-full border-t border-black/20 pt-2">

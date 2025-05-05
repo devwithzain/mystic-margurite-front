@@ -6,6 +6,11 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+	src: url("../fonts/Poppins.ttf");
+	font-family: Poppins;
+}
+
 body::-webkit-scrollbar {
 	width: 0%;
 }
@@ -15,6 +20,9 @@ body {
 }
 
 @layer utilities {
+	.poppins {
+		@apply font-[Poppins];
+	}
 	.forum {
 		@apply font-[Forum];
 	}

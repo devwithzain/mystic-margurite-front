@@ -17,7 +17,6 @@ export default function ProductDetail() {
 	const loginModal = useLoginModal();
 	const [loading, setLoading] = useState(false);
 	const [user, setUser] = useState<TuserProps>();
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const [cartItems, setCartItems] = useState<any[]>([]);
 	const [product, setProduct] = useState<TproductColumnProps | null>(null);
 	console.log(cartItems);
@@ -100,9 +99,9 @@ export default function ProductDetail() {
 
 	return (
 		<div className="w-full padding-y padding-x">
-			<div className="w-full flex justify-center gap-10">
+			<div className="w-full flex justify-center gap-10 items-center">
 				<>
-					<div className="w-1/2">
+					<div className="w-[700px]">
 						<img
 							src={`http://127.0.0.1:8000/storage/${
 								product?.image ? JSON.parse(product.image)[0] : ""
@@ -111,10 +110,10 @@ export default function ProductDetail() {
 							className="w-full object-cover"
 						/>
 					</div>
-					<div className="w-1/2 flex flex-col gap-5">
+					<div className="w-[40%] flex flex-col gap-5">
 						<AnimatedText
 							text={product?.title || ""}
-							className="text-black heading font-normal smythe leading-tight tracking-tight"
+							className="text-[#2E073F] heading font-normal smythe leading-tight tracking-tight"
 						/>
 						<p className="text-black paragraph font-normal montserrat leading-loose tracking-normal">
 							<TextMask>{[`${product?.description}`]}</TextMask>
@@ -124,7 +123,7 @@ export default function ProductDetail() {
 						</span>
 						<div className="w-full flex items-center gap-4 flex-col">
 							<button
-								className={`w-full bg-[#936d42] btn text-center transition-all duration-300 ease-in-out text-white px-6 py-3 rounded-lg text-[20px] montserrat leading-tight tracking-tight`}
+								className={`w-full bg-[#2E073F] btn text-center transition-all duration-300 ease-in-out text-white px-6 py-3 rounded-lg text-[20px] montserrat leading-tight tracking-tight`}
 								onClick={() => addToCart(product?.id?.toString())}>
 								{loading ? (
 									<Loader2 className="animate-spin mx-auto" />

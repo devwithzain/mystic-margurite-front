@@ -121,6 +121,11 @@ export { default as life04 } from './life04.gif';
 
 export { default as lineDown } from './lineDown.png';
 export { default as lineUp } from './lineUp.png';
-export { default as M83 } from './M83.mp3';
+export { default as AuroraFull } from './Aurora_Full.mp3';
+export { default as FastCarsFull } from './Fast_Cars_Full.mp3';
+export { default as MovingInFull } from './Moving_In_Full.mp3';
+export { default as NightConcertFull } from './Night_Concert_Full.mp3';
+export { default as SlipperyEdgeFull } from './Slippery_Edge_Full.mp3';
+export { default as TheCatchFull } from './The_Catch_Full.mp3';
 
 export { default as mystic } from './mystic.jpg';

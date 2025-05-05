@@ -20,7 +20,7 @@ export default function Footer() {
 					</p>
 				</div>
 				<div>
-					<h3 className="text-[#7E78FF] subHeading mb-4 forum uppercase">
+					<h3 className="text-[#2E073F] subHeading mb-4 forum uppercase">
 						Quick Links
 					</h3>
 					<ul className="space-y-2">
@@ -83,7 +83,7 @@ export default function Footer() {
 					</ul>
 				</div>
 				<div>
-					<h3 className="text-[#7E78FF] subHeading mb-4 forum uppercase">
+					<h3 className="text-[#2E073F] subHeading mb-4 forum uppercase">
 						Privacy
 					</h3>
 					<ul className="space-y-2">
@@ -104,7 +104,7 @@ export default function Footer() {
 					</ul>
 				</div>
 				<div>
-					<h3 className="text-[#7E78FF] subHeading mb-4 forum uppercase">
+					<h3 className="text-[#2E073F] subHeading mb-4 forum uppercase">
 						Contact Us
 					</h3>
 					<ul className="space-y-3">

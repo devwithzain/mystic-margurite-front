@@ -24,7 +24,7 @@ export default function OrderPage() {
 		<div className="w-full p-4 flex gap-2">
 			<div className="w-full gap-1 flex flex-col px-6 pb-5">
 				{orders.length === 0 ? (
-					<div className="flex py-10 flex-col">
+					<div className="flex py-10 flex-col gap-3">
 						<h1 className="text-xl montserrat">
 							You don't have any orders yet.
 						</h1>

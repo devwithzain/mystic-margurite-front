@@ -1,11 +1,12 @@
 import axios from "axios";
+import { useState } from "react";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
+import { ChevronDown } from "lucide-react";
+import TextReveal from "@/components/text-reveal";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { bookNowFormSchema, TbookNowFormData } from "@/schemas";
 import { footerLogo, formBg, gradientCircle, star } from "@/assets";
-import { ChevronDown } from "lucide-react";
-import { useState } from "react";
 
 export default function Form() {
 	const form = useForm<TbookNowFormData>({
@@ -41,28 +42,30 @@ export default function Form() {
 			}
 			console.error("Error:", err);
 		}
-		console.log(data);
 	};
+
 	return (
 		<div className="w-full border-b border-[#C3BEB6]">
 			<div className="w-full flex">
-				<div className="flex-1">
+				<div className="w-1/2">
 					<img
 						src={formBg}
 						alt="formBgImg"
 						className="w-full h-full object-cover"
 					/>
 				</div>
-				<div className="flex-1 flex flex-col p-10 gap-10">
+				<div className="w-1/2 flex flex-col p-10 gap-10">
 					<div className="w-full flex items-center justify-between gap-2">
 						<img
 							src={gradientCircle}
 							alt="gradientCircleImg"
 							className="w-[150px] lg:w-[100px] md:w-[80px] object-cover"
 						/>
-						<h3 className="text-[#7E78FF] subHeading forum capitalize leading-tight tracking-tight text-center">
-							Energy Balance with <br /> Life Alignment
-						</h3>
+						<TextReveal>
+							<h1 className="text-[#2E073F] subHeading forum font-semibold capitalize leading-tight tracking-tight text-center">
+								Energy Balance with <br /> Life Alignment
+							</h1>
+						</TextReveal>
 						<img
 							src={footerLogo}
 							alt="footerLogoImg"

@@ -166,15 +166,15 @@ export default function Form() {
 	return (
 		<div className="w-full padding-x padding-y">
 			<div className="w-full flex items-center justify-around">
-				<div className="w-fit pb-2 border-b-4 border-black">
+				<div className="w-fit pb-2 border-b-4 border-[#2E073F]">
 					<AnimatedText
-						className="text-[#080808] smythe heading font-medium leading-tight capitalize"
+						className="text-[#2E073F] smythe heading font-medium leading-tight capitalize"
 						text="Billing details"
 					/>
 				</div>
-				<div className="w-fit pb-2 border-b-4 border-black">
+				<div className="w-fit pb-2 border-b-4 border-[#2E073F]">
 					<AnimatedText
-						className="text-[#080808] smythe heading font-medium leading-tight capitalize"
+						className="text-[#2E073F] smythe heading font-medium leading-tight capitalize"
 						text="Card details"
 					/>
 				</div>

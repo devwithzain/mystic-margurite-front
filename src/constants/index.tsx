@@ -151,15 +151,6 @@ export const marqueeItems = [
 export const servicesItems = [
 	{
 		id: 1,
-		title: "Planetary Meditations",
-		desc: "Experience deep meditation techniques aligned with planetary energies to enhance your spiritual connection and personal growth.",
-		img: brownStar,
-		src: service1,
-		btn: "Learn more",
-		href: "planetary-meditations",
-	},
-	{
-		id: 2,
 		title: "Life and Balances",
 		desc: "Discover harmony in all aspects of your life through holistic approaches to balance your mind, body, and spirit.",
 		img: brownStar,
@@ -168,7 +159,7 @@ export const servicesItems = [
 		href: "life-healing",
 	},
 	{
-		id: 3,
+		id: 2,
 		title: "Stars And Planets",
 		desc: "Explore the cosmic influences of celestial bodies and learn how their positions impact your daily life and future path.",
 		img: brownStar,

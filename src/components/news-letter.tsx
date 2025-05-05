@@ -52,7 +52,7 @@ export default function NewsLetter() {
 		<section className="flex items-center justify-center padding-x padding-y testimonialsBg">
 			<div className="w-full max-w-7xl flex flex-col gap-5 padding-x py-14 bg-white shadow-lg rounded-2xl text-center">
 				<div className="flex flex-col">
-					<h2 className="heading font-semibold text-[#936d42] tracking-tight leading-tight forum">
+					<h2 className="heading font-semibold text-[#2E073F] tracking-tight leading-tight forum">
 						Subscribe to our <br /> Newsletter
 					</h2>
 				</div>

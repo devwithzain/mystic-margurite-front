@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { servicesItems } from "@/constants";
+import TextReveal from "@/components/text-reveal";
 
 export default function Services() {
 	return (
@@ -7,7 +8,7 @@ export default function Services() {
 			<div className="w-full items-end justify-between flex">
 				{servicesItems.map((item) => (
 					<div
-						className={`flex flex-col gap-5 items-center  padding-x padding-y border-b border-[#C3BEB6] ${
+						className={`w-1/2 flex flex-col gap-5 items-center  padding-x padding-y border-b border-[#C3BEB6] ${
 							item.id === 2
 								? "border-l border-[#C3BEB6]"
 								: "bg-[#FFFCFA] border-l border-[#C3BEB6]"
@@ -16,14 +17,18 @@ export default function Services() {
 						<img
 							src={item.src}
 							alt={item.title}
-							className="w-full h-full object-cover"
+							className="w-[400px] object-cover"
 						/>
-						<h1 className="subHeading text-[#936D42] forum leading-tight tracking-tight">
-							{item.title}
-						</h1>
-						<p className="text-center paragraph text-[#433E37] montserrat leading-normal tracking-tight">
-							{item.desc}
-						</p>
+						<TextReveal>
+							<h1 className="text-[#2E073F] heading font-normal smythe leading-tight tracking-tight">
+								{item.title}
+							</h1>
+						</TextReveal>
+						<TextReveal>
+							<p className="text-center paragraph text-[#000] montserrat leading-normal tracking-tight">
+								{item.desc}
+							</p>
+						</TextReveal>
 						<Link
 							className="flex items-center gap-2 box"
 							to={item.href}>

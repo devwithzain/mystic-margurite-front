@@ -1,4 +1,3 @@
-import { M83 } from "@/assets";
 import { useRef, useState } from "react";
 import {
 	FaPlay,
@@ -8,7 +7,7 @@ import {
 	FaEllipsisV,
 } from "react-icons/fa";
 
-export default function MediaPlayer() {
+export default function MediaPlayer({ src }: { src: string }) {
 	const [volume, setVolume] = useState(1);
 	const [progress, setProgress] = useState(0);
 	const [duration, setDuration] = useState(0);
@@ -149,7 +148,7 @@ export default function MediaPlayer() {
 				onTimeUpdate={updateProgress}
 				onLoadedMetadata={updateProgress}>
 				<source
-					src={M83}
+					src={src}
 					type="audio/mp3"
 				/>
 			</audio>

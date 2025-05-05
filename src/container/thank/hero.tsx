@@ -7,7 +7,7 @@ export default function Hero() {
 			<div className="w-full flex flex-col gap-5 items-center justify-center">
 				<AnimatedText
 					text="Thank You"
-					className="text-[#936d42] heading font-normal forum uppercase leading-tight tracking-normal text-center"
+					className="text-[#2E073F] heading font-normal forum uppercase leading-tight tracking-normal text-center"
 				/>
 				<div className="flex flex-col gap-4 items-center">
 					<p className="paragraph montserrat tracking-tight leading-tight text-black text-center">

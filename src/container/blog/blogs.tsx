@@ -142,7 +142,7 @@ export default function Blogs() {
 											/>
 										</div>
 										<div className="flex flex-col">
-											<h3 className="text-black subHeading font-normal forum leading-tight">
+											<h3 className="text-[#2E073F] subHeading font-medium forum leading-tight">
 												{item?.title?.split(" ").slice(0, 3).join(" ")} ...
 											</h3>
 											<p className="text-black montserrat text-sm font-normal forum leading-normal">
@@ -162,7 +162,7 @@ export default function Blogs() {
 								</motion.div>
 							))
 						) : (
-							<div className="col-span-4 text-center text-black subHeading font-normal montserrat">
+							<div className="col-span-4 text-center text-[#2E073F] subHeading font-normal montserrat">
 								No blogs found in this category
 							</div>
 						)}

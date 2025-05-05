@@ -11,7 +11,7 @@ export default function StarGuidance() {
 				<div className="">
 					<AnimatedText
 						text="StarGuidance"
-						className="text-[#936d42] heading font-normal forum capitalize leading-tight"
+						className="text-[#2E073F] heading font-normal forum capitalize leading-tight"
 					/>
 				</div>
 				<div className="grid grid-cols-4 gap-6">

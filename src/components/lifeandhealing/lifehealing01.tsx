@@ -19,7 +19,7 @@ export default function Lifehealing01() {
 							<div className="">
 								<AnimatedText
 									text="An Introduction to the Life Alignment Healing Method By Marguerite Hafeman."
-									className="text-[#936d42] heading font-normal forum capitalize leading-tight"
+									className="text-[#2E073F] heading font-normal forum capitalize leading-tight"
 								/>
 							</div>
 							<p className="text-black paragraph font-normal montserrat leading-loose tracking-normal">
@@ -47,7 +47,7 @@ export default function Lifehealing01() {
 							<div className="">
 								<AnimatedText
 									text="Origen of the Life Alignment Method and How It Works."
-									className="text-[#936d42] heading font-normal forum capitalize leading-tight"
+									className="text-[#2E073F] heading font-normal forum capitalize leading-tight"
 								/>
 							</div>
 							<p className="text-black paragraph font-normal montserrat leading-loose tracking-normal">
@@ -103,7 +103,7 @@ export default function Lifehealing01() {
 							<div className="">
 								<AnimatedText
 									text="Life Alignment Balancing Procedures."
-									className="text-[#936d42] heading font-normal forum capitalize leading-tight"
+									className="text-[#2E073F] heading font-normal forum capitalize leading-tight"
 								/>
 							</div>
 							<p className="text-black paragraph font-normal montserrat leading-loose tracking-normal">
@@ -138,7 +138,7 @@ export default function Lifehealing01() {
 							<div className="">
 								<AnimatedText
 									text="Where Astrology and Life Alignment Come Together."
-									className="text-[#936d42] heading font-normal forum capitalize leading-tight"
+									className="text-[#2E073F] heading font-normal forum capitalize leading-tight"
 								/>
 							</div>
 							<p className="text-black paragraph font-normal montserrat leading-loose tracking-normal">

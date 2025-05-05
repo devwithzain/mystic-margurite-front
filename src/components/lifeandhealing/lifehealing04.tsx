@@ -19,7 +19,7 @@ export default function Lifehealing04() {
 							<div className="">
 								<AnimatedText
 									text="Metatron Cube."
-									className="text-[#936d42] heading font-normal forum capitalize leading-tight"
+									className="text-[#2E073F] heading font-normal forum capitalize leading-tight"
 								/>
 							</div>
 							<p className="text-black paragraph font-normal montserrat leading-loose tracking-normal">
