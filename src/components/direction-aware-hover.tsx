@@ -1,8 +1,8 @@
 "use client";
 
+import { cn } from "@/lib/utils";
 import { useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { cn } from "@/lib/utils";
 
 export const DirectionAwareHover = ({
 	imageUrl,
@@ -64,24 +64,22 @@ export const DirectionAwareHover = ({
 		<motion.div
 			onMouseEnter={handleMouseEnter}
 			ref={ref}
-			className={cn(
-				"bg-transparent rounded-lg overflow-hidden group/card relative",
-				className,
-			)}>
+			className={cn(" group/card relative", className)}>
 			<AnimatePresence mode="wait">
 				<motion.div
 					className="relative h-[350px] w-[350px]"
 					initial="initial"
 					whileHover={direction}
 					exit="exit">
-					<motion.div className="group-hover/card:block hidden absolute inset-0 w-full h-full bg-black/50 z-10 transition duration-500" />
+					<motion.div className="group-hover/card:block hidden absolute inset-0 w-full h-full z-10 transition duration-500" />
 					<motion.div
 						variants={variants}
-						className="h-full w-full relative bg-gray-50 dark:bg-black"
+						className="h-full w-full relative"
 						transition={{
 							duration: 0.2,
 							ease: "easeOut",
 						}}>
+						<div className="absolute inset-0 bg-black/50 z-20 opacity-0 group-hover/card:opacity-100 transition-opacity duration-300 rounded-full" />
 						<img
 							alt="image"
 							className={cn(
@@ -98,7 +96,7 @@ export const DirectionAwareHover = ({
 							ease: "easeOut",
 						}}
 						className={cn(
-							"text-white paragraph font-normal montserrat leading-tight absolute bottom-4 left-4 z-40",
+							"text-white paragraph font-normal montserrat leading-tight absolute top-1/2 left-10 z-40",
 							childrenClassName,
 						)}>
 						{children}

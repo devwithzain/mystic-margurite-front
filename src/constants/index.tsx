@@ -59,7 +59,6 @@ import {
 	planetry12,
 	Sagittarius,
 	Scorpio,
-	service1,
 	service2,
 	service3,
 	star,
@@ -138,11 +137,6 @@ export const marqueeItems = [
 	},
 	{
 		id: 5,
-		title: "Daily horoscope",
-		img: star,
-	},
-	{
-		id: 6,
 		title: "Psychic powers",
 		img: star,
 	},
@@ -367,7 +361,7 @@ export const lifehealingItems = [
 	},
 	{
 		id: 2,
-		title: "Distant Balances With Life Alignment.",
+		title: "An interview with the founder of Life Alignment.",
 		desc: "The turbulence and change occurring on our planet forced a lot of “normal” life to go online. From work and fitness to personal well-being and self-care, many tools for transformation initially relied on online platforms. Now there are many more people who prefer the convenience of non-local treatments, being able to connect to offerings and practitioners all over the world.",
 		src: life02,
 	},

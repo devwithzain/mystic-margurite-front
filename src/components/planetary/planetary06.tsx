@@ -10,7 +10,7 @@ export default function Planetary06() {
 				<div className="">
 					<AnimatedText
 						text="Meditation on Mars"
-						className="text-[#2E073F] heading font-normal forum capitalize leading-tight"
+						className="text-[#2E073F] heading font-semibold papyrus leading-tight"
 					/>
 				</div>
 				<div className="w-full flex items-center gap-10 flex-col">

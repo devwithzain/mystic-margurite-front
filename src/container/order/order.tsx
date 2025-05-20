@@ -73,7 +73,7 @@ export default function OrderPage() {
 											<div>
 												{order.items.slice(0, 1).map((item: OrderItem) => (
 													<img
-														src={`http://127.0.0.1:8000/storage/${
+														src={`https://mysticmarguerite.com/new/backend/storage/${
 															item?.product.image
 																? JSON.parse(item.product.image)[0]
 																: ""

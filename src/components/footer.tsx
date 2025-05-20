@@ -127,15 +127,19 @@ export default function Footer() {
 					© {new Date().getFullYear()} Mysticmarguerite. All rights reserved.
 				</p>
 				<div className="flex items-center gap-2">
-					<p className="text-center md:text-left text-black paragraph montserrat leading-tight tracking-tight font-normal">
+					<Link
+						className="text-center md:text-left text-black paragraph montserrat leading-tight tracking-tight font-normal"
+						to="/privacy-policy">
 						Privacy Policy
-					</p>
+					</Link>
 					<p className="text-center md:text-left text-black paragraph montserrat leading-tight tracking-tight font-normal">
 						|
 					</p>
-					<p className="text-center md:text-left text-black paragraph montserrat leading-tight tracking-tight font-normal">
+					<Link
+						to="/terms-and-condition"
+						className="text-center md:text-left text-black paragraph montserrat leading-tight tracking-tight font-normal">
 						Terms & Conditions
-					</p>
+					</Link>
 				</div>
 			</div>
 		</footer>

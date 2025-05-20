@@ -5,7 +5,7 @@ export default function Hero() {
 		<div className="w-full h-[60vh] flex items-center justify-center heroBg">
 			<AnimatedText
 				text="Planetary Meditations"
-				className="text-[#2E073F] heading font-normal forum uppercase leading-tight tracking-normal"
+				className="text-[#2E073F] heading font-semibold papyrus leading-tight tracking-normal"
 			/>
 		</div>
 	);

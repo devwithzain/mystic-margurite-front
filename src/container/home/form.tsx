@@ -13,7 +13,6 @@ export default function Form() {
 		resolver: zodResolver(bookNowFormSchema),
 	});
 	const [isFilterOpen, setIsFilterOpen] = useState(false);
-	// const [isFilterOpen1, setIsFilterOpen1] = useState(false);
 
 	const {
 		handleSubmit,
@@ -25,7 +24,7 @@ export default function Form() {
 	const onSubmits = async (data: TbookNowFormData) => {
 		try {
 			const response = await axios.post(
-				`http://127.0.0.1:8000/api/book-now`,
+				`https://mysticmarguerite.com/new/backend/api/book-now`,
 				data,
 			);
 			if (response.data.success) {
@@ -62,7 +61,7 @@ export default function Form() {
 							className="w-[150px] lg:w-[100px] md:w-[80px] object-cover"
 						/>
 						<TextReveal>
-							<h1 className="text-[#2E073F] subHeading forum font-semibold capitalize leading-tight tracking-tight text-center">
+							<h1 className="text-[#2E073F] subHeading papyrus font-semibold capitalize tracking-tight text-center">
 								Energy Balance with <br /> Life Alignment
 							</h1>
 						</TextReveal>

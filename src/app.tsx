@@ -7,20 +7,22 @@ import Thank from "./pages/Thank";
 import About from "./pages/About";
 import Orders from "./pages/Orders";
 import Contact from "./pages/Contact";
+import TermsPage from "./pages/Terms";
 import Product from "./pages/Products";
 import Checkout from "./pages/Checkout";
 import Services from "./pages/Services";
 import Planatery from "./pages/Planatery";
+import PrivacyPage from "./pages/Privacy";
 import BlogDetail from "./pages/BlogDetail";
 import LifeHealing from "./pages/LifeHealing";
+import BookingForm from "./pages/BookingForm ";
+import StarGuidancePage from "./pages/StarGuidance";
 import ProductDetailPage from "./pages/ProductDetail";
 import ServiceDetailPage from "./pages/ServiceDetail";
 import StarsAndPlanets from "./pages/StarsAndPlanets";
 import PlanetaryDetailPage from "./pages/PlanetaryDetail";
 import LifeHealingDetailPage from "./pages/LifeHealingDetail";
-import StarGuidancePage from "./pages/StarGuidance";
 import StarGuidanceDetailPage from "./pages/StarGuidanceDetail";
-import BookingForm from "./pages/BookingForm ";
 
 export default function App() {
 	return (
@@ -112,6 +114,14 @@ export default function App() {
 			<Route
 				path="/my-orders"
 				element={<Orders />}
+			/>
+			<Route
+				path="/privacy-policy"
+				element={<PrivacyPage />}
+			/>
+			<Route
+				path="/terms-and-condition"
+				element={<TermsPage />}
 			/>
 			<Route
 				path="/contact-us"

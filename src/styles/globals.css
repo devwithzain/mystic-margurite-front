@@ -7,8 +7,8 @@
 @tailwind utilities;
 
 @font-face {
-	src: url("../fonts/Poppins.ttf");
-	font-family: Poppins;
+	src: url("../fonts/papyrus.ttf");
+	font-family: Papyrus;
 }
 
 body::-webkit-scrollbar {
@@ -20,8 +20,8 @@ body {
 }
 
 @layer utilities {
-	.poppins {
-		@apply font-[Poppins];
+	.papyrus {
+		@apply font-[Papyrus];
 	}
 	.forum {
 		@apply font-[Forum];
@@ -33,13 +33,13 @@ body {
 		@apply font-[Montserrat];
 	}
 	.padding-x {
-		@apply px-[80px] lg:px-[40px] md:px-[30px] sm:px-[20px] xm:px-[20px];
+		@apply px-[70px] lg:px-[40px] md:px-[30px] sm:px-[20px] xm:px-[20px];
 	}
 	.padding-y {
 		@apply py-[80px] lg:py-[40px] md:py-[30px] sm:py-[20px] xm:py-[20px];
 	}
 	.heading {
-		@apply text-[80px] lg:text-[60px] md:text-[50px] sm:text-[35px] xm:text-[30px];
+		@apply text-[75px] lg:text-[60px] md:text-[50px] sm:text-[35px] xm:text-[30px];
 	}
 	.subHeading {
 		@apply text-[45px] lg:text-[28px] md:text-[22px] sm:text-[18px] xm:text-[18px];

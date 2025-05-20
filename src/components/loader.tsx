@@ -65,11 +65,11 @@ export default function Loader() {
 						<div className="flex flex-col gap-4 z-10 items-center">
 							<AnimatedText
 								text="Mystic Marguerite Certified Astrologer"
-								className="text-[#fff] heading font-normal smythe capitalize leading-tight tracking-tight"
+								className="text-[#fff] heading font-semibold papyrus capitalize tracking-tight"
 							/>
 							<AnimatedText
 								text="Life Alignment Balances"
-								className="text-[#fff] heading font-normal smythe capitalize leading-tight tracking-tight"
+								className="text-[#fff] heading font-semibold papyrus capitalize tracking-tight"
 							/>
 						</div>
 					)}

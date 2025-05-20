@@ -49,7 +49,7 @@ export { default as introVideo } from './intro.mp4';
 export { default as introVideo2 } from './intro2.mp4';
 
 
-export { default as aboutImg } from './aboutImg.jpg';
+export { default as aboutImg } from './aboutImg.png';
 export { default as planetry01 } from './planetry01.png';
 export { default as planetry02 } from './planetry02.png';
 export { default as planetry03 } from './planetry03.png';
@@ -107,17 +107,17 @@ export { default as guide12 } from './guide12.jpg';
 export { default as guide13 } from './guide13.jpg';
 
 export { default as life01 } from './life01.jpg';
-export { default as life011 } from './life011.jpg';
+export { default as life011 } from './life011.png';
 export { default as life012 } from './life012.jpg';
 export { default as life013 } from './life013.jpg';
 export { default as life02 } from './life02.png';
 export { default as life021 } from './life021.jpg';
 export { default as life022 } from './life022.jpg';
-export { default as life023 } from './life023.jpg';
+export { default as life023 } from './life023.png';
 export { default as life03 } from './life03.png';
 export { default as life031 } from './life031.png';
 export { default as life032 } from './life032.png';
-export { default as life04 } from './life04.gif';
+export { default as life04 } from './life04.png';
 
 export { default as lineDown } from './lineDown.png';
 export { default as lineUp } from './lineUp.png';

@@ -1,5 +1,6 @@
 import { guide02 } from "@/assets";
 import { TextMask } from "@/components";
+import RoundButton from "../round-button";
 import AnimatedText from "@/components/animated-text";
 
 export default function StarGuidance02() {
@@ -9,7 +10,7 @@ export default function StarGuidance02() {
 				<div className="">
 					<AnimatedText
 						text="The Solar Return Chart"
-						className="text-[#2E073F] heading font-normal forum capitalize leading-tight"
+						className="text-[#2E073F] heading font-semibold papyrus leading-tight"
 					/>
 				</div>
 				<div className="w-full flex items-center gap-10 flex-col">
@@ -174,6 +175,15 @@ export default function StarGuidance02() {
 						</ul>
 					</div>
 				</div>
+			</div>
+			<div className="w-fit bg-[#936d42] flex items-center justify-between bg-secondry cursor-pointer rounded-md group mt-5">
+				<RoundButton
+					href={`/stars/star-guidance`}
+					title="Go Back"
+					className="bg-white text-black"
+					bgcolor="#7a74ef"
+					style={{ color: "#fff" }}
+				/>
 			</div>
 		</div>
 	);

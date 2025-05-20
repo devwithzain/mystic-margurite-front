@@ -25,7 +25,7 @@ export default function Services() {
 			<div className="w-full flex justify-center flex-col gap-10">
 				<div className="flex flex-col gap-5">
 					<TextReveal>
-						<h1 className="subHeading font-semibold text-[#2E073F] forum leading-tight tracking-tight uppercase">
+						<h1 className="subHeading font-semibold text-[#2E073F] forum leading-tight tracking-tight">
 							Contact for Questions or to Schedule a Consultation:
 						</h1>
 					</TextReveal>
@@ -63,7 +63,7 @@ export default function Services() {
 					</TextReveal>
 				</div>
 				<TextReveal>
-					<h1 className="subHeading font-semibold text-[#2E073F] forum leading-tight tracking-tight uppercase">
+					<h1 className="subHeading font-semibold text-[#2E073F] forum leading-tight tracking-tight">
 						Booking for Consultation.
 					</h1>
 				</TextReveal>
@@ -77,12 +77,12 @@ export default function Services() {
 							className="w-full flex flex-col items-center gap-4 bg-[#000] relative rounded-lg overflow-hidden shadow-lg hover:shadow-lg">
 							<div className="w-full relative">
 								<img
-									src={`http://127.0.0.1:8000/${item?.image}`}
+									src={`https://mysticmarguerite.com/new/backend/${item?.image}`}
 									alt="service"
 									className="w-full h-[500px] object-cover"
 								/>
 								<div className="p-4 w-full flex flex-col justify-between gap-5">
-									<h3 className="text-white subHeading font-normal smythe leading-tight tracking-tight">
+									<h3 className="text-white subHeading font-semibold forum leading-tight tracking-tight">
 										{item.title}
 									</h3>
 									<p className="paragraph leading-normal text-white font-normal montserrat">

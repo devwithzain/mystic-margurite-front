@@ -22,7 +22,7 @@ export default function LifeHealing() {
 								<img
 									src={item.src}
 									alt={item?.title}
-									className="w-full h-[350px] object-cover"
+									className="w-full h-[350px] object-fill"
 								/>
 								<div className="p-4 w-full flex flex-col justify-between gap-4">
 									<h3 className="text-white subHeading font-normal smythe leading-tight tracking-tight">
@@ -41,7 +41,7 @@ export default function LifeHealing() {
 										/>
 									</div>
 								</div>
-							</Link>
+							</Link>{" "}
 						</motion.div>
 					))}
 				</div>

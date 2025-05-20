@@ -1,21 +1,28 @@
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import React, { useRef } from "react";
 import { SplitText } from "gsap/SplitText";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import React, { useRef, ReactElement, ReactNode } from "react";
 
 gsap.registerPlugin(SplitText, ScrollTrigger);
+
+interface TextAnimatedProps {
+	children: ReactNode;
+	animateOnScroll?: boolean;
+	delay?: number;
+	className?: string;
+}
 
 export default function TextReveal({
 	children,
 	animateOnScroll = true,
 	delay = 0.3,
 	className = "",
-}) {
-	const lines = useRef([]);
-	const splitRefs = useRef([]);
-	const elementRefs = useRef([]);
-	const containerRef = useRef(null);
+}: TextAnimatedProps) {
+	const lines = useRef<HTMLElement[]>([]);
+	const splitRefs = useRef<SplitText[]>([]);
+	const elementRefs = useRef<HTMLElement[]>([]);
+	const containerRef = useRef<HTMLDivElement | null>(null);
 
 	useGSAP(
 		() => {
@@ -25,17 +32,17 @@ export default function TextReveal({
 			lines.current = [];
 			elementRefs.current = [];
 
-			let elements = [];
+			let elements: HTMLElement[] = [];
 			if (containerRef.current.hasAttribute("data-copy-wrapper")) {
-				elements = Array.from(containerRef.current.children);
+				elements = Array.from(containerRef.current.children) as HTMLElement[];
 			} else {
 				elements = [containerRef.current];
 			}
 
-			elements.forEach((element) => {
+			elements.forEach((element: HTMLElement) => {
 				elementRefs.current.push(element);
 
-				const split = SplitText.create(element, {
+				const split = new SplitText(element, {
 					type: "lines",
 					mask: "lines",
 					linesClass: "line++",
@@ -49,12 +56,12 @@ export default function TextReveal({
 
 				if (textIndent && textIndent !== "0px") {
 					if (split.lines.length > 0) {
-						split.lines[0].style.paddingLeft = textIndent;
+						(split.lines[0] as HTMLElement).style.paddingLeft = textIndent;
 					}
 					element.style.textIndent = "0";
 				}
 
-				lines.current.push(...split.lines);
+				lines.current.push(...(split.lines as HTMLElement[]));
 			});
 
 			gsap.set(lines.current, { y: "100%" });
@@ -92,7 +99,7 @@ export default function TextReveal({
 	);
 
 	if (React.Children.count(children) === 1) {
-		return React.cloneElement(children, { ref: containerRef });
+		return React.cloneElement(children as ReactElement, { ref: containerRef });
 	}
 
 	return (

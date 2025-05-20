@@ -43,7 +43,7 @@ export default function RegisterForm({ onClose }: { onClose: () => void }) {
 			return;
 		}
 		await axios
-			.post(`http://127.0.0.1:8000/api/register`, data)
+			.post(`https://mysticmarguerite.com/new/backend/api/register`, data)
 			.then((response) => {
 				if (response?.data?.success) {
 					toast.success(response.data.success);

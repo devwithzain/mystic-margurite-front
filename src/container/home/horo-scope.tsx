@@ -8,8 +8,8 @@ export default function HoroScope() {
 		<div className="w-full padding-x padding-y flex items-center justify-center flex-col gap-20">
 			<div className="flex flex-col gap-2 items-center">
 				<TextReveal>
-					<h1 className="text-[#2E073F] heading forum font-semibold capitalize leading-tight tracking-tight text-center">
-						TODAY'S HOROSCOPE
+					<h1 className="text-[#2E073F] heading capitalize papyrus font-semibold tracking-tight text-center">
+						Today's Horoscope
 					</h1>
 				</TextReveal>
 				<TextReveal>

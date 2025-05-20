@@ -1,4 +1,4 @@
-import { logo } from "@/assets";
+import { footerLogo } from "@/assets";
 import UserMenu from "./user-menu";
 import TextHover from "./text-hover";
 import { Link } from "react-router-dom";
@@ -13,16 +13,19 @@ export default function Navbar() {
 	const token = getToken();
 	const { scrollY } = useScroll();
 	const [hidden, setHidden] = useState(false);
-	const [cartItems, setCartItems] = useState<any[]>([]);
-	const [showStarsDropdown, setShowStarsDropdown] = useState(false);
+	const [cartItems, setCartItems] = useState([]);
+	// const [showStarsDropdown, setShowStarsDropdown] = useState(false);
 	const [showAstrologyDropdown, setShowAstrologyDropdown] = useState(false);
 
 	useEffect(() => {
 		const fetchCartItems = async () => {
 			try {
-				const response = await fetch(`http://127.0.0.1:8000/api/cart`, {
-					headers: { Authorization: `Bearer ${token}` },
-				});
+				const response = await fetch(
+					`https://mysticmarguerite.com/new/backend/api/cart`,
+					{
+						headers: { Authorization: `Bearer ${token}` },
+					},
+				);
 				const data = await response.json();
 				setCartItems(data);
 			} catch (error) {
@@ -56,9 +59,9 @@ export default function Navbar() {
 				<div>
 					<Link to="/">
 						<img
-							src={logo}
+							src={footerLogo}
 							className="w-20 h-20 object-cover"
-							alt="margerite-logo"
+							alt="margerite-footerLogo"
 						/>
 					</Link>
 				</div>
@@ -96,8 +99,8 @@ export default function Navbar() {
 									className="absolute top-full left-1/2 bg-[#7A75EF] shadow-lg rounded-md min-w-[170px] mt-1">
 									<Link
 										to="/blogs/astrology"
-										className="block paragraph montserrat text-white font-normal leading-tight tracking-tight p-3 hover:bg-white/20">
-										Astrology
+										className="block paragraph montserrat text-white font-normal leading-tight tracking-tight p-3 hover:bg-white/20 whitespace-nowrap">
+										Monthly Astrology Blog
 									</Link>
 									<Link
 										to="/blogs/astrodialogues"
@@ -128,11 +131,19 @@ export default function Navbar() {
 						to="/life-healing"
 						className="paragraph font-normal montserrat hover">
 						<TextHover
-							title1="Life & Balances"
-							title2="Life & Balances"
+							title1="Life Alignment Balances"
+							title2="Life Alignment Balances"
 						/>
 					</Link>
-					<div
+					<Link
+						to="/stars/star-guidance"
+						className="paragraph font-normal montserrat hover">
+						<TextHover
+							title1="Planetary Guidance"
+							title2="Planetary Guidance"
+						/>
+					</Link>
+					{/* <div
 						className="relative"
 						onMouseEnter={() => setShowStarsDropdown(true)}
 						onMouseLeave={() => setShowStarsDropdown(false)}>
@@ -160,9 +171,8 @@ export default function Navbar() {
 								</motion.div>
 							)}
 						</AnimatePresence>
-					</div>
+					</div> */}
 				</ul>
-
 				<div className="flex items-center gap-2">
 					<Link
 						to="/cart"

@@ -1,4 +1,4 @@
-const apiUrl = `http://127.0.0.1:8000/api/user/orders`;
+const apiUrl = `https://mysticmarguerite.com/new/backend/api/user/orders`;
 
 const getOrders = async (token: string | undefined | null) => {
    try {

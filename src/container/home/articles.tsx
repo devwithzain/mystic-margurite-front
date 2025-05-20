@@ -22,7 +22,7 @@ export default function Articles() {
 		<div className="w-full min-h-screen padding-x padding-y flex items-center justify-center flex-col gap-20 bg-white z-50 relative">
 			<div className="flex flex-col gap-2 items-center">
 				<TextReveal>
-					<h1 className="heading text-[#2E073F] forum leading-tight tracking-tight uppercase">
+					<h1 className="heading text-[#2E073F] papyrus tracking-tight font-semibold">
 						Latest Articles
 					</h1>
 				</TextReveal>
@@ -39,7 +39,7 @@ export default function Articles() {
 						className={`flex flex-col gap-2`}
 						key={item.id}>
 						<img
-							src={`http://127.0.0.1:8000/${item?.image}`}
+							src={`https://mysticmarguerite.com/new/backend/${item?.image}`}
 							alt="blog"
 							className="w-full h-[500px] object-cover"
 						/>

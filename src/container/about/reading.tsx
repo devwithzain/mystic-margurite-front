@@ -18,7 +18,7 @@ export default function Reading() {
 				</div>
 				<div className="w-full flex flex-col gap-5">
 					<TextReveal>
-						<h1 className="heading text-[#2E073F] forum leading-tight tracking-tight uppercase">
+						<h1 className="heading text-[#2E073F] papyrus font-semibold tracking-tight">
 							Who Is Marguerite?
 						</h1>
 					</TextReveal>

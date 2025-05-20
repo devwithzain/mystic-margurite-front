@@ -4,7 +4,7 @@ import {
 	client02,
 	client03,
 	client04,
-	eyes,
+	footerLogo,
 } from "@/assets";
 // @ts-expect-error - Temporary workaround for type mismatch
 import "swiper/css";
@@ -29,7 +29,7 @@ export default function Testimonials() {
 			<div className="flex flex-col items-center justify-between gap-20">
 				<div className="w-full flex items-center justify-center padding-x">
 					<img
-						src={eyes}
+						src={footerLogo}
 						alt="eyesImg"
 						className="w-[150px] object-cover"
 					/>

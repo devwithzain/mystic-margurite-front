@@ -10,6 +10,7 @@ import { TproductColumnProps, TuserProps } from "@/types";
 import { useParams } from "react-router-dom";
 import { Loader2 } from "lucide-react";
 import useLoginModal from "@/hooks/use-login-modal";
+import { formatUSD } from "@/lib/formate-price";
 
 export default function ProductDetail() {
 	const token = getToken();
@@ -40,11 +41,14 @@ export default function ProductDetail() {
 	useEffect(() => {
 		const fetchCartItems = async () => {
 			try {
-				const response = await fetch(`http://127.0.0.1:8000/api/cart`, {
-					headers: {
-						Authorization: `Bearer ${token}`,
+				const response = await fetch(
+					`https://mysticmarguerite.com/new/backend/api/cart`,
+					{
+						headers: {
+							Authorization: `Bearer ${token}`,
+						},
 					},
-				});
+				);
 				const data = await response.json();
 				setCartItems(data);
 			} catch (error: unknown) {
@@ -73,7 +77,7 @@ export default function ProductDetail() {
 			try {
 				setLoading(true);
 				const response = await axios.post(
-					`http://127.0.0.1:8000/api/cart`,
+					`https://mysticmarguerite.com/new/backend/api/cart`,
 					{
 						user_id: user?.id,
 						product_id: productId,
@@ -103,7 +107,7 @@ export default function ProductDetail() {
 				<>
 					<div className="w-[700px]">
 						<img
-							src={`http://127.0.0.1:8000/storage/${
+							src={`https://mysticmarguerite.com/new/backend/storage/${
 								product?.image ? JSON.parse(product.image)[0] : ""
 							}`}
 							alt={product?.title}
@@ -113,14 +117,25 @@ export default function ProductDetail() {
 					<div className="w-[40%] flex flex-col gap-5">
 						<AnimatedText
 							text={product?.title || ""}
-							className="text-[#2E073F] heading font-normal smythe leading-tight tracking-tight"
+							className="text-[#2E073F] heading font-semibold papyrus tracking-tight leading-tight"
 						/>
-						<p className="text-black paragraph font-normal montserrat leading-loose tracking-normal">
-							<TextMask>{[`${product?.description}`]}</TextMask>
-						</p>
-						<span className="paragraph text-black leading-tight tracking-tight montserrat font-medium">
-							Price: ${product?.price}
-						</span>
+
+						<div>
+							<p className="text-[#2E073F] subHeading font-semibold forum tracking-tight">
+								Description:
+							</p>
+							<p className="text-black paragraph font-normal montserrat leading-loose tracking-normal">
+								<TextMask>{[`${product?.description}`]}</TextMask>
+							</p>
+						</div>
+						<div className="w-full flex items-center justify-between">
+							<p className="text-[#2E073F] subHeading font-semibold forum tracking-tight">
+								Price:
+							</p>
+							<span className="text-3xl text-black leading-tight tracking-tight montserrat font-medium">
+								{formatUSD(product?.price)}
+							</span>
+						</div>
 						<div className="w-full flex items-center gap-4 flex-col">
 							<button
 								className={`w-full bg-[#2E073F] btn text-center transition-all duration-300 ease-in-out text-white px-6 py-3 rounded-lg text-[20px] montserrat leading-tight tracking-tight`}

@@ -15,7 +15,7 @@ export default function Marquee() {
 								alt="star"
 								className="w-8 h-8 object-cover"
 							/>
-							<p className="subHeading text-white leading-tight tracking-tight forum">
+							<p className="subHeading text-white leading-tight papyrus capitalize font-semibold">
 								{item.title}
 							</p>
 						</div>

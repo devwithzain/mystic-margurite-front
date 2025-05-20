@@ -114,7 +114,7 @@ export default function Form() {
 	const generateJitsiMeeting = async () => {
 		try {
 			const response = await axios.get(
-				"http://127.0.0.1:8000/api/generate-meeting",
+				"https://mysticmarguerite.com/new/backend/api/generate-meeting",
 			);
 			const link = response.data.meetingLink;
 			return link;
@@ -139,10 +139,13 @@ export default function Form() {
 				? Math.round(Number(service.price) * 100)
 				: 100;
 
-			await axios.post("http://127.0.0.1:8000/api/payment-intent", {
-				amount: amountInCents,
-				currency: "usd",
-			});
+			await axios.post(
+				"https://mysticmarguerite.com/new/backend/api/payment-intent",
+				{
+					amount: amountInCents,
+					currency: "usd",
+				},
+			);
 
 			const { error, paymentIntent } = await stripe.confirmPayment({
 				elements,
@@ -192,7 +195,7 @@ export default function Form() {
 				};
 
 				const bookingResponse = await axios.post(
-					"http://127.0.0.1:8000/api/placedBooking",
+					"https://mysticmarguerite.com/new/backend/api/placedBooking",
 					bookingData,
 					{
 						headers: {
@@ -202,7 +205,7 @@ export default function Form() {
 				);
 
 				await axios.post(
-					`http://127.0.0.1:8000/api/send-book-form`,
+					`https://mysticmarguerite.com/new/backend/api/send-book-form`,
 					bookingData,
 				);
 
@@ -211,21 +214,21 @@ export default function Form() {
 				);
 
 				await axios.put(
-					`http://127.0.0.1:8000/api/bookings/${bookingResponse.data.booking_id}/status`,
+					`https://mysticmarguerite.com/new/backend/api/bookings/${bookingResponse.data.booking_id}/status`,
 					{
 						status: "paid",
 					},
 				);
 
 				await axios.put(
-					`http://127.0.0.1:8000/api/bookings/${bookingResponse.data.booking_id}/status`,
+					`https://mysticmarguerite.com/new/backend/api/bookings/${bookingResponse.data.booking_id}/status`,
 					{
 						status: "paid",
 					},
 				);
 
 				await axios.post(
-					`http://127.0.0.1:8000/api/timeslot/${formData.time_slot_id}`,
+					`https://mysticmarguerite.com/new/backend/api/timeslot/${formData.time_slot_id}`,
 					{
 						status: "booked",
 					},
@@ -246,13 +249,13 @@ export default function Form() {
 			<div className="w-full flex items-center justify-around">
 				<div className="w-fit pb-2 border-b-4 border-[#2E073F]">
 					<AnimatedText
-						className="text-[#2E073F] smythe heading font-medium leading-tight capitalize"
+						className="text-[#2E073F] papyrus heading font-medium leading-tight capitalize"
 						text="Booking details"
 					/>
 				</div>
 				<div className="w-fit pb-2 border-b-4 border-[#2E073F]">
 					<AnimatedText
-						className="text-[#2E073F] smythe heading font-medium leading-tight capitalize"
+						className="text-[#2E073F] papyrus heading font-medium leading-tight capitalize"
 						text="Card details"
 					/>
 				</div>

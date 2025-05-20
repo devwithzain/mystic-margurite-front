@@ -19,7 +19,7 @@ export default function Lifehealing01() {
 							<div className="">
 								<AnimatedText
 									text="An Introduction to the Life Alignment Healing Method By Marguerite Hafeman."
-									className="text-[#2E073F] heading font-normal forum capitalize leading-tight"
+									className="text-[#2E073F] subHeading font-semibold papyrus capitalize"
 								/>
 							</div>
 							<p className="text-black paragraph font-normal montserrat leading-loose tracking-normal">
@@ -47,7 +47,7 @@ export default function Lifehealing01() {
 							<div className="">
 								<AnimatedText
 									text="Origen of the Life Alignment Method and How It Works."
-									className="text-[#2E073F] heading font-normal forum capitalize leading-tight"
+									className="text-[#2E073F] subHeading font-semibold papyrus capitalize"
 								/>
 							</div>
 							<p className="text-black paragraph font-normal montserrat leading-loose tracking-normal">
@@ -77,7 +77,7 @@ export default function Lifehealing01() {
 						<p className="text-black paragraph font-normal montserrat leading-loose tracking-normal">
 							<TextMask>
 								{[
-									"Jeff downloaded the system over a number of days of deep meditation.  It initially consisted of a series of points on the body connecting energetically to the organs, glands and body systems and a way of working with them.  Eventually, points representing components of the etheric envelope that surround and interpenetrate the body were added to the original group; these include subtle bodies, causal bodies and chakra centers, for example.   Jeff also developed a series of magnetically charged cards that depict various forms of sacred geometry, each symbolic of a particular archetype of elemental, emotional or energetic content.  When placed in or around the body in specific patterns these can support the balancing process.",
+									"Jeff hails from South Africa and began his career path as an architect. However, he was drawn from early times to experiment with energy balancing techniques due to dramatic healing experiences of his own. Eventually, he downloaded his own unique system over a number of days in deep meditation, repeating this process over several years as additional insights were added in increments of complexity.",
 								]}
 							</TextMask>
 						</p>
@@ -103,7 +103,7 @@ export default function Lifehealing01() {
 							<div className="">
 								<AnimatedText
 									text="Life Alignment Balancing Procedures."
-									className="text-[#2E073F] heading font-normal forum capitalize leading-tight"
+									className="text-[#2E073F] subHeading font-semibold papyrus capitalize"
 								/>
 							</div>
 							<p className="text-black paragraph font-normal montserrat leading-loose tracking-normal">
@@ -138,7 +138,7 @@ export default function Lifehealing01() {
 							<div className="">
 								<AnimatedText
 									text="Where Astrology and Life Alignment Come Together."
-									className="text-[#2E073F] heading font-normal forum capitalize leading-tight"
+									className="text-[#2E073F] subHeading font-semibold papyrus capitalize"
 								/>
 							</div>
 							<p className="text-black paragraph font-normal montserrat leading-loose tracking-normal">

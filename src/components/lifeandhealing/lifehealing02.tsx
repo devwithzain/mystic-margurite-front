@@ -19,7 +19,7 @@ export default function Lifehealing02() {
 							<div className="">
 								<AnimatedText
 									text="An Interview with Life Alignment Founder Dr. Jeff Levin."
-									className="text-[#2E073F] heading font-normal forum capitalize leading-tight"
+									className="text-[#2E073F] subHeading font-semibold papyrus capitalize"
 								/>
 							</div>
 							<p className="text-black paragraph font-normal montserrat leading-loose tracking-normal">
@@ -86,7 +86,7 @@ export default function Lifehealing02() {
 				<div className="flex flex-col gap-10">
 					<div className="w-full flex items-center justify-center gap-10">
 						<div className="flex-1 flex flex-col gap-5">
-							<p className="text-black paragraph font-normal montserrat leading-loose tracking-normal">
+							<p className="text-black paragraph font-semibold montserrat leading-loose tracking-normal">
 								<TextMask>
 									{[
 										"Maggie: Speaking about the collective field of consciousness, I often hear about the ripple effect. Can you explain more about it? Do I need to be aware of a Life Alignment balance in order to receive its benefits?",
@@ -124,7 +124,7 @@ export default function Lifehealing02() {
 								]}
 							</TextMask>
 						</p>
-						<p className="text-black paragraph font-normal montserrat leading-loose tracking-normal">
+						<p className="text-black paragraph font-semibold montserrat leading-loose tracking-normal">
 							<TextMask>
 								{[
 									"Maggie: I had the experience that I couldn't connect to my emotions during a group session. I really wanted to shift, at least in my mind, but my heart didn't manage to connect.",
@@ -152,7 +152,7 @@ export default function Lifehealing02() {
 								]}
 							</TextMask>
 						</p>
-						<p className="text-black paragraph font-normal montserrat leading-loose tracking-normal">
+						<p className="text-black paragraph font-semibold montserrat leading-loose tracking-normal">
 							<TextMask>
 								{[
 									"Maggie: You mentioned the Vortex technology.  What are the cards doing with the energy field to make the person more receptive and to shift easier or deeper?",
@@ -180,7 +180,7 @@ export default function Lifehealing02() {
 								]}
 							</TextMask>
 						</p>
-						<p className="text-black paragraph font-normal montserrat leading-loose tracking-normal">
+						<p className="text-black paragraph font-semibold montserrat leading-loose tracking-normal">
 							<TextMask>
 								{[
 									"Maggie: So in fact the more we are connected to the energy of love the more profound we are with our connections and work.",
@@ -194,7 +194,7 @@ export default function Lifehealing02() {
 								]}
 							</TextMask>
 						</p>
-						<p className="text-black paragraph font-normal montserrat leading-loose tracking-normal">
+						<p className="text-black paragraph font-semibold montserrat leading-loose tracking-normal">
 							<TextMask>
 								{[
 									"Maggie: Thank you for this profound conversation Jeff. What sticks with me is how vital it is to be neutral and to maintain the practice of getting beyond the mind to connect to the quantum field and Source. From this place everything is possible and we can create a ripple effect that affects relationships, family constellations, businesses, larger groups and the entire planet.",
@@ -216,7 +216,7 @@ export default function Lifehealing02() {
 							<div className="">
 								<AnimatedText
 									text="Heart Card (Love)."
-									className="text-[#2E073F] heading font-normal forum capitalize leading-tight"
+									className="text-[#2E073F] subHeading font-semibold papyrus capitalize"
 								/>
 							</div>
 							<p className="text-black paragraph font-normal montserrat leading-loose tracking-normal">

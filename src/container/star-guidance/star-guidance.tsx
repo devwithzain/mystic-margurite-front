@@ -1,19 +1,12 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { starGuidanceItems } from "@/constants";
-import AnimatedText from "@/components/animated-text";
 import { DirectionAwareHover } from "@/components/direction-aware-hover";
 
 export default function StarGuidance() {
 	return (
 		<div className="w-full padding-y padding-x">
 			<div className="flex items-center justify-center flex-col gap-10">
-				<div className="">
-					<AnimatedText
-						text="StarGuidance"
-						className="text-[#2E073F] heading font-normal forum capitalize leading-tight"
-					/>
-				</div>
 				<div className="grid grid-cols-4 gap-6">
 					{starGuidanceItems.map((item, index) => (
 						<motion.div

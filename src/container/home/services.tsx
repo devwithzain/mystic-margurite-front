@@ -17,10 +17,10 @@ export default function Services() {
 						<img
 							src={item.src}
 							alt={item.title}
-							className="w-[400px] object-cover"
+							className="w-[500px] object-cover"
 						/>
 						<TextReveal>
-							<h1 className="text-[#2E073F] heading font-normal smythe leading-tight tracking-tight">
+							<h1 className="text-[#2E073F] subHeading font-semibold papyrus tracking-tight">
 								{item.title}
 							</h1>
 						</TextReveal>

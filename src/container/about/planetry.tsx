@@ -11,7 +11,7 @@ export default function Planetary() {
 				<div className="">
 					<AnimatedText
 						text="Planetary Meditation"
-						className="text-[#2E073F] heading font-normal forum capitalize leading-tight"
+						className="text-[#2E073F] heading papyrus font-semibold capitalize leading-tight"
 					/>
 				</div>
 				<div className="grid grid-cols-4 gap-6">

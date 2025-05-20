@@ -9,7 +9,7 @@ export default function Hero() {
 			<div className="flex-1 flex flex-col gap-5">
 				<div className="flex flex-col">
 					<TextReveal>
-						<h1 className="text-[#2E073F] heading font-normal smythe leading-tight tracking-tight">
+						<h1 className="text-[#2E073F] heading font-semibold papyrus leading-tight tracking-tight">
 							Energy Balance
 							<br />
 							with Life Alignment
