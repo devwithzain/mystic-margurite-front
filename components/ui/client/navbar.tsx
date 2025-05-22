@@ -157,14 +157,14 @@ export default function Navbar() {
 					</div> */}
 				</ul>
 				<div className="flex items-center gap-2">
-					<Link
-						href="/cart"
+					<div
+						onClick={toggleCart}
 						className="bg-[#7a74ef] px-4 py-2 relative rounded-lg text-white">
 						<span className="absolute right-3 top-1 px-[5px] py-[2px] text-white font-Monstrate rounded-full bg-black text-[8px]">
 							{cartCount}
 						</span>
 						<ShoppingBag size={30} />
-					</Link>
+					</div>
 					<Link
 						href="/contact-us"
 						className="w-fit px-6 py-3 bg-[#7a74ef] rounded-lg cursor-pointer text-white paragraph font-normal montserrat">

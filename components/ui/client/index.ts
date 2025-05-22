@@ -9,3 +9,4 @@ export { default as Footer } from './footer';
 export { default as LogoMarquee } from './logo-marquee';
 export { default as NewsLetter } from './news-letter';
 export { default as RoundButton } from './round-button';
+export { default as SideCart } from './slide-cart';
