@@ -1,0 +1,60 @@
+"use client";
+import { Plus } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
+import Heading from "@/components/admin/heading";
+import getCategories from "@/actions/get-categories";
+import { Separator } from "@/components/ui/separator";
+import { DataTable } from "@/components/ui/data-table";
+import { columns } from "@/container/admin/categories/columns";
+
+export default function CategoryListings() {
+	const router = useRouter();
+	const [categories, setcategories] = useState([]);
+
+	useEffect(() => {
+		const fetchCategories = async () => {
+			try {
+				const productData = await getCategories();
+				setcategories(productData.categories);
+			} catch (err) {
+				console.error("Error fetching initial data:", err);
+			}
+		};
+
+		fetchCategories();
+	}, []);
+
+	const formatedCategories = categories.map((category) => ({
+		id: category.id,
+		title: category.title,
+		created_at: category.created_at,
+		updated_at: category.updated_at,
+	}));
+
+	return (
+		<div className="flex flex-1 flex-col gap-4 p-4 pt-0">
+			<div className="flex items-center justify-between">
+				<Heading
+					title={`Categories (${formatedCategories.length})`}
+					description="Manage Categories for your products."
+				/>
+				<Button
+					className="flex items-center gap-x-2"
+					onClick={() => router.push(`/dashboard/categories/new`)}>
+					<Plus className="w-4 h-4" />
+					Add new
+				</Button>
+			</div>
+			<Separator />
+			<div className="flex gap-4 flex-col">
+				<DataTable
+					columns={columns}
+					data={formatedCategories}
+					searchKey="title"
+				/>
+			</div>
+		</div>
+	);
+}
