@@ -1,15 +1,15 @@
 "use client";
 import {
-	DropdownMenu,
-	DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import {
 	SidebarMenu,
 	SidebarMenuButton,
 	SidebarMenuItem,
 } from "@/components/admin/sidebar";
+import {
+	DropdownMenu,
+	DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import Image from "next/image";
-import { logo } from "@/public";
+import { footerLogo } from "@/public";
 
 export function TeamSwitcher() {
 	return (
@@ -22,12 +22,14 @@ export function TeamSwitcher() {
 							className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground">
 							<div className="flex aspect-square size-8 items-center justify-center rounded-lg">
 								<Image
-									src={logo}
+									src={footerLogo}
 									alt="Mystic"
 								/>
 							</div>
 							<div className="grid flex-1 text-left text-sm leading-tight">
-								<span className="truncate font-semibold">Mystic</span>
+								<span className="truncate font-semibold">
+									Mystic Marguerite
+								</span>
 								<span className="truncate text-xs">Admin Dashboard</span>
 							</div>
 						</SidebarMenuButton>

@@ -11,14 +11,14 @@ export type TblogsColumnProps = {
    category: string;
    image: string;
    comments: string;
-   created_at: string;
+   created_at: Date | null;
    updated_at: string;
 };
 
 export type TcategoryColumnProps = {
    id: bigint;
    title: string;
-   created_at: string;
+   created_at: Date | null;
 };
 
 export type TmodallProps = {
@@ -49,7 +49,7 @@ export type TuserProps = {
 export type TsubscribersColumnProps = {
    id: string;
    email: string;
-   created_at: string;
+   created_at: Date | null;
 };
 
 export type TtimeslotsColumnProps = {
@@ -59,13 +59,13 @@ export type TtimeslotsColumnProps = {
    start_time: string;
    end_time: string;
    status: string;
-   created_at: string;
+   created_at: Date | null;
 };
 
 export type TordersProps = {
    id: number;
    status: string;
-   created_at: string;
+   created_at: Date | null;
    updated_at: string;
    checkout_detail?: {
       first_name?: string;
@@ -83,7 +83,7 @@ export type TordersProps = {
 export type TbookingsProps = {
    id: number;
    status: string;
-   created_at: string;
+   created_at: Date | null;
    booking_detail?: {
       first_name?: string;
       last_name?: string;
@@ -119,7 +119,7 @@ export type TserviceColumnProps = {
    price: string;
    description: string;
    image: string;
-   created_at: string;
+   created_at: Date | null;
 };
 
 export type TproductsColumnProps = {
@@ -128,7 +128,7 @@ export type TproductsColumnProps = {
    price: string;
    description: string;
    image: string;
-   created_at: string;
+   created_at: Date | null;
 };
 
 export type TforgotPasswordProps = {
@@ -178,7 +178,7 @@ export type TproductColumnProps = {
    price: string;
    description: string;
    image: string;
-   created_at: string;
+   created_at: Date | null;
 };
 
 export type TcartColumnProps = {
@@ -226,4 +226,9 @@ export type TcartContextType = {
    toggleCart: () => void;
    refreshCart: () => void;
    closeCart: () => void;
+};
+
+export type TtextEditorProps = {
+   value?: string;
+   onChange?: (value: string) => void;
 };

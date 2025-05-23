@@ -36,7 +36,7 @@ export function NavMain({
 
 	return (
 		<SidebarGroup>
-			<SidebarGroupLabel className="text-[16px] font-medium leading-tight pb-4 text-black dark:text-white">
+			<SidebarGroupLabel className="text-[16px] font-medium leading-tight pb-4 dark:text-white">
 				Navigation
 			</SidebarGroupLabel>
 			<SidebarMenu>

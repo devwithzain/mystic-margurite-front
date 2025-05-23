@@ -23,8 +23,8 @@ import getCategories from "@/actions/get-categories";
 import { Separator } from "@/components/ui/separator";
 import { zodResolver } from "@hookform/resolvers/zod";
 import AlertModal from "@/components/admin/alert-modal";
+import TextEditor from "@/components/admin/text-editor";
 import { blogsColumnSchema, TblogsColumnProps } from "@/schemas";
-import RichTextEditor from "@/components/admin/rich-text-editor";
 
 export default function BlogsForm({
 	slug,
@@ -153,10 +153,7 @@ export default function BlogsForm({
 		return new Blob([ab], { type: mimeString });
 	};
 
-	// ...existing code...
 	const onSubmits = async (data: TblogsColumnProps) => {
-		console.log("Form Data:", data); // Debug log
-
 		if (!image) {
 			setImageError("Image is required");
 			return;
@@ -194,7 +191,7 @@ export default function BlogsForm({
 				);
 			}
 			toast.success(toastMessage);
-			// router.push(`/dashboard/blogs`);
+			router.push(`/dashboard/blogs`);
 			router.refresh();
 		} catch (error) {
 			toast.error(
@@ -204,16 +201,15 @@ export default function BlogsForm({
 			);
 		}
 	};
-	// ...existing code...
 
 	const onDelete = async () => {
 		try {
 			await axios.delete(
 				`https://mysticmarguerite.com/new/backend/api/blog/${blogId}`,
 			);
-			router.push(`/dashboard/blogs`);
-			router.refresh();
 			toast.success("Service deleted");
+			router.refresh();
+			router.push(`/dashboard/blogs`);
 		} catch (error) {
 			console.error(error);
 			toast.error("Something went wrong");
@@ -289,9 +285,11 @@ export default function BlogsForm({
 							<FormItem>
 								<FormLabel>Description</FormLabel>
 								<FormControl>
-									<RichTextEditor
+									<TextEditor
 										value={field.value}
-										onChange={field.onChange}
+										onChange={(html) => {
+											field.onChange(html);
+										}}
 									/>
 								</FormControl>
 								<FormMessage />
