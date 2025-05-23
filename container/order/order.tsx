@@ -3,7 +3,6 @@ import Image from "next/image";
 import { Order, OrderItem } from "@/types";
 import { getToken } from "@/lib/get-token";
 import { useEffect, useState } from "react";
-import getOrders from "@/actions/get-orders";
 import RoundButton from "@/components/ui/client/round-button";
 
 export default function OrderPage() {
@@ -13,12 +12,21 @@ export default function OrderPage() {
 	useEffect(() => {
 		const fetchOrders = async () => {
 			try {
-				const response = await getOrders();
-				setOrders(response);
-			} catch (err) {
-				console.error("Error fetching orders:", err);
+				const response = await fetch(
+					`https://mysticmarguerite.com/new/backend/api/user/orders`,
+					{
+						headers: {
+							Authorization: `Bearer ${token}`,
+						},
+					},
+				);
+				const data = await response.json();
+				setOrders(data);
+			} catch (error: unknown) {
+				console.error("Error fetching orders:", error);
 			}
 		};
+
 		fetchOrders();
 	}, [token]);
 
@@ -84,7 +92,7 @@ export default function OrderPage() {
 																	: ""
 															}`}
 															alt="serviceImg"
-															className="w-full h-20 object-cover"
+															className="w-full h-20 object-fill"
 															width={200}
 															height={200}
 														/>

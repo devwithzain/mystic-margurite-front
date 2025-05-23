@@ -1,8 +1,7 @@
 "use client";
 import "@/styles/globals.css";
 import { useEffect } from "react";
-import { CartProvider } from "@/context/cart-context";
-import { Footer, Navbar, SideCart } from "@/components/ui/client";
+import { Footer, Navbar } from "@/components/ui/client";
 
 export default function RootLayout({
 	children,
@@ -16,15 +15,12 @@ export default function RootLayout({
 		})();
 	}, []);
 	return (
-		<CartProvider>
-			<html lang="en">
-				<body>
-					<Navbar />
-					<SideCart />
-					{children}
-					<Footer />
-				</body>
-			</html>
-		</CartProvider>
+		<html lang="en">
+			<body>
+				<Navbar />
+				{children}
+				<Footer />
+			</body>
+		</html>
 	);
 }

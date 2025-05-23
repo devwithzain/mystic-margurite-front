@@ -166,7 +166,7 @@ export default function SideCart() {
 									) : cartItems.length === 0 ? (
 										<Link
 											className="w-full px-1 py-4 bg-black flex items-center justify-center paragraph uppercase text-center font-gradient-regular tracking-tight leading-tight text-white"
-											href="/shop"
+											href="/products"
 											onClick={closeCart}>
 											Continue Browsing
 										</Link>
@@ -196,10 +196,7 @@ export default function SideCart() {
 																<div className="flex flex-col gap-3">
 																	<div className="flex flex-col">
 																		<h1 className="text-2xl font-gradient-medium tracking-tight leading-tight text-black">
-																			{item.product?.title}
-																		</h1>
-																		<h1 className="paragraph font-gradient-regular tracking-normal leading-normal text-black">
-																			Size: {item.size}
+																			{item.product?.title.slice(0, 15)}...
 																		</h1>
 																	</div>
 																	<div>

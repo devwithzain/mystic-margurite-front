@@ -9,18 +9,13 @@ body::-webkit-scrollbar {
 }
 
 @font-face {
-	src: url("../fonts/Poppins.ttf");
-	font-family: Poppins;
-}
-
-@font-face {
 	src: url("../fonts/papyrus.ttf");
 	font-family: Papyrus;
 }
 
 body {
+	font-family: Montserrat;
 	overflow-x: hidden;
-	background-color: #f0f3f4;
 }
 
 @custom-variant xm (@media (max-width: 519px));

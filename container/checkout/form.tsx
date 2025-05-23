@@ -173,13 +173,13 @@ export default function Form() {
 			<div className="w-full flex items-center justify-around">
 				<div className="w-fit pb-2 border-b-4 border-[#2E073F]">
 					<AnimatedText
-						className="text-[#2E073F] papyrus heading font-medium leading-tight capitalize"
+						className="text-[#2E073F] papyrus heading font-semibold leading-tight capitalize"
 						text="Billing details"
 					/>
 				</div>
 				<div className="w-fit pb-2 border-b-4 border-[#2E073F]">
 					<AnimatedText
-						className="text-[#2E073F] papyrus heading font-medium leading-tight capitalize"
+						className="text-[#2E073F] papyrus heading font-semibold leading-tight capitalize"
 						text="Card details"
 					/>
 				</div>

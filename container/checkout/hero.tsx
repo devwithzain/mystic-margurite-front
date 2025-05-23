@@ -1,4 +1,4 @@
-import AnimatedText from "@/components/ui/client/animated-text";
+import { AnimatedText } from "@/components/ui/client";
 
 export default function Hero() {
 	return (
