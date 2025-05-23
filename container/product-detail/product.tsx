@@ -95,7 +95,7 @@ export default function ProductDetail() {
 							src={`https://mysticmarguerite.com/new/backend/storage/${
 								product?.image ? JSON.parse(product.image)[0] : ""
 							}`}
-							alt={product?.title}
+							alt={product?.title || "product img"}
 							className="w-full object-cover"
 							width={500}
 							height={500}
@@ -125,7 +125,7 @@ export default function ProductDetail() {
 						</div>
 						<div className="w-full flex items-center gap-4 flex-col">
 							<button
-								className={`w-full bg-[#2E073F] btn text-center transition-all duration-300 ease-in-out text-white px-6 py-3 rounded-lg text-[20px] montserrat leading-tight tracking-tight`}
+								className={`w-full bg-[#2E073F] btn text-center transition-all duration-300 ease-in-out text-white px-6 py-3 rounded-lg text-[20px] montserrat leading-tight tracking-tight cursor-pointer`}
 								onClick={() => addToCart(product?.id?.toString())}>
 								{loading ? (
 									<Loader2 className="animate-spin mx-auto" />

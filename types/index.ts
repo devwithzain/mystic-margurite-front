@@ -127,7 +127,7 @@ export type TproductsColumnProps = {
    title: string;
    price: string;
    description: string;
-   image: string[];
+   image: string;
    created_at: string;
 };
 
@@ -185,8 +185,6 @@ export type TcartColumnProps = {
    id: bigint;
    user_id: bigint;
    product_id: bigint;
-   quantity: number;
-   size: string;
    product: TproductsColumnProps;
    created_at: Date | null;
    updated_at: Date | null;

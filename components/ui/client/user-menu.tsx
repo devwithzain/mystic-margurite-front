@@ -7,6 +7,7 @@ import { TuserProps } from "@/types";
 import { placeholder } from "@/public";
 import { motion } from "framer-motion";
 import { IconType } from "react-icons";
+import { Settings } from "lucide-react";
 import { getToken } from "@/lib/get-token";
 import { GoListOrdered } from "react-icons/go";
 import { getUserData } from "@/actions/get-user";
@@ -50,10 +51,15 @@ export default function UserMenu() {
 				<button onClick={() => setOpen((pv) => !pv)}>
 					<motion.span>
 						<Image
-							src={placeholder}
+							src={
+								(user &&
+									user.image &&
+									`https://mysticmarguerite.com/new/backend/storage/${user.image}`) ||
+								placeholder
+							}
 							alt="user"
-							width={50}
-							height={50}
+							width={40}
+							height={40}
 							className="rounded-full"
 						/>
 					</motion.span>
@@ -70,6 +76,13 @@ export default function UserMenu() {
 									setOpen={setOpen}
 									Icon={GoListOrdered}
 									text="My Orders"
+								/>
+							</Link>
+							<Link href="/setting">
+								<Option
+									setOpen={setOpen}
+									Icon={Settings}
+									text="Setting"
 								/>
 							</Link>
 							<button

@@ -2,8 +2,8 @@ import { Metadata } from "next";
 import LoginForm from "@/components/admin/login-form";
 
 export const metadata: Metadata = {
-	title: "Mystic - Admin LogIn",
-	description: "Mystic Admin LogIn Dashboard",
+	title: "Admin LogIn - Mystic Marguerite",
+	description: "Mystic Marguerite - Admin LogIn",
 };
 
 export default function AdminLogIn() {

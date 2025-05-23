@@ -37,10 +37,8 @@ export default function Products() {
 								}}
 								viewport={{ once: true }}
 								key={index}
-								className="flex flex-col items-center gap-4 bg-[#000] relative rounded-lg overflow-hidden shadow-lg hover:shadow-lg cursor-pointer group">
-								<Link
-									href={`/products/${item.id}`}
-									className="w-full relative">
+								className="flex flex-col items-center gap-4 bg-[#000] relative rounded-lg overflow-hidden shadow-lg hover:shadow-lg">
+								<div className="w-full relative">
 									<Image
 										src={`https://mysticmarguerite.com/new/backend/storage/${
 											JSON.parse(item?.image)[0]
@@ -73,7 +71,7 @@ export default function Products() {
 											</div>
 										</div>
 									</div>
-								</Link>
+								</div>
 							</motion.div>
 						))}
 				</div>

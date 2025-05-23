@@ -123,7 +123,7 @@ export default function LoginFormComponent({
 					<div className="w-full flex justify-end items-end">
 						<button
 							type="button"
-							className="font-gradient-regular paragraph text-[#ADABB8] font-normal leading-tight tracking-tight"
+							className="font-gradient-regular text-sm text-[#ADABB8] font-normal leading-tight tracking-tight"
 							onClick={() => setShowForgotPassword(true)}>
 							forgot password?
 						</button>

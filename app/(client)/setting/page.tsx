@@ -1,9 +1,9 @@
 import { Metadata } from "next";
-import { Setting } from "@/container";
+import Setting from "@/container/setting/setting";
 
 export const metadata: Metadata = {
-	title: "Settings",
-	description: "Settings",
+	title: "Profile Setting - Mystice Marguerite",
+	description: "Mystice Marguerite - Profile Setting",
 };
 
 export default function SettingsPage() {

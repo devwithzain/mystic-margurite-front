@@ -153,7 +153,10 @@ export default function BlogsForm({
 		return new Blob([ab], { type: mimeString });
 	};
 
+	// ...existing code...
 	const onSubmits = async (data: TblogsColumnProps) => {
+		console.log("Form Data:", data); // Debug log
+
 		if (!image) {
 			setImageError("Image is required");
 			return;
@@ -191,7 +194,7 @@ export default function BlogsForm({
 				);
 			}
 			toast.success(toastMessage);
-			router.push(`/dashboard/blogs`);
+			// router.push(`/dashboard/blogs`);
 			router.refresh();
 		} catch (error) {
 			toast.error(
@@ -201,6 +204,8 @@ export default function BlogsForm({
 			);
 		}
 	};
+	// ...existing code...
+
 	const onDelete = async () => {
 		try {
 			await axios.delete(
@@ -216,28 +221,6 @@ export default function BlogsForm({
 			setOpen(false);
 		}
 	};
-
-	const modules = {
-		toolbar: [
-			[{ header: [1, 2, 3, 4, 5, 6, false] }],
-			["bold", "italic", "underline", "strike"],
-			[{ list: "ordered" }, { list: "bullet" }],
-			["link", "image"],
-			["clean"],
-		],
-	};
-
-	const formats = [
-		"header",
-		"bold",
-		"italic",
-		"underline",
-		"strike",
-		"list",
-		"bullet",
-		"link",
-		"image",
-	];
 
 	return (
 		<>

@@ -2,10 +2,10 @@
 import axios from "axios";
 import Link from "next/link";
 import Image from "next/image";
+import { X } from "lucide-react";
 import { TcartColumnProps } from "@/types";
 import { getToken } from "@/lib/get-token";
 import { useEffect, useState } from "react";
-import { X, Minus, Plus } from "lucide-react";
 import { formatUSD } from "@/lib/formate-price";
 import { useCart } from "@/context/cart-context";
 import { motion, AnimatePresence } from "framer-motion";
@@ -16,15 +16,12 @@ export default function SideCart() {
 	const [isLoading, setIsLoading] = useState(false);
 	const [cartTotal, setCartTotal] = useState<number>(0);
 	const [cartItems, setCartItems] = useState<TcartColumnProps[]>([]);
-	const [updatingItems, setUpdatingItems] = useState<Record<string, boolean>>(
-		{},
-	);
 
 	useEffect(() => {
 		if (cartItems && cartItems.length > 0) {
 			const total = cartItems.reduce(
 				(total: number, item: TcartColumnProps) => {
-					return total + item.product.price * (item.quantity ?? 1);
+					return total + Number(item.product.price);
 				},
 				0,
 			);
@@ -72,30 +69,6 @@ export default function SideCart() {
 		};
 	}, [isCartOpen]);
 
-	const updateQuantity = async (id: bigint, newQuantity: number) => {
-		if (newQuantity < 1) return;
-
-		setUpdatingItems((prev) => ({ ...prev, [id.toString()]: true }));
-
-		try {
-			await axios.post(
-				`https://mysticmarguerite.com/new/backend/api/cart/${id}`,
-				{ quantity: newQuantity },
-				{ headers: { Authorization: `Bearer ${token}` } },
-			);
-
-			setCartItems(
-				cartItems.map((item) =>
-					item.id === id ? { ...item, quantity: newQuantity } : item,
-				),
-			);
-		} catch (error) {
-			console.error("Error updating quantity:", error);
-		} finally {
-			setUpdatingItems((prev) => ({ ...prev, [id.toString()]: false }));
-		}
-	};
-
 	const deleteCartItem = async (id: bigint) => {
 		try {
 			await axios.delete(
@@ -107,21 +80,6 @@ export default function SideCart() {
 			setCartItems(cartItems.filter((item) => item.id !== id));
 		} catch (error) {
 			console.log("Delete error", error);
-		}
-	};
-
-	const getProductImage = (imageData: string) => {
-		try {
-			const parsed = JSON.parse(imageData);
-			if (Array.isArray(parsed)) return parsed[0]?.replace(/\\/g, "");
-			const doubleParsed = JSON.parse(parsed);
-			if (Array.isArray(doubleParsed))
-				return doubleParsed[0]?.replace(/\\/g, "");
-
-			return null;
-		} catch (error) {
-			console.error("Error parsing image data:", error);
-			return null;
 		}
 	};
 
@@ -173,24 +131,19 @@ export default function SideCart() {
 									) : (
 										<div className="flex flex-col gap-4">
 											{cartItems.map((item) => {
-												const imagePath = item.product?.image
-													? getProductImage(item.product.image)
-													: null;
-												const isUpdating = updatingItems[item.id.toString()];
-
 												return (
 													<div
 														key={item.id.toString()}
 														className="w-full flex items-start gap-5">
-														{imagePath && (
-															<Image
-																src={`https://mysticmarguerite.com/new/backend/storage/${imagePath}`}
-																alt={item.product?.title}
-																width={300}
-																height={300}
-																className="w-auto h-24 object-contain"
-															/>
-														)}
+														<Image
+															src={`https://mysticmarguerite.com/new/backend/storage/${JSON.parse(
+																item.product.image,
+															)}`}
+															alt={item.product?.title}
+															width={300}
+															height={300}
+															className="w-auto h-24 object-contain"
+														/>
 														<div className="w-full flex items-center justify-between gap-5">
 															<div className="flex flex-col gap-10">
 																<div className="flex flex-col gap-3">
@@ -201,40 +154,15 @@ export default function SideCart() {
 																	</div>
 																	<div>
 																		<h1 className="paragraph font-grradient-semi tracking-tight leading-tight text-black">
-																			{formatUSD(
-																				item.product.price *
-																					(item.quantity || 1),
-																			)}
+																			{formatUSD(item.product.price)}
 																		</h1>
 																	</div>
 																</div>
 															</div>
 															<div className="flex items-center gap-2">
-																<div className="flex items-center gap-2 mt-2">
-																	<button
-																		onClick={() =>
-																			updateQuantity(item.id, item.quantity - 1)
-																		}
-																		disabled={isUpdating || item.quantity <= 1}
-																		className="disabled:opacity-50">
-																		<Minus size={16} />
-																	</button>
-																	<div className="w-8 h-8 flex items-center justify-center outline-none text-center border leading-tight tracking-tight text-black font-gradient-regular font-normal !appearance-none">
-																		{isUpdating ? "..." : item.quantity}
-																	</div>
-																	<button
-																		onClick={() =>
-																			updateQuantity(item.id, item.quantity + 1)
-																		}
-																		disabled={isUpdating}
-																		className="disabled:opacity-50">
-																		<Plus size={16} />
-																	</button>
-																</div>
 																<button
 																	onClick={() => deleteCartItem(item.id)}
-																	className="mt-2"
-																	disabled={isUpdating}>
+																	className="mt-2">
 																	<X size={20} />
 																</button>
 															</div>

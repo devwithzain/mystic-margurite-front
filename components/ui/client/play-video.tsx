@@ -1,3 +1,4 @@
+"use client";
 import { motion } from "framer-motion";
 import { useCallback, useEffect, useRef, useState } from "react";
 
@@ -8,7 +9,6 @@ export default function PlayVideo({ videosrc }: { videosrc: string }) {
 	const videoRef = useRef<HTMLVideoElement>(null);
 	const containerRef = useRef<HTMLDivElement>(null);
 
-	// Toggle play/pause with useCallback to prevent re-renders
 	const togglePlay = useCallback(() => {
 		if (videoRef.current) {
 			if (isPlaying) {
@@ -20,14 +20,12 @@ export default function PlayVideo({ videosrc }: { videosrc: string }) {
 		}
 	}, [isPlaying]);
 
-	// Autoplay video on mount
 	useEffect(() => {
 		if (videoRef.current) {
 			videoRef.current.play();
 		}
 	}, []);
 
-	// Track cursor position
 	useEffect(() => {
 		const handleMouseMove = (e: MouseEvent) => {
 			if (containerRef.current) {

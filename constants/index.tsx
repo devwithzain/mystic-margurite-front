@@ -252,7 +252,7 @@ export const servicesItems = [
 		img: brownStar,
 		src: service3,
 		btn: "Learn more",
-		href: "stars/star-&-planets",
+		href: "stars/star-guidance",
 	},
 ];
 

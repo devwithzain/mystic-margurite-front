@@ -1,16 +1,15 @@
-"use client";
-import { useEffect, useState } from "react";
-import Loader from "@/components/ui/client/loader";
+import { Metadata } from "next";
+import HomeLoader from "@/container/loader/home-loader";
 
-export default function Home() {
-	const [showLoader, setShowLoader] = useState(false);
+export const metadata: Metadata = {
+	title: "Home - Mystice Marguerite",
+	description: "Mystice Marguerite Home",
+};
 
-	useEffect(() => {
-		const hasLoaderBeenShown = localStorage.getItem("loaderShown");
-		setShowLoader(!hasLoaderBeenShown);
-	}, []);
-
-	if (!showLoader) return null;
-
-	return <Loader />;
+export default function Loader() {
+	return (
+		<>
+			<HomeLoader />
+		</>
+	);
 }
