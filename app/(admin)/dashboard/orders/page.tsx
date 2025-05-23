@@ -2,8 +2,8 @@ import { Metadata } from "next";
 import Orders from "./components/orders";
 
 export const metadata: Metadata = {
-	title: "Mystic - Admin Orders",
-	description: "Mystic Admin Orders",
+	title: "Admin Orders - Mystic Marguerite",
+	description: "Mystic Marguerite - Admin Orders",
 };
 
 export default function OrdersPage() {

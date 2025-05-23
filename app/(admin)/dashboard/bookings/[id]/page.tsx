@@ -1,4 +1,10 @@
+import { Metadata } from "next";
 import BookingForm from "../components/bookings-form";
+
+export const metadata: Metadata = {
+	title: "Admin Booking - Mystic Marguerite",
+	description: "Mystic Marguerite - Admin Booking",
+};
 
 export async function generateStaticParams() {
 	const res = await fetch(

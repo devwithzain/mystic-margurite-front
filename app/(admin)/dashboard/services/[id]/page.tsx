@@ -1,4 +1,10 @@
+import { Metadata } from "next";
 import ServiceForm from "../components/service-form";
+
+export const metadata: Metadata = {
+	title: "Admin Service - Mystic Marguerite",
+	description: "Mystic Marguerite - Admin Service",
+};
 
 export async function generateStaticParams() {
 	const res = await fetch(

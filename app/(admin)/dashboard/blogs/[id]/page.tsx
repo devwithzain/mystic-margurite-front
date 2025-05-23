@@ -1,4 +1,10 @@
+import { Metadata } from "next";
 import BlogsForm from "../components/blog-form";
+
+export const metadata: Metadata = {
+	title: "Admin Blog - Mystic Marguerite",
+	description: "Mystic Marguerite - Admin Blog",
+};
 
 export async function generateStaticParams() {
 	const res = await fetch(

@@ -1,4 +1,10 @@
+import { Metadata } from "next";
 import TimeslotForm from "../components/timeslot-form";
+
+export const metadata: Metadata = {
+	title: "Admin TimeSlot - Mystic Marguerite",
+	description: "Mystic Marguerite - Admin TimeSlot",
+};
 
 export async function generateStaticParams() {
 	const res = await fetch(

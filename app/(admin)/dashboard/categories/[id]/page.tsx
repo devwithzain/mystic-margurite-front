@@ -1,4 +1,10 @@
+import { Metadata } from "next";
 import CategoryForm from "../components/category-form";
+
+export const metadata: Metadata = {
+	title: "Admin Categories - Mystic Marguerite",
+	description: "Mystic Marguerite - Admin Categories",
+};
 
 export async function generateStaticParams() {
 	const res = await fetch(

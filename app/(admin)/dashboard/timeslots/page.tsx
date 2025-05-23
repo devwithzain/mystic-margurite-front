@@ -2,8 +2,8 @@ import { Metadata } from "next";
 import TimeSlotsListings from "./components/timeslots";
 
 export const metadata: Metadata = {
-	title: "Mystic - Admin Timeslots",
-	description: "Mystic Admin Timeslots",
+	title: "Admin TimeSlots - Mystic Marguerite",
+	description: "Mystic Marguerite - Admin TimeSlots",
 };
 
 export default function TimeslotsPage() {

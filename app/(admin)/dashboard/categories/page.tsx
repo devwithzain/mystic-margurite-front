@@ -2,8 +2,8 @@ import { Metadata } from "next";
 import CategoryListings from "./components/category";
 
 export const metadata: Metadata = {
-	title: "Mystic - Admin Category",
-	description: "Mystic Admin Category",
+	title: "Admin Categories - Mystic Marguerite",
+	description: "Mystic Marguerite - Admin Categories",
 };
 
 export default function CategoryPage() {

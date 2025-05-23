@@ -1,4 +1,10 @@
+import { Metadata } from "next";
 import ProductForm from "../components/product-form";
+
+export const metadata: Metadata = {
+	title: "Admin Products - Mystic Marguerite",
+	description: "Mystic Marguerite - Admin Products",
+};
 
 export async function generateStaticParams() {
 	const res = await fetch(
