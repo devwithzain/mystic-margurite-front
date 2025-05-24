@@ -1,20 +1,23 @@
 import { Metadata } from "next";
 import Marquee from "@/container/home/marquee";
-import Hero from "@/container/service-detail/hero";
-import NewsLetter from "@/components/ui/client/news-letter";
-import Service from "@/container/service-detail/service";
+import Hero from "@/container/booking-form/hero";
+import Form from "@/container/booking-form/form";
+import { NewsLetter } from "@/components/ui/client";
+import StripeProvider from "@/providers/stripe-provider";
 
 export const metadata: Metadata = {
-	title: "Service Detail - Mystice Marguerite",
-	description: "Mystice Marguerite - Service Detail",
+	title: "Booking - Mystice Marguerite",
+	description: "Mystice Marguerite - Booking",
 };
 
-export default function ServiceDetailPage() {
+export default function BookingForm() {
 	return (
 		<>
 			<Hero />
 			<Marquee />
-			<Service />
+			<StripeProvider>
+				<Form />
+			</StripeProvider>
 			<NewsLetter />
 		</>
 	);

@@ -16,9 +16,9 @@ import { AtSign, Eye, EyeOff, Loader2, Lock, X } from "lucide-react";
 
 export default function LoginForm({ onClose }: { onClose: () => void }) {
 	const router = useRouter();
+
 	const loginModal = useLoginModal();
 	const registerModal = useRegisterModal();
-
 	const [showPassword, setShowPassword] = useState(false);
 
 	const togglePasswordVisibility = () => {
@@ -38,11 +38,19 @@ export default function LoginForm({ onClose }: { onClose: () => void }) {
 			.post(`https://mysticmarguerite.com/new/backend/api/login`, data)
 			.then((response) => {
 				if (response?.data?.success) {
-					toast.success(response.data.success);
-					const { access_token } = response.data;
-					Cookies.set("authToken", access_token, { expires: 1 });
-					loginModal.onClose();
-					router.refresh();
+					if (response.data.user.role == "user") {
+						toast.success(response.data.success);
+						const { access_token } = response.data;
+						Cookies.set("authToken", access_token, { expires: 1 });
+						loginModal.onClose();
+						router.refresh();
+					} else if (response.data.user.role == "admin") {
+						toast.success(response.data.success);
+						const { access_token } = response.data;
+						Cookies.set("adminAuthToken", access_token, { expires: 1 });
+						loginModal.onClose();
+						router.push("/dashboard");
+					}
 				}
 			})
 			.catch((err) => {

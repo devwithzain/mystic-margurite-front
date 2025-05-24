@@ -1,3 +1,4 @@
+"use client";
 import {
 	TServicesColumnProps,
 	TtimeslotsColumnProps,
@@ -21,11 +22,11 @@ import { useParams, useRouter } from "next/navigation";
 import AnimatedText from "@/components/ui/client/animated-text";
 
 export default function Form() {
-	const token = getToken("authToken");
 	const { id } = useParams();
 	const stripe = useStripe();
 	const navigate = useRouter();
 	const elements = useElements();
+	const token = getToken("authToken");
 	const [loading, setLoading] = useState(false);
 	const [user, setUser] = useState<TuserProps>();
 	const [timeslot, setTimeSlot] = useState<TtimeslotsColumnProps>();
