@@ -42,14 +42,15 @@ export type TuserProps = {
    email: string;
    image: string;
    role: string;
-   created_at: string | Date;
-   updated_at: string | Date;
+   created_at: Date | null;
+   updated_at: Date | null;
 };
 
 export type TsubscribersColumnProps = {
    id: string;
    email: string;
    created_at: Date | null;
+   updated_at: Date | null;
 };
 
 export type TtimeslotsColumnProps = {
@@ -66,7 +67,7 @@ export type TordersProps = {
    id: number;
    status: string;
    created_at: Date | null;
-   updated_at: string;
+   updated_at: Date | null;
    checkout_detail?: {
       first_name?: string;
       email?: string;
@@ -231,4 +232,30 @@ export type TcartContextType = {
 export type TtextEditorProps = {
    value?: string;
    onChange?: (value: string) => void;
+};
+
+export type TcountryOption = {
+   value: string;
+   label: string;
+};
+
+export type TstateOption = {
+   value: string;
+   label: string;
+};
+
+export type TcityOption = {
+   value: string;
+   label: string;
+};
+
+export type TModalProps = {
+   isOpen?: boolean;
+   onClose: () => void;
+   body?: React.ReactElement;
+};
+
+export type TtextHoverProps = {
+   title1: string;
+   title2: string;
 };

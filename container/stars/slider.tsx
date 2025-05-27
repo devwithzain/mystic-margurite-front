@@ -1,7 +1,9 @@
+"use client";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import React, { useState } from "react";
-import { TextMask } from "@/components";
 import { zodiacSigns } from "@/constants";
+import { TextMask } from "@/components/ui/client";
 import AnimatedText from "@/components/ui/client/animated-text";
 import { arrowLeft1, arrowRight1, lineDown, lineUp } from "@/public";
 
@@ -101,6 +103,8 @@ export default function Slider() {
 							src={lineDown}
 							alt={currentSign.sign}
 							className="w-full object-cover"
+							width={500}
+							height={500}
 						/>
 					</motion.div>
 				</div>
@@ -162,18 +166,22 @@ export default function Slider() {
 												</React.Fragment>
 											);
 										})}
-
-										<motion.img
-											src={currentSign.src}
-											alt={currentSign.sign}
-											className="w-60 object-cover cursor-pointer"
-											onClick={toggleContent}
+										<motion.div
 											whileHover={{ scale: 1.1 }}
 											whileTap={{ scale: 0.9 }}
 											initial={{ opacity: 0, scale: 0.5 }}
 											animate={{ opacity: 1, scale: 1 }}
 											transition={{ duration: 0.5 }}
-										/>
+											className="w-60 object-cover cursor-pointer"
+											onClick={toggleContent}>
+											<Image
+												src={currentSign.src}
+												alt={currentSign.sign}
+												className="w-60 object-cover cursor-pointer"
+												width={240}
+												height={240}
+											/>
+										</motion.div>
 									</div>
 								</div>
 							</div>
@@ -204,14 +212,22 @@ export default function Slider() {
 					/>
 				</motion.div>
 				<div className="w-full flex items-end justify-end">
-					<motion.img
-						src={currentSign.src}
-						alt={currentSign.sign}
-						className="w-20 object-cover"
-						initial={{ opacity: 0, y: 20 }}
-						animate={{ opacity: 1, y: 0 }}
+					<motion.div
+						whileHover={{ scale: 1.1 }}
+						whileTap={{ scale: 0.9 }}
+						initial={{ opacity: 0, scale: 0.5 }}
+						animate={{ opacity: 1, scale: 1 }}
 						transition={{ duration: 0.5 }}
-					/>
+						className="w-60 object-cover cursor-pointer"
+						onClick={toggleContent}>
+						<Image
+							src={currentSign.src}
+							alt={currentSign.sign}
+							className="w-20 object-cover"
+							width={240}
+							height={240}
+						/>
+					</motion.div>
 				</div>
 			</motion.div>
 		</div>

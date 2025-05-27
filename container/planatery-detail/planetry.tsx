@@ -1,6 +1,5 @@
 "use client";
 import { planetryItems } from "@/constants";
-import { useParams } from "next/navigation";
 import Planetary01 from "@/components/ui/client/planetary/planetary01";
 import Planetary02 from "@/components/ui/client/planetary/planetary02";
 import Planetary03 from "@/components/ui/client/planetary/planetary03";
@@ -14,8 +13,8 @@ import Planetary10 from "@/components/ui/client/planetary/planetary10";
 import Planetary11 from "@/components/ui/client/planetary/planetary11";
 import Planetary12 from "@/components/ui/client/planetary/planetary12";
 
-export default function Planetary() {
-	const { id } = useParams();
+export default function Planetary({ slug }: { slug: { id: string } }) {
+	const id = slug.id;
 	const planetaryItem = planetryItems.find((item) => item.id === Number(id));
 	if (!planetaryItem) {
 		return <div>Planetary not found</div>;

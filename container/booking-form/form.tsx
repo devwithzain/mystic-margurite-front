@@ -1,6 +1,9 @@
 "use client";
 import {
+	TcityOption,
+	TcountryOption,
 	TServicesColumnProps,
+	TstateOption,
 	TtimeslotsColumnProps,
 	TuserProps,
 } from "@/types";
@@ -10,28 +13,40 @@ import {
 	useStripe,
 } from "@stripe/react-stripe-js";
 import axios from "axios";
-import { Loader2 } from "lucide-react";
+import Select from "react-select";
 import { toast } from "react-hot-toast";
 import { getToken } from "@/lib/get-token";
+import "react-phone-input-2/lib/style.css";
+import { useRouter } from "next/navigation";
+import PhoneInput from "react-phone-input-2";
 import getService from "@/actions/get-service";
 import { getUserData } from "@/actions/get-user";
 import getTimeSlot from "@/actions/get-timeslot";
 import getTimeSlots from "@/actions/get-timeslots";
 import React, { useEffect, useState } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { ChevronDown, Loader2 } from "lucide-react";
+import { Country, State, City } from "country-state-city";
 import AnimatedText from "@/components/ui/client/animated-text";
 
-export default function Form() {
-	const { id } = useParams();
+export default function Form({ slug }: { slug: { id: string } }) {
+	const serviceId = slug.id;
 	const stripe = useStripe();
 	const navigate = useRouter();
 	const elements = useElements();
 	const token = getToken("authToken");
 	const [loading, setLoading] = useState(false);
 	const [user, setUser] = useState<TuserProps>();
+	const [isFilterOpen, setIsFilterOpen] = useState(false);
+	const [cities, setCities] = useState<TcityOption[]>([]);
+	const [states, setStates] = useState<TstateOption[]>([]);
+	const [countries, setCountries] = useState<TcountryOption[]>([]);
 	const [timeslot, setTimeSlot] = useState<TtimeslotsColumnProps>();
 	const [timeslots, setTimeSlots] = useState<TtimeslotsColumnProps[]>([]);
 	const [service, setService] = useState<TServicesColumnProps | null>(null);
+	const [selectedState, setSelectedState] = useState<TstateOption | null>(null);
+	const [selectedCountry, setSelectedCountry] = useState<TcountryOption | null>(
+		null,
+	);
 
 	useEffect(() => {
 		const fetchTimeSlots = async () => {
@@ -48,16 +63,14 @@ export default function Form() {
 	useEffect(() => {
 		const fetchService = async () => {
 			try {
-				if (id) {
-					const response = await getService(id);
-					setService(response.service);
-				}
+				const response = await getService(serviceId);
+				setService(response.service);
 			} catch (err) {
 				console.error("Error fetching service:", err);
 			}
 		};
 		fetchService();
-	}, [id]);
+	}, [serviceId]);
 
 	useEffect(() => {
 		const fetchUserData = async () => {
@@ -66,6 +79,41 @@ export default function Form() {
 		};
 		fetchUserData();
 	}, [token]);
+
+	useEffect(() => {
+		const countryList = Country.getAllCountries().map((country) => ({
+			value: country.isoCode,
+			label: country.name,
+		}));
+		setCountries(countryList);
+	}, []);
+
+	useEffect(() => {
+		if (selectedCountry) {
+			const stateList = State.getStatesOfCountry(selectedCountry.value).map(
+				(state) => ({
+					value: state.isoCode,
+					label: state.name,
+				}),
+			);
+			setStates(stateList);
+			setSelectedState(null);
+			setCities([]);
+		}
+	}, [selectedCountry]);
+
+	useEffect(() => {
+		if (selectedCountry && selectedState) {
+			const cityList = City.getCitiesOfState(
+				selectedCountry.value,
+				selectedState.value,
+			).map((city) => ({
+				value: city.name,
+				label: city.name,
+			}));
+			setCities(cityList);
+		}
+	}, [selectedState, selectedCountry]);
 
 	const [formData, setFormData] = useState({
 		birth_date: "",
@@ -349,13 +397,16 @@ export default function Form() {
 								htmlFor="phone">
 								Phone *
 							</label>
-							<input
-								onChange={handleInputChange}
+							<PhoneInput
+								country={"us"}
 								value={formData.phone}
-								type="tel"
-								id="phone"
-								required
-								className="border-[#C6C6C6] border-2 px-4 py-2 w-full outline-none paragraph font-MonstrateRegular"
+								onChange={(phone) => setFormData({ ...formData, phone })}
+								inputClass="!text-[20px] !font-gradient-regular !leading-tight !tracking-tight !text-black !border-2 !border-[#C6C6C6] !p-6 !w-full !pl-12 !h-[45px]"
+								containerStyle={{
+									width: "100%",
+								}}
+								buttonClass="!border-black/50 !border-2 !border-black/50"
+								containerClass="!w-full"
 							/>
 						</div>
 						<div className="w-full flex flex-col gap-3">
@@ -374,18 +425,19 @@ export default function Form() {
 							/>
 						</div>
 					</div>
-					<div className="w-full flex flex-col gap-3">
+					<div className="w-full flex flex-col gap-3 relative">
 						<label
 							className="text-black paragraph leading-tight tracking-tight font-medium montserrat"
 							htmlFor="time_slot_id">
 							Select Time Slot *
 						</label>
 						<select
+							onClick={() => setIsFilterOpen((prev) => !prev)}
 							onChange={handleInputChange}
 							value={formData.time_slot_id}
 							id="time_slot_id"
 							required
-							className="border-[#C6C6C6] border-2 px-4 py-2 w-full outline-none paragraph font-MonstrateRegular">
+							className="border-[#C6C6C6] border-2 px-4 py-2 w-full outline-none paragraph font-MonstrateRegular appearance-none">
 							<option value="">Select a time slot</option>
 							{timeslots.map((slot) => (
 								<option
@@ -430,6 +482,16 @@ export default function Form() {
 								</option>
 							))}
 						</select>
+						<ChevronDown
+							className={`absolute right-3 top-1/2 translate-y-1/2 w-5 h-5 pointer-events-none transform transition-transform text-[#C6C6C6] ${
+								isFilterOpen ? "rotate-180" : ""
+							}`}
+						/>
+						<ChevronDown
+							className={`absolute right-3 top-1/2 translate-y-1/2 w-5 h-5 pointer-events-none transform transition-transform text-[#C6C6C6] ${
+								isFilterOpen ? "rotate-180" : ""
+							}`}
+						/>
 					</div>
 					<div className="w-full flex flex-col gap-3">
 						<label
@@ -437,13 +499,42 @@ export default function Form() {
 							htmlFor="country">
 							Country / Region *
 						</label>
-						<input
-							onChange={handleInputChange}
-							value={formData.country}
-							type="text"
-							id="country"
-							required
-							className="border-[#C6C6C6] border-2 px-4 py-2 w-full outline-none paragraph font-MonstrateRegular"
+						<Select
+							options={countries}
+							value={selectedCountry}
+							onChange={(value) => {
+								setSelectedCountry(value);
+								setFormData((prev) => ({
+									...prev,
+									country: value?.label || "",
+								}));
+							}}
+							className="paragraph font-gradient-regular leading-tight tracking-tight text-black outline-none w-full paragraph font-MonstrateRegular"
+							styles={{
+								control: (base) => ({
+									...base,
+									border: "2px solid #C6C6C6",
+									padding: "0.4rem 0",
+									color: "black",
+									background: "white",
+									boxShadow: "none",
+								}),
+								option: (base, { isFocused }) => ({
+									...base,
+									backgroundColor: isFocused ? "#f3f4f6" : "white",
+									color: "black",
+									cursor: "pointer",
+									padding: "0.5rem 1rem",
+								}),
+								singleValue: (base) => ({
+									...base,
+									color: "black",
+								}),
+								input: (base) => ({
+									...base,
+									color: "black",
+								}),
+							}}
 						/>
 					</div>
 					<div className="w-full flex flex-col gap-3">
@@ -465,33 +556,91 @@ export default function Form() {
 						<div className="w-full flex flex-col gap-3">
 							<label
 								className="text-black paragraph leading-tight tracking-tight font-medium montserrat"
-								htmlFor="town_city">
-								Town / City*
+								htmlFor="state">
+								State*
 							</label>
-							<input
-								onChange={handleInputChange}
-								value={formData.town_city}
-								type="text"
-								id="town_city"
-								required
-								className="border-[#C6C6C6] border-2 px-4 py-2 w-full outline-none paragraph font-MonstrateRegular"
+							<Select
+								options={states}
+								value={selectedState}
+								onChange={(value) => {
+									setSelectedState(value);
+									setFormData({
+										...formData,
+										state: value?.value || "",
+									});
+								}}
+								className="paragraph font-gradient-regular leading-tight tracking-tight text-black outline-none"
+								styles={{
+									control: (base) => ({
+										...base,
+										border: "2px solid #C6C6C6",
+										padding: "0.4rem 0",
+										color: "black",
+										background: "white",
+										boxShadow: "none",
+									}),
+									option: (base, { isFocused }) => ({
+										...base,
+										backgroundColor: isFocused ? "#f3f4f6" : "white",
+										color: "black",
+										cursor: "pointer",
+										padding: "0.5rem 1rem",
+									}),
+									singleValue: (base) => ({
+										...base,
+										color: "black",
+									}),
+									input: (base) => ({
+										...base,
+										color: "black",
+									}),
+								}}
 							/>
 						</div>
 						<div className="w-full flex flex-col gap-3">
 							<label
 								className="text-black paragraph leading-tight tracking-tight font-medium montserrat"
-								htmlFor="state">
-								State*
+								htmlFor="town_city">
+								Town / City*
 							</label>
-							<input
-								onChange={handleInputChange}
-								value={formData.state}
-								type="text"
-								id="state"
-								required
-								className="border-[#C6C6C6] border-2 px-4 py-2 w-full outline-none paragraph font-MonstrateRegular"
+							<Select
+								options={cities}
+								value={cities.find((c) => c.value === formData.town_city)}
+								onChange={(value) =>
+									setFormData({
+										...formData,
+										town_city: value?.value || "",
+									})
+								}
+								className="w-full paragraph font-gradient-regular leading-tight tracking-tight text-black outline-none"
+								styles={{
+									control: (base) => ({
+										...base,
+										border: "2px solid #C6C6C6",
+										padding: "0.4rem 0",
+										color: "black",
+										background: "white",
+										boxShadow: "none",
+									}),
+									option: (base, { isFocused }) => ({
+										...base,
+										backgroundColor: isFocused ? "#f3f4f6" : "white",
+										color: "black",
+										cursor: "pointer",
+										padding: "0.5rem 1rem",
+									}),
+									singleValue: (base) => ({
+										...base,
+										color: "black",
+									}),
+									input: (base) => ({
+										...base,
+										color: "black",
+									}),
+								}}
 							/>
 						</div>
+
 						<div className="w-full flex flex-col gap-3">
 							<label
 								className="text-black paragraph leading-tight tracking-tight font-medium montserrat"
@@ -507,23 +656,34 @@ export default function Form() {
 							/>
 						</div>
 					</div>
-					<div className="w-full flex flex-col gap-3">
+					<div className="w-full flex flex-col gap-3 relative">
 						<label
 							className="text-black paragraph leading-tight tracking-tight font-medium montserrat"
 							htmlFor="timezone">
 							Timezone
 						</label>
 						<select
+							onClick={() => setIsFilterOpen((prev) => !prev)}
 							onChange={handleInputChange}
 							value={formData.timezone}
 							id="timezone"
-							className="border-[#C6C6C6] border-2 px-4 py-2 w-full outline-none paragraph font-MonstrateRegular">
+							className="border-[#C6C6C6] border-2 px-4 py-2 w-full outline-none paragraph font-MonstrateRegular bg-white/20 backdrop-blur-xl appearance-none">
 							<option value="America/New_York">Eastern Time (ET)</option>
 							<option value="America/Chicago">Central Time (CT)</option>
 							<option value="America/Denver">Mountain Time (MT)</option>
 							<option value="America/Los_Angeles">Pacific Time (PT)</option>
 							<option value="UTC">UTC/GMT</option>
 						</select>
+						<ChevronDown
+							className={`absolute right-3 top-1/2 translate-y-1/2 w-5 h-5 pointer-events-none transform transition-transform text-[#C6C6C6] ${
+								isFilterOpen ? "rotate-180" : ""
+							}`}
+						/>
+						<ChevronDown
+							className={`absolute right-3 top-1/2 translate-y-1/2 w-5 h-5 pointer-events-none transform transition-transform text-[#C6C6C6] ${
+								isFilterOpen ? "rotate-180" : ""
+							}`}
+						/>
 					</div>
 					<div className="w-full flex flex-col gap-3">
 						<label

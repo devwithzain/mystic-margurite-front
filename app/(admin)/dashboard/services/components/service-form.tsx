@@ -21,7 +21,7 @@ import Heading from "@/components/admin/heading";
 import { Separator } from "@/components/ui/separator";
 import { zodResolver } from "@hookform/resolvers/zod";
 import AlertModal from "@/components/admin/alert-modal";
-import RichTextEditor from "@/components/admin/rich-text-editor";
+import TextEditor from "@/components/admin/text-editor";
 import { servicesColumnSchema, TservicesColumnProps } from "@/schemas";
 
 export default function ServiceForm({
@@ -268,7 +268,7 @@ export default function ServiceForm({
 							<FormItem>
 								<FormLabel>Description</FormLabel>
 								<FormControl>
-									<RichTextEditor
+									<TextEditor
 										value={field.value}
 										onChange={field.onChange}
 									/>

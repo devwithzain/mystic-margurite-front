@@ -33,7 +33,7 @@ export default function ServiceListings() {
 		description: service.description,
 		price: service.price,
 		image: service.image,
-		created_at: format(service.created_at ?? new Date(), "MMMM do, yyyy"),
+		created_at: service.created_at,
 	}));
 
 	return (

@@ -160,7 +160,7 @@ export default function Cart() {
 								onClick={() => {
 									router.push("/checkout");
 								}}
-								className={`text-center transition-all duration-300 ease-in-out px-6 py-3 paragraph rounded-full montserrat leading-tight tracking-tight ${
+								className={`text-center transition-all duration-300 ease-in-out px-6 py-3 paragraph rounded-full montserrat leading-tight tracking-tight cursor-pointer ${
 									cartItems.length === 0
 										? "cursor-not-allowed bg-gray-600 text-white"
 										: " bg-[#7a74ef] text-white"

@@ -1,13 +1,12 @@
 "use client";
-import { useParams } from "next/navigation";
 import { lifehealingItems } from "@/constants";
 import Lifehealing01 from "@/components/ui/client/lifeandhealing/lifehealing01";
 import Lifehealing02 from "@/components/ui/client/lifeandhealing/lifehealing02";
 import Lifehealing03 from "@/components/ui/client/lifeandhealing/lifehealing03";
 import Lifehealing04 from "@/components/ui/client/lifeandhealing/lifehealing04";
 
-export default function LifeHealingDetail() {
-	const { id } = useParams();
+export default function LifeHealingDetail({ slug }: { slug: { id: string } }) {
+	const id = slug.id;
 	const lifehealingItem = lifehealingItems.find(
 		(item) => item.id === Number(id),
 	);

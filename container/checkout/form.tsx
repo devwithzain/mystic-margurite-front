@@ -5,14 +5,18 @@ import {
 	useStripe,
 } from "@stripe/react-stripe-js";
 import axios from "axios";
-import { TuserProps } from "@/types";
+import Select from "react-select";
 import { Loader2 } from "lucide-react";
 import { toast } from "react-hot-toast";
 import { getToken } from "@/lib/get-token";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 import { useRouter } from "next/navigation";
 import { getUserData } from "@/actions/get-user";
 import React, { useEffect, useState } from "react";
+import { Country, State, City } from "country-state-city";
 import AnimatedText from "@/components/ui/client/animated-text";
+import { TcityOption, TcountryOption, TstateOption, TuserProps } from "@/types";
 
 export default function Form() {
 	const token = getToken("authToken");
@@ -20,6 +24,13 @@ export default function Form() {
 	const [user, setUser] = useState<TuserProps>();
 	const [cartItems, setCartItems] = useState<any[]>([]);
 	const [cartTotal, setCartTotal] = useState<number>(0);
+	const [cities, setCities] = useState<TcityOption[]>([]);
+	const [states, setStates] = useState<TstateOption[]>([]);
+	const [countries, setCountries] = useState<TcountryOption[]>([]);
+	const [selectedState, setSelectedState] = useState<TstateOption | null>(null);
+	const [selectedCountry, setSelectedCountry] = useState<TcountryOption | null>(
+		null,
+	);
 
 	useEffect(() => {
 		const fetchUserData = async () => {
@@ -58,6 +69,41 @@ export default function Form() {
 		};
 		fetchCartItems();
 	}, [token]);
+
+	useEffect(() => {
+		const countryList = Country.getAllCountries().map((country) => ({
+			value: country.isoCode,
+			label: country.name,
+		}));
+		setCountries(countryList);
+	}, []);
+
+	useEffect(() => {
+		if (selectedCountry) {
+			const stateList = State.getStatesOfCountry(selectedCountry.value).map(
+				(state) => ({
+					value: state.isoCode,
+					label: state.name,
+				}),
+			);
+			setStates(stateList);
+			setSelectedState(null);
+			setCities([]);
+		}
+	}, [selectedCountry]);
+
+	useEffect(() => {
+		if (selectedCountry && selectedState) {
+			const cityList = City.getCitiesOfState(
+				selectedCountry.value,
+				selectedState.value,
+			).map((city) => ({
+				value: city.name,
+				label: city.name,
+			}));
+			setCities(cityList);
+		}
+	}, [selectedState, selectedCountry]);
 
 	const stripe = useStripe();
 	const elements = useElements();
@@ -100,7 +146,6 @@ export default function Form() {
 				},
 			);
 			console.log(data);
-
 			const { error, paymentIntent } = await stripe.confirmPayment({
 				elements,
 				confirmParams: {
@@ -113,7 +158,6 @@ export default function Form() {
 				},
 				redirect: "if_required",
 			});
-
 			if (error) {
 				toast.error(error.message || "Payment failed. Try again.");
 			} else if (paymentIntent?.status === "succeeded") {
@@ -134,7 +178,6 @@ export default function Form() {
 					zip: formData.zip,
 					agreed_terms: formData.agreedTerms,
 				};
-
 				const orderResponse = await axios.post(
 					"https://mysticmarguerite.com/new/backend/api/placedOrder",
 					orderData,
@@ -145,9 +188,7 @@ export default function Form() {
 						status: "paid",
 					},
 				);
-
 				toast.success("Payment successful!");
-
 				await axios.delete(
 					"https://mysticmarguerite.com/new/backend/api/cart",
 					{
@@ -227,13 +268,16 @@ export default function Form() {
 								htmlFor="phone">
 								Phone *
 							</label>
-							<input
-								onChange={handleInputChange}
+							<PhoneInput
+								country={"us"}
 								value={formData.phone}
-								type="tel"
-								id="phone"
-								required
-								className="border-[#C6C6C6] border-2 px-4 py-2 w-full outline-none paragraph font-MonstrateRegular"
+								onChange={(phone) => setFormData({ ...formData, phone })}
+								inputClass="!text-[20px] !font-gradient-regular !leading-tight !tracking-tight !text-black !border-2 !border-[#C6C6C6] !p-6 !w-full !pl-12 !h-[45px]"
+								containerStyle={{
+									width: "100%",
+								}}
+								buttonClass="!border-black/50 !border-2 !border-black/50"
+								containerClass="!w-full"
 							/>
 						</div>
 						<div className="w-full flex flex-col gap-3">
@@ -259,13 +303,42 @@ export default function Form() {
 								htmlFor="country">
 								Country / Region *
 							</label>
-							<input
-								onChange={handleInputChange}
-								value={formData.country}
-								type="text"
-								id="country"
-								required
-								className="border-[#C6C6C6] border-2 px-4 py-2 w-full outline-none paragraph font-MonstrateRegular"
+							<Select
+								options={countries}
+								value={selectedCountry}
+								onChange={(value) => {
+									setSelectedCountry(value);
+									setFormData((prev) => ({
+										...prev,
+										country: value?.label || "",
+									}));
+								}}
+								className="paragraph font-gradient-regular leading-tight tracking-tight text-black outline-none w-full paragraph font-MonstrateRegular"
+								styles={{
+									control: (base) => ({
+										...base,
+										border: "2px solid #C6C6C6",
+										padding: "0.4rem 0",
+										color: "black",
+										background: "white",
+										boxShadow: "none",
+									}),
+									option: (base, { isFocused }) => ({
+										...base,
+										backgroundColor: isFocused ? "#f3f4f6" : "white",
+										color: "black",
+										cursor: "pointer",
+										padding: "0.5rem 1rem",
+									}),
+									singleValue: (base) => ({
+										...base,
+										color: "black",
+									}),
+									input: (base) => ({
+										...base,
+										color: "black",
+									}),
+								}}
 							/>
 						</div>
 					</div>
@@ -290,31 +363,88 @@ export default function Form() {
 						<div className="w-full flex flex-col gap-3">
 							<label
 								className="text-black paragraph leading-tight tracking-tight font-medium montserrat"
-								htmlFor="townCity">
-								Town / City*
+								htmlFor="state">
+								State*
 							</label>
-							<input
-								onChange={handleInputChange}
-								value={formData.townCity}
-								type="text"
-								id="townCity"
-								required
-								className="border-[#C6C6C6] border-2 px-4 py-2 w-full outline-none paragraph font-MonstrateRegular"
+							<Select
+								options={states}
+								value={selectedState}
+								onChange={(value) => {
+									setSelectedState(value);
+									setFormData({
+										...formData,
+										state: value?.value || "",
+									});
+								}}
+								className="paragraph font-gradient-regular leading-tight tracking-tight text-black outline-none"
+								styles={{
+									control: (base) => ({
+										...base,
+										border: "2px solid #C6C6C6",
+										padding: "0.4rem 0",
+										color: "black",
+										background: "white",
+										boxShadow: "none",
+									}),
+									option: (base, { isFocused }) => ({
+										...base,
+										backgroundColor: isFocused ? "#f3f4f6" : "white",
+										color: "black",
+										cursor: "pointer",
+										padding: "0.5rem 1rem",
+									}),
+									singleValue: (base) => ({
+										...base,
+										color: "black",
+									}),
+									input: (base) => ({
+										...base,
+										color: "black",
+									}),
+								}}
 							/>
 						</div>
 						<div className="w-full flex flex-col gap-3">
 							<label
 								className="text-black paragraph leading-tight tracking-tight font-medium montserrat"
-								htmlFor="state">
-								State*
+								htmlFor="townCity">
+								City*
 							</label>
-							<input
-								onChange={handleInputChange}
-								value={formData.state}
-								type="text"
-								id="state"
-								required
-								className="border-[#C6C6C6] border-2 px-4 py-2 w-full outline-none paragraph font-MonstrateRegular"
+							<Select
+								options={cities}
+								value={cities.find((c) => c.value === formData.townCity)}
+								onChange={(value) =>
+									setFormData({
+										...formData,
+										townCity: value?.value || "",
+									})
+								}
+								className="w-full paragraph font-gradient-regular leading-tight tracking-tight text-black outline-none"
+								styles={{
+									control: (base) => ({
+										...base,
+										border: "2px solid #C6C6C6",
+										padding: "0.4rem 0",
+										color: "black",
+										background: "white",
+										boxShadow: "none",
+									}),
+									option: (base, { isFocused }) => ({
+										...base,
+										backgroundColor: isFocused ? "#f3f4f6" : "white",
+										color: "black",
+										cursor: "pointer",
+										padding: "0.5rem 1rem",
+									}),
+									singleValue: (base) => ({
+										...base,
+										color: "black",
+									}),
+									input: (base) => ({
+										...base,
+										color: "black",
+									}),
+								}}
 							/>
 						</div>
 						<div className="w-full flex flex-col gap-3">

@@ -36,7 +36,7 @@ export default function TimeSlotsListings() {
 		start_time: timeslot.start_time,
 		status: timeslot.status,
 		user_id: timeslot.user_id,
-		created_at: format(timeslot.created_at ?? new Date(), "MMMM do, yyyy"),
+		created_at: timeslot.created_at,
 	}));
 
 	return (

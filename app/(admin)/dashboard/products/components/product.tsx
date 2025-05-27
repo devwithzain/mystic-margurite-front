@@ -33,7 +33,7 @@ export default function ProductPage() {
 		price: product.price,
 		description: product.description,
 		image: product.image,
-		created_at: format(product.created_at ?? new Date(), "MMMM do, yyyy"),
+		created_at: product.created_at,
 	}));
 
 	return (

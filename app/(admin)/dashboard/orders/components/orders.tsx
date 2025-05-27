@@ -29,7 +29,7 @@ export default function Orders() {
 		email: order.checkout_detail?.email.toLowerCase() || "N/A",
 		phone_number: order.checkout_detail?.phone || "N/A",
 		status: order.status,
-		order_items: order.items,
+		items: order.items,
 		price: formatUSD(
 			order.items?.reduce(
 				(total: number, item) =>
@@ -38,6 +38,7 @@ export default function Orders() {
 				0,
 			) ?? 0,
 		),
+
 		created_at: order.created_at,
 		updated_at: order.updated_at,
 	}));

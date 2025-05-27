@@ -83,12 +83,12 @@ export default function Navbar() {
 									<Link
 										href="/blogs/astrology"
 										className="block paragraph montserrat text-white font-normal leading-tight tracking-tight p-3 hover:bg-white/20 whitespace-nowrap">
-										Monthly Astrology Blog
+										Monthly Astrology
 									</Link>
 									<Link
 										href="/blogs/astrodialogues"
 										className="block paragraph montserrat text-white font-normal leading-tight tracking-tight p-3 hover:bg-white/20">
-										Astrodialogues
+										Astro Dialogues
 									</Link>
 								</motion.div>
 							)}

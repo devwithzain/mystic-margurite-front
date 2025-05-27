@@ -5,7 +5,6 @@ import toast from "react-hot-toast";
 import { Loader2 } from "lucide-react";
 import { getToken } from "@/lib/get-token";
 import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
 import getProduct from "@/actions/get-product";
 import { formatUSD } from "@/lib/formate-price";
 import { getUserData } from "@/actions/get-user";
@@ -14,8 +13,8 @@ import useLoginModal from "@/hooks/use-login-modal";
 import { TproductColumnProps, TuserProps } from "@/types";
 import { TextMask, TextReveal } from "@/components/ui/client";
 
-export default function ProductDetail() {
-	const { id } = useParams();
+export default function ProductDetail({ slug }: { slug: { id: string } }) {
+	const productId = slug.id;
 	const { refreshCart } = useCart();
 	const loginModal = useLoginModal();
 	const token = getToken("authToken");
@@ -34,18 +33,14 @@ export default function ProductDetail() {
 	useEffect(() => {
 		const fetchProducts = async () => {
 			try {
-				if (typeof id === "string") {
-					const response = await getProduct(id);
-					setProduct(response.product);
-				} else {
-					console.error("Product ID is undefined");
-				}
+				const response = await getProduct(productId);
+				setProduct(response.product);
 			} catch (err) {
 				console.error("Error fetching products:", err);
 			}
 		};
 		fetchProducts();
-	}, [id]);
+	}, [productId]);
 
 	const addToCart = async (productId: string | bigint | undefined) => {
 		if (!user || !token) {

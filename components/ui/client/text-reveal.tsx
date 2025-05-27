@@ -100,7 +100,13 @@ export default function TextReveal({
 	);
 
 	if (React.Children.count(children) === 1) {
-		return React.cloneElement(children as ReactElement, { ref: containerRef });
+		return (
+			<div
+				className={className}
+				ref={containerRef}>
+				{children}
+			</div>
+		);
 	}
 
 	return (

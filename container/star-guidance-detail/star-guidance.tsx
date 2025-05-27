@@ -1,5 +1,4 @@
 "use client";
-import { useParams } from "next/navigation";
 import { starGuidanceItems } from "@/constants";
 import StarGuidance01 from "@/components/ui/client/star-guidance/star-guidance01";
 import StarGuidance02 from "@/components/ui/client/star-guidance/star-guidance02";
@@ -15,8 +14,8 @@ import StarGuidance11 from "@/components/ui/client/star-guidance/star-guidance11
 import StarGuidance12 from "@/components/ui/client/star-guidance/star-guidance12";
 import StarGuidance13 from "@/components/ui/client/star-guidance/star-guidance13";
 
-export default function StarGuidanceDetail() {
-	const { id } = useParams();
+export default function StarGuidanceDetail({ slug }: { slug: { id: string } }) {
+	const id = slug.id;
 	const planetaryItem = starGuidanceItems.find(
 		(item) => item.id === Number(id),
 	);

@@ -5,8 +5,8 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import { ChevronDown } from "lucide-react";
-import TextReveal from "@/components/ui/client/text-reveal";
 import { zodResolver } from "@hookform/resolvers/zod";
+import TextReveal from "@/components/ui/client/text-reveal";
 import { bookNowFormSchema, TbookNowFormData } from "@/schemas";
 import { footerLogo, formBg, gradientCircle, star } from "@/public";
 

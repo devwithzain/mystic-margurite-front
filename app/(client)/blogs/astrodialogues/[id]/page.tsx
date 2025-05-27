@@ -1,8 +1,8 @@
 import { Metadata } from "next";
 import Marquee from "@/container/home/marquee";
-import BlogDetail from "@/container/blog-detail/blog";
-import Hero from "@/container/blog-detail/hero";
+import Hero from "@/container/astrodialogues-blog/hero";
 import NewsLetter from "@/components/ui/client/news-letter";
+import AstrodialogueBlogDetail from "@/container/astrodialogues-blog/astrodialogues";
 
 export async function generateStaticParams() {
 	const res = await fetch(
@@ -21,16 +21,20 @@ export async function generateStaticParams() {
 }
 
 export const metadata: Metadata = {
-	title: "Astrology Blog Detail - Mystice Marguerite",
-	description: "Mystice Marguerite - Astrology Blog Detail",
+	title: "Astrodialogue Blog Detail - Mystice Marguerite",
+	description: "Mystice Marguerite - Astrodialogue Blog Detail",
 };
 
-export default function BlogDetailPage({ params }: { params: { id: string } }) {
+export default function AstrodialoguesDetail({
+	params,
+}: {
+	params: { id: string };
+}) {
 	return (
 		<>
 			<Hero />
 			<Marquee />
-			<BlogDetail slug={{ id: params.id }} />
+			<AstrodialogueBlogDetail slug={{ id: params.id }} />
 			<NewsLetter />
 		</>
 	);

@@ -1,3 +1,4 @@
+"use client";
 import "@/styles/globals.css";
 import { SideCart } from "@/components/ui/client";
 import AuthModal from "@/components/auth/auth-model";

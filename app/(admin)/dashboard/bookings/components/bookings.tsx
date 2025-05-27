@@ -30,10 +30,7 @@ export default function BookingsListings() {
 		phone_number: booking.booking_detail?.phone || "N/A",
 		status: booking.status,
 		price: booking.items[0]?.service?.price || "N/A",
-		created_at: format(
-			booking.created_at ? new Date(booking.created_at) : new Date(),
-			"MMMM do, yyyy",
-		),
+		created_at: booking.created_at,
 	}));
 
 	return (

@@ -1,3 +1,5 @@
+"use client";
+import Image from "next/image";
 import { useState } from "react";
 
 export default function VideoModal({
@@ -23,6 +25,8 @@ export default function VideoModal({
 					src={thumbnail}
 					alt="Video Thumbnail"
 					className="w-full h-full object-cover"
+					width={1280}
+					height={720}
 				/>
 				<div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
 					<div className="bg-[#C3BEB6] flex items-center justify-center w-[140px] h-[140px] rounded-full">

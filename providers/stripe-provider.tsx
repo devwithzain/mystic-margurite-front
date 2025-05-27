@@ -33,7 +33,7 @@ export default function StripeProvider({
 				const data = await response.json();
 
 				const total = data.reduce((total: number, item: TcartColumnProps) => {
-					return total + item.product.price * (item.quantity ?? 1);
+					return total + item.product.price;
 				}, 0);
 
 				setCartTotal(total);

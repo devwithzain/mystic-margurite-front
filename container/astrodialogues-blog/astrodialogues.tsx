@@ -6,7 +6,11 @@ import { useEffect, useState } from "react";
 import { TblogsColumnProps } from "@/types";
 import TextMask from "@/components/ui/client/text-mask";
 
-export default function BlogDetail({ slug }: { slug: { id: string } }) {
+export default function AstrodialogouesBlogDetail({
+	slug,
+}: {
+	slug: { id: string };
+}) {
 	const blogId = slug.id;
 	const [blog, setBlog] = useState<TblogsColumnProps | null>(null);
 
@@ -36,7 +40,7 @@ export default function BlogDetail({ slug }: { slug: { id: string } }) {
 				</div>
 				<div className="flex flex-col gap-5">
 					<div className="w-full flex items-center justify-between gap-5">
-						<h3 className="text-[#2E073F] heading font-semibold papyrus leading-tight">
+						<h3 className="text-[#2E073F] subHeading font-semibold papyrus leading-tight">
 							{blog?.title}
 						</h3>
 						<div className="flex items-center gap-4 shrink-0">
@@ -44,7 +48,7 @@ export default function BlogDetail({ slug }: { slug: { id: string } }) {
 								<div className="w-12 h-4 bg-[#7A75EF]" />
 								<div className="w-32 h-1 bg-[#A8948E]" />
 							</div>
-							<h3 className="text-[#2E073F] heading font-semibold papyrus leading-tight">
+							<h3 className="text-[#2E073F] subHeading font-semibold papyrus leading-tight">
 								{new Date(blog?.created_at || "").toLocaleDateString("en-US", {
 									day: "numeric",
 									month: "short",

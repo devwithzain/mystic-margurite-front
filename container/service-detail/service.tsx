@@ -14,7 +14,7 @@ export default function Service() {
 	useEffect(() => {
 		const fetchService = async () => {
 			try {
-				if (id) {
+				if (typeof id === "string") {
 					const response = await getService(id);
 					setService(response.service);
 				}

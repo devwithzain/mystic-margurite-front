@@ -9,12 +9,32 @@ export const metadata: Metadata = {
 	description: "Mystice Marguerite - Product Detail",
 };
 
-export default function ProductDetailPage() {
+export async function generateStaticParams() {
+	const res = await fetch(
+		"https://mysticmarguerite.com/new/backend/api/products",
+		{
+			cache: "no-store",
+		},
+	);
+	const { products } = await res.json();
+
+	const dynamicRoutes = products.map((product: any) => ({
+		id: product.id.toString(),
+	}));
+
+	return dynamicRoutes;
+}
+
+export default function ProductDetailPage({
+	params,
+}: {
+	params: { id: string };
+}) {
 	return (
 		<>
 			<Hero />
 			<Marquee />
-			<ProductDetail />
+			<ProductDetail slug={{ id: params.id }} />
 			<NewsLetter />
 		</>
 	);

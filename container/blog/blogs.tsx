@@ -17,7 +17,10 @@ export default function Blogs() {
 		const fetchBlogs = async () => {
 			try {
 				const response = await getBlogs();
-				setBlogs(response.blogs);
+				const filteredResponse = response.blogs.filter(
+					(blog) => blog.category !== "Astro dialogues Blogs",
+				);
+				setBlogs(filteredResponse);
 			} catch (err) {
 				console.error("Error fetching blogs:", err);
 			}
