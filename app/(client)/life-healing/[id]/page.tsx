@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { Suspense } from "react";
 import Marquee from "@/container/home/marquee";
 import { lifehealingItems } from "@/constants";
 import { NewsLetter } from "@/components/ui/client";
@@ -19,14 +20,16 @@ export const metadata: Metadata = {
 export default async function LifeHealingDetailPage({
 	params,
 }: {
-	params: { id: string };
+	params: Promise<{ id: string }>;
 }) {
 	const { id } = await params;
 	return (
 		<>
 			<Hero />
 			<Marquee />
-			<LifeHealing slug={{ id }} />
+			<Suspense fallback={<div>Loading...</div>}>
+				<LifeHealing slug={{ id }} />
+			</Suspense>
 			<NewsLetter />
 		</>
 	);

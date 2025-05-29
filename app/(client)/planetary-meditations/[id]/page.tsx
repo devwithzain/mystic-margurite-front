@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { Suspense } from "react";
 import Marquee from "@/container/home/marquee";
 import NewsLetter from "@/components/ui/client/news-letter";
 import Hero from "@/container/planatery-detail/hero";
@@ -19,14 +20,16 @@ export const metadata: Metadata = {
 export default async function PlanetaryDetailPage({
 	params,
 }: {
-	params: { id: string };
+	params: Promise<{ id: string }>;
 }) {
 	const { id } = await params;
 	return (
 		<>
 			<Hero />
 			<Marquee />
-			<Planetry slug={{ id }} />
+			<Suspense fallback={<div>Loading...</div>}>
+				<Planetry slug={{ id }} />
+			</Suspense>
 			<NewsLetter />
 		</>
 	);

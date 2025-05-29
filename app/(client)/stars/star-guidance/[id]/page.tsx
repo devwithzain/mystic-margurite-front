@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { Suspense } from "react";
 import Marquee from "@/container/home/marquee";
 import { starGuidanceItems } from "@/constants";
 import { NewsLetter } from "@/components/ui/client";
@@ -19,14 +20,16 @@ export async function generateStaticParams() {
 export default async function StarGuidanceDetailPage({
 	params,
 }: {
-	params: { id: string };
+	params: Promise<{ id: string }>;
 }) {
 	const { id } = await params;
 	return (
 		<>
 			<Hero />
 			<Marquee />
-			<StarGuidance slug={{ id }} />
+			<Suspense fallback={<div>Loading...</div>}>
+				<StarGuidance slug={{ id }} />
+			</Suspense>
 			<NewsLetter />
 		</>
 	);

@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { Suspense } from "react";
 import Marquee from "@/container/home/marquee";
 import BlogDetail from "@/container/blog-detail/blog";
 import Hero from "@/container/blog-detail/hero";
@@ -28,14 +29,16 @@ export const metadata: Metadata = {
 export default async function BlogDetailPage({
 	params,
 }: {
-	params: { id: string };
+	params: Promise<{ id: string }>;
 }) {
 	const { id } = await params;
 	return (
 		<>
 			<Hero />
 			<Marquee />
-			<BlogDetail slug={{ id }} />
+			<Suspense fallback={<div>Loading...</div>}>
+				<BlogDetail slug={{ id }} />
+			</Suspense>
 			<NewsLetter />
 		</>
 	);

@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { Suspense } from "react";
 import Marquee from "@/container/home/marquee";
 import Hero from "@/container/astrodialogues-blog/hero";
 import NewsLetter from "@/components/ui/client/news-letter";
@@ -28,14 +29,16 @@ export const metadata: Metadata = {
 export default async function AstrodialoguesDetail({
 	params,
 }: {
-	params: { id: string };
+	params: Promise<{ id: string }>;
 }) {
 	const { id } = await params;
 	return (
 		<>
 			<Hero />
 			<Marquee />
-			<AstrodialogueBlogDetail slug={{ id }} />
+			<Suspense fallback={<div>Loading...</div>}>
+				<AstrodialogueBlogDetail slug={{ id }} />
+			</Suspense>
 			<NewsLetter />
 		</>
 	);

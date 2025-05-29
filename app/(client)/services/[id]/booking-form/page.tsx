@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { Suspense } from "react";
 import Marquee from "@/container/home/marquee";
 import Hero from "@/container/booking-form/hero";
 import Form from "@/container/booking-form/form";
@@ -29,7 +30,7 @@ export async function generateStaticParams() {
 export default async function BookingForm({
 	params,
 }: {
-	params: { id: string };
+	params: Promise<{ id: string }>;
 }) {
 	const { id } = await params;
 	return (
@@ -37,7 +38,9 @@ export default async function BookingForm({
 			<Hero />
 			<Marquee />
 			<StripeProvider>
-				<Form slug={{ id }} />
+				<Suspense fallback={<div>Loading...</div>}>
+					<Form slug={{ id }} />
+				</Suspense>
 			</StripeProvider>
 			<NewsLetter />
 		</>

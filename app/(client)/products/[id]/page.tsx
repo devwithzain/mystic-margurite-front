@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { Suspense } from "react";
 import Marquee from "@/container/home/marquee";
 import NewsLetter from "@/components/ui/client/news-letter";
 import Hero from "@/container/product-detail/hero";
@@ -28,14 +29,16 @@ export async function generateStaticParams() {
 export default async function ProductDetailPage({
 	params,
 }: {
-	params: { id: string };
+	params: Promise<{ id: string }>;
 }) {
 	const { id } = await params;
 	return (
 		<>
 			<Hero />
 			<Marquee />
-			<ProductDetail slug={{ id }} />
+			<Suspense fallback={<div>Loading...</div>}>
+				<ProductDetail slug={{ id }} />
+			</Suspense>
 			<NewsLetter />
 		</>
 	);
