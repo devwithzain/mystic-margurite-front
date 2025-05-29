@@ -16,16 +16,17 @@ export async function generateStaticParams() {
 	}));
 }
 
-export default function StarGuidanceDetailPage({
+export default async function StarGuidanceDetailPage({
 	params,
 }: {
 	params: { id: string };
 }) {
+	const { id } = await params;
 	return (
 		<>
 			<Hero />
 			<Marquee />
-			<StarGuidance slug={{ id: params.id }} />
+			<StarGuidance slug={{ id }} />
 			<NewsLetter />
 		</>
 	);

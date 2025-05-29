@@ -25,16 +25,17 @@ export async function generateStaticParams() {
 	return dynamicRoutes;
 }
 
-export default function ProductDetailPage({
+export default async function ProductDetailPage({
 	params,
 }: {
 	params: { id: string };
 }) {
+	const { id } = await params;
 	return (
 		<>
 			<Hero />
 			<Marquee />
-			<ProductDetail slug={{ id: params.id }} />
+			<ProductDetail slug={{ id }} />
 			<NewsLetter />
 		</>
 	);

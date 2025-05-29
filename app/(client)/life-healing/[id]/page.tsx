@@ -16,16 +16,17 @@ export const metadata: Metadata = {
 	description: "Mystice Marguerite - Life Alignment Detail",
 };
 
-export default function LifeHealingDetailPage({
+export default async function LifeHealingDetailPage({
 	params,
 }: {
 	params: { id: string };
 }) {
+	const { id } = await params;
 	return (
 		<>
 			<Hero />
 			<Marquee />
-			<LifeHealing slug={{ id: params.id }} />
+			<LifeHealing slug={{ id }} />
 			<NewsLetter />
 		</>
 	);

@@ -26,13 +26,18 @@ export async function generateStaticParams() {
 	return dynamicRoutes;
 }
 
-export default function BookingForm({ params }: { params: { id: string } }) {
+export default async function BookingForm({
+	params,
+}: {
+	params: { id: string };
+}) {
+	const { id } = await params;
 	return (
 		<>
 			<Hero />
 			<Marquee />
 			<StripeProvider>
-				<Form slug={{ id: params.id }} />
+				<Form slug={{ id }} />
 			</StripeProvider>
 			<NewsLetter />
 		</>

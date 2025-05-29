@@ -25,12 +25,17 @@ export const metadata: Metadata = {
 	description: "Mystice Marguerite - Astrology Blog Detail",
 };
 
-export default function BlogDetailPage({ params }: { params: { id: string } }) {
+export default async function BlogDetailPage({
+	params,
+}: {
+	params: { id: string };
+}) {
+	const { id } = await params;
 	return (
 		<>
 			<Hero />
 			<Marquee />
-			<BlogDetail slug={{ id: params.id }} />
+			<BlogDetail slug={{ id }} />
 			<NewsLetter />
 		</>
 	);

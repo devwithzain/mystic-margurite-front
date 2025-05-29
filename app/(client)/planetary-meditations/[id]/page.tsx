@@ -16,16 +16,17 @@ export const metadata: Metadata = {
 	description: "Mystice Marguerite - Planetary Meditation Detail",
 };
 
-export default function PlanetaryDetailPage({
+export default async function PlanetaryDetailPage({
 	params,
 }: {
 	params: { id: string };
 }) {
+	const { id } = await params;
 	return (
 		<>
 			<Hero />
 			<Marquee />
-			<Planetry slug={{ id: params.id }} />
+			<Planetry slug={{ id }} />
 			<NewsLetter />
 		</>
 	);
