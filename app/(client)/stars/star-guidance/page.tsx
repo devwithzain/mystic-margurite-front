@@ -1,7 +1,6 @@
 import { Metadata } from "next";
 import Marquee from "@/container/home/marquee";
 import Hero from "@/container/star-guidance/hero";
-import NewsLetter from "@/components/ui/client/news-letter";
 import StarGuidance from "@/container/star-guidance/star-guidance";
 
 export const metadata: Metadata = {
@@ -15,7 +14,6 @@ export default function StarGuidancePage() {
 			<Hero />
 			<Marquee />
 			<StarGuidance />
-			<NewsLetter />
 		</>
 	);
 }

@@ -35,7 +35,7 @@ export default function Articles() {
 					</p>
 				</TextReveal>
 			</div>
-			<div className="w-full flex items-center justify-center gap-5">
+			<div className="w-full flex items-center justify-center gap-5 xm:flex-col sm:flex-col">
 				{blogs.slice(0, 3).map((item) => (
 					<div
 						className={`flex flex-col gap-2`}

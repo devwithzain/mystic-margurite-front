@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import Hero from "@/container/setting/hero";
 import Setting from "@/container/setting/setting";
 
 export const metadata: Metadata = {
@@ -9,6 +10,7 @@ export const metadata: Metadata = {
 export default function SettingsPage() {
 	return (
 		<>
+			<Hero />
 			<Setting />
 		</>
 	);

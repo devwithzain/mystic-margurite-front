@@ -1,10 +1,8 @@
 import { Metadata } from "next";
 import Hero from "@/container/about/hero";
-import Video from "@/container/about/video";
 import Marquee from "@/container/home/marquee";
 import Reading from "@/container/about/reading";
 import Planetary from "@/container/about/planetry";
-import NewsLetter from "@/components/ui/client/news-letter";
 
 export const metadata: Metadata = {
 	title: "About Us - Mystice Marguerite",
@@ -17,9 +15,7 @@ export default function About() {
 			<Hero />
 			<Marquee />
 			<Reading />
-			<Video />
 			<Planetary />
-			<NewsLetter />
 		</>
 	);
 }

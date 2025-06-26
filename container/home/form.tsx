@@ -47,20 +47,20 @@ export default function Form() {
 
 	return (
 		<div className="w-full border-b border-[#C3BEB6]">
-			<div className="w-full flex">
-				<div className="w-1/2">
+			<div className="w-full flex xm:flex-col-reverse sm:flex-col-reverse">
+				<div className="w-1/2 xm:w-full sm:w-full">
 					<Image
 						src={formBg}
 						alt="formBgImg"
 						className="w-full h-full object-cover"
 					/>
 				</div>
-				<div className="w-1/2 flex flex-col p-10 gap-10">
+				<div className="w-1/2 xm:w-full sm:w-full flex flex-col padding-x py-8 gap-10">
 					<div className="w-full flex items-center justify-between gap-2">
 						<Image
 							src={gradientCircle}
 							alt="gradientCircleImg"
-							className="w-[150px] lg:w-[100px] md:w-[80px] object-cover"
+							className="w-[150px] lg:w-[100px] md:w-[80px] object-cover xm:w-20 sm:w-20"
 						/>
 						<TextReveal>
 							<h1 className="text-[#2E073F] subHeading papyrus font-semibold capitalize tracking-tight text-center">
@@ -70,7 +70,7 @@ export default function Form() {
 						<Image
 							src={footerLogo}
 							alt="footerLogoImg"
-							className="w-[150px] lg:w-[100px] md:w-[80px] object-cover"
+							className="w-[150px] lg:w-[100px] md:w-[80px] object-cover xm:w-20 sm:w-20"
 						/>
 					</div>
 					<form

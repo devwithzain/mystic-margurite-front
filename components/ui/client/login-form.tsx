@@ -65,7 +65,7 @@ export default function LoginForm({ onClose }: { onClose: () => void }) {
 			initial={{ y: "115%" }}
 			animate={{ y: "0%" }}
 			transition={{ duration: 1, ease: "easeInOut" }}
-			className="w-[50%] bg-[#04031b] rounded-xl py-5 h-[80vh] relative">
+			className="w-[50%] bg-[#04031b] rounded-xl py-5 h-[80vh] relative z-[999]">
 			<div className="absolute top-4 right-4">
 				<button
 					className="w-fit bg-[#2f1d88] text-white py-2 px-4 text-lg rounded-lg"
@@ -82,7 +82,7 @@ export default function LoginForm({ onClose }: { onClose: () => void }) {
 					/>
 				</div>
 				<div className="w-1/2 flex items-center justify-center">
-					<div className="w-full px-10 flex justify-center flex-col gap-8">
+					<div className="w-full padding-x flex justify-center flex-col gap-8">
 						<div className="flex flex-col gap-4">
 							<h1 className="subHeading text-white font-bold leading-tight tracking-tight montserrat">
 								LogIn

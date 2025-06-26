@@ -1,7 +1,7 @@
 "use client";
 import "@/styles/globals.css";
 import { useEffect } from "react";
-import { Footer, Navbar } from "@/components/ui/client";
+import { Footer, Navbar, NewsLetter } from "@/components/ui/client";
 
 export default function RootLayout({
 	children,
@@ -14,13 +14,19 @@ export default function RootLayout({
 			new LocomotiveScroll();
 		})();
 	}, []);
+
+	const loaderState = localStorage.getItem("loaderCompleted");
+
+	if (!loaderState) {
+		return null;
+	}
+
 	return (
-		<html lang="en">
-			<body>
-				<Navbar />
-				{children}
-				<Footer />
-			</body>
-		</html>
+		<>
+			<Navbar />
+			{children}
+			<NewsLetter />
+			<Footer />
+		</>
 	);
 }

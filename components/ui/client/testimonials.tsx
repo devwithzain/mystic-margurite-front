@@ -35,7 +35,7 @@ export default function Testimonials() {
 						className="w-[150px] object-cover"
 					/>
 				</div>
-				<div className="w-full px-10">
+				<div className="w-full padding-x">
 					<Swiper
 						modules={[Navigation]}
 						loop
@@ -43,7 +43,77 @@ export default function Testimonials() {
 						draggable
 						onSwiper={(swiper) => (swiperRef.current = swiper)}>
 						<SwiperSlide>
-							<div className="w-full flex items-center justify-between	">
+							<div className="w-full flex items-center justify-between	xm:hidden sm:hidden">
+								<button
+									onClick={handlePrev}
+									className="cursor-pointer">
+									<Image
+										src={arrowLeft}
+										alt="arrowLeftImg"
+										className="w-full object-cover"
+									/>
+								</button>
+								<div className="p-7 rounded-[30px] min-h-[250px] flex flex-col items-center">
+									<TextReveal>
+										<p className="subHeading text-[#2E073F] forum text-center leading-tight tracking-tight">
+											Sit amet luctus venenatis letus magna <br /> fringilla
+											urna porttor rhoncus.
+										</p>
+									</TextReveal>
+									<TextReveal>
+										<p className="text-center paragraph text-[#000] montserrat leading-normal tracking-tight">
+											- Angie Miller, Writer
+										</p>
+									</TextReveal>
+								</div>
+								<button
+									onClick={handleNext}
+									className="cursor-pointer">
+									<Image
+										src={arrowRight}
+										alt="arrowRightImg"
+										className="w-full object-cover xm:hidden sm:hidden"
+									/>
+								</button>
+							</div>
+						</SwiperSlide>
+						<SwiperSlide>
+							<div className="w-full flex items-center justify-between	xm:hidden sm:hidden">
+								<button
+									onClick={handlePrev}
+									className="cursor-pointer">
+									<Image
+										src={arrowLeft}
+										alt="arrowLeftImg"
+										className="w-full object-cover xm:hidden sm:hidden"
+									/>
+								</button>
+								<div className="p-7 rounded-[30px] min-h-[250px] flex flex-col items-center">
+									<TextReveal>
+										<p className="subHeading text-[#2E073F] forum text-center leading-tight tracking-tight">
+											Sit amet luctus venenatis letus magna <br /> fringilla
+											urna porttor rhoncus.
+										</p>
+									</TextReveal>
+									<TextReveal>
+										<p className="text-center paragraph text-[#000] montserrat leading-normal tracking-tight">
+											- Angie Miller, Writer
+										</p>
+									</TextReveal>
+								</div>
+								<button
+									onClick={handleNext}
+									className="cursor-pointer">
+									<Image
+										src={arrowRight}
+										alt="arrowRightImg"
+										className="w-full object-cover xm:hidden sm:hidden"
+									/>
+								</button>
+							</div>
+						</SwiperSlide>
+						<SwiperSlide>
+							<div className="w-full flex items-center justify-between	xm:hidden sm:hidden">
 								<button
 									onClick={handlePrev}
 									className="cursor-pointer">
@@ -78,77 +148,7 @@ export default function Testimonials() {
 							</div>
 						</SwiperSlide>
 						<SwiperSlide>
-							<div className="w-full flex items-center justify-between	">
-								<button
-									onClick={handlePrev}
-									className="cursor-pointer">
-									<Image
-										src={arrowLeft}
-										alt="arrowLeftImg"
-										className="w-full object-cover"
-									/>
-								</button>
-								<div className="p-7 rounded-[30px] min-h-[250px] flex flex-col items-center">
-									<TextReveal>
-										<p className="subHeading text-[#2E073F] forum text-center leading-tight tracking-tight">
-											Sit amet luctus venenatis letus magna <br /> fringilla
-											urna porttor rhoncus.
-										</p>
-									</TextReveal>
-									<TextReveal>
-										<p className="text-center paragraph text-[#000] montserrat leading-normal tracking-tight">
-											- Angie Miller, Writer
-										</p>
-									</TextReveal>
-								</div>
-								<button
-									onClick={handleNext}
-									className="cursor-pointer">
-									<Image
-										src={arrowRight}
-										alt="arrowRightImg"
-										className="w-full object-cover"
-									/>
-								</button>
-							</div>
-						</SwiperSlide>
-						<SwiperSlide>
-							<div className="w-full flex items-center justify-between	">
-								<button
-									onClick={handlePrev}
-									className="cursor-pointer">
-									<Image
-										src={arrowLeft}
-										alt="arrowLeftImg"
-										className="w-full object-cover"
-									/>
-								</button>
-								<div className="p-7 rounded-[30px] min-h-[250px] flex flex-col items-center">
-									<TextReveal>
-										<p className="subHeading text-[#2E073F] forum text-center leading-tight tracking-tight">
-											Sit amet luctus venenatis letus magna <br /> fringilla
-											urna porttor rhoncus.
-										</p>
-									</TextReveal>
-									<TextReveal>
-										<p className="text-center paragraph text-[#000] montserrat leading-normal tracking-tight">
-											- Angie Miller, Writer
-										</p>
-									</TextReveal>
-								</div>
-								<button
-									onClick={handleNext}
-									className="cursor-pointer">
-									<Image
-										src={arrowRight}
-										alt="arrowRightImg"
-										className="w-full object-cover"
-									/>
-								</button>
-							</div>
-						</SwiperSlide>
-						<SwiperSlide>
-							<div className="w-full flex items-center justify-between	">
+							<div className="w-full flex items-center justify-between	xm:hidden sm:hidden">
 								<button
 									onClick={handlePrev}
 									className="cursor-pointer">

@@ -58,8 +58,8 @@ export default function UserMenu() {
 								placeholder
 							}
 							alt="user"
-							width={40}
-							height={40}
+							width={60}
+							height={60}
 							className="rounded-full"
 						/>
 					</motion.span>
@@ -68,7 +68,7 @@ export default function UserMenu() {
 					initial={wrapperVariants.closed}
 					variants={wrapperVariants}
 					style={{ originY: "top", translateX: "-50%" }}
-					className="flex flex-col p-2 rounded-lg bg-[#7a74ef] text-white shadow-xl absolute top-[120%] -left-full w-40 overflow-hidden">
+					className="flex flex-col p-2 rounded-lg bg-[#7a74ef] text-white shadow-xl absolute top-[120%] -left-0 overflow-hidden">
 					{user ? (
 						<>
 							<Link href="/my-orders">
@@ -128,7 +128,7 @@ const Option = ({
 		<motion.li
 			variants={iconVariants}
 			onClick={() => setOpen(false)}
-			className="flex items-center gap-2 w-full p-2 text-[17px] font-medium montserrat whitespace-nowrap rounded-md hover:bg-indigo-100 text-white hover:text-indigo-500 transition-colors cursor-pointer">
+			className="flex items-center gap-2 w-full py-2 px-4 text-[17px] font-medium montserrat whitespace-nowrap rounded-md hover:bg-indigo-100 text-white hover:text-indigo-500 transition-colors cursor-pointer">
 			<motion.span variants={actionIconVariants}>
 				<Icon />
 			</motion.span>

@@ -1,11 +1,11 @@
 "use client";
 import Navbar from "./navbar";
 import Footer from "./footer";
-import { useEffect } from "react";
 import NewsLetter from "./news-letter";
 import Hero from "@/container/home/hero";
 import Form from "@/container/home/form";
 import Video from "@/container/home/video";
+import { Suspense, useEffect } from "react";
 import Marquee from "@/container/home/marquee";
 import Services from "@/container/home/services";
 import Articles from "@/container/home/articles";
@@ -28,12 +28,14 @@ export default function HomePage() {
 			<Marquee />
 			<Services />
 			<Form />
-			<HoroScope />
+			{/* <HoroScope /> */}
 			<Reviews />
 			<StackedCards />
-			<Video />
+			{/* <Video /> */}
 			<Articles />
-			<NewsLetter />
+			<Suspense fallback={"Loading..."}>
+				<NewsLetter />
+			</Suspense>
 			<Footer />
 		</>
 	);

@@ -160,7 +160,7 @@ export default function Setting() {
 
 	return (
 		<div className="w-[60%] padding-x padding-y">
-			<div className="flex items-center justify-between py-2 mt-20">
+			<div className="flex items-center justify-between py-2">
 				<AnimatedText
 					className="heading font-gradient-regular tracking-tight leading-tight text-black"
 					text="Profile Settings"

@@ -49,7 +49,7 @@ export default function NewsLetter() {
 		}
 	};
 	return (
-		<section className="flex items-center justify-center padding-x padding-y testimonialsBg">
+		<section className="flex items-center justify-center padding-x padding-y testimonialsBg relative z-50">
 			<div className="w-full max-w-7xl flex flex-col gap-5 padding-x py-14 bg-white shadow-lg rounded-2xl text-center">
 				<div className="flex flex-col">
 					<h2 className="heading leading-tight font-semibold text-[#2E073F] tracking-tight papyrus">
@@ -63,8 +63,8 @@ export default function NewsLetter() {
 				</p>
 				<form
 					onSubmit={handleSubmit}
-					className="flex items-center gap-2 justify-center pt-3">
-					<div className="relative">
+					className="flex items-center gap-2 justify-center pt-3 xm:flex-col sm:flex-col">
+					<div className="xm:w-full sm:w-full relative">
 						<MdEmail
 							className="text-[#000] absolute left-3 top-1/2 transform -translate-y-1/2"
 							size={24}
@@ -72,7 +72,7 @@ export default function NewsLetter() {
 						<input
 							type="email"
 							placeholder="Enter Your Email"
-							className="paragraph text-black font-normal montserrat leading-tight tracking-tight pl-12 pr-4 py-3 border-[2px] border-[#000] outline-none rounded-full"
+							className="paragraph text-black font-normal montserrat leading-tight tracking-tight pl-12 pr-4 py-3 border-[2px] border-[#000] outline-none rounded-full xm:w-full sm:w-full"
 							id="email"
 							name="email"
 							value={email}
@@ -83,7 +83,7 @@ export default function NewsLetter() {
 					<button
 						disabled={isSubmitting}
 						type="submit"
-						className="paragraph bg-[#000] font-normal montserrat leading-tight tracking-tight px-6 py-3 text-white hover:bg-[#000] transition rounded-full">
+						className="paragraph bg-[#000] font-normal montserrat leading-tight tracking-tight px-6 py-3 text-white hover:bg-[#000] transition rounded-full xm:w-full sm:w-full">
 						{isSubmitting ? "Subscribing..." : "Subscribe"}
 					</button>
 				</form>

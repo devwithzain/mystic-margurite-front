@@ -1,10 +1,9 @@
 import { Metadata } from "next";
 import { Suspense } from "react";
+import { planetryItems } from "@/constants";
 import Marquee from "@/container/home/marquee";
-import NewsLetter from "@/components/ui/client/news-letter";
 import Hero from "@/container/planatery-detail/hero";
 import Planetry from "@/container/planatery-detail/planetry";
-import { planetryItems } from "@/constants";
 
 export async function generateStaticParams() {
 	return planetryItems.map((item) => ({
@@ -25,12 +24,11 @@ export default async function PlanetaryDetailPage({
 	const { id } = await params;
 	return (
 		<>
-			<Hero />
-			<Marquee />
 			<Suspense fallback={<div>Loading...</div>}>
+				<Hero />
+				<Marquee />
 				<Planetry slug={{ id }} />
 			</Suspense>
-			<NewsLetter />
 		</>
 	);
 }

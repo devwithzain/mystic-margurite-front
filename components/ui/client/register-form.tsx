@@ -67,7 +67,7 @@ export default function RegisterForm({ onClose }: { onClose: () => void }) {
 			initial={{ y: "115%" }}
 			animate={{ y: "0%" }}
 			transition={{ duration: 1, ease: "easeInOut" }}
-			className="w-[50%] h-[80vh] bg-[#04031b] rounded-xl py-5 relative">
+			className="w-[50%] h-[80vh] bg-[#04031b] rounded-xl py-5 relative z-[999]">
 			<div className="absolute top-4 right-4">
 				<button
 					className="w-fit bg-[#2f1d88] text-white py-2 px-4 text-lg rounded-lg"

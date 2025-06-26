@@ -59,7 +59,7 @@ export default function Loader() {
 						autoPlay
 						onTimeUpdate={handleTimeUpdate}>
 						<source
-							src="/intro.mp4"
+							src="https://mysticmarguerite.com/new/intro.mp4"
 							type="video/mp4"
 						/>
 					</video>

@@ -80,10 +80,7 @@ export default function TotalProducts() {
 			<CardHeader className="pb-2">
 				<div className="w-full flex items-center justify-between">
 					<CardTitle>Total Products</CardTitle>
-					<PackageSearch
-						className="text-black dark:text-white"
-						size={24}
-					/>
+					<PackageSearch size={24} />
 				</div>
 			</CardHeader>
 			<CardContent>

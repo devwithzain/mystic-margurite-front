@@ -1,7 +1,6 @@
 import { Metadata } from "next";
 import { Suspense } from "react";
 import Marquee from "@/container/home/marquee";
-import NewsLetter from "@/components/ui/client/news-letter";
 import Hero from "@/container/product-detail/hero";
 import ProductDetail from "@/container/product-detail/product";
 
@@ -34,12 +33,11 @@ export default async function ProductDetailPage({
 	const { id } = await params;
 	return (
 		<>
-			<Hero />
-			<Marquee />
 			<Suspense fallback={<div>Loading...</div>}>
+				<Hero />
+				<Marquee />
 				<ProductDetail slug={{ id }} />
 			</Suspense>
-			<NewsLetter />
 		</>
 	);
 }

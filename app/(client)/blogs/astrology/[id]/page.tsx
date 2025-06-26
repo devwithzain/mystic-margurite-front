@@ -3,7 +3,6 @@ import { Suspense } from "react";
 import Marquee from "@/container/home/marquee";
 import BlogDetail from "@/container/blog-detail/blog";
 import Hero from "@/container/blog-detail/hero";
-import NewsLetter from "@/components/ui/client/news-letter";
 
 export async function generateStaticParams() {
 	const res = await fetch(
@@ -34,12 +33,11 @@ export default async function BlogDetailPage({
 	const { id } = await params;
 	return (
 		<>
-			<Hero />
-			<Marquee />
 			<Suspense fallback={<div>Loading...</div>}>
+				<Hero />
+				<Marquee />
 				<BlogDetail slug={{ id }} />
 			</Suspense>
-			<NewsLetter />
 		</>
 	);
 }

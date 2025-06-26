@@ -5,7 +5,7 @@ export default function Hero() {
 		<div className="w-full h-[60vh] flex items-center justify-center heroBg">
 			<TextReveal>
 				<h1 className="text-[#2E073F] heading font-semibold papyrus leading-tight tracking-normal">
-					Life Alignment Energy Balances
+					Life Alignment and Balances
 				</h1>
 			</TextReveal>
 		</div>

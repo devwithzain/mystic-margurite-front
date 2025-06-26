@@ -40,22 +40,22 @@ body {
 		@apply font-[Montserrat];
 	}
 	.padding-x {
-		@apply xxl:px-[80px] xl:px-[60px] lg:px-[40px] md:px-[30px] sm:px-[20px] xm:px-[20px];
+		@apply xxl:px-[80px] xl:px-[60px] lg:px-[40px] ml:px-[30px] md:px-[30px] sm:px-[20px] xm:px-[20px];
 	}
 	.padding-y {
-		@apply xxl:py-[80px] xl:py-[60px] lg:py-[40px] md:py-[30px] sm:py-[20px] xm:py-[20px];
+		@apply xxl:py-[80px] xl:py-[60px] lg:py-[40px] ml:py-[30px] md:py-[30px] sm:py-[20px] xm:py-[20px];
 	}
 	.heading {
-		@apply xxl:text-[65px] xl:text-[60px] lg:text-[55px] md:text-[40px] sm:text-[35px] xm:text-[30px];
+		@apply xxl:text-[65px] xl:text-[60px] lg:text-[55px] ml:text-[40px] md:text-[40px] sm:text-[35px] xm:text-[30px];
 	}
 	.subHeading {
-		@apply xxl:text-[40px] xl:text-[35px] lg:text-[28px] md:text-[22px] sm:text-[18px] xm:text-[18px];
+		@apply xxl:text-[40px] xl:text-[35px] lg:text-[28px] ml:text-[22px] md:text-[22px] sm:text-[24px] xm:text-[24px];
 	}
 	.paragraph {
-		@apply xxl:text-[20px] xl:text-[18px] lg:text-[17px] md:text-[16px] sm:text-[16px] xm:text-[16px];
+		@apply xxl:text-[20px] xl:text-[18px] lg:text-[17px] ml:text-[16px] md:text-[16px] sm:text-[16px] xm:text-[16px];
 	}
 	.subParagraph {
-		@apply xxl:text-[16px] xl:text-[16px] lg:text-[15px] md:text-[15px] sm:text-[14px] xm:text-[14px];
+		@apply xxl:text-[16px] xl:text-[16px] lg:text-[15px] ml:text-[15px] md:text-[15px] sm:text-[14px] xm:text-[14px];
 	}
 }
 

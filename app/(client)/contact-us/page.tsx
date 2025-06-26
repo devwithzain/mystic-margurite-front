@@ -2,7 +2,6 @@ import { Metadata } from "next";
 import Form from "@/container/contact/form";
 import Hero from "@/container/contact/hero";
 import Marquee from "@/container/home/marquee";
-import { NewsLetter } from "@/components/ui/client";
 
 export const metadata: Metadata = {
 	title: "Contact Us - Mystice Marguerite",
@@ -15,7 +14,6 @@ export default function Contact() {
 			<Hero />
 			<Marquee />
 			<Form />
-			<NewsLetter />
 		</>
 	);
 }

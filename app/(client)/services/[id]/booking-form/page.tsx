@@ -3,7 +3,6 @@ import { Suspense } from "react";
 import Marquee from "@/container/home/marquee";
 import Hero from "@/container/booking-form/hero";
 import Form from "@/container/booking-form/form";
-import { NewsLetter } from "@/components/ui/client";
 import StripeProvider from "@/providers/stripe-provider";
 
 export const metadata: Metadata = {
@@ -35,14 +34,13 @@ export default async function BookingForm({
 	const { id } = await params;
 	return (
 		<>
-			<Hero />
-			<Marquee />
-			<StripeProvider>
-				<Suspense fallback={<div>Loading...</div>}>
+			<Suspense fallback={<div>Loading...</div>}>
+				<Hero />
+				<Marquee />
+				<StripeProvider>
 					<Form slug={{ id }} />
-				</Suspense>
-			</StripeProvider>
-			<NewsLetter />
+				</StripeProvider>
+			</Suspense>
 		</>
 	);
 }

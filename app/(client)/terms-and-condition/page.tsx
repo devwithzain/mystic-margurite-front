@@ -2,7 +2,6 @@ import { Metadata } from "next";
 import Hero from "@/container/terms/hero";
 import Terms from "@/container/terms/terms";
 import Marquee from "@/container/home/marquee";
-import { NewsLetter } from "@/components/ui/client";
 
 export const metadata: Metadata = {
 	title: "Terms and Conditions - Mystice Marguerite",
@@ -15,7 +14,6 @@ export default function TermsPage() {
 			<Hero />
 			<Marquee />
 			<Terms />
-			<NewsLetter />
 		</>
 	);
 }

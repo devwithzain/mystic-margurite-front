@@ -6,7 +6,7 @@ import RoundButton from "@/components/ui/client/round-button";
 
 export default function Hero() {
 	return (
-		<div className="w-full h-screen flex items-center justify-between padding-x heroBg">
+		<div className="w-full h-screen flex items-center justify-between padding-x heroBg xm:flex-col sm:flex-col xm:pt-40 sm:pt-40">
 			<div className="flex-1 flex flex-col gap-5">
 				<div className="flex flex-col">
 					<TextReveal>

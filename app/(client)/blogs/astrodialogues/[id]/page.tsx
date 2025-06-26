@@ -2,7 +2,6 @@ import { Metadata } from "next";
 import { Suspense } from "react";
 import Marquee from "@/container/home/marquee";
 import Hero from "@/container/astrodialogues-blog/hero";
-import NewsLetter from "@/components/ui/client/news-letter";
 import AstrodialogueBlogDetail from "@/container/astrodialogues-blog/astrodialogues";
 
 export async function generateStaticParams() {
@@ -34,12 +33,11 @@ export default async function AstrodialoguesDetail({
 	const { id } = await params;
 	return (
 		<>
-			<Hero />
-			<Marquee />
-			<Suspense fallback={<div>Loading...</div>}>
+			<Suspense fallback={"Loading..."}>
+				<Hero />
+				<Marquee />
 				<AstrodialogueBlogDetail slug={{ id }} />
 			</Suspense>
-			<NewsLetter />
 		</>
 	);
 }

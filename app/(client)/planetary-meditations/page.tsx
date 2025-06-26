@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import Hero from "@/container/planatery/hero";
 import Marquee from "@/container/home/marquee";
-import NewsLetter from "@/components/ui/client/news-letter";
+import Video from "@/container/planatery/video";
 import Planetary from "@/container/planatery/planetry";
 
 export const metadata: Metadata = {
@@ -15,7 +15,7 @@ export default function Planatery() {
 			<Hero />
 			<Marquee />
 			<Planetary />
-			<NewsLetter />
+			<Video />
 		</>
 	);
 }

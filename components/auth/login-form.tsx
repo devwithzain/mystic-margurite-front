@@ -52,7 +52,7 @@ export default function LoginFormComponent({
 	};
 
 	return (
-		<div className="w-full px-10 flex justify-center flex-col gap-8">
+		<div className="w-full padding-x flex justify-center flex-col gap-8">
 			<div className="flex flex-col gap-4">
 				<h1 className="text-[40px] text-white font-medium leading-tight tracking-tight">
 					Welcome back

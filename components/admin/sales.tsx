@@ -81,10 +81,7 @@ export default function TotalSales() {
 			<CardHeader className="pb-2">
 				<div className="w-full flex items-center justify-between">
 					<CardTitle>Total Sales</CardTitle>
-					<CreditCard
-						className="text-black dark:text-white"
-						size={24}
-					/>
+					<CreditCard size={24} />
 				</div>
 			</CardHeader>
 			<CardContent>

@@ -100,10 +100,7 @@ export default function TotalRevenue() {
 			<CardHeader className="pb-2">
 				<div className="w-full flex items-center justify-between">
 					<CardTitle>Total Revenue</CardTitle>
-					<DollarSign
-						className="text-black dark:text-white"
-						size={24}
-					/>
+					<DollarSign size={24} />
 				</div>
 			</CardHeader>
 			<CardContent>

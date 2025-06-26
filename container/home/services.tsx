@@ -6,10 +6,10 @@ import TextReveal from "@/components/ui/client/text-reveal";
 export default function Services() {
 	return (
 		<div className="w-full">
-			<div className="w-full items-end justify-between flex">
+			<div className="w-full items-end justify-between flex xm:flex-col sm:flex-col">
 				{servicesItems.map((item) => (
 					<div
-						className={`w-1/2 flex flex-col gap-5 items-center  padding-x padding-y border-b border-[#C3BEB6] ${
+						className={`w-1/2 xm:w-full sm:w-full flex flex-col gap-5 items-center  padding-x padding-y border-b border-[#C3BEB6] ${
 							item.id === 2
 								? "border-l border-[#C3BEB6]"
 								: "bg-[#FFFCFA] border-l border-[#C3BEB6]"

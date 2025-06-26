@@ -45,10 +45,6 @@ export { default as cardLibra } from './card libra.png';
 export { default as cardAaurus } from './card taurus.png';
 export { default as cardVirgo } from './card virgo.png';
 
-// export { default as introVideo } from './intro.mp4';
-// export { default as introVideo2 } from './intro2.mp4';
-
-
 export { default as aboutImg } from './aboutImg.png';
 export { default as planetry01 } from './planetry01.png';
 export { default as planetry02 } from './planetry02.png';
@@ -58,10 +54,10 @@ export { default as planetry05 } from './planetry05.png';
 export { default as planetry06 } from './planetry06.png';
 export { default as planetry07 } from './planetry07.png';
 export { default as planetry08 } from './planetry08.png';
-export { default as planetry09 } from './planetry09.png';
+export { default as planetry09 } from './planetry09.jpg';
 export { default as planetry10 } from './planetry10.png';
 export { default as planetry11 } from './planetry11.png';
-export { default as planetry12 } from './planetry12.png';
+export { default as planetry12 } from './planetry12.jpg';
 
 export { default as comment01 } from './comment01.png';
 export { default as comment02 } from './comment02.png';

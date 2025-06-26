@@ -54,7 +54,7 @@ export default function LoaderTwo() {
 				loop
 				onTimeUpdate={handleTimeUpdate}>
 				<source
-					src="/intro2.mp4"
+					src="https://mysticmarguerite.com/new/intro2.mp4"
 					type="video/mp4"
 				/>
 			</video>

@@ -195,28 +195,6 @@ export default function ServiceForm({
 		}
 	};
 
-	const modules = {
-		toolbar: [
-			[{ header: [1, 2, 3, 4, 5, 6, false] }],
-			["bold", "italic", "underline", "strike"],
-			[{ list: "ordered" }, { list: "bullet" }],
-			["link", "image"],
-			["clean"],
-		],
-	};
-
-	const formats = [
-		"header",
-		"bold",
-		"italic",
-		"underline",
-		"strike",
-		"list",
-		"bullet",
-		"link",
-		"image",
-	];
-
 	return (
 		<>
 			<AlertModal
@@ -323,6 +301,8 @@ export default function ServiceForm({
 								src={previewImage}
 								alt="Preview"
 								className="w-40 h-40 object-cover"
+								width={80}
+								height={80}
 							/>
 						) : (
 							image && (
@@ -330,6 +310,8 @@ export default function ServiceForm({
 									src={`https://mysticmarguerite.com/new/backend/${image}`}
 									alt="Preview"
 									className="w-40 h-40 object-cover"
+									width={80}
+									height={80}
 								/>
 							)
 						)}

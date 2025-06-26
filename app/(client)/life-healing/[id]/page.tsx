@@ -1,8 +1,6 @@
 import { Metadata } from "next";
-import { Suspense } from "react";
 import Marquee from "@/container/home/marquee";
 import { lifehealingItems } from "@/constants";
-import { NewsLetter } from "@/components/ui/client";
 import Hero from "@/container/lifehealing-detail/hero";
 import LifeHealing from "@/container/lifehealing-detail/life-healing";
 
@@ -27,10 +25,7 @@ export default async function LifeHealingDetailPage({
 		<>
 			<Hero />
 			<Marquee />
-			<Suspense fallback={<div>Loading...</div>}>
-				<LifeHealing slug={{ id }} />
-			</Suspense>
-			<NewsLetter />
+			<LifeHealing slug={{ id }} />
 		</>
 	);
 }

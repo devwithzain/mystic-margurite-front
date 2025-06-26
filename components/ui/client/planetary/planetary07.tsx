@@ -7,12 +7,6 @@ export default function Planetary07() {
 		<div className="w-full padding-y padding-x">
 			<div className="flex items-center justify-center flex-col gap-10">
 				<MediaPlayer src="/The_Catch_Full.mp3" />
-				<div className="">
-					<AnimatedText
-						text="Meditation on Jupiter"
-						className="text-[#2E073F] heading font-semibold papyrus leading-tight"
-					/>
-				</div>
 				<div className="w-full flex items-center gap-10 flex-col">
 					<div className="w-full flex items-center justify-center gap-10">
 						<div className="flex-1">
@@ -23,6 +17,12 @@ export default function Planetary07() {
 							/>
 						</div>
 						<div className="flex-1 flex flex-col gap-5">
+							<div className="">
+								<AnimatedText
+									text="Meditation on Jupiter"
+									className="text-[#2E073F] heading font-semibold papyrus leading-tight"
+								/>
+							</div>
 							<p className="text-black paragraph font-normal montserrat leading-loose tracking-normal">
 								<TextMask>
 									{[

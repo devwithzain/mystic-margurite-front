@@ -3,7 +3,7 @@ import PlayVideo from "@/components/ui/client/play-video";
 export default function Video() {
 	return (
 		<>
-			<PlayVideo videosrc="/intro2.mp4" />
+			<PlayVideo videosrc="https://mysticmarguerite.com/new/intro2.mp4" />
 		</>
 	);
 }

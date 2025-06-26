@@ -253,10 +253,10 @@ export default function Form({ slug }: { slug: { id: string } }) {
 					},
 				);
 
-				await axios.post(
-					`https://mysticmarguerite.com/new/backend/api/send-book-form`,
-					bookingData,
-				);
+				// await axios.post(
+				// 	`https://mysticmarguerite.com/new/backend/api/send-book-form`,
+				// 	bookingData,
+				// );
 
 				toast.success(
 					"Booking successful! Check your email for meeting details.",

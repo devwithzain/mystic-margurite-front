@@ -228,17 +228,12 @@ export const marqueeItems = [
 		title: "Natal chart readings",
 		img: star,
 	},
-	{
-		id: 5,
-		title: "Psychic powers",
-		img: star,
-	},
 ];
 
 export const servicesItems = [
 	{
 		id: 1,
-		title: "Life and Balances",
+		title: "Life Alignment and Balances",
 		desc: "Discover harmony in all aspects of your life through holistic approaches to balance your mind, body, and spirit.",
 		img: brownStar,
 		src: service2,
@@ -335,36 +330,43 @@ export const cardsItems = [
 	{
 		id: 1,
 		img: cardBack,
+		link: "https://astrologyapi.com",
 		src: cardAries,
 	},
 	{
 		id: 2,
 		img: cardBack,
+		link: "https://astrologyapi.com",
 		src: cardCancer,
 	},
 	{
 		id: 3,
 		img: cardBack,
+		link: "https://astrologyapi.com",
 		src: cardGemini,
 	},
 	{
 		id: 4,
 		img: cardBack,
+		link: "https://astrologyapi.com",
 		src: cardLeo,
 	},
 	{
 		id: 5,
 		img: cardBack,
+		link: "https://astrologyapi.com",
 		src: cardLibra,
 	},
 	{
 		id: 6,
 		img: cardBack,
+		link: "https://astrologyapi.com",
 		src: cardAaurus,
 	},
 	{
 		id: 7,
 		img: cardBack,
+		link: "https://astrologyapi.com",
 		src: cardVirgo,
 	},
 ];

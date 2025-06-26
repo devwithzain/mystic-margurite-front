@@ -6,7 +6,7 @@ export default function Modal({ isOpen, body }: TModalProps) {
 	}
 	return (
 		<>
-			<div className="w-full flex h-screen items-center justify-center inset-0 z-50 fixed backdrop-blur-sm">
+			<div className="w-full flex h-screen items-center justify-center inset-0 z-[999] fixed backdrop-blur-sm">
 				{body}
 			</div>
 		</>

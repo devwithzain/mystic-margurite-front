@@ -6,7 +6,7 @@ import { DirectionAwareHover } from "@/components/ui/client/direction-aware-hove
 
 export default function Planetary() {
 	return (
-		<div className="w-full padding-y padding-x">
+		<div className="w-full padding-y padding-x relative z-50 bg-white">
 			<div className="flex items-center justify-center flex-col gap-10">
 				<div className="grid grid-cols-4 gap-6">
 					{planetryItems.map((item, index) => (
