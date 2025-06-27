@@ -59,35 +59,9 @@ export default function BookingForm({
 		fetchTimeSlot();
 	}, [bookings]);
 
-	const formatedBookings = bookings
-		? {
-				first_name: bookings.booking_detail?.first_name,
-				last_name: bookings.booking_detail?.last_name,
-				phone: bookings.booking_detail?.phone,
-				email: bookings.booking_detail?.email,
-				birth_date: bookings.booking_detail?.birth_date,
-				birth_place: bookings.booking_detail?.birth_place,
-				birth_time: bookings.booking_detail?.birth_time,
-				country: bookings.booking_detail?.country,
-				time_slot_id: bookings.booking_detail?.time_slot_id,
-				meeting_link: bookings.booking_detail?.meeting_link,
-				notes: bookings.booking_detail?.notes,
-				state: bookings.booking_detail?.state,
-				street_address: bookings.booking_detail?.street_address,
-				timezone: bookings.booking_detail?.timezone,
-				town_city: bookings.booking_detail?.town_city,
-				zip: bookings.booking_detail?.zip,
-				status: bookings.status,
-				price: bookings.items[0]?.service?.price,
-				start_time: timeslot?.start_time,
-				end_time: timeslot?.end_time,
-				date: timeslot?.date,
-		  }
-		: null;
-
 	const form = useForm<TbookingFormData>({
 		resolver: zodResolver(bookingColumnSchema),
-		defaultValues: formatedBookings || {
+		defaultValues: {
 			first_name: "",
 			last_name: "",
 			phone: "",
@@ -112,7 +86,7 @@ export default function BookingForm({
 	});
 
 	useEffect(() => {
-		if (bookings) {
+		if (bookings && timeslot) {
 			form.reset({
 				first_name: bookings.booking_detail?.first_name,
 				last_name: bookings.booking_detail?.last_name,
@@ -129,14 +103,15 @@ export default function BookingForm({
 				timezone: bookings.booking_detail?.timezone,
 				town_city: bookings.booking_detail?.town_city,
 				zip: bookings.booking_detail?.zip,
+				meeintg_status: bookings.booking_detail?.status,
 				status: bookings.status,
 				price: bookings.items[0]?.service?.price,
-				start_time: timeslot?.start_time,
-				end_time: timeslot?.end_time,
-				date: timeslot?.date,
+				start_time: timeslot.start_time,
+				end_time: timeslot.end_time,
+				date: timeslot.date,
 			});
 		}
-	}, [bookings, form.reset, form]);
+	}, [bookings, timeslot, form]);
 
 	return (
 		<>
@@ -172,6 +147,22 @@ export default function BookingForm({
 							render={({ field }) => (
 								<FormItem className="w-full">
 									<FormLabel>Last Name</FormLabel>
+									<FormControl>
+										<Input
+											{...field}
+											disabled
+										/>
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+						<FormField
+							control={form.control}
+							name="meeintg_status"
+							render={({ field }) => (
+								<FormItem className="w-full">
+									<FormLabel>Meeting Status</FormLabel>
 									<FormControl>
 										<Input
 											{...field}

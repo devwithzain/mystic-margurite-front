@@ -7,7 +7,7 @@ import { TuserProps } from "@/types";
 import { placeholder } from "@/public";
 import { motion } from "framer-motion";
 import { IconType } from "react-icons";
-import { Settings } from "lucide-react";
+import { Book, Settings } from "lucide-react";
 import { getToken } from "@/lib/get-token";
 import { GoListOrdered } from "react-icons/go";
 import { getUserData } from "@/actions/get-user";
@@ -68,17 +68,30 @@ export default function UserMenu() {
 					initial={wrapperVariants.closed}
 					variants={wrapperVariants}
 					style={{ originY: "top", translateX: "-50%" }}
-					className="flex flex-col p-2 rounded-lg bg-[#7a74ef] text-white shadow-xl absolute top-[120%] -left-0 overflow-hidden">
+					className="flex flex-col p-2 rounded-lg bg-[#7a74ef] text-white shadow-xl absolute top-[120%] -left-0 items-start overflow-hidden">
 					{user ? (
 						<>
-							<Link href="/my-orders">
+							<Link
+								className="w-full"
+								href="/my-orders">
 								<Option
 									setOpen={setOpen}
 									Icon={GoListOrdered}
 									text="My Orders"
 								/>
 							</Link>
-							<Link href="/setting">
+							<Link
+								className="w-full"
+								href="/my-bookings">
+								<Option
+									setOpen={setOpen}
+									Icon={Book}
+									text="My Bookings"
+								/>
+							</Link>
+							<Link
+								className="w-full"
+								href="/setting">
 								<Option
 									setOpen={setOpen}
 									Icon={Settings}
@@ -86,6 +99,7 @@ export default function UserMenu() {
 								/>
 							</Link>
 							<button
+								className="w-full"
 								type="button"
 								onClick={logOut}>
 								<Option

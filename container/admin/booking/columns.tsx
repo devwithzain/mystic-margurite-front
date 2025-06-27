@@ -29,6 +29,7 @@ export const columns: ColumnDef<TbookingsProps>[] = [
 	{
 		accessorKey: "status",
 		header: "Status",
+		cell: ({ row }) => row.getValue("booking_detail.status"),
 	},
 	{
 		accessorKey: "price",

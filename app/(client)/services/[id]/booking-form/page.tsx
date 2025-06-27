@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import { Suspense } from "react";
+import { getData } from "@/lib/get-zoom-token";
 import Marquee from "@/container/home/marquee";
 import Hero from "@/container/booking-form/hero";
 import Form from "@/container/booking-form/form";
@@ -32,13 +33,14 @@ export default async function BookingForm({
 	params: Promise<{ id: string }>;
 }) {
 	const { id } = await params;
+	const jwt = await getData(id);
 	return (
 		<>
 			<Suspense fallback={<div>Loading...</div>}>
 				<Hero />
 				<Marquee />
 				<StripeProvider>
-					<Form slug={{ id }} />
+					<Form slug={{ id, jwt }} />
 				</StripeProvider>
 			</Suspense>
 		</>

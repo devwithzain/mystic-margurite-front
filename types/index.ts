@@ -112,6 +112,8 @@ export type TbookingsProps = {
    items: {
       service?: {
          price: string;
+         image: string;
+         title: string;
       };
    }[];
 };

@@ -28,7 +28,7 @@ import { ChevronDown, Loader2 } from "lucide-react";
 import { Country, State, City } from "country-state-city";
 import AnimatedText from "@/components/ui/client/animated-text";
 
-export default function Form({ slug }: { slug: { id: string } }) {
+export default function Form({ slug }: { slug: { id: string; jwt: string } }) {
 	const serviceId = slug.id;
 	const stripe = useStripe();
 	const navigate = useRouter();
@@ -160,29 +160,22 @@ export default function Form({ slug }: { slug: { id: string } }) {
 		}));
 	};
 
-	const generateJitsiMeeting = async () => {
-		try {
-			const response = await axios.get(
-				"https://mysticmarguerite.com/new/backend/api/generate-meeting",
-			);
-			const link = response.data.meetingLink;
-			return link;
-		} catch (error) {
-			console.error("Error generating Jitsi meeting:", error);
-			toast.error("Failed to create meeting room");
-			throw error;
-		}
-	};
-
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		if (!stripe || !elements) {
 			return;
 		}
 		setLoading(true);
-
+		const sessionName =
+			formData.first_name.toLowerCase() +
+			"-" +
+			formData.last_name.toLowerCase() +
+			"-" +
+			Math.floor(
+				1000000000000000 + Math.random() * 9000000000000000,
+			).toString();
 		try {
-			const meetingLink = await generateJitsiMeeting();
+			const meetingLink = `${window.location.origin}/zoom-meeting/${sessionName}`;
 
 			const amountInCents = service?.price
 				? Math.round(Number(service.price) * 100)
@@ -252,11 +245,6 @@ export default function Form({ slug }: { slug: { id: string } }) {
 						},
 					},
 				);
-
-				// await axios.post(
-				// 	`https://mysticmarguerite.com/new/backend/api/send-book-form`,
-				// 	bookingData,
-				// );
 
 				toast.success(
 					"Booking successful! Check your email for meeting details.",
