@@ -13,11 +13,14 @@ import {
 	useStripe,
 } from "@stripe/react-stripe-js";
 import axios from "axios";
+import Image from "next/image";
 import Select from "react-select";
+import { paypal, venmo } from "@/public";
 import { toast } from "react-hot-toast";
 import { getToken } from "@/lib/get-token";
 import "react-phone-input-2/lib/style.css";
 import { useRouter } from "next/navigation";
+import { paymentMethods } from "@/constants";
 import PhoneInput from "react-phone-input-2";
 import getService from "@/actions/get-service";
 import { getUserData } from "@/actions/get-user";
@@ -26,6 +29,7 @@ import getTimeSlots from "@/actions/get-timeslots";
 import React, { useEffect, useState } from "react";
 import { ChevronDown, Loader2 } from "lucide-react";
 import { Country, State, City } from "country-state-city";
+import SquareWrapper from "@/components/ui/client/square-form";
 import AnimatedText from "@/components/ui/client/animated-text";
 
 export default function Form({ slug }: { slug: { id: string; jwt: string } }) {
@@ -34,8 +38,12 @@ export default function Form({ slug }: { slug: { id: string; jwt: string } }) {
 	const navigate = useRouter();
 	const elements = useElements();
 	const token = getToken("authToken");
+	const [total, setTotal] = useState(0);
 	const [loading, setLoading] = useState(false);
 	const [user, setUser] = useState<TuserProps>();
+	const [paymentMethod, setPaymentMethod] = useState<
+		"card" | "paypal" | "venmo" | "square"
+	>("card");
 	const [isFilterOpen, setIsFilterOpen] = useState(false);
 	const [cities, setCities] = useState<TcityOption[]>([]);
 	const [states, setStates] = useState<TstateOption[]>([]);
@@ -65,6 +73,11 @@ export default function Form({ slug }: { slug: { id: string; jwt: string } }) {
 			try {
 				const response = await getService(serviceId);
 				setService(response.service);
+				setTotal(
+					response.service?.price
+						? Math.round(Number(response.service.price) * 100)
+						: 0,
+				);
 			} catch (err) {
 				console.error("Error fetching service:", err);
 			}
@@ -160,124 +173,126 @@ export default function Form({ slug }: { slug: { id: string; jwt: string } }) {
 		}));
 	};
 
-	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
-		if (!stripe || !elements) {
-			return;
-		}
+	const processBooking = async () => {
+		const sessionName = `${formData.first_name.toLowerCase()}-${formData.last_name.toLowerCase()}-${Math.floor(
+			1000000000000000 + Math.random() * 9000000000000000,
+		).toString()}`;
+		const meetingLink = `${window.location.origin}/zoom-meeting/${sessionName}`;
+
+		const bookingData = {
+			user_id: user?.id,
+			service_id: service?.id,
+			cart_items: [{ service_id: service?.id }],
+			time_slot_id: timeslot?.id,
+			...formData,
+			meeting_link: meetingLink,
+			status: "paid",
+		};
+
+		const bookingResponse = await axios.post(
+			"https://mysticmarguerite.com/new/backend/api/placedBooking",
+			bookingData,
+			{ headers: { Authorization: `Bearer ${token}` } },
+		);
+
+		await axios.post(
+			`https://mysticmarguerite.com/new/backend/api/timeslot/${formData.time_slot_id}`,
+			{ status: "booked" },
+		);
+
+		return bookingResponse;
+	};
+
+	const handlePayPalPayment = async () => {
 		setLoading(true);
-		const sessionName =
-			formData.first_name.toLowerCase() +
-			"-" +
-			formData.last_name.toLowerCase() +
-			"-" +
-			Math.floor(
-				1000000000000000 + Math.random() * 9000000000000000,
-			).toString();
 		try {
-			const meetingLink = `${window.location.origin}/zoom-meeting/${sessionName}`;
+			const response = await axios.post("/api/paypal/create-order", {
+				amount: service?.price,
+				description: `Booking for ${service?.title}`,
+			});
+			window.location.href = response.data.approvalUrl;
+		} catch (error) {
+			toast.error("Failed to initiate PayPal payment");
+			setLoading(false);
+		}
+	};
 
-			const amountInCents = service?.price
-				? Math.round(Number(service.price) * 100)
-				: 100;
+	const handleVenmoPayment = async () => {
+		setLoading(true);
+		try {
+			const response = await axios.post("/api/venmo/payment", {
+				amount: service?.price,
+				note: `Booking for ${service?.title}`,
+			});
+			window.location.href = response.data.paymentUrl;
+		} catch (error) {
+			toast.error("Failed to initiate Venmo payment");
+			setLoading(false);
+		}
+	};
 
-			await axios.post(
-				"https://mysticmarguerite.com/new/backend/api/payment-intent",
-				{
-					amount: amountInCents,
-					currency: "usd",
-				},
-			);
-
-			const { error, paymentIntent } = await stripe.confirmPayment({
-				elements,
-				confirmParams: {
-					return_url: window.location.origin + "/thank-you",
-					payment_method_data: {
-						billing_details: {
-							name: `${formData.first_name} ${formData.last_name}`,
-							email: formData.email,
-						},
-					},
-				},
-				redirect: "if_required",
+	const handleSquarePayment = async (token: string) => {
+		try {
+			setLoading(true);
+			const res = await fetch("/api/square", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({
+					sourceId: token,
+					amount: total,
+				}),
 			});
 
-			if (error) {
-				toast.error(error.message || "Payment failed. Try again.");
-				return;
-			}
+			const data = await res.json();
+			if (!res.ok) throw new Error(data.error || "Payment failed");
 
-			if (paymentIntent?.status === "succeeded") {
-				const bookingData = {
-					user_id: user?.id,
-					service_id: service?.id,
-					cart_items: [
-						{
-							service_id: service?.id,
-						},
-					],
-					time_slot_id: timeslot?.id,
-					birth_date: formData.birth_date,
-					birth_time: formData.birth_time,
-					birth_place: formData.birth_place,
-					first_name: formData.first_name,
-					last_name: formData.last_name,
-					phone: formData.phone,
-					email: formData.email,
-					country: formData.country,
-					street_address: formData.street_address,
-					town_city: formData.town_city,
-					state: formData.state,
-					zip: formData.zip,
-					timezone: formData.timezone,
-					notes: formData.notes,
-					meeting_link: meetingLink,
-					status: "panding",
-				};
-
-				const bookingResponse = await axios.post(
-					"https://mysticmarguerite.com/new/backend/api/placedBooking",
-					bookingData,
-					{
-						headers: {
-							Authorization: `Bearer ${token}`,
-						},
-					},
-				);
-
-				toast.success(
-					"Booking successful! Check your email for meeting details.",
-				);
-
-				await axios.put(
-					`https://mysticmarguerite.com/new/backend/api/bookings/${bookingResponse.data.booking_id}/status`,
-					{
-						status: "paid",
-					},
-				);
-
-				await axios.put(
-					`https://mysticmarguerite.com/new/backend/api/bookings/${bookingResponse.data.booking_id}/status`,
-					{
-						status: "paid",
-					},
-				);
-
-				await axios.post(
-					`https://mysticmarguerite.com/new/backend/api/timeslot/${formData.time_slot_id}`,
-					{
-						status: "booked",
-					},
-				);
-
-				navigate.push("/thank-you");
-			}
-		} catch (err) {
-			console.log("Error processing payment:", err);
-			toast.error("Booking failed. Please try again.");
+			await processBooking();
+			toast.success("Booking successful!");
+			navigate.push("/thank-you");
+		} catch (error) {
+			console.error("Payment Error:", error);
+			toast.error(error.message || "Payment failed. Please try again.");
 		} finally {
 			setLoading(false);
+		}
+	};
+
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		if (paymentMethod === "card") {
+			setLoading(true);
+			if (!stripe || !elements) return;
+
+			try {
+				await axios.post(
+					"https://mysticmarguerite.com/new/backend/api/payment-intent",
+					{ amount: total, currency: "usd" },
+				);
+
+				const { error, paymentIntent } = await stripe.confirmPayment({
+					elements,
+					confirmParams: {
+						return_url: window.location.origin + "/thank-you",
+						payment_method_data: {
+							billing_details: {
+								name: `${formData.first_name} ${formData.last_name}`,
+								email: formData.email,
+							},
+						},
+					},
+					redirect: "if_required",
+				});
+
+				if (error) throw error;
+				if (paymentIntent?.status !== "succeeded") return;
+
+				await processBooking();
+				navigate.push("/thank-you");
+			} catch (err) {
+				toast.error(err.message || "Payment failed. Try again.");
+			} finally {
+				setLoading(false);
+			}
 		}
 	};
 
@@ -687,28 +702,127 @@ export default function Form({ slug }: { slug: { id: string; jwt: string } }) {
 							className="border-[#C6C6C6] border-2 px-4 py-2 w-full outline-none paragraph font-MonstrateRegular"
 						/>
 					</div>
+					<div className="w-full py-5">
+						<div className="w-full flex gap-4 mb-6">
+							{paymentMethods.map((item) => (
+								<button
+									type="button"
+									key={item.id}
+									onClick={() =>
+										setPaymentMethod(
+											item.title as "card" | "paypal" | "venmo" | "square",
+										)
+									}
+									className={`w-full px-4 py-2 border-2 rounded-md font-semibold capitalize flex flex-col items-center gap-2 ${
+										paymentMethod === item.title
+											? "bg-[#7a74ef] text-white border-[#2E073F]"
+											: "text-[#2E073F] border-[#2E073F] bg-transparent"
+									}`}>
+									<Image
+										src={item.img}
+										alt={item.title}
+										width={40}
+										height={40}
+									/>
+									<span>{item.title}</span>
+								</button>
+							))}
+						</div>
+
+						{paymentMethod === "card" && <PaymentElement />}
+
+						{paymentMethod === "paypal" && (
+							<div className="text-black">
+								<p className="mb-2 font-semibold">Pay with PayPal</p>
+								<button
+									type="button"
+									onClick={handlePayPalPayment}
+									disabled={loading}
+									className="bg-[#003087] text-white px-6 py-3 rounded hover:bg-[#001f5b] w-full flex items-center justify-center gap-2">
+									{loading ? (
+										<>
+											<Loader2 className="animate-spin" /> Processing...
+										</>
+									) : (
+										<>
+											<Image
+												src={paypal}
+												alt="PayPal"
+												width={20}
+												height={20}
+											/>
+											Checkout with PayPal
+										</>
+									)}
+								</button>
+							</div>
+						)}
+
+						{paymentMethod === "venmo" && (
+							<div className="text-black">
+								<p className="mb-2 font-semibold">Pay with Venmo</p>
+								<button
+									type="button"
+									onClick={handleVenmoPayment}
+									disabled={loading}
+									className="bg-[#3D95CE] text-white px-6 py-3 rounded hover:bg-[#307fb2] w-full flex items-center justify-center gap-2">
+									{loading ? (
+										<>
+											<Loader2 className="animate-spin" /> Processing...
+										</>
+									) : (
+										<>
+											<Image
+												src={venmo}
+												alt="Venmo"
+												width={20}
+												height={20}
+											/>
+											Pay with Venmo
+										</>
+									)}
+								</button>
+							</div>
+						)}
+
+						{paymentMethod === "square" && (
+							<div className="text-black">
+								<p className="mb-2 font-semibold">Pay with Square</p>
+								<SquareWrapper
+									amount={total}
+									onPaymentSuccess={handleSquarePayment}
+								/>
+								{loading && (
+									<div className="mt-2 flex items-center gap-2 text-sm">
+										<Loader2 className="animate-spin w-4 h-4" />
+										Processing payment...
+									</div>
+								)}
+							</div>
+						)}
+					</div>
 
 					<p className="text-black paragraph leading-normal tracking-tight font-MonstrateRegular">
 						Your personal data will be used to process your order, support your
 						experience throughout this website, and for other purposes described
 						in our privacy policy.
 					</p>
-					<button
-						type="submit"
-						disabled={loading}
-						className="w-fit bg-[#7a74ef] mt-4 flex items-center gap-2 btn transition-all duration-300 ease-in-out text-white px-4 py-4 capitalize montserrat paragraph leading-tight tracking-tight rounded-md">
-						{loading ? (
-							<div className="flex items-center gap-2">
-								<Loader2 className="animate-spin mx-auto" /> Loading...
-							</div>
-						) : (
-							"Book Now"
-						)}
-					</button>
+
+					{paymentMethod === "card" && (
+						<button
+							type="submit"
+							disabled={loading}
+							className="w-fit bg-[#7a74ef] mt-4 flex items-center gap-2 btn transition-all duration-300 ease-in-out text-white px-4 py-4 capitalize montserrat paragraph leading-tight tracking-tight rounded-md">
+							{loading ? (
+								<div className="flex items-center gap-2">
+									<Loader2 className="animate-spin mx-auto" /> Loading...
+								</div>
+							) : (
+								"Book Now"
+							)}
+						</button>
+					)}
 				</form>
-				<div className="w-1/2 border-l-2 border-black/10 pl-10 py-10">
-					<PaymentElement />
-				</div>
 			</div>
 		</div>
 	);

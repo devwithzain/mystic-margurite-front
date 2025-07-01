@@ -125,3 +125,8 @@ export { default as lineUp } from './lineUp.png';
 // export { default as TheCatchFull } from './The_Catch_Full.mp3';
 
 export { default as mystic } from './mystic.jpg';
+
+export { default as square } from './square-icon.png';
+export { default as paypal } from './paypal-icon.png';
+export { default as venmo } from './venmo-icon.png';
+export { default as cardIcon } from './card-icon.svg';

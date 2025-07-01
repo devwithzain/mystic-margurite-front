@@ -5,23 +5,33 @@ import {
 	useStripe,
 } from "@stripe/react-stripe-js";
 import axios from "axios";
+import Image from "next/image";
 import Select from "react-select";
 import { Loader2 } from "lucide-react";
 import { toast } from "react-hot-toast";
 import { getToken } from "@/lib/get-token";
-import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { useRouter } from "next/navigation";
+import PhoneInput from "react-phone-input-2";
+import { paymentMethods } from "@/constants";
 import { getUserData } from "@/actions/get-user";
 import React, { useEffect, useState } from "react";
 import { Country, State, City } from "country-state-city";
+import SquareWrapper from "@/components/ui/client/square-form";
 import AnimatedText from "@/components/ui/client/animated-text";
 import { TcityOption, TcountryOption, TstateOption, TuserProps } from "@/types";
 
 export default function Form() {
-	const token = getToken("authToken");
 	const navigate = useRouter();
+	const token = getToken("authToken");
+	const stripe = useStripe();
+	const elements = useElements();
+
 	const [user, setUser] = useState<TuserProps>();
+	const [loading, setLoading] = useState(false);
+	const [paymentMethod, setPaymentMethod] = useState<
+		"card" | "paypal" | "venmo" | "square"
+	>("card");
 	const [cartItems, setCartItems] = useState<any[]>([]);
 	const [cartTotal, setCartTotal] = useState<number>(0);
 	const [cities, setCities] = useState<TcityOption[]>([]);
@@ -32,6 +42,20 @@ export default function Form() {
 		null,
 	);
 
+	const [formData, setFormData] = useState({
+		firstName: "",
+		lastName: "",
+		phone: "",
+		email: "",
+		country: "",
+		streetAddress: "",
+		townCity: "",
+		state: "",
+		zip: "",
+		agreedTerms: false,
+	});
+
+	// Fetch user data
 	useEffect(() => {
 		const fetchUserData = async () => {
 			const userData = await getUserData(token);
@@ -40,6 +64,7 @@ export default function Form() {
 		fetchUserData();
 	}, [token]);
 
+	// Fetch cart items
 	useEffect(() => {
 		const fetchCartItems = async () => {
 			try {
@@ -60,16 +85,13 @@ export default function Form() {
 				setCartItems(data);
 				setCartTotal(total);
 			} catch (error: unknown) {
-				if (error instanceof Error) {
-					console.log(error.message);
-				} else {
-					console.log("An unknown error occurred");
-				}
+				console.error("Error fetching cart items:", error);
 			}
 		};
 		fetchCartItems();
 	}, [token]);
 
+	// Initialize countries
 	useEffect(() => {
 		const countryList = Country.getAllCountries().map((country) => ({
 			value: country.isoCode,
@@ -78,6 +100,7 @@ export default function Form() {
 		setCountries(countryList);
 	}, []);
 
+	// Update states when country changes
 	useEffect(() => {
 		if (selectedCountry) {
 			const stateList = State.getStatesOfCountry(selectedCountry.value).map(
@@ -92,6 +115,7 @@ export default function Form() {
 		}
 	}, [selectedCountry]);
 
+	// Update cities when state changes
 	useEffect(() => {
 		if (selectedCountry && selectedState) {
 			const cityList = City.getCitiesOfState(
@@ -105,22 +129,6 @@ export default function Form() {
 		}
 	}, [selectedState, selectedCountry]);
 
-	const stripe = useStripe();
-	const elements = useElements();
-	const [loading, setLoading] = useState(false);
-	const [formData, setFormData] = useState({
-		firstName: "",
-		lastName: "",
-		phone: "",
-		email: "",
-		country: "",
-		streetAddress: "",
-		townCity: "",
-		state: "",
-		zip: "",
-		agreedTerms: false,
-	});
-
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { id, value, type, checked } = e.target;
 		setFormData((prev) => ({
@@ -129,26 +137,68 @@ export default function Form() {
 		}));
 	};
 
-	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
-		if (!stripe || !elements) {
-			return;
-		}
-		setLoading(true);
+	const processOrder = async () => {
+		const orderData = {
+			user_id: user?.id,
+			cart_items: cartItems.map((item) => ({
+				product_id: item.product.id,
+				quantity: item.quantity || 1,
+			})),
+			first_name: formData.firstName,
+			last_name: formData.lastName,
+			email: formData.email,
+			phone: formData.phone,
+			country: formData.country,
+			street_address: formData.streetAddress,
+			town_city: formData.townCity,
+			state: formData.state,
+			zip: formData.zip,
+			agreed_terms: formData.agreedTerms,
+		};
 
 		try {
-			const amountInCents = cartTotal * 100;
-			const { data } = await axios.post(
-				"https://mysticmarguerite.com/new/backend/api/payment-intent",
-				{
-					amount: amountInCents,
-					currency: "usd",
-				},
+			const orderResponse = await axios.post(
+				"https://mysticmarguerite.com/new/backend/api/placedOrder",
+				orderData,
 			);
-			console.log(data);
+
+			await axios.put(
+				`https://mysticmarguerite.com/new/backend/api/orders/${orderResponse.data.order_id}/status`,
+				{ status: "paid" },
+			);
+
+			// Clear cart after successful order
+			await axios.delete("https://mysticmarguerite.com/new/backend/api/cart", {
+				headers: { Authorization: `Bearer ${token}` },
+			});
+
+			setCartItems([]);
+			setCartTotal(0);
+			return true;
+		} catch (error) {
+			console.error("Error processing order:", error);
+			return false;
+		}
+	};
+
+	const handleStripePayment = async () => {
+		if (!stripe || !elements) return;
+
+		setLoading(true);
+		try {
+			const amountInCents = Math.round(cartTotal * 100);
+
+			// Create payment intent
+			await axios.post(
+				"https://mysticmarguerite.com/new/backend/api/payment-intent",
+				{ amount: amountInCents, currency: "usd" },
+			);
+
+			// Confirm payment
 			const { error, paymentIntent } = await stripe.confirmPayment({
 				elements,
 				confirmParams: {
+					return_url: `${window.location.origin}/thank-you`,
 					payment_method_data: {
 						billing_details: {
 							name: `${formData.firstName} ${formData.lastName}`,
@@ -158,54 +208,115 @@ export default function Form() {
 				},
 				redirect: "if_required",
 			});
-			if (error) {
-				toast.error(error.message || "Payment failed. Try again.");
-			} else if (paymentIntent?.status === "succeeded") {
-				const orderData = {
-					user_id: user?.id,
-					cart_items: cartItems.map((item) => ({
-						product_id: item.product.id,
-						quantity: item.quantity || 1,
-					})),
-					first_name: formData.firstName,
-					last_name: formData.lastName,
-					email: formData.email,
-					phone: formData.phone,
-					country: formData.country,
-					street_address: formData.streetAddress,
-					town_city: formData.townCity,
-					state: formData.state,
-					zip: formData.zip,
-					agreed_terms: formData.agreedTerms,
-				};
-				const orderResponse = await axios.post(
-					"https://mysticmarguerite.com/new/backend/api/placedOrder",
-					orderData,
-				);
-				await axios.put(
-					`https://mysticmarguerite.com/new/backend/api/orders/${orderResponse.data.order_id}/status`,
-					{
-						status: "paid",
-					},
-				);
-				toast.success("Payment successful!");
-				await axios.delete(
-					"https://mysticmarguerite.com/new/backend/api/cart",
-					{
-						headers: {
-							Authorization: `Bearer ${token}`,
-						},
-					},
-				);
-				setCartItems([]);
-				setCartTotal(0);
+
+			if (error) throw error;
+			if (paymentIntent?.status !== "succeeded") {
+				throw new Error("Payment not succeeded");
 			}
+
+			// Process order after successful payment
+			const orderSuccess = await processOrder();
+			if (!orderSuccess) throw new Error("Order processing failed");
+
+			toast.success("Payment successful!");
+			navigate.push("/thank-you");
 		} catch (err) {
-			toast.error("Payment failed. Try again.");
-			console.error("Error during payment or order placement:", err);
+			console.error("Payment Error:", err);
+			toast.error(err.message || "Payment failed. Try again.");
 		} finally {
 			setLoading(false);
+		}
+	};
+
+	const handleSquarePayment = async (token: string) => {
+		setLoading(true);
+		try {
+			const amountInCents = Math.round(cartTotal * 100);
+
+			// Process Square payment
+			const res = await fetch("/api/square", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({
+					sourceId: token,
+					amount: amountInCents,
+					currency: "USD",
+					buyerEmail: formData.email,
+				}),
+			});
+
+			const data = await res.json();
+			if (!res.ok) throw new Error(data.error || "Payment failed");
+
+			// Process order after successful payment
+			const orderSuccess = await processOrder();
+			if (!orderSuccess) throw new Error("Order processing failed");
+
+			toast.success("Payment successful!");
 			navigate.push("/thank-you");
+		} catch (error) {
+			console.error("Payment Error:", error);
+			toast.error(error.message || "Payment failed. Please try again.");
+		} finally {
+			setLoading(false);
+		}
+	};
+
+	const handlePayPalPayment = async () => {
+		setLoading(true);
+		try {
+			const response = await axios.post("/api/paypal/create-order", {
+				amount: cartTotal,
+				description: `Order for ${formData.firstName} ${formData.lastName}`,
+				email: formData.email,
+			});
+			window.location.href = response.data.approvalUrl;
+		} catch (error) {
+			toast.error("Failed to initiate PayPal payment");
+			setLoading(false);
+		}
+	};
+
+	const handleVenmoPayment = async () => {
+		setLoading(true);
+		try {
+			const response = await axios.post("/api/venmo/payment", {
+				amount: cartTotal,
+				note: `Order for ${formData.firstName} ${formData.lastName}`,
+				email: formData.email,
+			});
+			window.location.href = response.data.paymentUrl;
+		} catch (error) {
+			toast.error("Failed to initiate Venmo payment");
+			setLoading(false);
+		}
+	};
+
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+
+		// Validate form
+		if (!formData.agreedTerms) {
+			toast.error("Please agree to the terms and conditions");
+			return;
+		}
+
+		// Handle payment based on selected method
+		switch (paymentMethod) {
+			case "card":
+				await handleStripePayment();
+				break;
+			case "square":
+				// Square handles its own submission via the SquareWrapper
+				break;
+			case "paypal":
+				await handlePayPalPayment();
+				break;
+			case "venmo":
+				await handleVenmoPayment();
+				break;
+			default:
+				toast.error("Please select a payment method");
 		}
 	};
 
@@ -225,277 +336,344 @@ export default function Form() {
 					/>
 				</div>
 			</div>
+
 			<div className="w-full flex gap-10 justify-between padding-y">
 				<form
 					onSubmit={handleSubmit}
 					className="w-full flex flex-col gap-5">
-					<div className="w-full flex items-center gap-5">
-						<div className="w-full flex flex-col gap-3">
-							<label
-								className="text-black paragraph leading-tight tracking-tight font-medium montserrat"
-								htmlFor="firstName">
-								First Name *
-							</label>
-							<input
-								onChange={handleInputChange}
-								value={formData.firstName}
-								type="text"
-								id="firstName"
-								required
-								className="border-[#C6C6C6] border-2 px-4 py-2 w-full outline-none paragraph font-MonstrateRegular"
-							/>
+					{/* Left Column - Billing Details */}
+					<div className="w-full flex gap-5">
+						<div className="w-1/2 flex flex-col gap-5">
+							{/* Name Fields */}
+							<div className="w-full flex items-center gap-5">
+								<div className="w-full flex flex-col gap-3">
+									<label className="text-black paragraph leading-tight tracking-tight font-medium montserrat">
+										First Name *
+									</label>
+									<input
+										onChange={handleInputChange}
+										value={formData.firstName}
+										type="text"
+										id="firstName"
+										required
+										className="border-[#C6C6C6] border-2 px-4 py-2 w-full outline-none paragraph font-MonstrateRegular"
+									/>
+								</div>
+								<div className="w-full flex flex-col gap-3">
+									<label className="text-black paragraph leading-tight tracking-tight font-medium montserrat">
+										Last Name *
+									</label>
+									<input
+										onChange={handleInputChange}
+										value={formData.lastName}
+										type="text"
+										id="lastName"
+										required
+										className="border-[#C6C6C6] border-2 px-4 py-2 w-full outline-none paragraph font-MonstrateRegular"
+									/>
+								</div>
+							</div>
+
+							{/* Contact Fields */}
+							<div className="w-full flex items-center gap-5">
+								<div className="w-full flex flex-col gap-3">
+									<label className="text-black paragraph leading-tight tracking-tight font-medium montserrat">
+										Phone *
+									</label>
+									<PhoneInput
+										country={"us"}
+										value={formData.phone}
+										onChange={(phone) => setFormData({ ...formData, phone })}
+										inputClass="!text-[20px] !font-gradient-regular !leading-tight !tracking-tight !text-black !border-2 !border-[#C6C6C6] !p-6 !w-full !pl-12 !h-[45px]"
+										containerStyle={{ width: "100%" }}
+										buttonClass="!border-black/50 !border-2 !border-black/50"
+										containerClass="!w-full"
+									/>
+								</div>
+								<div className="w-full flex flex-col gap-3">
+									<label className="text-black paragraph leading-tight tracking-tight font-medium montserrat">
+										Email*
+									</label>
+									<input
+										onChange={handleInputChange}
+										value={formData.email}
+										type="email"
+										id="email"
+										required
+										className="border-[#C6C6C6] border-2 px-4 py-2 w-full outline-none paragraph font-MonstrateRegular"
+									/>
+								</div>
+							</div>
+
+							{/* Address Fields */}
+							<div className="w-full flex flex-col gap-3">
+								<label className="text-black paragraph leading-tight tracking-tight font-medium montserrat">
+									Country / Region *
+								</label>
+								<Select
+									options={countries}
+									value={selectedCountry}
+									onChange={(value) => {
+										setSelectedCountry(value);
+										setFormData({ ...formData, country: value?.label || "" });
+									}}
+									className="paragraph font-gradient-regular leading-tight tracking-tight text-black outline-none w-full paragraph font-MonstrateRegular"
+									styles={{
+										control: (base) => ({
+											...base,
+											border: "2px solid #C6C6C6",
+											padding: "0.4rem 0",
+											color: "black",
+											background: "white",
+											boxShadow: "none",
+										}),
+										option: (base, { isFocused }) => ({
+											...base,
+											backgroundColor: isFocused ? "#f3f4f6" : "white",
+											color: "black",
+											cursor: "pointer",
+											padding: "0.5rem 1rem",
+										}),
+										singleValue: (base) => ({
+											...base,
+											color: "black",
+										}),
+										input: (base) => ({
+											...base,
+											color: "black",
+										}),
+									}}
+								/>
+							</div>
+
+							<div className="w-full flex flex-col gap-3">
+								<label className="text-black paragraph leading-tight tracking-tight font-medium montserrat">
+									Street address *
+								</label>
+								<input
+									onChange={handleInputChange}
+									value={formData.streetAddress}
+									type="text"
+									id="streetAddress"
+									required
+									className="border-[#C6C6C6] border-2 px-4 py-2 w-full outline-none paragraph font-MonstrateRegular"
+								/>
+							</div>
+
+							<div className="w-full flex items-center gap-5">
+								<div className="w-full flex flex-col gap-3">
+									<label className="text-black paragraph leading-tight tracking-tight font-medium montserrat">
+										State*
+									</label>
+									<Select
+										options={states}
+										value={selectedState}
+										onChange={(value) => {
+											setSelectedState(value);
+											setFormData({ ...formData, state: value?.value || "" });
+										}}
+										className="paragraph font-gradient-regular leading-tight tracking-tight text-black outline-none"
+										styles={{
+											control: (base) => ({
+												...base,
+												border: "2px solid #C6C6C6",
+												padding: "0.4rem 0",
+												color: "black",
+												background: "white",
+												boxShadow: "none",
+											}),
+											option: (base, { isFocused }) => ({
+												...base,
+												backgroundColor: isFocused ? "#f3f4f6" : "white",
+												color: "black",
+												cursor: "pointer",
+												padding: "0.5rem 1rem",
+											}),
+											singleValue: (base) => ({
+												...base,
+												color: "black",
+											}),
+											input: (base) => ({
+												...base,
+												color: "black",
+											}),
+										}}
+									/>
+								</div>
+								<div className="w-full flex flex-col gap-3">
+									<label className="text-black paragraph leading-tight tracking-tight font-medium montserrat">
+										City*
+									</label>
+									<Select
+										options={cities}
+										value={cities.find((c) => c.value === formData.townCity)}
+										onChange={(value) =>
+											setFormData({ ...formData, townCity: value?.value || "" })
+										}
+										className="w-full paragraph font-gradient-regular leading-tight tracking-tight text-black outline-none"
+										styles={{
+											control: (base) => ({
+												...base,
+												border: "2px solid #C6C6C6",
+												padding: "0.4rem 0",
+												color: "black",
+												background: "white",
+												boxShadow: "none",
+											}),
+											option: (base, { isFocused }) => ({
+												...base,
+												backgroundColor: isFocused ? "#f3f4f6" : "white",
+												color: "black",
+												cursor: "pointer",
+												padding: "0.5rem 1rem",
+											}),
+											singleValue: (base) => ({
+												...base,
+												color: "black",
+											}),
+											input: (base) => ({
+												...base,
+												color: "black",
+											}),
+										}}
+									/>
+								</div>
+								<div className="w-full flex flex-col gap-3">
+									<label className="text-black paragraph leading-tight tracking-tight font-medium montserrat">
+										Zip
+									</label>
+									<input
+										onChange={handleInputChange}
+										value={formData.zip}
+										type="text"
+										id="zip"
+										className="border-[#C6C6C6] border-2 px-4 py-2 w-full outline-none paragraph font-MonstrateRegular"
+									/>
+								</div>
+							</div>
+
+							{/* Terms and Conditions */}
+							<p className="text-black paragraph leading-normal tracking-tight font-MonstrateRegular">
+								Your personal data will be used to process your order, support
+								your experience throughout this website, and for other purposes
+								described in our privacy policy.
+							</p>
+							<div className="flex items-center gap-2">
+								<input
+									onChange={handleInputChange}
+									checked={formData.agreedTerms}
+									id="agreedTerms"
+									type="checkbox"
+									required
+									className="w-5 h-5 outline-none border-none"
+								/>
+								<label
+									htmlFor="agreedTerms"
+									className="paragraph text-[#000] leading-tight tracking-tight font-MonstrateRegular">
+									I have read and agree to the website terms and conditions.
+								</label>
+							</div>
 						</div>
-						<div className="w-full flex flex-col gap-3">
-							<label
-								className="text-black paragraph leading-tight tracking-tight font-medium montserrat"
-								htmlFor="lastName">
-								Last Name *
-							</label>
-							<input
-								onChange={handleInputChange}
-								value={formData.lastName}
-								type="text"
-								id="lastName"
-								required
-								className="border-[#C6C6C6] border-2 px-4 py-2 w-full outline-none paragraph font-MonstrateRegular"
-							/>
+
+						{/* Right Column - Payment Methods */}
+						<div className="w-1/2 border-l-2 border-black/10 pl-10 py-10">
+							<div className="w-full flex gap-4 mb-6">
+								{paymentMethods.map((item) => (
+									<button
+										type="button"
+										key={item.id}
+										onClick={() => setPaymentMethod(item.title as any)}
+										className={`w-full px-4 py-2 border-2 rounded-md font-semibold capitalize ${
+											paymentMethod === item.title
+												? "bg-[#7a74ef] text-white border-[#2E073F]"
+												: "text-[#2E073F] border-[#2E073F] bg-transparent"
+										}`}>
+										<div className="w-fit flex flex-col gap-2">
+											<Image
+												src={item.img}
+												alt="icon"
+												width={40}
+												height={40}
+											/>
+											<p>{item.title}</p>
+										</div>
+									</button>
+								))}
+							</div>
+
+							{paymentMethod === "card" && <PaymentElement />}
+
+							{paymentMethod === "paypal" && (
+								<div className="text-black">
+									<p className="mb-2 font-semibold">Pay with PayPal</p>
+									<button
+										type="button"
+										onClick={handlePayPalPayment}
+										disabled={loading}
+										className="bg-[#003087] text-white px-6 py-4 rounded hover:bg-[#001f5b] w-full flex items-center justify-center gap-2 capitalize montserrat paragraph leading-tight tracking-tight">
+										{loading ? (
+											<>
+												<Loader2 className="animate-spin" /> Processing...
+											</>
+										) : (
+											"Connect PayPal"
+										)}
+									</button>
+								</div>
+							)}
+
+							{paymentMethod === "venmo" && (
+								<div className="text-black">
+									<p className="mb-2 font-semibold">Pay with Venmo</p>
+									<button
+										type="button"
+										onClick={handleVenmoPayment}
+										disabled={loading}
+										className="bg-[#3D95CE] text-white px-6 py-4 rounded hover:bg-[#307fb2] w-full flex items-center justify-center gap-2  capitalize montserrat paragraph leading-tight tracking-tight">
+										{loading ? (
+											<>
+												<Loader2 className="animate-spin" /> Processing...
+											</>
+										) : (
+											"Pay with Venmo"
+										)}
+									</button>
+								</div>
+							)}
+
+							{paymentMethod === "square" && (
+								<div className="text-black">
+									<p className="mb-2 font-semibold">Pay with Square</p>
+									<SquareWrapper
+										amount={cartTotal}
+										onPaymentSuccess={handleSquarePayment}
+									/>
+									{loading && (
+										<div className="mt-4 flex items-center justify-center gap-2">
+											<Loader2 className="animate-spin" />
+											<span>Processing payment...</span>
+										</div>
+									)}
+								</div>
+							)}
+							{paymentMethod === "card" && (
+								<button
+									type="submit"
+									disabled={loading || paymentMethod === "card"}
+									className="w-full text-center bg-[#7a74ef] mt-4 flex items-center justify-center gap-2 btn transition-all duration-300 ease-in-out text-white px-4 py-4 capitalize montserrat paragraph leading-tight tracking-tight rounded-md">
+									{loading ? (
+										<>
+											<Loader2 className="animate-spin" />
+											Processing...
+										</>
+									) : (
+										"Place Order"
+									)}
+								</button>
+							)}
 						</div>
 					</div>
-					<div className="w-full flex items-center gap-5">
-						<div className="w-full flex flex-col gap-3">
-							<label
-								className="text-black paragraph leading-tight tracking-tight font-medium montserrat"
-								htmlFor="phone">
-								Phone *
-							</label>
-							<PhoneInput
-								country={"us"}
-								value={formData.phone}
-								onChange={(phone) => setFormData({ ...formData, phone })}
-								inputClass="!text-[20px] !font-gradient-regular !leading-tight !tracking-tight !text-black !border-2 !border-[#C6C6C6] !p-6 !w-full !pl-12 !h-[45px]"
-								containerStyle={{
-									width: "100%",
-								}}
-								buttonClass="!border-black/50 !border-2 !border-black/50"
-								containerClass="!w-full"
-							/>
-						</div>
-						<div className="w-full flex flex-col gap-3">
-							<label
-								className="text-black paragraph leading-tight tracking-tight font-medium montserrat"
-								htmlFor="email">
-								Email*
-							</label>
-							<input
-								onChange={handleInputChange}
-								value={formData.email}
-								type="email"
-								id="email"
-								required
-								className="border-[#C6C6C6] border-2 px-4 py-2 w-full outline-none paragraph font-MonstrateRegular"
-							/>
-						</div>
-					</div>
-					<div className="w-full flex items-center gap-5">
-						<div className="w-full flex flex-col gap-3">
-							<label
-								className="text-black paragraph leading-tight tracking-tight font-medium montserrat"
-								htmlFor="country">
-								Country / Region *
-							</label>
-							<Select
-								options={countries}
-								value={selectedCountry}
-								onChange={(value) => {
-									setSelectedCountry(value);
-									setFormData((prev) => ({
-										...prev,
-										country: value?.label || "",
-									}));
-								}}
-								className="paragraph font-gradient-regular leading-tight tracking-tight text-black outline-none w-full paragraph font-MonstrateRegular"
-								styles={{
-									control: (base) => ({
-										...base,
-										border: "2px solid #C6C6C6",
-										padding: "0.4rem 0",
-										color: "black",
-										background: "white",
-										boxShadow: "none",
-									}),
-									option: (base, { isFocused }) => ({
-										...base,
-										backgroundColor: isFocused ? "#f3f4f6" : "white",
-										color: "black",
-										cursor: "pointer",
-										padding: "0.5rem 1rem",
-									}),
-									singleValue: (base) => ({
-										...base,
-										color: "black",
-									}),
-									input: (base) => ({
-										...base,
-										color: "black",
-									}),
-								}}
-							/>
-						</div>
-					</div>
-					<div className="w-full flex items-center gap-5">
-						<div className="w-full flex flex-col gap-3">
-							<label
-								className="text-black paragraph leading-tight tracking-tight font-medium montserrat"
-								htmlFor="streetAddress">
-								Street address *
-							</label>
-							<input
-								onChange={handleInputChange}
-								value={formData.streetAddress}
-								type="text"
-								id="streetAddress"
-								required
-								className="border-[#C6C6C6] border-2 px-4 py-2 w-full outline-none paragraph font-MonstrateRegular"
-							/>
-						</div>
-					</div>
-					<div className="w-full flex items-center gap-5">
-						<div className="w-full flex flex-col gap-3">
-							<label
-								className="text-black paragraph leading-tight tracking-tight font-medium montserrat"
-								htmlFor="state">
-								State*
-							</label>
-							<Select
-								options={states}
-								value={selectedState}
-								onChange={(value) => {
-									setSelectedState(value);
-									setFormData({
-										...formData,
-										state: value?.value || "",
-									});
-								}}
-								className="paragraph font-gradient-regular leading-tight tracking-tight text-black outline-none"
-								styles={{
-									control: (base) => ({
-										...base,
-										border: "2px solid #C6C6C6",
-										padding: "0.4rem 0",
-										color: "black",
-										background: "white",
-										boxShadow: "none",
-									}),
-									option: (base, { isFocused }) => ({
-										...base,
-										backgroundColor: isFocused ? "#f3f4f6" : "white",
-										color: "black",
-										cursor: "pointer",
-										padding: "0.5rem 1rem",
-									}),
-									singleValue: (base) => ({
-										...base,
-										color: "black",
-									}),
-									input: (base) => ({
-										...base,
-										color: "black",
-									}),
-								}}
-							/>
-						</div>
-						<div className="w-full flex flex-col gap-3">
-							<label
-								className="text-black paragraph leading-tight tracking-tight font-medium montserrat"
-								htmlFor="townCity">
-								City*
-							</label>
-							<Select
-								options={cities}
-								value={cities.find((c) => c.value === formData.townCity)}
-								onChange={(value) =>
-									setFormData({
-										...formData,
-										townCity: value?.value || "",
-									})
-								}
-								className="w-full paragraph font-gradient-regular leading-tight tracking-tight text-black outline-none"
-								styles={{
-									control: (base) => ({
-										...base,
-										border: "2px solid #C6C6C6",
-										padding: "0.4rem 0",
-										color: "black",
-										background: "white",
-										boxShadow: "none",
-									}),
-									option: (base, { isFocused }) => ({
-										...base,
-										backgroundColor: isFocused ? "#f3f4f6" : "white",
-										color: "black",
-										cursor: "pointer",
-										padding: "0.5rem 1rem",
-									}),
-									singleValue: (base) => ({
-										...base,
-										color: "black",
-									}),
-									input: (base) => ({
-										...base,
-										color: "black",
-									}),
-								}}
-							/>
-						</div>
-						<div className="w-full flex flex-col gap-3">
-							<label
-								className="text-black paragraph leading-tight tracking-tight font-medium montserrat"
-								htmlFor="zip">
-								Zip
-							</label>
-							<input
-								onChange={handleInputChange}
-								value={formData.zip}
-								type="text"
-								id="zip"
-								className="border-[#C6C6C6] border-2 px-4 py-2 w-full outline-none paragraph font-MonstrateRegular"
-							/>
-						</div>
-					</div>
-					<p className="text-black paragraph leading-normal tracking-tight font-MonstrateRegular">
-						Your personal data will be used to process your order, support your
-						experience throughout this website, and for other purposes described
-						in our privacy policy.
-					</p>
-					<div className="flex items-center gap-2">
-						<input
-							onChange={handleInputChange}
-							checked={formData.agreedTerms}
-							id="agreedTerms"
-							type="checkbox"
-							required
-							className="w-5 h-5 outline-none border-none"
-						/>
-						<label
-							htmlFor="agreedTerms"
-							className="paragraph text-[#000] leading-tight tracking-tight font-MonstrateRegular">
-							I have read and agree to the website terms and conditions.
-						</label>
-					</div>
-					<button
-						type="submit"
-						disabled={loading}
-						className="w-fit bg-[#7a74ef] mt-4 flex items-center gap-2 btn transition-all duration-300 ease-in-out text-white px-4 py-4 capitalize montserrat paragraph leading-tight tracking-tight rounded-md">
-						{loading ? (
-							<Loader2 className="animate-spin mx-auto" />
-						) : (
-							"Place Order"
-						)}
-					</button>
 				</form>
-				<div className="w-full border-l-2 border-black/10 pl-10 py-10">
-					<PaymentElement />
-				</div>
 			</div>
 		</div>
 	);

@@ -25,6 +25,7 @@ import {
 	cardBack,
 	cardCancer,
 	cardGemini,
+	cardIcon,
 	cardLeo,
 	cardLibra,
 	cardVirgo,
@@ -48,6 +49,7 @@ import {
 	life02,
 	life03,
 	life04,
+	paypal,
 	Pisces,
 	plan01,
 	plan02,
@@ -77,6 +79,7 @@ import {
 	Scorpio,
 	service2,
 	service3,
+	square,
 	star,
 	star01,
 	star02,
@@ -89,6 +92,7 @@ import {
 	star09,
 	star10,
 	Taurus,
+	venmo,
 	Virgo,
 } from "@/public";
 
@@ -785,5 +789,28 @@ export const starGuidanceItems = [
 		id: 13,
 		title: "Moon Faces",
 		src: guide13,
+	},
+];
+
+export const paymentMethods = [
+	{
+		id: 1,
+		title: "card",
+		img: cardIcon,
+	},
+	{
+		id: 2,
+		title: "paypal",
+		img: paypal,
+	},
+	{
+		id: 3,
+		title: "venmo",
+		img: venmo,
+	},
+	{
+		id: 4,
+		title: "square",
+		img: square,
 	},
 ];
