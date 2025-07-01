@@ -14,9 +14,11 @@ export default function VideochatClientWrapper({
 	JWT: string;
 }) {
 	return (
-		<Videochat
-			slug={slug}
-			JWT={JWT}
-		/>
+		<>
+			<Videochat
+				slug={slug}
+				JWT={JWT}
+			/>
+		</>
 	);
 }

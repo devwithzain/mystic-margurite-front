@@ -287,9 +287,11 @@ export default function Form({ slug }: { slug: { id: string; jwt: string } }) {
 				if (paymentIntent?.status !== "succeeded") return;
 
 				await processBooking();
+				toast.success("Booking successful!");
 				navigate.push("/thank-you");
 			} catch (err) {
-				toast.error(err.message || "Payment failed. Try again.");
+				console.error("Payment Error:", err);
+				toast.error(err.message || "Payment failed. Please try again.");
 			} finally {
 				setLoading(false);
 			}
@@ -792,11 +794,13 @@ export default function Form({ slug }: { slug: { id: string; jwt: string } }) {
 									amount={total}
 									onPaymentSuccess={handleSquarePayment}
 								/>
-								{loading && (
-									<div className="mt-2 flex items-center gap-2 text-sm">
-										<Loader2 className="animate-spin w-4 h-4" />
-										Processing payment...
-									</div>
+								{loading ? (
+									<>
+										<Loader2 className="animate-spin" />
+										Processing...
+									</>
+								) : (
+									"Book Now"
 								)}
 							</div>
 						)}
@@ -809,10 +813,7 @@ export default function Form({ slug }: { slug: { id: string; jwt: string } }) {
 					</p>
 
 					{paymentMethod === "card" && (
-						<button
-							type="submit"
-							disabled={loading}
-							className="w-fit bg-[#7a74ef] mt-4 flex items-center gap-2 btn transition-all duration-300 ease-in-out text-white px-4 py-4 capitalize montserrat paragraph leading-tight tracking-tight rounded-md">
+						<button className="w-full bg-[#7a74ef] mt-4 flex items-center justify-center gap-2 btn transition-all duration-300 ease-in-out text-white cursor-pointer px-4 py-4 capitalize montserrat paragraph leading-tight tracking-tight rounded-md">
 							{loading ? (
 								<div className="flex items-center gap-2">
 									<Loader2 className="animate-spin mx-auto" /> Loading...

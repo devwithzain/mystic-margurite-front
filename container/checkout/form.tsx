@@ -660,7 +660,7 @@ export default function Form() {
 								<button
 									type="submit"
 									disabled={loading || paymentMethod === "card"}
-									className="w-full text-center bg-[#7a74ef] mt-4 flex items-center justify-center gap-2 btn transition-all duration-300 ease-in-out text-white px-4 py-4 capitalize montserrat paragraph leading-tight tracking-tight rounded-md">
+									className="w-full text-center bg-[#7a74ef] mt-4 flex items-center justify-center gap-2 btn transition-all duration-300 ease-in-out text-white px-4 py-4 capitalize cursor-pointer montserrat paragraph leading-tight tracking-tight rounded-md">
 									{loading ? (
 										<>
 											<Loader2 className="animate-spin" />

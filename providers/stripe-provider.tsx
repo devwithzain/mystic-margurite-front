@@ -1,10 +1,11 @@
 "use client";
 import { Loader2 } from "lucide-react";
-import React, { useEffect } from "react";
 import { getToken } from "@/lib/get-token";
-import { TcartColumnProps } from "@/types";
+import { useEffect, useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
+import getService from "@/actions/get-service";
 import { Elements } from "@stripe/react-stripe-js";
+import { TcartColumnProps, TServicesColumnProps } from "@/types";
 
 const stripePromise = loadStripe(
 	"pk_test_51PQnA4Bl1kKDHG46wmfNhBF2OmIp4OgFFIjwZLPQ3fjJ07Iq1FDHJZzZTUesP74qaRfxQj3befQVk2bry4I8Xv4W00GvQ3saqV",
@@ -12,14 +13,36 @@ const stripePromise = loadStripe(
 
 export default function StripeProvider({
 	children,
+	serviceId,
 }: {
 	children: React.ReactNode;
+	serviceId?: string;
 }) {
 	const token = getToken("authToken");
-	const [clientSecret, setClientSecret] = React.useState("");
-	const [cartTotal, setCartTotal] = React.useState<number>(0);
+	const [amount, setAmount] = useState<number>(0);
+	const [clientSecret, setClientSecret] = useState("");
+	const [services, setService] = useState<TServicesColumnProps | null>(null);
 
 	useEffect(() => {
+		const fetchService = async () => {
+			try {
+				const response = await getService(serviceId);
+				setService(response.service);
+				if (response.service?.price) {
+					setAmount(Number(response.service.price));
+				} else {
+					throw new Error("Invalid service data");
+				}
+			} catch (err) {
+				console.error("Error fetching service:", err);
+			}
+		};
+		fetchService();
+	}, [serviceId]);
+
+	useEffect(() => {
+		if (serviceId) return;
+
 		const fetchCartItems = async () => {
 			try {
 				const response = await fetch(
@@ -33,20 +56,17 @@ export default function StripeProvider({
 				const data = await response.json();
 
 				const total = data.reduce((total: number, item: TcartColumnProps) => {
-					return total + item.product.price;
+					return total + Number(item.product.price);
 				}, 0);
 
-				setCartTotal(total);
-			} catch (error: unknown) {
-				if (error instanceof Error) {
-					console.log(error.message);
-				} else {
-					console.log("An unknown error occurred");
-				}
+				setAmount(total);
+			} catch (error) {
+				console.error("Error fetching cart:", error);
 			}
 		};
+
 		fetchCartItems();
-	}, [token]);
+	}, [serviceId, token]);
 
 	useEffect(() => {
 		const fetchClientSecret = async () => {
@@ -61,26 +81,23 @@ export default function StripeProvider({
 							"Authorization": `Bearer ${token}`,
 						},
 						body: JSON.stringify({
-							amount: Math.round(cartTotal * 100),
+							amount: Math.round(amount * 100),
 							currency: "usd",
 						}),
 					},
 				);
-				if (!response.ok) {
-					throw new Error(`HTTP error! status: ${response.status}`);
-				}
+
 				const data = await response.json();
 				setClientSecret(data.clientSecret);
-				console.log(data.clientSecret);
 			} catch (error) {
-				console.error("Error fetching clientSecret:", error);
+				console.error("Error creating payment intent:", error);
 			}
 		};
 
-		if (cartTotal > 0) {
+		if (amount > 0) {
 			fetchClientSecret();
 		}
-	}, [cartTotal, token]);
+	}, [amount, token]);
 
 	if (!clientSecret) {
 		return (

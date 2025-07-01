@@ -39,7 +39,7 @@ export default async function BookingForm({
 			<Suspense fallback={<div>Loading...</div>}>
 				<Hero />
 				<Marquee />
-				<StripeProvider>
+				<StripeProvider serviceId={id}>
 					<Form slug={{ id, jwt }} />
 				</StripeProvider>
 			</Suspense>
