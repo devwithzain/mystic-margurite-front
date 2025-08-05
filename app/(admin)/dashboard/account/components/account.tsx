@@ -18,15 +18,13 @@ import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Heading from "@/components/admin/heading";
-import { getUserData } from "@/actions/get-user";
 import { Separator } from "@/components/ui/separator";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { userProfileSchema, TUserProfileProps } from "@/schemas";
 
-export default function Account() {
+export default function Account({ admin }: { admin?: TuserProps }) {
 	const router = useRouter();
 	const token = getToken("adminAuthToken");
-	const [admin, setAdmin] = useState<TuserProps>();
 
 	const form = useForm<TUserProfileProps>({
 		resolver: zodResolver(userProfileSchema),
@@ -40,19 +38,6 @@ export default function Account() {
 	const {
 		formState: { isSubmitting },
 	} = form;
-
-	useEffect(() => {
-		const fetchUserData = async () => {
-			const userData = await getUserData(token);
-			form.reset({
-				name: userData.name,
-				email: userData.email,
-				image: userData.image,
-			});
-			setAdmin(userData);
-		};
-		fetchUserData();
-	}, [form, token]);
 
 	const [image, setImage] = useState<string>("");
 	const [imageUrl, setImageUrl] = useState<string>("");

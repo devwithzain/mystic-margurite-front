@@ -31,7 +31,7 @@ export default function Navbar() {
 	return (
 		<>
 			<motion.nav
-				variants={navVariants}
+				variants={{ navVariants }}
 				className="w-full padding-x py-2 fixed top-0 left-0 z-[999] flex items-center justify-between xm:hidden sm:hidden md:hidden backdrop-blur-sm"
 				animate={hidden ? "hidden" : "visible"}
 				transition={{

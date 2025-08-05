@@ -2,32 +2,34 @@
 import Link from "next/link";
 import Image from "next/image";
 import { arrowGo } from "@/public";
-import HomePage from "./home-page";
 import LoaderTwo from "./loader-two";
 import { motion } from "framer-motion";
 import AnimatedText from "./animated-text";
 import { useState, useEffect } from "react";
+import HomePage from "@/container/home/home-page";
+import { useLocalStorage } from "@/hooks/use-local-storage";
 
 export default function Loader() {
 	const [showText, setShowText] = useState(false);
 	const [exploreClicked, setExploreClicked] = useState(false);
 	const [contactClicked, setContactClicked] = useState(false);
 
-	const hasLoaderCompleted = localStorage.getItem("loaderCompleted");
+	const [loaderCompleted, setLoaderCompleted, isStorageLoaded] =
+		useLocalStorage("loaderCompleted", false);
 
 	useEffect(() => {
-		if (!hasLoaderCompleted) {
-			localStorage.setItem("loaderCompleted", "false");
+		if (isStorageLoaded && !loaderCompleted) {
+			setLoaderCompleted(false);
 		}
-	}, [hasLoaderCompleted]);
+	}, [isStorageLoaded, loaderCompleted, setLoaderCompleted]);
 
 	const handleExploreClick = () => {
 		setExploreClicked(true);
-		localStorage.setItem("loaderCompleted", "true");
+		setLoaderCompleted(true);
 	};
 
 	const handlePlametaryClick = () => {
-		localStorage.setItem("loaderCompleted", "true");
+		setLoaderCompleted(true);
 	};
 
 	const handleContactClick = () => {
@@ -41,11 +43,19 @@ export default function Loader() {
 		}
 	};
 
+	if (!isStorageLoaded) {
+		return (
+			<div className="w-full h-screen flex items-center justify-center bg-black">
+				<div className="text-white">Loading...</div>
+			</div>
+		);
+	}
+
 	if (contactClicked) {
 		return <LoaderTwo />;
 	}
 
-	if (exploreClicked || hasLoaderCompleted === "true") {
+	if (exploreClicked || loaderCompleted === true) {
 		return <HomePage />;
 	}
 
@@ -80,7 +90,7 @@ export default function Loader() {
 							className="flex items-center gap-4 z-10"
 							initial={{ opacity: 0, y: 20 }}
 							animate={{ opacity: 1, y: 0 }}
-							transition={{ duration: 0.5, easings: "easeInOut" }}>
+							transition={{ duration: 0.5, ease: "easeInOut" }}>
 							<motion.div
 								onClick={handlePlametaryClick}
 								initial={{ opacity: 0, y: 20 }}

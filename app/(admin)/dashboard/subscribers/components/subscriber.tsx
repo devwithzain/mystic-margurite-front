@@ -1,28 +1,15 @@
 "use client";
-import { useEffect, useState } from "react";
 import Heading from "@/components/admin/heading";
 import { TsubscribersColumnProps } from "@/types";
-import getSubscriber from "@/actions/get-subscriber";
 import { Separator } from "@/components/ui/separator";
 import { DataTable } from "@/components/ui/data-table";
 import { columns } from "@/container/admin/subscriber/columns";
 
-export default function Subscriber() {
-	const [subscribers, setSubscriber] = useState<TsubscribersColumnProps[]>([]);
-
-	useEffect(() => {
-		const fetchSubscriber = async () => {
-			try {
-				const response = await getSubscriber();
-				setSubscriber(response.data);
-			} catch (err) {
-				console.error("Error fetching initial data:", err);
-			}
-		};
-
-		fetchSubscriber();
-	}, []);
-
+export default function Subscriber({
+	subscribers,
+}: {
+	subscribers: TsubscribersColumnProps[];
+}) {
 	const formatedSubscriber = subscribers.map((subscriber) => ({
 		id: subscriber.id,
 		email: subscriber.email,

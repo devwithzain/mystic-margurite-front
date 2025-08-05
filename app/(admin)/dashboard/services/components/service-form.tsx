@@ -15,7 +15,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Loader2, Trash } from "lucide-react";
-import getService from "@/actions/get-service";
+import { TServicesColumnProps } from "@/types";
 import { Button } from "@/components/ui/button";
 import Heading from "@/components/admin/heading";
 import { Separator } from "@/components/ui/separator";
@@ -26,36 +26,42 @@ import { servicesColumnSchema, TservicesColumnProps } from "@/schemas";
 
 export default function ServiceForm({
 	slug,
+	service,
 }: {
+	service: TServicesColumnProps | null;
 	slug: { id: string; new: string };
 }) {
 	const serviceId = slug.id;
 	const router = useRouter();
 	const [open, setOpen] = useState(false);
-	const [image, setImage] = useState<string | null>(null);
+	const [image, setImage] = useState<string[]>([]);
 	const [imageError, setImageError] = useState<string>("");
 	const [previewImage, setPreviewImage] = useState<string | null>(null);
-	const [services, setService] = useState<TservicesColumnProps | null>(null);
 
 	useEffect(() => {
-		const fetchService = async () => {
+		if (service?.image) {
 			try {
-				const response = await getService(serviceId);
-				setService(response.service);
-				setImage(response.blog.image);
-			} catch (err) {
-				console.error("Error fetching service:", err);
+				const imagePaths = JSON.parse(service.image);
+				const imageUrls = imagePaths.map(
+					(imgPath: string) =>
+						`https://mysticmarguerite.com/new/backend/storage/${imgPath}`,
+				);
+				setImage(imageUrls);
+			} catch (error) {
+				console.error("Error parsing image field:", error);
+				setImage([]);
 			}
-		};
-		fetchService();
-	}, [serviceId]);
+		} else {
+			setImage([]);
+		}
+	}, [service?.image]);
 
-	const formatedService = services
+	const formatedService = service
 		? {
-				title: services.title,
-				description: services.description,
-				price: services.price,
-				image: services.image || "",
+				title: service.title,
+				description: service.description,
+				price: service.price,
+				image: service.image || "",
 		  }
 		: null;
 
@@ -70,15 +76,15 @@ export default function ServiceForm({
 	});
 
 	useEffect(() => {
-		if (services) {
+		if (service) {
 			form.reset({
-				title: services.title,
-				description: services.description,
-				price: services.price,
-				image: services.image || "",
+				title: service.title,
+				description: service.description,
+				price: service.price,
+				image: service.image || "",
 			});
 		}
-	}, [services, form, form.reset]);
+	}, [service, form, form.reset]);
 
 	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setImageError("");

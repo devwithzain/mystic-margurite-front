@@ -1,37 +1,20 @@
-"use client";
 import { TordersProps } from "@/types";
-import { useEffect, useState } from "react";
-import getorders from "@/actions/get-orders";
 import { formatUSD } from "@/lib/formate-price";
 import Heading from "@/components/admin/heading";
 import { Separator } from "@/components/ui/separator";
 import { DataTable } from "@/components/ui/data-table";
 import { columns } from "@/container/admin/orders/columns";
 
-export default function Orders() {
-	const [orders, setOrders] = useState<TordersProps[]>([]);
-
-	useEffect(() => {
-		const fetchOrders = async () => {
-			try {
-				const response = await getorders();
-				setOrders(response);
-			} catch (err) {
-				console.error("Error fetching orders:", err);
-			}
-		};
-		fetchOrders();
-	}, []);
-
+export default function Orders({ orders }: { orders: TordersProps[] }) {
 	const formattedOrders = orders.map((order) => ({
 		id: order.id,
-		name: order.checkout_detail?.first_name || "N/A",
-		email: order.checkout_detail?.email.toLowerCase() || "N/A",
-		phone_number: order.checkout_detail?.phone || "N/A",
+		name: order.checkout_details?.first_name || "N/A",
+		email: order.checkout_details?.email.toLowerCase() || "N/A",
+		phone_number: order.checkout_details?.phone || "N/A",
 		status: order.status,
-		items: order.items,
+		order_items: order.order_items,
 		price: formatUSD(
-			order.items?.reduce(
+			order.order_items?.reduce(
 				(total: number, item) =>
 					total +
 					(Number(item.product?.price) || 0) * (Number(item.quantity) || 0),

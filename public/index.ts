@@ -37,13 +37,13 @@ export { default as Scorpio } from './Scorpio.png';
 export { default as Taurus } from './Taurus.png';
 export { default as Virgo } from './Virgo.png';
 
-export { default as cardAries } from './card aries.png';
-export { default as cardCancer } from './card cancer.png';
-export { default as cardGemini } from './card gemini.png';
-export { default as cardLeo } from './card leo.png';
-export { default as cardLibra } from './card libra.png';
-export { default as cardAaurus } from './card taurus.png';
-export { default as cardVirgo } from './card virgo.png';
+export { default as cardAries } from './card aries.jpg';
+export { default as cardCancer } from './card cancer.jpg';
+export { default as cardGemini } from './card gemini.jpg';
+export { default as cardLeo } from './card leo.jpg';
+export { default as cardLibra } from './card libra.jpg';
+export { default as cardAaurus } from './card taurus.jpg';
+export { default as cardVirgo } from './card virgo.jpg';
 
 export { default as aboutImg } from './aboutImg.png';
 export { default as planetry01 } from './planetry01.png';

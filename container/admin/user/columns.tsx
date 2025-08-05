@@ -1,6 +1,7 @@
+"use client";
+import { TuserProps } from "@/types";
 import CellAction from "./cell-action";
 import { ArrowUpDown } from "lucide-react";
-import { TuserProps } from "@/types";
 import { Button } from "@/components/ui/button";
 import { ColumnDef } from "@tanstack/react-table";
 

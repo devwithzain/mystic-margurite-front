@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { prismadb } from "@/lib/prismadb";
 import BlogListings from "./components/blog";
 
 export const metadata: Metadata = {
@@ -6,10 +7,15 @@ export const metadata: Metadata = {
 	description: "Mystic Marguerite - Admin Blog",
 };
 
-export default function BlogPage() {
+export default async function BlogPage() {
+	const blogs = await prismadb.blogs.findMany({
+		orderBy: {
+			created_at: "desc",
+		},
+	});
 	return (
 		<>
-			<BlogListings />
+			<BlogListings blogs={blogs} />
 		</>
 	);
 }

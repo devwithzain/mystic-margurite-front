@@ -2,7 +2,7 @@
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
-import AnimatedText from "@/components/ui/client/animated-text";
+import { AnimatedText } from "@/components/ui";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { contactFormSchema, TcontactFormData } from "@/schemas";
 

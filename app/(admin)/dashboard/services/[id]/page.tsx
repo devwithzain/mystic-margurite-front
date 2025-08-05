@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { prismadb } from "@/lib/prismadb";
 import ServiceForm from "../components/service-form";
 
 export const metadata: Metadata = {
@@ -6,27 +7,23 @@ export const metadata: Metadata = {
 	description: "Mystic Marguerite - Admin Service",
 };
 
-export async function generateStaticParams() {
-	const res = await fetch(
-		"https://mysticmarguerite.com/new/backend/api/services",
-		{
-			cache: "no-store",
-		},
-	);
-	const { services } = await res.json();
-
-	const dynamicRoutes = services.map((service: any) => ({
-		id: service.id.toString(),
-	}));
-
-	return [...dynamicRoutes, { id: "new" }];
-}
-
 export default async function ServiceFormPage({
 	params,
 }: {
 	params: Promise<{ id: string }>;
 }) {
 	const { id } = await params;
-	return <ServiceForm slug={{ id, new: id === "new" ? "yes" : "no" }} />;
+	const service =
+		id === "new"
+			? null
+			: await prismadb.services.findUnique({
+					where: { id: BigInt(id) },
+			  });
+
+	return (
+		<ServiceForm
+			service={service}
+			slug={{ id, new: id === "new" ? "yes" : "no" }}
+		/>
+	);
 }

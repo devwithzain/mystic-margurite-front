@@ -12,15 +12,15 @@ export type TblogsColumnProps = {
    description: string;
    category: string;
    image: string;
-   comments: string;
    created_at: Date | null;
-   updated_at: string;
+   updated_at: Date | null;
 };
 
-export type TcategoryColumnProps = {
+export type TcategoryProps = {
    id: bigint;
    title: string;
    created_at: Date | null;
+   updated_at: Date | null;
 };
 
 export type TmodallProps = {
@@ -49,33 +49,33 @@ export type TuserProps = {
 };
 
 export type TsubscribersColumnProps = {
-   id: string;
+   id: bigint;
    email: string;
    created_at: Date | null;
    updated_at: Date | null;
 };
 
 export type TtimeslotsColumnProps = {
-   id: string;
-   user_id: string;
-   date: string;
-   start_time: string;
-   end_time: string;
-   status: string;
-   created_at: Date | null;
-};
-
-export type TordersProps = {
-   id: number;
+   id: bigint | string;
+   date: Date | null;
+   start_time: Date | null;
+   end_time: Date | null;
    status: string;
    created_at: Date | null;
    updated_at: Date | null;
-   checkout_detail?: {
+};
+
+export type TordersProps = {
+   id: bigint;
+   status: string;
+   created_at: Date | null;
+   updated_at: Date | null;
+   checkout_details?: {
       first_name?: string;
       email?: string;
       phone?: string;
    };
-   items: {
+   order_items: {
       quantity: number;
       product?: {
          price: string;
@@ -84,10 +84,11 @@ export type TordersProps = {
 };
 
 export type TbookingsProps = {
-   id: number;
+   id: bigint;
    status: string;
    created_at: Date | null;
-   booking_detail?: {
+   updated_at: Date | null;
+   booking_details?: {
       first_name?: string;
       last_name?: string;
       email?: string;
@@ -109,8 +110,8 @@ export type TbookingsProps = {
       birth_time?: string;
       birth_place?: string;
    };
-   items: {
-      service?: {
+   booking_items: {
+      services?: {
          price: string;
          image: string;
          title: string;
@@ -134,6 +135,7 @@ export type TproductsColumnProps = {
    description: string;
    image: string;
    created_at: Date | null;
+   updated_at: Date | null;
 };
 
 export type TforgotPasswordProps = {
@@ -174,7 +176,8 @@ export type TServicesColumnProps = {
    price: string;
    description: string;
    image: string;
-   createdAt: string;
+   created_at: Date | null;
+   updated_at: Date | null;
 };
 
 export type TproductColumnProps = {

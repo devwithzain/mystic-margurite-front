@@ -1,4 +1,4 @@
-import TextReveal from "@/components/ui/client/text-reveal";
+import { TextReveal } from "@/components/ui";
 
 export default function Hero() {
 	return (

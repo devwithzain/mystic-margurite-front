@@ -17,7 +17,7 @@ export default function TextMask({ children }: { children: string[] }) {
 					className="overflow-hidden">
 					<motion.p
 						custom={index}
-						variants={animation}
+						variants={{ animation }}
 						initial="initial"
 						animate={inView ? "enter" : ""}>
 						{phrase}

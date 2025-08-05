@@ -1,31 +1,13 @@
-"use client";
 import Image from "next/image";
 import parse from "html-react-parser";
-import getBlog from "@/actions/get-blog";
-import { useEffect, useState } from "react";
+import { TextMask } from "@/components/ui";
 import { TblogsColumnProps } from "@/types";
-import TextMask from "@/components/ui/client/text-mask";
 
 export default function AstrodialogouesBlogDetail({
-	slug,
+	blog,
 }: {
-	slug: { id: string };
+	blog: TblogsColumnProps;
 }) {
-	const blogId = slug.id;
-	const [blog, setBlog] = useState<TblogsColumnProps | null>(null);
-
-	useEffect(() => {
-		const fetchBlog = async () => {
-			try {
-				const response = await getBlog(blogId);
-				setBlog(response.blog);
-			} catch (err) {
-				console.error("Error fetching blog:", err);
-			}
-		};
-		fetchBlog();
-	}, [blogId]);
-
 	return (
 		<div className="w-full padding-y padding-x">
 			<div className="flex flex-col gap-10">

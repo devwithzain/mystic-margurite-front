@@ -1,7 +1,4 @@
 "use client";
-import axios from "axios";
-import { getToken } from "@/lib/get-token";
-import { TcartColumnProps, TcartContextType } from "@/types";
 import {
 	createContext,
 	useCallback,
@@ -9,18 +6,27 @@ import {
 	useEffect,
 	useState,
 } from "react";
-
+import axios from "axios";
+import { getToken } from "@/lib/get-token";
+import { TcartColumnProps, TcartContextType } from "@/types";
 const CartContext = createContext<TcartContextType | undefined>(undefined);
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
-	const token = getToken("authToken");
 	const [isCartOpen, setIsCartOpen] = useState(false);
 	const [cartItems, setCartItems] = useState<TcartColumnProps[]>([]);
+	const [token, setToken] = useState<string | null>(null);
 
 	const closeCart = useCallback(() => setIsCartOpen(false), []);
 	const toggleCart = () => setIsCartOpen(!isCartOpen);
 
+	useEffect(() => {
+		const storedToken = getToken("authToken");
+		if (storedToken) setToken(storedToken);
+	}, []);
+
 	const fetchCartItems = useCallback(async () => {
+		if (!token) return;
+
 		try {
 			const response = await axios.get(
 				"https://mysticmarguerite.com/new/backend/api/cart",
@@ -36,8 +42,10 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 	}, [token]);
 
 	useEffect(() => {
-		fetchCartItems();
-	}, [isCartOpen, closeCart, fetchCartItems]);
+		if (isCartOpen && token) {
+			fetchCartItems();
+		}
+	}, [isCartOpen, token, fetchCartItems]);
 
 	const cartCount = cartItems.length;
 

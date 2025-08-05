@@ -2,28 +2,13 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import getBlogs from "@/actions/get-blogs";
 import { TblogsColumnProps } from "@/types";
-import { useEffect, useState } from "react";
 
-export default function Astrodialogues() {
-	const [blogs, setBlogs] = useState<TblogsColumnProps[]>([]);
-
-	useEffect(() => {
-		const fetchBlogs = async () => {
-			try {
-				const response = await getBlogs();
-				const astroDialoguesBlogs = response.blogs.filter(
-					(blog) => blog.category === "Astro dialogues Blogs",
-				);
-				setBlogs(astroDialoguesBlogs);
-			} catch (err) {
-				console.error("Error fetching blogs:", err);
-			}
-		};
-		fetchBlogs();
-	}, []);
-
+export default function Astrodialogues({
+	blogs,
+}: {
+	blogs: TblogsColumnProps[];
+}) {
 	return (
 		<div className="w-full padding-x padding-y">
 			<div className="w-full flex justify-center gap-10 items-start">

@@ -13,9 +13,9 @@ import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { TproductColumnProps } from "@/types";
 import { Loader2, Trash } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import getProduct from "@/actions/get-product";
 import { Button } from "@/components/ui/button";
 import Heading from "@/components/admin/heading";
 import { Textarea } from "@/components/ui/textarea";
@@ -25,82 +25,63 @@ import AlertModal from "@/components/admin/alert-modal";
 import { productsColumnSchema, TproductsColumnProps } from "@/schemas";
 
 export default function ProductForm({
+	product,
 	slug,
 }: {
+	product: TproductColumnProps | null;
 	slug: { id: string; new: string };
 }) {
 	const router = useRouter();
-	const productId = slug.id;
+	const isNewProduct = slug.id === "new";
 	const [open, setOpen] = useState(false);
 	const [image, setImage] = useState<string[]>([]);
 	const [imageError, setImageError] = useState<string>("");
-	const [products, setProducts] = useState<TproductsColumnProps | null>(null);
 	const [imagesToDelete, setImagesToDelete] = useState<string[]>([]);
 
 	useEffect(() => {
-		const fetchProducts = async () => {
+		if (product?.image) {
 			try {
-				if (productId) {
-					const response = await getProduct(productId);
-					if (response && response.product) {
-						setProducts(response.product);
-
-						if (response.product.image) {
-							try {
-								const imagePaths = JSON.parse(response.product.image);
-								const imageUrls = imagePaths.map(
-									(imgPath: string) =>
-										`https://mysticmarguerite.com/new/backend/storage/${imgPath}`,
-								);
-								setImage(imageUrls);
-							} catch (error) {
-								console.error("Error parsing image field:", error);
-								setImage([]);
-							}
-						} else {
-							setImage([]);
-						}
-					}
-				}
-			} catch (err) {
-				console.error("Error fetching products:", err);
+				const imagePaths = JSON.parse(product.image);
+				const imageUrls = imagePaths.map(
+					(imgPath: string) =>
+						`https://mysticmarguerite.com/new/backend/storage/${imgPath}`,
+				);
+				setImage(imageUrls);
+			} catch (error) {
+				console.error("Error parsing image field:", error);
+				setImage([]);
 			}
-		};
-		fetchProducts();
-	}, [productId]);
-
-	const formatedProduct = products
-		? {
-				title: products.title,
-				price: products.price,
-				description: products.description,
-		  }
-		: null;
+		} else {
+			setImage([]);
+		}
+	}, [product?.image]);
 
 	const form = useForm<TproductsColumnProps>({
 		resolver: zodResolver(productsColumnSchema),
-		defaultValues: formatedProduct || {
-			price: "",
-			title: "",
+		defaultValues: {
+			title: product?.title || "",
+			price: product?.price || "",
+			description: product?.description || "",
 			image: "",
-			description: "",
 		},
 	});
 
 	useEffect(() => {
-		if (products) {
+		if (product) {
 			form.reset({
-				title: products.title,
-				price: products.price,
-				description: products.description,
-				image: products.image || [],
+				title: product.title,
+				price: product.price,
+				description: product.description,
+				image: "",
 			});
 		}
-	}, [products, form.reset, form]);
+	}, [product, form]);
 
 	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setImageError("");
 		const files = Array.from(e.target.files || []);
+
+		if (files.length === 0) return;
 
 		const allowedTypes = [
 			"image/jpeg",
@@ -123,13 +104,16 @@ export default function ProductForm({
 		}
 
 		const newImages: string[] = [];
+		let processedCount = 0;
+
 		files.forEach((file) => {
 			const reader = new FileReader();
 			reader.onload = () => {
 				const base64 = reader.result as string;
 				newImages.push(base64);
+				processedCount++;
 
-				if (newImages.length === files.length) {
+				if (processedCount === files.length) {
 					setImage((prevImage) => [...prevImage, ...newImages]);
 				}
 			};
@@ -139,20 +123,22 @@ export default function ProductForm({
 
 	const handleDeleteImage = (imageUrl: string) => {
 		setImage((prevImages) => prevImages.filter((img) => img !== imageUrl));
-		setImagesToDelete((prev) => [...prev, imageUrl]);
+
+		if (imageUrl.startsWith("https://mysticmarguerite.com")) {
+			setImagesToDelete((prev) => [...prev, imageUrl]);
+		}
 	};
 
 	const {
 		formState: { isSubmitting },
 	} = form;
 
-	const initialData = formatedProduct;
-	const action = initialData ? "Save changes" : "Create";
-	const title = initialData ? "Edit product" : "Create product";
-	const description = initialData ? "Edit product" : "Add a new product";
-	const toastMessage = initialData ? "Product updated." : "Product created.";
+	const action = product ? "Save changes" : "Create";
+	const title = product ? "Edit product" : "Create product";
+	const description = product ? "Edit product" : "Add a new product";
+	const toastMessage = product ? "Product updated." : "Product created.";
 
-	const onSubmits = async (data: TproductsColumnProps) => {
+	const onSubmit = async (data: TproductsColumnProps) => {
 		if (image.length === 0) {
 			setImageError("At least one image is required");
 			return;
@@ -166,18 +152,21 @@ export default function ProductForm({
 		const fileInput = document.querySelector(
 			'input[type="file"]',
 		) as HTMLInputElement;
-		if (fileInput && fileInput.files) {
+
+		if (fileInput?.files && fileInput.files.length > 0) {
 			for (let i = 0; i < fileInput.files.length; i++) {
 				formData.append("image[]", fileInput.files[i]);
 			}
 		}
 
-		formData.append("images_to_delete", JSON.stringify(imagesToDelete));
+		if (product && imagesToDelete.length > 0) {
+			formData.append("images_to_delete", JSON.stringify(imagesToDelete));
+		}
 
 		try {
-			if (initialData) {
-				await axios.post(
-					`https://mysticmarguerite.com/new/backend/api/product/${productId}`,
+			if (product && !isNewProduct) {
+				await axios.put(
+					`https://mysticmarguerite.com/new/backend/api/product/${slug.id}`,
 					formData,
 					{
 						headers: {
@@ -205,11 +194,13 @@ export default function ProductForm({
 
 	const onDelete = async () => {
 		try {
-			await axios.delete(
-				`https://mysticmarguerite.com/new/backend/api/product/${productId}`,
-			);
-			router.push(`/dashboard/products`);
-			toast.success("Product deleted");
+			if (!isNewProduct) {
+				await axios.delete(
+					`https://mysticmarguerite.com/new/backend/api/product/${slug.id}`,
+				);
+				router.push(`/dashboard/products`);
+				toast.success("Product deleted");
+			}
 		} catch (error) {
 			console.error(error);
 			toast.error("Something went wrong");
@@ -231,20 +222,20 @@ export default function ProductForm({
 					title={title}
 					description={description}
 				/>
-				{initialData && (
+				{product && !isNewProduct && (
 					<Button
 						disabled={isSubmitting}
 						variant="destructive"
 						size="sm"
 						onClick={() => setOpen(true)}>
-						<Trash className="h-4 w-4" />
+						<Trash className="h-4 w-4 text-white" />
 					</Button>
 				)}
 			</div>
 			<Separator />
 			<Form {...form}>
 				<form
-					onSubmit={form.handleSubmit(onSubmits)}
+					onSubmit={form.handleSubmit(onSubmit)}
 					className="space-y-4 w-full p-5">
 					<FormField
 						control={form.control}
@@ -322,30 +313,34 @@ export default function ProductForm({
 							</FormItem>
 						)}
 					/>
-					<div className="w-full flex items-center gap-2">
-						{image.map((imageUrl, index) => (
-							<div
-								key={index}
-								className="relative">
-								<Image
-									src={imageUrl}
-									className="w-40 h-40 object-cover"
-									alt={`Preview ${index}`}
-									style={{ objectFit: "cover" }}
-									width={250}
-									height={250}
-								/>
-								{initialData && (
-									<button
-										type="button"
-										onClick={() => handleDeleteImage(imageUrl)}
-										className="absolute top-1 right-1 bg-red-500 text-white p-1 rounded-md">
-										<Trash className="h-4 w-4" />
-									</button>
-								)}
+
+					{image.length > 0 && (
+						<div className="w-full">
+							<FormLabel>Current Images</FormLabel>
+							<div className="flex items-center gap-2 flex-wrap mt-2">
+								{image.map((imageUrl, index) => (
+									<div
+										key={index}
+										className="relative">
+										<Image
+											src={imageUrl}
+											className="w-40 h-40 object-cover rounded-md"
+											alt={`Preview ${index}`}
+											width={160}
+											height={160}
+										/>
+										<button
+											type="button"
+											onClick={() => handleDeleteImage(imageUrl)}
+											className="absolute top-1 right-1 bg-red-500 hover:bg-red-600 text-white p-1 rounded-md transition-colors">
+											<Trash className="h-4 w-4" />
+										</button>
+									</div>
+								))}
 							</div>
-						))}
-					</div>
+						</div>
+					)}
+
 					<Button
 						disabled={isSubmitting}
 						type="submit">

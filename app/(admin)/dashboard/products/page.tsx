@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { prismadb } from "@/lib/prismadb";
 import ProductListings from "./components/product";
 
 export const metadata: Metadata = {
@@ -6,10 +7,15 @@ export const metadata: Metadata = {
 	description: "Mystic Marguerite - Admin Products",
 };
 
-export default function ProductPage() {
+export default async function ProductPage() {
+	const products = await prismadb.products.findMany({
+		orderBy: {
+			created_at: "desc",
+		},
+	});
 	return (
 		<>
-			<ProductListings />
+			<ProductListings products={products} />
 		</>
 	);
 }

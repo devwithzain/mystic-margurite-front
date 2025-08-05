@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { prismadb } from "@/lib/prismadb";
 import BlogsForm from "../components/blog-form";
 
 export const metadata: Metadata = {
@@ -6,27 +7,21 @@ export const metadata: Metadata = {
 	description: "Mystic Marguerite - Admin Blog",
 };
 
-export async function generateStaticParams() {
-	const res = await fetch(
-		"https://mysticmarguerite.com/new/backend/api/blogs",
-		{
-			cache: "no-store",
-		},
-	);
-	const { blogs } = await res.json();
-
-	const dynamicRoutes = blogs.map((blog: any) => ({
-		id: blog.id.toString(),
-	}));
-
-	return [...dynamicRoutes, { id: "new" }];
-}
-
 export default async function BlogFormPage({
 	params,
 }: {
 	params: Promise<{ id: string }>;
 }) {
 	const { id } = await params;
-	return <BlogsForm slug={{ id, new: id === "new" ? "yes" : "no" }} />;
+	const blog = await prismadb.blogs.findUnique({
+		where: {
+			id: Number(id),
+		},
+	});
+	return (
+		<BlogsForm
+			blog={blog}
+			slug={{ id, new: id === "new" ? "yes" : "no" }}
+		/>
+	);
 }

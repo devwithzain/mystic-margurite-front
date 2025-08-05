@@ -15,9 +15,9 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Loader2, Trash } from "lucide-react";
-import Heading from "@/components/admin/heading";
 import { Button } from "@/components/ui/button";
-import getTimeSlot from "@/actions/get-timeslot";
+import { TtimeslotsColumnProps } from "@/types";
+import Heading from "@/components/admin/heading";
 import { Separator } from "@/components/ui/separator";
 import { zodResolver } from "@hookform/resolvers/zod";
 import AlertModal from "@/components/admin/alert-modal";
@@ -25,31 +25,19 @@ import { timeslotColumnSchema, TtimeslotColumnProps } from "@/schemas";
 
 export default function TimeSlotsForm({
 	slug,
+	timeslot,
 }: {
 	slug: { id: string; new: string };
+	timeslot: TtimeslotsColumnProps | null;
 }) {
 	const token = getToken("adminAuthToken");
 	const timeslotsId = slug.id;
 	const router = useRouter();
 	const [open, setOpen] = useState(false);
 
-	const [timeslot, setTimeslot] = useState<TtimeslotColumnProps | null>(null);
-
-	useEffect(() => {
-		const fetchTimeSlot = async () => {
-			try {
-				const response = await getTimeSlot(timeslotsId);
-				setTimeslot(response.timeslot);
-			} catch (err) {
-				console.error("Error fetching categories:", err);
-			}
-		};
-		fetchTimeSlot();
-	}, [timeslotsId, token]);
-
 	const formatedTimeSlot = timeslot
 		? {
-				date: timeslot.date,
+				date: new Date(timeslot.date),
 				start_time: timeslot.start_time,
 				end_time: timeslot.end_time,
 				status: timeslot.status,
@@ -59,9 +47,9 @@ export default function TimeSlotsForm({
 	const form = useForm<TtimeslotColumnProps>({
 		resolver: zodResolver(timeslotColumnSchema),
 		defaultValues: formatedTimeSlot || {
-			date: "",
-			start_time: "",
-			end_time: "",
+			date: new Date(),
+			start_time: new Date(),
+			end_time: new Date(),
 			status: "",
 		},
 	});
@@ -69,7 +57,7 @@ export default function TimeSlotsForm({
 	useEffect(() => {
 		if (timeslot) {
 			form.reset({
-				date: timeslot.date,
+				date: new Date(timeslot.date),
 				end_time: timeslot.end_time,
 				start_time: timeslot.start_time,
 				status: timeslot.status,
@@ -88,17 +76,11 @@ export default function TimeSlotsForm({
 	const toastMessage = initialData ? "Timeslot updated." : "Timeslot created.";
 
 	const onSubmits = async (data: TtimeslotColumnProps) => {
-		const formData = new FormData();
-		formData.append("date", data.date);
-		formData.append("end_time", data.end_time);
-		formData.append("start_time", data.start_time);
-		formData.append("status", data.status);
-		console.log(data);
 		try {
 			if (initialData) {
 				await axios.post(
 					`https://mysticmarguerite.com/new/backend/api/timeslot/${timeslotsId}`,
-					formData,
+					data,
 					{
 						headers: {
 							Authorization: `Bearer ${token}`,
@@ -108,7 +90,7 @@ export default function TimeSlotsForm({
 			} else {
 				await axios.post(
 					`https://mysticmarguerite.com/new/backend/api/timeslot`,
-					formData,
+					data,
 					{
 						headers: {
 							Authorization: `Bearer ${token}`,
@@ -118,11 +100,14 @@ export default function TimeSlotsForm({
 			}
 			toast.success(toastMessage);
 			router.push(`/dashboard/timeslots`);
+			console.log(data);
 		} catch (error) {
 			console.error(error);
 			toast.error("Something went wrong");
 		}
 	};
+
+	console.log(data);
 
 	const onDelete = async () => {
 		try {
@@ -177,7 +162,10 @@ export default function TimeSlotsForm({
 								<FormControl>
 									<Input
 										placeholder="Date"
-										{...field}
+										value={field.value?.toString()}
+										onChange={field.onChange}
+										type="date"
+										min={new Date().toISOString().split("T")[0]}
 									/>
 								</FormControl>
 								<FormMessage />
@@ -193,7 +181,9 @@ export default function TimeSlotsForm({
 								<FormControl>
 									<Input
 										placeholder="Start Time"
-										{...field}
+										value={field.value?.toString()}
+										onChange={field.onChange}
+										type="time"
 									/>
 								</FormControl>
 								<FormMessage />
@@ -209,7 +199,9 @@ export default function TimeSlotsForm({
 								<FormControl>
 									<Input
 										placeholder="End Time"
-										{...field}
+										value={field.value?.toString()}
+										onChange={field.onChange}
+										type="time"
 									/>
 								</FormControl>
 								<FormMessage />

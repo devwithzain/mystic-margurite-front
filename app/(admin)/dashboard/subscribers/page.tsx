@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { prismadb } from "@/lib/prismadb";
 import Subscriber from "./components/subscriber";
 
 export const metadata: Metadata = {
@@ -6,10 +7,15 @@ export const metadata: Metadata = {
 	description: "Mystic Marguerite - Admin Subscribers",
 };
 
-export default function SubscriberPage() {
+export default async function SubscriberPage() {
+	const subscribers = await prismadb.newsletter_subscribers.findMany({
+		orderBy: {
+			created_at: "desc",
+		},
+	});
 	return (
 		<>
-			<Subscriber />
+			<Subscriber subscribers={subscribers} />
 		</>
 	);
 }

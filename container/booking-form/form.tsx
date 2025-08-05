@@ -234,14 +234,21 @@ export default function Form({ slug }: { slug: { id: string; jwt: string } }) {
 	const handleSquarePayment = async (token: string) => {
 		try {
 			setLoading(true);
-			const res = await fetch("/api/square", {
-				method: "POST",
-				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify({
-					sourceId: token,
-					amount: total,
-				}),
-			});
+
+			const res = await fetch(
+				"https://mysticmarguerite.com/new/backend/api/square/pay",
+				{
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+						"Accept": "application/json",
+					},
+					body: JSON.stringify({
+						sourceId: token,
+						amount: total,
+					}),
+				},
+			);
 
 			const data = await res.json();
 			if (!res.ok) throw new Error(data.error || "Payment failed");
@@ -249,7 +256,7 @@ export default function Form({ slug }: { slug: { id: string; jwt: string } }) {
 			await processBooking();
 			toast.success("Booking successful!");
 			navigate.push("/thank-you");
-		} catch (error) {
+		} catch (error: any) {
 			console.error("Payment Error:", error);
 			toast.error(error.message || "Payment failed. Please try again.");
 		} finally {

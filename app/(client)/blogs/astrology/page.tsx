@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import Hero from "@/container/blog/hero";
+import { prismadb } from "@/lib/prismadb";
 import Blogs from "@/container/blog/blogs";
 import Marquee from "@/container/home/marquee";
 
@@ -8,12 +9,22 @@ export const metadata: Metadata = {
 	description: "Mystice Marguerite - Astrology Blogs",
 };
 
-export default function BlogsAstrology() {
+export default async function BlogsAstrology() {
+	const blogs = await prismadb.blogs.findMany({
+		where: {
+			NOT: {
+				category: "Astro dialogues Blogs",
+			},
+		},
+		orderBy: {
+			created_at: "asc",
+		},
+	});
 	return (
 		<>
 			<Hero />
 			<Marquee />
-			<Blogs />
+			<Blogs blogs={blogs} />
 		</>
 	);
 }

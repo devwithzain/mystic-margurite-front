@@ -18,7 +18,7 @@ export default function Links({
 				setSelectedIndicator(href);
 			}}
 			custom={index}
-			variants={slide}
+			variants={{ slide }}
 			initial="initial"
 			animate="enter"
 			exit="exit">

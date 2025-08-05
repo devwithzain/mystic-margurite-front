@@ -31,8 +31,6 @@ export default function BookingPage() {
 		fetchBookings();
 	}, [token]);
 
-	console.log(bookings);
-
 	return (
 		<div className="w-full p-4 flex gap-2">
 			<div className="w-full gap-1 flex flex-col px-6 pb-5">

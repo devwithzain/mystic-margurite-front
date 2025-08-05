@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { prismadb } from "@/lib/prismadb";
 import TimeSlotsListings from "./components/timeslots";
 
 export const metadata: Metadata = {
@@ -6,10 +7,11 @@ export const metadata: Metadata = {
 	description: "Mystic Marguerite - Admin TimeSlots",
 };
 
-export default function TimeslotsPage() {
+export default async function TimeslotsPage() {
+	const timeslots = await prismadb.time_slots.findMany();
 	return (
 		<>
-			<TimeSlotsListings />
+			<TimeSlotsListings timeslots={timeslots} />
 		</>
 	);
 }

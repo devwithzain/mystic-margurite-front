@@ -1,31 +1,19 @@
 "use client";
-import { format } from "date-fns";
 import { Plus } from "lucide-react";
-import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { TproductsColumnProps } from "@/types";
 import { Button } from "@/components/ui/button";
 import Heading from "@/components/admin/heading";
-import getProducts from "@/actions/get-products";
 import { Separator } from "@/components/ui/separator";
 import { DataTable } from "@/components/ui/data-table";
 import { columns } from "@/container/admin/product/columns";
 
-export default function ProductPage() {
+export default function ProductPage({
+	products,
+}: {
+	products: TproductsColumnProps[];
+}) {
 	const router = useRouter();
-	const [products, setProducts] = useState<TproductsColumnProps[]>([]);
-
-	useEffect(() => {
-		const fetchServices = async () => {
-			try {
-				const response = await getProducts();
-				setProducts(response.products);
-			} catch (err) {
-				console.error("Error fetching products:", err);
-			}
-		};
-		fetchServices();
-	}, []);
 
 	const formatedProduct = products.map((product) => ({
 		id: product.id,
@@ -34,6 +22,7 @@ export default function ProductPage() {
 		description: product.description,
 		image: product.image,
 		created_at: product.created_at,
+		updated_at: product.updated_at,
 	}));
 
 	return (

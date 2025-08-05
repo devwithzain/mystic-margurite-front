@@ -1,24 +1,9 @@
 import { Metadata } from "next";
 import { Suspense } from "react";
+import { prismadb } from "@/lib/prismadb";
 import Marquee from "@/container/home/marquee";
 import Hero from "@/container/astrodialogues-blog/hero";
 import AstrodialogueBlogDetail from "@/container/astrodialogues-blog/astrodialogues";
-
-export async function generateStaticParams() {
-	const res = await fetch(
-		"https://mysticmarguerite.com/new/backend/api/blogs",
-		{
-			cache: "no-store",
-		},
-	);
-	const { blogs } = await res.json();
-
-	const dynamicRoutes = blogs.map((blog: any) => ({
-		id: blog.id.toString(),
-	}));
-
-	return dynamicRoutes;
-}
 
 export const metadata: Metadata = {
 	title: "Astrodialogue Blog Detail - Mystice Marguerite",
@@ -31,13 +16,17 @@ export default async function AstrodialoguesDetail({
 	params: Promise<{ id: string }>;
 }) {
 	const { id } = await params;
+	const blog = await prismadb.blogs.findUnique({
+		where: {
+			id: Number(id),
+			category: "Astro dialogues Blogs",
+		},
+	});
 	return (
 		<>
-			<Suspense fallback={"Loading..."}>
-				<Hero />
-				<Marquee />
-				<AstrodialogueBlogDetail slug={{ id }} />
-			</Suspense>
+			<Hero />
+			<Marquee />
+			<AstrodialogueBlogDetail blog={blog} />
 		</>
 	);
 }

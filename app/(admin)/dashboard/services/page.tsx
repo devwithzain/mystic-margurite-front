@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { prismadb } from "@/lib/prismadb";
 import ServiceListings from "./components/services";
 
 export const metadata: Metadata = {
@@ -6,10 +7,15 @@ export const metadata: Metadata = {
 	description: "Mystic Marguerite - Admin Services",
 };
 
-export default function ServicesPage() {
+export default async function ServicesPage() {
+	const services = await prismadb.services.findMany({
+		orderBy: {
+			created_at: "desc",
+		},
+	});
 	return (
 		<>
-			<ServiceListings />
+			<ServiceListings services={services} />
 		</>
 	);
 }

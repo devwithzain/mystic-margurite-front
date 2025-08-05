@@ -1,27 +1,10 @@
-"use client";
 import { TuserProps } from "@/types";
-import getUsers from "@/actions/get-users";
-import { useEffect, useState } from "react";
 import Heading from "@/components/admin/heading";
 import { Separator } from "@/components/ui/separator";
 import { DataTable } from "@/components/ui/data-table";
 import { columns } from "@/container/admin/user/columns";
 
-export default function UserListings() {
-	const [users, setUsers] = useState<TuserProps[]>([]);
-
-	useEffect(() => {
-		const fetchUsers = async () => {
-			try {
-				const response = await getUsers();
-				setUsers(response);
-			} catch (err) {
-				console.error("Error fetching initial data:", err);
-			}
-		};
-		fetchUsers();
-	}, []);
-
+export default function UserListings({ users }: { users: TuserProps[] }) {
 	const formatedUsers = users.map((user) => ({
 		id: user.id,
 		name: user.name,

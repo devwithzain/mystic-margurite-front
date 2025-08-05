@@ -234,16 +234,19 @@ export default function Form() {
 			const amountInCents = Math.round(cartTotal * 100);
 
 			// Process Square payment
-			const res = await fetch("/api/square", {
-				method: "POST",
-				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify({
-					sourceId: token,
-					amount: amountInCents,
-					currency: "USD",
-					buyerEmail: formData.email,
-				}),
-			});
+			const res = await fetch(
+				"https://mysticmarguerite.com/new/backend/api/square/pay",
+				{
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({
+						sourceId: token,
+						amount: amountInCents,
+						currency: "USD",
+						buyerEmail: formData.email,
+					}),
+				},
+			);
 
 			const data = await res.json();
 			if (!res.ok) throw new Error(data.error || "Payment failed");

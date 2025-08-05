@@ -1,33 +1,15 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
-import getBlogs from "@/actions/get-blogs";
 import { TblogsColumnProps } from "@/types";
-import { useEffect, useState } from "react";
 
-export default function Blogs() {
+export default function Blogs({ blogs }: { blogs: TblogsColumnProps[] }) {
 	const [selectedMonth, setSelectedMonth] = useState("");
 	const [isFilterOpen, setIsFilterOpen] = useState(false);
-	const [blogs, setBlogs] = useState<TblogsColumnProps[]>([]);
 	const [selectedCategory, setSelectedCategory] = useState("");
-
-	useEffect(() => {
-		const fetchBlogs = async () => {
-			try {
-				const response = await getBlogs();
-				const filteredResponse = response.blogs.filter(
-					(blog) => blog.category !== "Astro dialogues Blogs",
-				);
-				setBlogs(filteredResponse);
-			} catch (err) {
-				console.error("Error fetching blogs:", err);
-			}
-		};
-		fetchBlogs();
-	}, []);
-
 	const categories = [...new Set(blogs?.map((item) => item.category))];
 
 	const filteredBlogs = blogs?.filter((blog) => {

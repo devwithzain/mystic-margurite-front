@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { planetryItems } from "@/constants";
-import { DirectionAwareHover } from "@/components/ui/client/direction-aware-hover";
+import { DirectionAwareHover } from "@/components/ui";
 
 export default function Planetary() {
 	return (

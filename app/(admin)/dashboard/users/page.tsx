@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { prismadb } from "@/lib/prismadb";
 import UserListings from "./components/user";
 
 export const metadata: Metadata = {
@@ -6,10 +7,17 @@ export const metadata: Metadata = {
 	description: "Mystic Marguerite - Admin Users",
 };
 
-export default function UsersPage() {
+export default async function UsersPage() {
+	const users = await prismadb.users.findMany({
+		where: {
+			role: {
+				not: "admin",
+			},
+		},
+	});
 	return (
 		<>
-			<UserListings />
+			<UserListings users={users} />
 		</>
 	);
 }

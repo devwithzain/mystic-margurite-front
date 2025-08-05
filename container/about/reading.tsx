@@ -1,10 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { aboutImg } from "@/public";
-import Rounded from "@/components/ui/client/rounded";
 import { ArrowUpRight } from "lucide-react";
-import TextReveal from "@/components/ui/client/text-reveal";
-import RoundButton from "@/components/ui/client/round-button";
+import { RoundButton, Rounded, TextReveal } from "@/components/ui";
 
 export default function Reading() {
 	return (

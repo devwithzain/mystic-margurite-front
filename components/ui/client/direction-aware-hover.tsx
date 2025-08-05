@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import Image, { StaticImageData } from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 
-export const DirectionAwareHover = ({
+export default function DirectionAwareHover({
 	imageUrl,
 	children,
 	childrenClassName,
@@ -16,7 +16,7 @@ export const DirectionAwareHover = ({
 	childrenClassName?: string;
 	imageClassName?: string;
 	className?: string;
-}) => {
+}) {
 	const ref = useRef<HTMLDivElement>(null);
 
 	const [direction, setDirection] = useState<
@@ -105,7 +105,7 @@ export const DirectionAwareHover = ({
 			</AnimatePresence>
 		</motion.div>
 	);
-};
+}
 
 const variants = {
 	initial: {

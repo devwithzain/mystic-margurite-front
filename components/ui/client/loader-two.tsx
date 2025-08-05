@@ -4,11 +4,16 @@ import Image from "next/image";
 import { arrowGo } from "@/public";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLocalStorage } from "@/hooks/use-local-storage";
 
 export default function LoaderTwo() {
 	const [showText, setShowText] = useState(false);
 	const [currentLine, setCurrentLine] = useState(0);
 	const [showButton, setShowButton] = useState(false);
+
+	// Use your custom hook
+	const [loaderCompleted, setLoaderCompleted, isStorageLoaded] =
+		useLocalStorage("loaderCompleted", false);
 
 	const textLines = [
 		"All is the creation of Divine Love",
@@ -27,7 +32,7 @@ export default function LoaderTwo() {
 	};
 
 	const handleContactClick = () => {
-		localStorage.setItem("loaderCompleted", "true");
+		setLoaderCompleted(true);
 	};
 
 	useEffect(() => {
@@ -44,6 +49,15 @@ export default function LoaderTwo() {
 			return () => clearInterval(interval);
 		}
 	}, [showText, textLines.length]);
+
+	// Optional: Show loading state until localStorage is loaded
+	if (!isStorageLoaded) {
+		return (
+			<div className="relative w-full h-screen flex items-center justify-center overflow-hidden bg-black">
+				<div className="text-white">Loading...</div>
+			</div>
+		);
+	}
 
 	return (
 		<div className="relative w-full h-screen flex items-center justify-center overflow-hidden bg-black">

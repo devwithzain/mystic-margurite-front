@@ -12,7 +12,7 @@ export default function Navbar() {
 
 	return (
 		<motion.div
-			variants={menuSlide}
+			variants={{ menuSlide }}
 			initial="initial"
 			animate="enter"
 			exit="exit"
@@ -40,7 +40,7 @@ export default function Navbar() {
 			</div>
 			<svg className="absolute top-0 left-[-99px] w-[100px] h-full fill-[#292929] stroke-none">
 				<motion.path
-					variants={curve}
+					variants={{ curve }}
 					initial="initial"
 					animate="enter"
 					exit="exit"

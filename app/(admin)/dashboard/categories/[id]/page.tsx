@@ -1,26 +1,11 @@
 import { Metadata } from "next";
+import { prismadb } from "@/lib/prismadb";
 import CategoryForm from "../components/category-form";
 
 export const metadata: Metadata = {
 	title: "Admin Categories - Mystic Marguerite",
 	description: "Mystic Marguerite - Admin Categories",
 };
-
-export async function generateStaticParams() {
-	const res = await fetch(
-		"https://mysticmarguerite.com/new/backend/api/categories",
-		{
-			cache: "no-store",
-		},
-	);
-	const { categories } = await res.json();
-
-	const dynamicRoutes = categories.map((category: any) => ({
-		id: category.id.toString(),
-	}));
-
-	return [...dynamicRoutes, { id: "new" }];
-}
 
 export default async function CategoryFormPage({
 	params,
@@ -29,5 +14,17 @@ export default async function CategoryFormPage({
 }) {
 	const { id } = await params;
 
-	return <CategoryForm slug={{ id, new: id === "new" ? "yes" : "no" }} />;
+	const category =
+		id === "new"
+			? null
+			: await prismadb.categories.findUnique({
+					where: { id: BigInt(id) },
+			  });
+
+	return (
+		<CategoryForm
+			category={category}
+			slug={{ id, new: id === "new" ? "yes" : "no" }}
+		/>
+	);
 }
