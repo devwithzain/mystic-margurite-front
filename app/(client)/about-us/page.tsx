@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import Hero from "@/container/about/hero";
-import Marquee from "@/container/home/marquee";
+import { Marquee } from "@/components/ui/client";
 import Reading from "@/container/about/reading";
 import Planetary from "@/container/about/planetry";
 

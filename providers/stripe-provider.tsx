@@ -8,7 +8,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import { TcartColumnProps, TServicesColumnProps } from "@/types";
 
 const stripePromise = loadStripe(
-	"pk_test_51PQnA4Bl1kKDHG46wmfNhBF2OmIp4OgFFIjwZLPQ3fjJ07Iq1FDHJZzZTUesP74qaRfxQj3befQVk2bry4I8Xv4W00GvQ3saqV",
+	"pk_test_51RZJPvB1nBkxPyYeHPS3aFw1ZwHR5F7O7s4PSViU2BsoNnky1ojdhO9NDqvwFnerfRNsAWBjCIwkUndBr0V6B1cZ004m05TEkm",
 );
 
 export default function StripeProvider({

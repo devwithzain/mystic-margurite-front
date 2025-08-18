@@ -6,7 +6,7 @@ const Videochat = dynamic<{ slug: string; JWT: string }>(
 	{ ssr: false },
 );
 
-export default function VideochatClientWrapper({
+export default function VideoChatClientWrapper({
 	slug,
 	JWT,
 }: {

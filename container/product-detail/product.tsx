@@ -1,48 +1,29 @@
 "use client";
 import axios from "axios";
 import Image from "next/image";
+import { useState } from "react";
 import toast from "react-hot-toast";
 import { Loader2 } from "lucide-react";
 import { getToken } from "@/lib/get-token";
-import { useEffect, useState } from "react";
-import getProduct from "@/actions/get-product";
 import { formatUSD } from "@/lib/formate-price";
-import { getUserData } from "@/actions/get-user";
 import { useCart } from "@/context/cart-context";
 import useLoginModal from "@/hooks/use-login-modal";
 import { TproductColumnProps, TuserProps } from "@/types";
 import { TextMask, TextReveal } from "@/components/ui/client";
 
-export default function ProductDetail({ slug }: { slug: { id: string } }) {
-	const productId = slug.id;
-	const { refreshCart } = useCart();
+export default function ProductDetail({
+	product,
+	user,
+}: {
+	product: TproductColumnProps | null;
+	user: TuserProps | null;
+}) {
+	const { toggleCart, refreshCart } = useCart();
 	const loginModal = useLoginModal();
 	const token = getToken("authToken");
 	const [loading, setLoading] = useState(false);
-	const [user, setUser] = useState<TuserProps>();
-	const [product, setProduct] = useState<TproductColumnProps | null>(null);
 
-	useEffect(() => {
-		const fetchUserData = async () => {
-			const userData = await getUserData(token);
-			setUser(userData);
-		};
-		fetchUserData();
-	}, [token]);
-
-	useEffect(() => {
-		const fetchProducts = async () => {
-			try {
-				const response = await getProduct(productId);
-				setProduct(response.product);
-			} catch (err) {
-				console.error("Error fetching products:", err);
-			}
-		};
-		fetchProducts();
-	}, [productId]);
-
-	const addToCart = async (productId: string | bigint | undefined) => {
+	const addToCart = async (productId) => {
 		if (!user || !token) {
 			loginModal.onOpen();
 			return;
@@ -68,6 +49,7 @@ export default function ProductDetail({ slug }: { slug: { id: string } }) {
 			} else {
 				toast.success(response.data.success);
 				refreshCart();
+				toggleCart();
 			}
 			setLoading(false);
 		} catch (error: unknown) {
@@ -121,7 +103,7 @@ export default function ProductDetail({ slug }: { slug: { id: string } }) {
 						<div className="w-full flex items-center gap-4 flex-col">
 							<button
 								className={`w-full bg-[#2E073F] btn text-center transition-all duration-300 ease-in-out text-white px-6 py-3 rounded-lg text-[20px] montserrat leading-tight tracking-tight cursor-pointer`}
-								onClick={() => addToCart(product?.id?.toString())}>
+								onClick={() => addToCart(product?.id)}>
 								{loading ? (
 									<Loader2 className="animate-spin mx-auto" />
 								) : (

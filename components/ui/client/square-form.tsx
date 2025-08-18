@@ -1,4 +1,3 @@
-// components/ui/client/square-form.tsx
 "use client";
 import { CreditCard, PaymentForm } from "react-square-web-payments-sdk";
 
@@ -12,7 +11,7 @@ export default function SquareWrapper({
 	return (
 		<PaymentForm
 			applicationId="sandbox-sq0idb-U7Bc6nDaANMepvFNTCQQeA"
-			locationId="LZ3934782G2QZ"
+			locationId="sandbox-sq0idb-U7Bc6nDaANMepvFNTCQQeA"
 			cardTokenizeResponseReceived={async (tokenResult) => {
 				try {
 					if (tokenResult.status === "OK") {

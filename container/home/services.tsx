@@ -9,16 +9,12 @@ export default function Services() {
 			<div className="w-full items-end justify-between flex xm:flex-col sm:flex-col">
 				{servicesItems.map((item) => (
 					<div
-						className={`w-1/2 xm:w-full sm:w-full flex flex-col gap-5 items-center  padding-x padding-y border-b border-[#C3BEB6] ${
-							item.id === 2
-								? "border-l border-[#C3BEB6]"
-								: "bg-[#FFFCFA] border-l border-[#C3BEB6]"
-						}`}
+						className={`w-1/2 xm:w-full sm:w-full flex flex-col gap-5 items-center  padding-x padding-y border-b bg-[#fff] border-l border-[#C3BEB6] `}
 						key={item.id}>
 						<Image
 							src={item.src}
 							alt={item.title}
-							className="w-[500px] object-cover"
+							className="w-[500px] h-[500px] object-contain"
 						/>
 						<TextReveal>
 							<h1 className="text-[#2E073F] subHeading font-semibold papyrus tracking-tight">

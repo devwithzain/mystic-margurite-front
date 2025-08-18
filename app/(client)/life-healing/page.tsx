@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import Marquee from "@/container/home/marquee";
+import { Marquee } from "@/components/ui/client";
 import Hero from "@/container/lifehealing/hero";
 import LifeHealing from "@/container/lifehealing/lifehealing";
 

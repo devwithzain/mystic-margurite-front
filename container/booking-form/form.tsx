@@ -273,7 +273,10 @@ export default function Form({ slug }: { slug: { id: string; jwt: string } }) {
 			try {
 				await axios.post(
 					"https://mysticmarguerite.com/new/backend/api/payment-intent",
-					{ amount: total, currency: "usd" },
+					{
+						amount: total,
+						currency: "usd",
+					},
 				);
 
 				const { error, paymentIntent } = await stripe.confirmPayment({

@@ -1,13 +1,13 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import ZoomVideo, {
 	type VideoClient,
 	type VideoPlayer,
 	VideoQuality,
 } from "@zoom/videosdk";
-import { PhoneOff } from "lucide-react";
 import { Button } from "../button";
+import { PhoneOff } from "lucide-react";
+import { useRef, useState } from "react";
 
 const videoPlayerStyle: React.CSSProperties = {
 	width: "100%",

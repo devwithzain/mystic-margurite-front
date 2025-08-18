@@ -26,7 +26,7 @@ export default function Hero() {
 				</TextReveal>
 				<div className="w-fit bg-[#7a74ef] flex items-center justify-between bg-secondry cursor-pointer rounded-md group">
 					<RoundButton
-						href="/contact-us"
+						href="/services"
 						title="Appointment"
 						className="bg-white text-black"
 						bgcolor="#000"

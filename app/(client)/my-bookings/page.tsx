@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import Hero from "@/container/bookings/hero";
-import Marquee from "@/container/home/marquee";
+import { Marquee } from "@/components/ui/client";
 import BookingPage from "@/container/bookings/booking";
 
 export const metadata: Metadata = {

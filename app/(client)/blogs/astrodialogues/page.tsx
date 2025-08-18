@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { prismadb } from "@/lib/prismadb";
-import Marquee from "@/container/home/marquee";
+import { Marquee } from "@/components/ui/client";
 import Hero from "@/container/astrodialogues/hero";
 import Astrodialogues from "@/container/astrodialogues/astrodialogues";
 

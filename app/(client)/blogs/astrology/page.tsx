@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Hero from "@/container/blog/hero";
 import { prismadb } from "@/lib/prismadb";
 import Blogs from "@/container/blog/blogs";
-import Marquee from "@/container/home/marquee";
+import { Marquee } from "@/components/ui/client";
 
 export const metadata: Metadata = {
 	title: "Astrology Blogs - Mystice Marguerite",

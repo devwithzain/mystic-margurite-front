@@ -1,7 +1,9 @@
 import { Metadata } from "next";
-import { Suspense } from "react";
-import Marquee from "@/container/home/marquee";
+import { prismadb } from "@/lib/prismadb";
+import { Marquee } from "@/components/ui/client";
+import { getUserData } from "@/lib/get-user-data";
 import Hero from "@/container/product-detail/hero";
+import { serializeBigInt } from "@/lib/serialize-bigInt";
 import ProductDetail from "@/container/product-detail/product";
 
 export const metadata: Metadata = {
@@ -9,35 +11,36 @@ export const metadata: Metadata = {
 	description: "Mystice Marguerite - Product Detail",
 };
 
-export async function generateStaticParams() {
-	const res = await fetch(
-		"https://mysticmarguerite.com/new/backend/api/products",
-		{
-			cache: "no-store",
-		},
-	);
-	const { products } = await res.json();
-
-	const dynamicRoutes = products.map((product: any) => ({
-		id: product.id.toString(),
-	}));
-
-	return dynamicRoutes;
-}
-
 export default async function ProductDetailPage({
 	params,
 }: {
 	params: Promise<{ id: string }>;
 }) {
 	const { id } = await params;
+	const token = getUserData("adminAuthToken");
+	const product = await prismadb.products.findUnique({
+		where: { id: BigInt(id) },
+	});
+	if (!token) {
+		return <p>Unauthorized</p>;
+	}
+	const user = await prismadb.users.findFirst({
+		where: {
+			role: "USER",
+		},
+	});
+
+	const userRaw = serializeBigInt(user);
+	const productRaw = serializeBigInt(product);
+
 	return (
 		<>
-			<Suspense fallback={<div>Loading...</div>}>
-				<Hero />
-				<Marquee />
-				<ProductDetail slug={{ id }} />
-			</Suspense>
+			<Hero />
+			<Marquee />
+			<ProductDetail
+				user={userRaw}
+				product={productRaw}
+			/>
 		</>
 	);
 }

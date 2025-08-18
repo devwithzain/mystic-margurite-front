@@ -20,6 +20,7 @@ import { Country, State, City } from "country-state-city";
 import SquareWrapper from "@/components/ui/client/square-form";
 import AnimatedText from "@/components/ui/client/animated-text";
 import { TcityOption, TcountryOption, TstateOption, TuserProps } from "@/types";
+import PaypalCheckout from "@/components/ui/client/paypal-checkout";
 
 export default function Form() {
 	const navigate = useRouter();
@@ -234,19 +235,16 @@ export default function Form() {
 			const amountInCents = Math.round(cartTotal * 100);
 
 			// Process Square payment
-			const res = await fetch(
-				"https://mysticmarguerite.com/new/backend/api/square/pay",
-				{
-					method: "POST",
-					headers: { "Content-Type": "application/json" },
-					body: JSON.stringify({
-						sourceId: token,
-						amount: amountInCents,
-						currency: "USD",
-						buyerEmail: formData.email,
-					}),
-				},
-			);
+			const res = await fetch("http://localhost:3000/api/square", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({
+					sourceId: token,
+					amount: amountInCents,
+					currency: "USD",
+					buyerEmail: formData.email,
+				}),
+			});
 
 			const data = await res.json();
 			if (!res.ok) throw new Error(data.error || "Payment failed");
@@ -258,7 +256,7 @@ export default function Form() {
 			toast.success("Payment successful!");
 			navigate.push("/thank-you");
 		} catch (error) {
-			console.error("Payment Error:", error);
+			console.log("Payment Error:", error);
 			toast.error(error.message || "Payment failed. Please try again.");
 		} finally {
 			setLoading(false);
@@ -609,19 +607,14 @@ export default function Form() {
 							{paymentMethod === "paypal" && (
 								<div className="text-black">
 									<p className="mb-2 font-semibold">Pay with PayPal</p>
-									<button
-										type="button"
-										onClick={handlePayPalPayment}
-										disabled={loading}
-										className="bg-[#003087] text-white px-6 py-4 rounded hover:bg-[#001f5b] w-full flex items-center justify-center gap-2 capitalize montserrat paragraph leading-tight tracking-tight">
-										{loading ? (
-											<>
-												<Loader2 className="animate-spin" /> Processing...
-											</>
-										) : (
-											"Connect PayPal"
-										)}
-									</button>
+									<PaypalCheckout
+										amount={cartTotal}
+										onSuccess={handlePayPalPayment}
+										onError={(error) => {
+											console.error("PayPal Error:", error);
+											toast.error("PayPal payment failed");
+										}}
+									/>
 								</div>
 							)}
 
@@ -662,7 +655,6 @@ export default function Form() {
 							{paymentMethod === "card" && (
 								<button
 									type="submit"
-									disabled={loading || paymentMethod === "card"}
 									className="w-full text-center bg-[#7a74ef] mt-4 flex items-center justify-center gap-2 btn transition-all duration-300 ease-in-out text-white px-4 py-4 capitalize cursor-pointer montserrat paragraph leading-tight tracking-tight rounded-md">
 									{loading ? (
 										<>

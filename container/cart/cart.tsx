@@ -7,8 +7,8 @@ import { useRouter } from "next/navigation";
 import RoundButton from "@/components/ui/client/round-button";
 
 export default function Cart() {
-	const token = getToken("authToken");
 	const router = useRouter();
+	const token = getToken("authToken");
 	const [cartItems, setCartItems] = useState<any[]>([]);
 	const [cartTotal, setCartTotal] = useState<number>(0);
 

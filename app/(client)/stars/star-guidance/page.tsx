@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import Marquee from "@/container/home/marquee";
+import { Marquee } from "@/components/ui/client";
 import Hero from "@/container/star-guidance/hero";
 import StarGuidance from "@/container/star-guidance/star-guidance";
 

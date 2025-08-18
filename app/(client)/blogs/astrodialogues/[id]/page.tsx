@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { Suspense } from "react";
 import { prismadb } from "@/lib/prismadb";
-import Marquee from "@/container/home/marquee";
+import { Marquee } from "@/components/ui/client";
 import Hero from "@/container/astrodialogues-blog/hero";
 import AstrodialogueBlogDetail from "@/container/astrodialogues-blog/astrodialogues";
 

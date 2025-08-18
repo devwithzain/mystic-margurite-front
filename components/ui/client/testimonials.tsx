@@ -35,7 +35,26 @@ export default function Testimonials() {
 						className="w-[150px] object-cover"
 					/>
 				</div>
-				<div className="w-full padding-x">
+				<div className="w-full padding-x relative">
+					{/* Navigation buttons positioned outside and absolutely positioned */}
+					<button
+						onClick={handlePrev}
+						className="absolute left-5 top-1/2 transform -translate-y-1/2 z-10 cursor-pointer block sm:hidden xm:hidden">
+						<Image
+							src={arrowLeft}
+							alt="arrowLeftImg"
+							className="w-full object-cover"
+						/>
+					</button>
+					<button
+						onClick={handleNext}
+						className="absolute right-5 top-1/2 transform -translate-y-1/2 z-10 cursor-pointer block sm:hidden xm:hidden">
+						<Image
+							src={arrowRight}
+							alt="arrowRightImg"
+							className="w-full object-cover"
+						/>
+					</button>
 					<Swiper
 						modules={[Navigation]}
 						loop
@@ -43,16 +62,7 @@ export default function Testimonials() {
 						draggable
 						onSwiper={(swiper) => (swiperRef.current = swiper)}>
 						<SwiperSlide>
-							<div className="w-full flex items-center justify-between	xm:hidden sm:hidden">
-								<button
-									onClick={handlePrev}
-									className="cursor-pointer">
-									<Image
-										src={arrowLeft}
-										alt="arrowLeftImg"
-										className="w-full object-cover"
-									/>
-								</button>
+							<div className="w-full flex items-center justify-center">
 								<div className="p-7 rounded-[30px] min-h-[250px] flex flex-col items-center">
 									<TextReveal>
 										<p className="subHeading text-[#2E073F] forum text-center leading-tight tracking-tight">
@@ -66,28 +76,10 @@ export default function Testimonials() {
 										</p>
 									</TextReveal>
 								</div>
-								<button
-									onClick={handleNext}
-									className="cursor-pointer">
-									<Image
-										src={arrowRight}
-										alt="arrowRightImg"
-										className="w-full object-cover xm:hidden sm:hidden"
-									/>
-								</button>
 							</div>
 						</SwiperSlide>
 						<SwiperSlide>
-							<div className="w-full flex items-center justify-between	xm:hidden sm:hidden">
-								<button
-									onClick={handlePrev}
-									className="cursor-pointer">
-									<Image
-										src={arrowLeft}
-										alt="arrowLeftImg"
-										className="w-full object-cover xm:hidden sm:hidden"
-									/>
-								</button>
+							<div className="w-full flex items-center justify-center">
 								<div className="p-7 rounded-[30px] min-h-[250px] flex flex-col items-center">
 									<TextReveal>
 										<p className="subHeading text-[#2E073F] forum text-center leading-tight tracking-tight">
@@ -101,28 +93,10 @@ export default function Testimonials() {
 										</p>
 									</TextReveal>
 								</div>
-								<button
-									onClick={handleNext}
-									className="cursor-pointer">
-									<Image
-										src={arrowRight}
-										alt="arrowRightImg"
-										className="w-full object-cover xm:hidden sm:hidden"
-									/>
-								</button>
 							</div>
 						</SwiperSlide>
 						<SwiperSlide>
-							<div className="w-full flex items-center justify-between	xm:hidden sm:hidden">
-								<button
-									onClick={handlePrev}
-									className="cursor-pointer">
-									<Image
-										src={arrowLeft}
-										alt="arrowLeftImg"
-										className="w-full object-cover"
-									/>
-								</button>
+							<div className="w-full flex items-center justify-center">
 								<div className="p-7 rounded-[30px] min-h-[250px] flex flex-col items-center">
 									<TextReveal>
 										<p className="subHeading text-[#2E073F] forum text-center leading-tight tracking-tight">
@@ -136,28 +110,10 @@ export default function Testimonials() {
 										</p>
 									</TextReveal>
 								</div>
-								<button
-									onClick={handleNext}
-									className="cursor-pointer">
-									<Image
-										src={arrowRight}
-										alt="arrowRightImg"
-										className="w-full object-cover"
-									/>
-								</button>
 							</div>
 						</SwiperSlide>
 						<SwiperSlide>
-							<div className="w-full flex items-center justify-between	xm:hidden sm:hidden">
-								<button
-									onClick={handlePrev}
-									className="cursor-pointer">
-									<Image
-										src={arrowLeft}
-										alt="arrowLeftImg"
-										className="w-full object-cover"
-									/>
-								</button>
+							<div className="w-full flex items-center justify-center">
 								<div className="p-7 rounded-[30px] min-h-[250px] flex flex-col items-center">
 									<TextReveal>
 										<p className="subHeading text-[#2E073F] forum text-center leading-tight tracking-tight">
@@ -171,15 +127,6 @@ export default function Testimonials() {
 										</p>
 									</TextReveal>
 								</div>
-								<button
-									onClick={handleNext}
-									className="cursor-pointer">
-									<Image
-										src={arrowRight}
-										alt="arrowRightImg"
-										className="w-full object-cover"
-									/>
-								</button>
 							</div>
 						</SwiperSlide>
 					</Swiper>

@@ -5,7 +5,7 @@ import NewsLetter from "../../components/ui/client/news-letter";
 import Hero from "@/container/home/hero";
 import Form from "@/container/home/form";
 import { Suspense } from "react";
-import Marquee from "@/container/home/marquee";
+import { Marquee } from "@/components/ui/client";
 import Services from "@/container/home/services";
 import Articles from "@/container/home/articles";
 import Reviews from "@/container/home/testimonials";

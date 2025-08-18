@@ -18,16 +18,14 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { getUserData } from "@/actions/get-user";
 import { AnimatedText } from "@/components/ui/client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Separator } from "@/components/ui/separator";
 import { TUserProfileProps, userProfileSchema } from "@/schemas";
 
-export default function Setting() {
+export default function Setting({ user }: { user?: TuserProps }) {
 	const router = useRouter();
 	const token = getToken("authToken");
-	const [user, setUser] = useState<TuserProps>();
 
 	const form = useForm<TUserProfileProps>({
 		resolver: zodResolver(userProfileSchema),
@@ -41,19 +39,6 @@ export default function Setting() {
 	const {
 		formState: { isSubmitting },
 	} = form;
-
-	useEffect(() => {
-		const fetchUserData = async () => {
-			const userData = await getUserData(token);
-			form.reset({
-				name: userData.name,
-				email: userData.email,
-				image: userData.image,
-			});
-			setUser(userData);
-		};
-		fetchUserData();
-	}, [form, token]);
 
 	const [image, setImage] = useState<string>("");
 	const [imageUrl, setImageUrl] = useState<string>("");

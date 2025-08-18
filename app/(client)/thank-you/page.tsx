@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import Hero from "@/container/thank/hero";
-import Marquee from "@/container/home/marquee";
+import { Marquee } from "@/components/ui/client";
 
 export const metadata: Metadata = {
 	title: "Thank You - Mystice Marguerite",
