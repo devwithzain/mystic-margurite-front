@@ -28,12 +28,9 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 		if (!token) return;
 
 		try {
-			const response = await axios.get(
-				"https://mysticmarguerite.com/new/backend/api/cart",
-				{
-					headers: { Authorization: `Bearer ${token}` },
-				},
-			);
+			const response = await axios.get("http://127.0.0.1:8000/api/cart", {
+				headers: { Authorization: `Bearer ${token}` },
+			});
 			setCartItems(response.data);
 		} catch (error) {
 			console.error("Error fetching cart items:", error);

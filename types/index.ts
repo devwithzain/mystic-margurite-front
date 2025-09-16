@@ -57,9 +57,9 @@ export type TsubscribersColumnProps = {
 
 export type TtimeslotsColumnProps = {
    id: bigint | string;
-   date: Date | null;
-   start_time: Date | null;
-   end_time: Date | null;
+   date: string | null;
+   start_time: string | null;
+   end_time: string | null;
    status: string;
    created_at: Date | null;
    updated_at: Date | null;
@@ -88,7 +88,7 @@ export type TbookingsProps = {
    status: string;
    created_at: Date | null;
    updated_at: Date | null;
-   booking_details?: {
+   booking_detail: {
       first_name?: string;
       last_name?: string;
       email?: string;
@@ -105,16 +105,19 @@ export type TbookingsProps = {
       end_time?: string;
       date?: string;
       meeting_link?: string;
+      zoom_meeting_id?: string;
+      meeting_start_url?: string;
+      meeting_password?: string;
       status?: string;
       birth_date?: string;
       birth_time?: string;
       birth_place?: string;
    };
-   booking_items: {
-      services?: {
+   items: {
+      service: {
+         title: string;
          price: string;
          image: string;
-         title: string;
       };
    }[];
 };

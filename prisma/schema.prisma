@@ -4,8 +4,9 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
 }
 
 model blogs {
@@ -21,31 +22,34 @@ model blogs {
 }
 
 model booking_details {
-  id             BigInt     @id @default(autoincrement()) @db.UnsignedBigInt
-  service_id     BigInt     @db.UnsignedBigInt
-  booking_id     BigInt     @db.UnsignedBigInt
-  time_slot_id   BigInt     @db.UnsignedBigInt
-  birth_date     DateTime   @db.Date
-  birth_time     DateTime?  @db.Time(0)
-  birth_place    String?    @db.VarChar(255)
-  meeting_link   String?    @db.VarChar(255)
-  first_name     String     @db.VarChar(255)
-  last_name      String     @db.VarChar(255)
-  phone          String     @db.VarChar(255)
-  email          String     @db.VarChar(255)
-  country        String     @db.VarChar(255)
-  street_address String     @db.VarChar(255)
-  town_city      String     @db.VarChar(255)
-  state          String     @db.VarChar(255)
-  zip            String?    @db.VarChar(255)
-  timezone       String?    @db.VarChar(255)
-  notes          String?    @db.Text
-  status         String     @default("scheduled") @db.VarChar(255)
-  created_at     DateTime?  @db.Timestamp(0)
-  updated_at     DateTime?  @db.Timestamp(0)
-  bookings       bookings   @relation(fields: [booking_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "booking_details_booking_id_foreign")
-  services       services   @relation(fields: [service_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "booking_details_service_id_foreign")
-  time_slots     time_slots @relation(fields: [time_slot_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "booking_details_time_slot_id_foreign")
+  id                BigInt     @id @default(autoincrement()) @db.UnsignedBigInt
+  service_id        BigInt     @db.UnsignedBigInt
+  booking_id        BigInt     @db.UnsignedBigInt
+  time_slot_id      BigInt     @db.UnsignedBigInt
+  birth_date        DateTime   @db.Date
+  birth_time        DateTime?  @db.Time(0)
+  birth_place       String?    @db.VarChar(255)
+  meeting_link      String?    @db.Text
+  zoom_meeting_id   String?    @db.Text
+  meeting_start_url String?    @db.Text
+  meeting_password  String?    @db.Text
+  first_name        String     @db.VarChar(255)
+  last_name         String     @db.VarChar(255)
+  phone             String     @db.VarChar(255)
+  email             String     @db.VarChar(255)
+  country           String     @db.VarChar(255)
+  street_address    String     @db.VarChar(255)
+  town_city         String     @db.VarChar(255)
+  state             String     @db.VarChar(255)
+  zip               String?    @db.VarChar(255)
+  timezone          String?    @db.VarChar(255)
+  notes             String?    @db.Text
+  status            String     @default("scheduled") @db.VarChar(255)
+  created_at        DateTime?  @db.Timestamp(0)
+  updated_at        DateTime?  @db.Timestamp(0)
+  bookings          bookings   @relation(fields: [booking_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "booking_details_booking_id_foreign")
+  services          services   @relation(fields: [service_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "booking_details_service_id_foreign")
+  time_slots        time_slots @relation(fields: [time_slot_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "booking_details_time_slot_id_foreign")
 
   @@index([booking_id], map: "booking_details_booking_id_foreign")
   @@index([service_id], map: "booking_details_service_id_foreign")

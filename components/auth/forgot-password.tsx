@@ -31,10 +31,7 @@ export default function ForgotPasswordForm({
 		}
 		try {
 			setIsLoading(true);
-			await axios.post(
-				`https://mysticmarguerite.com/new/backend/api/forgot-password`,
-				{ email },
-			);
+			await axios.post(`http://127.0.0.1:8000/api/forgot-password`, { email });
 			toast.success("A 6-digit code has been sent to your email.");
 			setShowEnterCode(true);
 		} catch (error) {
@@ -56,7 +53,7 @@ export default function ForgotPasswordForm({
 		try {
 			setIsLoading(true);
 			const response = await axios.post(
-				`https://mysticmarguerite.com/new/backend/api/verify-reset-code`,
+				`http://127.0.0.1:8000/api/verify-reset-code`,
 				{
 					email,
 					code,
@@ -90,7 +87,7 @@ export default function ForgotPasswordForm({
 		try {
 			setIsLoading(true);
 			const response = await axios.post(
-				`https://mysticmarguerite.com/new/backend/api/reset-password`,
+				`http://127.0.0.1:8000/api/reset-password`,
 				{
 					email,
 					code,

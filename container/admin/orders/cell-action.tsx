@@ -21,9 +21,7 @@ export default function CellAction({ data }: { data: TordersProps }) {
 
 	const onDelete = async () => {
 		try {
-			await axios.delete(
-				`https://mysticmarguerite.com/new/backend/api/order/${data.id}`,
-			);
+			await axios.delete(`http://127.0.0.1:8000/api/order/${data.id}`);
 			toast.success("User deleted.");
 			router.refresh();
 		} catch (error) {

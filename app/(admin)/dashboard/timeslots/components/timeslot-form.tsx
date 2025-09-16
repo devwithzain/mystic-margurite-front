@@ -30,27 +30,27 @@ export default function TimeSlotsForm({
 	slug: { id: string; new: string };
 	timeslot: TtimeslotsColumnProps | null;
 }) {
-	const token = getToken("adminAuthToken");
 	const timeslotsId = slug.id;
 	const router = useRouter();
 	const [open, setOpen] = useState(false);
+	const token = getToken("adminAuthToken");
 
 	const formatedTimeSlot = timeslot
 		? {
+				status: timeslot.status,
+				end_time: timeslot.end_time,
 				date: new Date(timeslot.date),
 				start_time: timeslot.start_time,
-				end_time: timeslot.end_time,
-				status: timeslot.status,
 		  }
 		: null;
 
 	const form = useForm<TtimeslotColumnProps>({
 		resolver: zodResolver(timeslotColumnSchema),
 		defaultValues: formatedTimeSlot || {
+			status: "",
 			date: new Date(),
 			start_time: new Date(),
 			end_time: new Date(),
-			status: "",
 		},
 	});
 
@@ -76,10 +76,11 @@ export default function TimeSlotsForm({
 	const toastMessage = initialData ? "Timeslot updated." : "Timeslot created.";
 
 	const onSubmits = async (data: TtimeslotColumnProps) => {
+		console.log(data);
 		try {
 			if (initialData) {
 				await axios.post(
-					`https://mysticmarguerite.com/new/backend/api/timeslot/${timeslotsId}`,
+					`http://127.0.0.1:8000/api/timeslot/${timeslotsId}`,
 					data,
 					{
 						headers: {
@@ -88,32 +89,25 @@ export default function TimeSlotsForm({
 					},
 				);
 			} else {
-				await axios.post(
-					`https://mysticmarguerite.com/new/backend/api/timeslot`,
-					data,
-					{
-						headers: {
-							Authorization: `Bearer ${token}`,
-						},
+				await axios.post(`http://127.0.0.1:8000/api/timeslot`, data, {
+					headers: {
+						Authorization: `Bearer ${token}`,
 					},
-				);
+				});
 			}
 			toast.success(toastMessage);
 			router.push(`/dashboard/timeslots`);
 			console.log(data);
 		} catch (error) {
+			console.log(error);
 			console.error(error);
 			toast.error("Something went wrong");
 		}
 	};
 
-	console.log(data);
-
 	const onDelete = async () => {
 		try {
-			await axios.delete(
-				`https://mysticmarguerite.com/new/backend/api/timeslot/${timeslotsId}`,
-			);
+			await axios.delete(`http://127.0.0.1:8000/api/timeslot/${timeslotsId}`);
 			router.push(`/dashboard/timeslots`);
 
 			toast.success("Category deleted");

@@ -20,7 +20,7 @@ export default function Form() {
 	const onSubmits = async (data: TcontactFormData) => {
 		try {
 			const response = await axios.post(
-				`https://mysticmarguerite.com/new/backend/api/contact`,
+				`http://127.0.0.1:8000/api/contact`,
 				data,
 			);
 			if (response.data.success) {

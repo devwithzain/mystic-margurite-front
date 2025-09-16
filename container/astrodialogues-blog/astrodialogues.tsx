@@ -13,7 +13,7 @@ export default function AstrodialogouesBlogDetail({
 			<div className="flex flex-col gap-10">
 				<div className="flex items-center justify-center flex-col gap-10">
 					<Image
-						src={`https://mysticmarguerite.com/new/backend/${blog?.image}`}
+						src={`http://127.0.0.1:8000/storage/${blog?.image}`}
 						alt={blog?.title}
 						className="w-full h-[600px] object-cover object-center"
 						width={600}

@@ -94,9 +94,9 @@ export const categoryColumnSchema = z.object({
 });
 
 export const timeslotColumnSchema = z.object({
-   date: z.date(),
-   start_time: z.date(),
-   end_time: z.date(),
+   date: z.string(),
+   start_time: z.string(),
+   end_time: z.string(),
    status: z.string(),
 });
 

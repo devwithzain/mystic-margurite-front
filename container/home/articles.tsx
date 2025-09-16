@@ -41,7 +41,7 @@ export default function Articles() {
 						className={`flex flex-col gap-2`}
 						key={item.id}>
 						<Image
-							src={`https://mysticmarguerite.com/new/backend/${item?.image}`}
+							src={`http://127.0.0.1:8000/${item?.image}`}
 							alt="blog"
 							className="w-full h-[500px] object-cover"
 							width={500}

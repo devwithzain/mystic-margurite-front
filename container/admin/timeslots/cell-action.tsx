@@ -20,9 +20,7 @@ export default function CellAction({ data }: { data: TtimeslotsColumnProps }) {
 
 	const onDelete = async () => {
 		try {
-			await axios.delete(
-				`https://mysticmarguerite.com/new/backend/api/timeslot/${data.id}`,
-			);
+			await axios.delete(`http://127.0.0.1:8000/api/timeslot/${data.id}`);
 			toast.success("Slot deleted.");
 			router.refresh();
 		} catch (error) {

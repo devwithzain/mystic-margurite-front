@@ -69,14 +69,11 @@ export default function Form() {
 	useEffect(() => {
 		const fetchCartItems = async () => {
 			try {
-				const response = await fetch(
-					`https://mysticmarguerite.com/new/backend/api/cart`,
-					{
-						headers: {
-							Authorization: `Bearer ${token}`,
-						},
+				const response = await fetch(`http://127.0.0.1:8000/api/cart`, {
+					headers: {
+						Authorization: `Bearer ${token}`,
 					},
-				);
+				});
 				const data = await response.json();
 				const total = data.reduce((total: number, item: any) => {
 					const quantity = item.quantity || 1;
@@ -159,17 +156,17 @@ export default function Form() {
 
 		try {
 			const orderResponse = await axios.post(
-				"https://mysticmarguerite.com/new/backend/api/placedOrder",
+				"http://127.0.0.1:8000/api/placedOrder",
 				orderData,
 			);
 
 			await axios.put(
-				`https://mysticmarguerite.com/new/backend/api/orders/${orderResponse.data.order_id}/status`,
+				`http://127.0.0.1:8000/api/orders/${orderResponse.data.order_id}/status`,
 				{ status: "paid" },
 			);
 
 			// Clear cart after successful order
-			await axios.delete("https://mysticmarguerite.com/new/backend/api/cart", {
+			await axios.delete("http://127.0.0.1:8000/api/cart", {
 				headers: { Authorization: `Bearer ${token}` },
 			});
 
@@ -190,10 +187,10 @@ export default function Form() {
 			const amountInCents = Math.round(cartTotal * 100);
 
 			// Create payment intent
-			await axios.post(
-				"https://mysticmarguerite.com/new/backend/api/payment-intent",
-				{ amount: amountInCents, currency: "usd" },
-			);
+			await axios.post("http://127.0.0.1:8000/api/payment-intent", {
+				amount: amountInCents,
+				currency: "usd",
+			});
 
 			// Confirm payment
 			const { error, paymentIntent } = await stripe.confirmPayment({

@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import { getData } from "@/lib/get-zoom-token";
 import { Marquee } from "@/components/ui/client";
 import Hero from "@/container/booking-form/hero";
 import Form from "@/container/booking-form/form";
@@ -16,13 +15,12 @@ export default async function BookingForm({
 	params: Promise<{ id: string }>;
 }) {
 	const { id } = await params;
-	const jwt = await getData(id);
 	return (
 		<>
 			<Hero />
 			<Marquee />
 			<StripeProvider serviceId={id}>
-				<Form slug={{ id, jwt }} />
+				<Form slug={{ id }} />
 			</StripeProvider>
 		</>
 	);

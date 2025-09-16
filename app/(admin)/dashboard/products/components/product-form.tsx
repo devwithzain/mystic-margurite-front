@@ -43,8 +43,7 @@ export default function ProductForm({
 			try {
 				const imagePaths = JSON.parse(product.image);
 				const imageUrls = imagePaths.map(
-					(imgPath: string) =>
-						`https://mysticmarguerite.com/new/backend/storage/${imgPath}`,
+					(imgPath: string) => `http://127.0.0.1:8000/storage/${imgPath}`,
 				);
 				setImage(imageUrls);
 			} catch (error) {
@@ -166,7 +165,7 @@ export default function ProductForm({
 		try {
 			if (product && !isNewProduct) {
 				await axios.put(
-					`https://mysticmarguerite.com/new/backend/api/product/${slug.id}`,
+					`http://127.0.0.1:8000/api/product/${slug.id}`,
 					formData,
 					{
 						headers: {
@@ -176,13 +175,9 @@ export default function ProductForm({
 					},
 				);
 			} else {
-				await axios.post(
-					`https://mysticmarguerite.com/new/backend/api/product`,
-					formData,
-					{
-						headers: { "Content-Type": "multipart/form-data" },
-					},
-				);
+				await axios.post(`http://127.0.0.1:8000/api/product`, formData, {
+					headers: { "Content-Type": "multipart/form-data" },
+				});
 			}
 			router.push(`/dashboard/products`);
 			toast.success(toastMessage);
@@ -195,9 +190,7 @@ export default function ProductForm({
 	const onDelete = async () => {
 		try {
 			if (!isNewProduct) {
-				await axios.delete(
-					`https://mysticmarguerite.com/new/backend/api/product/${slug.id}`,
-				);
+				await axios.delete(`http://127.0.0.1:8000/api/product/${slug.id}`);
 				router.push(`/dashboard/products`);
 				toast.success("Product deleted");
 			}

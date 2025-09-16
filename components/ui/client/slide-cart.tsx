@@ -37,12 +37,9 @@ export default function SideCart() {
 
 			setIsLoading(true);
 			try {
-				const response = await axios.get(
-					"https://mysticmarguerite.com/new/backend/api/cart",
-					{
-						headers: { Authorization: `Bearer ${token}` },
-					},
-				);
+				const response = await axios.get("http://127.0.0.1:8000/api/cart", {
+					headers: { Authorization: `Bearer ${token}` },
+				});
 				setCartItems(response.data);
 			} catch (error) {
 				console.error("Error fetching cart items:", error);
@@ -71,12 +68,9 @@ export default function SideCart() {
 
 	const deleteCartItem = async (id: bigint) => {
 		try {
-			await axios.delete(
-				`https://mysticmarguerite.com/new/backend/api/cart/${id}`,
-				{
-					headers: { Authorization: `Bearer ${token}` },
-				},
-			);
+			await axios.delete(`http://127.0.0.1:8000/api/cart/${id}`, {
+				headers: { Authorization: `Bearer ${token}` },
+			});
 			setCartItems(cartItems.filter((item) => item.id !== id));
 		} catch (error) {
 			console.log("Delete error", error);
@@ -136,7 +130,7 @@ export default function SideCart() {
 														key={item.id.toString()}
 														className="w-full flex items-start gap-5">
 														<Image
-															src={`https://mysticmarguerite.com/new/backend/storage/${JSON.parse(
+															src={`http://127.0.0.1:8000/storage/${JSON.parse(
 																item.product.image,
 															)}`}
 															alt={item.product?.title}

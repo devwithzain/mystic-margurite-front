@@ -32,7 +32,7 @@ export default function ProductDetail({
 		try {
 			setLoading(true);
 			const response = await axios.post(
-				`https://mysticmarguerite.com/new/backend/api/cart`,
+				`http://127.0.0.1:8000/api/cart`,
 				{
 					user_id: user?.id,
 					product_id: productId,
@@ -69,7 +69,7 @@ export default function ProductDetail({
 				<>
 					<div className="w-[700px]">
 						<Image
-							src={`https://mysticmarguerite.com/new/backend/storage/${
+							src={`http://127.0.0.1:8000/storage/${
 								product?.image ? JSON.parse(product.image)[0] : ""
 							}`}
 							alt={product?.title || "product img"}

@@ -1,4 +1,4 @@
-const apiUrl = `https://mysticmarguerite.com/new/backend/api/blogs`;
+const apiUrl = `http://127.0.0.1:8000/api/blogs`;
 
 const getBlogs = async () => {
    const response = await fetch(apiUrl);

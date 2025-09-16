@@ -1,10 +1,10 @@
 "use client";
+import Link from "next/link";
 import Image from "next/image";
 import { TbookingsProps } from "@/types";
 import { getToken } from "@/lib/get-token";
 import { useEffect, useState } from "react";
 import RoundButton from "@/components/ui/client/round-button";
-import Link from "next/link";
 
 export default function BookingPage() {
 	const token = getToken("authToken");
@@ -14,7 +14,7 @@ export default function BookingPage() {
 		const fetchBookings = async () => {
 			try {
 				const response = await fetch(
-					`https://mysticmarguerite.com/new/backend/api/user/bookings`,
+					`http://127.0.0.1:8000/api/user/bookings`,
 					{
 						headers: {
 							Authorization: `Bearer ${token}`,
@@ -78,77 +78,78 @@ export default function BookingPage() {
 								</tr>
 							</thead>
 							<tbody>
-								{bookings.map((order) => (
-									<tr key={order.id}>
-										<td className="border border-gray-200 px-4 py-2 w-fit">
-											<div>
-												{order.items.map((item, index) => (
-													<Image
-														key={index}
-														src={`https://mysticmarguerite.com/new/backend/storage/${item.service.image}`}
-														alt="serviceImg"
-														className="w-auto h-20 object-fill"
-														width={200}
-														height={200}
-													/>
-												))}
-											</div>
-										</td>
-										<td className="border border-gray-200 px-4 py-2 w-fit">
-											<div>
-												{order.items.slice(0, 1).map((item, index) => (
-													<h1
-														key={index}
-														className="text-[15px] text-black font-medium montserrat">
-														{item.service.title}
+								{bookings.length > 0 &&
+									bookings.map((order) => (
+										<tr key={order.id}>
+											<td className="border border-gray-200 px-4 py-2 w-fit">
+												<div>
+													{order.items.map((item, index) => (
+														<Image
+															key={index}
+															src={`http://127.0.0.1:8000/storage/${item.service.image}`}
+															alt="serviceImg"
+															className="w-auto h-20 object-fill"
+															width={200}
+															height={200}
+														/>
+													))}
+												</div>
+											</td>
+											<td className="border border-gray-200 px-4 py-2 w-fit">
+												<div>
+													{order.items.slice(0, 1).map((item, index) => (
+														<h1
+															key={index}
+															className="text-[15px] text-black font-medium montserrat">
+															{item.service.title}
+														</h1>
+													))}
+												</div>
+											</td>
+											<td className="border border-gray-200 px-4 py-2 w-fit">
+												<div>
+													<h1 className="text-[15px] text-black font-medium montserrat">
+														{order.booking_detail.first_name}{" "}
+														{order.booking_detail.last_name}
 													</h1>
-												))}
-											</div>
-										</td>
-										<td className="border border-gray-200 px-4 py-2 w-fit">
-											<div>
-												<h1 className="text-[15px] text-black font-medium montserrat">
-													{order.booking_detail.first_name}{" "}
-													{order.booking_detail.last_name}
-												</h1>
-											</div>
-										</td>
-										<td className="border border-gray-200 px-4 py-2 w-fit">
-											<div>
-												<Link
-													href={order.booking_detail.meeting_link}
-													className="text-[15px] font-medium montserrat bg-black text-white p-4 rounded-md">
-													Join Meeting
-												</Link>
-											</div>
-										</td>
-										<td className="border border-gray-200 px-4 py-2 w-fit">
-											<div>
-												<h1 className="text-[15px] text-black font-medium montserrat">
-													{order.booking_detail.email}
-												</h1>
-											</div>
-										</td>
-										<td className="border border-gray-200 px-4 py-2 w-fit">
-											<div>
-												{order.items.slice(0, 1).map((item, index) => (
-													<h1
-														className="text-[15px] text-black font-medium montserrat"
-														key={index}>
-														${item.service.price}.00
+												</div>
+											</td>
+											<td className="border border-gray-200 px-4 py-2 w-fit">
+												<div>
+													<Link
+														href={order.booking_detail.meeting_start_url}
+														className="text-[15px] font-medium montserrat bg-black text-white p-4 rounded-md">
+														Join Meeting
+													</Link>
+												</div>
+											</td>
+											<td className="border border-gray-200 px-4 py-2 w-fit">
+												<div>
+													<h1 className="text-[15px] text-black font-medium montserrat">
+														{order.booking_detail.email}
 													</h1>
-												))}
-											</div>
-										</td>
-										<td className="border border-gray-200 px-4 py-2 w-fit">
-											<div>
-												<h1 className="text-[15px] text-black font-medium montserrat capitalize">
-													{order.status}
-												</h1>
-											</div>
-										</td>
-									</tr>
-								))}
+												</div>
+											</td>
+											<td className="border border-gray-200 px-4 py-2 w-fit">
+												<div>
+													{order.items.slice(0, 1).map((item, index) => (
+														<h1
+															className="text-[15px] text-black font-medium montserrat"
+															key={index}>
+															${item.service.price}.00
+														</h1>
+													))}
+												</div>
+											</td>
+											<td className="border border-gray-200 px-4 py-2 w-fit">
+												<div>
+													<h1 className="text-[15px] text-black font-medium montserrat capitalize">
+														{order.status}
+													</h1>
+												</div>
+											</td>
+										</tr>
+									))}
 							</tbody>
 						</table>
 					</div>

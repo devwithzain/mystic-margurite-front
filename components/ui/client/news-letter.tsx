@@ -26,7 +26,7 @@ export default function NewsLetter() {
 
 		try {
 			const response = await axios.post(
-				"https://mysticmarguerite.com/new/backend/api/newsletter/subscribe",
+				"http://127.0.0.1:8000/api/newsletter/subscribe",
 				{
 					email,
 					redirect_url: window.location.href,

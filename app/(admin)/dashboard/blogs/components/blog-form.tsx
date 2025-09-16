@@ -173,24 +173,16 @@ export default function BlogsForm({
 		}
 		try {
 			if (initialData) {
-				await axios.post(
-					`https://mysticmarguerite.com/new/backend/api/blog/${blogId}`,
-					formData,
-					{
-						headers: {
-							"Content-Type": "multipart/form-data",
-							"Accept": "Application/json",
-						},
+				await axios.post(`http://127.0.0.1:8000/api/blog/${blogId}`, formData, {
+					headers: {
+						"Content-Type": "multipart/form-data",
+						"Accept": "Application/json",
 					},
-				);
+				});
 			} else {
-				await axios.post(
-					`https://mysticmarguerite.com/new/backend/api/blog`,
-					formData,
-					{
-						headers: { "Content-Type": "multipart/form-data" },
-					},
-				);
+				await axios.post(`http://127.0.0.1:8000/api/blog`, formData, {
+					headers: { "Content-Type": "multipart/form-data" },
+				});
 			}
 			toast.success(toastMessage);
 			router.push(`/dashboard/blogs`);
@@ -206,9 +198,7 @@ export default function BlogsForm({
 
 	const onDelete = async () => {
 		try {
-			await axios.delete(
-				`https://mysticmarguerite.com/new/backend/api/blog/${blogId}`,
-			);
+			await axios.delete(`http://127.0.0.1:8000/api/blog/${blogId}`);
 			toast.success("Service deleted");
 			router.refresh();
 			router.push(`/dashboard/blogs`);
@@ -362,7 +352,7 @@ export default function BlogsForm({
 						) : (
 							image && (
 								<Image
-									src={`https://mysticmarguerite.com/new/backend/${image}`}
+									src={`http://127.0.0.1:8000/${image}`}
 									alt="Preview"
 									className="w-40 h-40 object-cover"
 									width={250}

@@ -46,7 +46,7 @@ export default function Account({ admin }: { admin?: TuserProps }) {
 
 	useEffect(() => {
 		if (admin?.image) {
-			const imageUrl = `https://mysticmarguerite.com/new/backend/storage/${admin.image}`;
+			const imageUrl = `http://127.0.0.1:8000/storage/${admin.image}`;
 			setImageUrl(imageUrl);
 			setPreviewImage(imageUrl);
 		}
@@ -103,7 +103,7 @@ export default function Account({ admin }: { admin?: TuserProps }) {
 			}
 
 			await axios.post(
-				`https://mysticmarguerite.com/new/backend/api/profile/update/${admin?.id}`,
+				`http://127.0.0.1:8000/api/profile/update/${admin?.id}`,
 				formData,
 				{
 					headers: {

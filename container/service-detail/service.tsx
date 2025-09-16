@@ -30,7 +30,7 @@ export default function Service() {
 			<div className="w-full flex justify-between gap-10">
 				<div className="flex flex-1 items-center justify-center flex-col gap-10">
 					<Image
-						src={`https://mysticmarguerite.com/new/backend/${service?.image}`}
+						src={`http://127.0.0.1:8000/${service?.image}`}
 						alt={service?.title}
 						className="w-full h-[600px] object-cover object-center rounded-2xl"
 						width={600}

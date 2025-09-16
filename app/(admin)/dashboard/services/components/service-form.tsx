@@ -43,8 +43,7 @@ export default function ServiceForm({
 			try {
 				const imagePaths = JSON.parse(service.image);
 				const imageUrls = imagePaths.map(
-					(imgPath: string) =>
-						`https://mysticmarguerite.com/new/backend/storage/${imgPath}`,
+					(imgPath: string) => `http://127.0.0.1:8000/storage/${imgPath}`,
 				);
 				setImage(imageUrls);
 			} catch (error) {
@@ -157,7 +156,7 @@ export default function ServiceForm({
 		try {
 			if (initialData) {
 				await axios.post(
-					`https://mysticmarguerite.com/new/backend/api/service/${serviceId}`,
+					`http://127.0.0.1:8000/api/service/${serviceId}`,
 					formData,
 					{
 						headers: {
@@ -167,13 +166,9 @@ export default function ServiceForm({
 					},
 				);
 			} else {
-				await axios.post(
-					`https://mysticmarguerite.com/new/backend/api/service`,
-					formData,
-					{
-						headers: { "Content-Type": "multipart/form-data" },
-					},
-				);
+				await axios.post(`http://127.0.0.1:8000/api/service`, formData, {
+					headers: { "Content-Type": "multipart/form-data" },
+				});
 			}
 			toast.success(toastMessage);
 			router.push(`/dashboard/services`);
@@ -188,9 +183,7 @@ export default function ServiceForm({
 
 	const onDelete = async () => {
 		try {
-			await axios.delete(
-				`https://mysticmarguerite.com/new/backend/api/service/${serviceId}`,
-			);
+			await axios.delete(`http://127.0.0.1:8000/api/service/${serviceId}`);
 			router.push(`/dashboard/services`);
 			toast.success("Service deleted");
 		} catch (error) {
@@ -313,7 +306,7 @@ export default function ServiceForm({
 						) : (
 							image && (
 								<Image
-									src={`https://mysticmarguerite.com/new/backend/${image}`}
+									src={`http://127.0.0.1:8000/${image}`}
 									alt="Preview"
 									className="w-40 h-40 object-cover"
 									width={80}

@@ -45,14 +45,11 @@ export default function StripeProvider({
 
 		const fetchCartItems = async () => {
 			try {
-				const response = await fetch(
-					`https://mysticmarguerite.com/new/backend/api/cart`,
-					{
-						headers: {
-							Authorization: `Bearer ${token}`,
-						},
+				const response = await fetch(`http://127.0.0.1:8000/api/cart`, {
+					headers: {
+						Authorization: `Bearer ${token}`,
 					},
-				);
+				});
 				const data = await response.json();
 
 				const total = data.reduce((total: number, item: TcartColumnProps) => {
@@ -72,7 +69,7 @@ export default function StripeProvider({
 		const fetchClientSecret = async () => {
 			try {
 				const response = await fetch(
-					"https://mysticmarguerite.com/new/backend/api/payment-intent",
+					"http://127.0.0.1:8000/api/payment-intent",
 					{
 						method: "POST",
 						headers: {

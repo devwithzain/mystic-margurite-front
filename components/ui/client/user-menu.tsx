@@ -54,7 +54,7 @@ export default function UserMenu() {
 							src={
 								(user &&
 									user.image &&
-									`https://mysticmarguerite.com/new/backend/storage/${user.image}`) ||
+									`http://127.0.0.1:8000/storage/${user.image}`) ||
 								placeholder
 							}
 							alt="user"
