@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import { prismadb } from "@/lib/prismadb";
 import { Marquee } from "@/components/ui/client";
 import Hero from "@/container/blog-detail/hero";
 import BlogDetail from "@/container/blog-detail/blog";
@@ -15,19 +14,11 @@ export default async function BlogDetailPage({
 	params: Promise<{ id: string }>;
 }) {
 	const { id } = await params;
-	const blog = await prismadb.blogs.findUnique({
-		where: {
-			id: Number(id),
-			NOT: {
-				category: "Astro dialogues Blogs",
-			},
-		},
-	});
 	return (
 		<>
 			<Hero />
 			<Marquee />
-			<BlogDetail blog={blog} />
+			<BlogDetail id={id} />
 		</>
 	);
 }

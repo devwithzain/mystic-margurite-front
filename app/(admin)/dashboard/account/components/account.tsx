@@ -22,9 +22,27 @@ import { Separator } from "@/components/ui/separator";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { userProfileSchema, TUserProfileProps } from "@/schemas";
 
-export default function Account({ admin }: { admin?: TuserProps }) {
+export default function Account() {
 	const router = useRouter();
 	const token = getToken("adminAuthToken");
+	const [admin, setAdmin] = useState<TuserProps>();
+
+	useEffect(() => {
+		const fetchAdmin = async () => {
+			try {
+				const response = await axios.get("http://127.0.0.1:8000/api/profile", {
+					headers: {
+						Authorization: `Bearer ${token}`,
+					},
+				});
+				setAdmin(response.data.data);
+			} catch (error: unknown) {
+				console.error("Error fetching admin:", error);
+			}
+		};
+
+		fetchAdmin();
+	}, []);
 
 	const form = useForm<TUserProfileProps>({
 		resolver: zodResolver(userProfileSchema),

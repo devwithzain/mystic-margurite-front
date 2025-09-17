@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import { prismadb } from "@/lib/prismadb";
 import BlogsForm from "../components/blog-form";
 
 export const metadata: Metadata = {
@@ -13,15 +12,5 @@ export default async function BlogFormPage({
 	params: Promise<{ id: string }>;
 }) {
 	const { id } = await params;
-	const blog = await prismadb.blogs.findUnique({
-		where: {
-			id: Number(id),
-		},
-	});
-	return (
-		<BlogsForm
-			blog={blog}
-			slug={{ id, new: id === "new" ? "yes" : "no" }}
-		/>
-	);
+	return <BlogsForm slug={{ id, new: id === "new" ? "yes" : "no" }} />;
 }

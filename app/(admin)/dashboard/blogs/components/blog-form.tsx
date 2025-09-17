@@ -28,13 +28,11 @@ import { blogsColumnSchema, TblogsColumnProps } from "@/schemas";
 
 export default function BlogsForm({
 	slug,
-	blog,
 }: {
 	slug: { id: string; new: string };
-	blog: TblogsColumnProps | null;
 }) {
-	const router = useRouter();
 	const blogId = slug.id;
+	const router = useRouter();
 	const [open, setOpen] = useState(false);
 	const [image, setImage] = useState<string | null>(null);
 	const [imageError, setImageError] = useState<string>("");

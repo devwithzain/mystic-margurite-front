@@ -23,9 +23,27 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Separator } from "@/components/ui/separator";
 import { TUserProfileProps, userProfileSchema } from "@/schemas";
 
-export default function Setting({ user }: { user?: TuserProps }) {
+export default function Setting() {
 	const router = useRouter();
 	const token = getToken("authToken");
+	const [user, setUser] = useState<TuserProps>();
+
+	useEffect(() => {
+		const fetchUser = async () => {
+			try {
+				const response = await axios.get("http://127.0.0.1:8000/api/profile", {
+					headers: {
+						Authorization: `Bearer ${token}`,
+					},
+				});
+				setUser(response.data.data);
+			} catch (error: unknown) {
+				console.error("Error fetching user:", error);
+			}
+		};
+
+		fetchUser();
+	}, []);
 
 	const form = useForm<TUserProfileProps>({
 		resolver: zodResolver(userProfileSchema),

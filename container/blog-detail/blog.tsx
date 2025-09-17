@@ -1,16 +1,33 @@
 "use client";
 import Image from "next/image";
-import parse from "html-react-parser";
+import getBlog from "@/actions/get-blog";
 import { TextMask } from "@/components/ui";
 import { TblogsColumnProps } from "@/types";
+import { useEffect, useState } from "react";
+import parse, { Element } from "html-react-parser";
 
-export default function BlogDetail({ blog }: { blog: TblogsColumnProps }) {
+export default function BlogDetail({ id }: { id: string }) {
+	const [blog, setBlog] = useState<TblogsColumnProps | null>(null);
+
+	useEffect(() => {
+		const fetchBlog = async () => {
+			try {
+				const response = await getBlog(id);
+				setBlog(response.blog);
+			} catch (error: unknown) {
+				console.error("Error fetching blog:", error);
+			}
+		};
+
+		fetchBlog();
+	}, [id]);
+
 	return (
 		<div className="w-full padding-y padding-x">
 			<div className="flex flex-col gap-10">
 				<div className="flex items-center justify-center flex-col gap-10">
 					<Image
-						src={`http://127.0.0.1:8000/storage/${blog?.image}`}
+						src={`http://127.0.0.1:8000/${blog?.image}`}
 						alt={blog?.title}
 						className="w-full h-[600px] object-contain object-center"
 						width={600}
@@ -41,7 +58,28 @@ export default function BlogDetail({ blog }: { blog: TblogsColumnProps }) {
 							<TextMask>{[blog?.short_description || ""]}</TextMask>
 						</p>
 						<div className="text-black paragraph font-normal montserrat leading-loose tracking-normal">
-							{blog?.description ? parse(blog.description) : ""}
+							{blog?.description
+								? parse(blog.description, {
+										replace: (domNode) => {
+											if (
+												domNode instanceof Element &&
+												domNode.attribs &&
+												domNode.name === "img"
+											) {
+												const { src, alt } = domNode.attribs;
+												return (
+													<Image
+														src={`http://127.0.0.1:8000${src}`}
+														alt={alt || "Blog content image"}
+														width={800}
+														height={400}
+														className="my-4 w-full h-auto rounded-md"
+													/>
+												);
+											}
+										},
+								  })
+								: ""}
 						</div>
 					</div>
 				</div>

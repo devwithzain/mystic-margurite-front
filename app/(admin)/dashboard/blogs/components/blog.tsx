@@ -1,5 +1,7 @@
 "use client";
 import { Plus } from "lucide-react";
+import getBlogs from "@/actions/get-blogs";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { TblogsColumnProps } from "@/types";
 import { Button } from "@/components/ui/button";
@@ -8,12 +10,22 @@ import { Separator } from "@/components/ui/separator";
 import { DataTable } from "@/components/ui/data-table";
 import { columns } from "@/container/admin/blogs/columns";
 
-export default function BlogListings({
-	blogs,
-}: {
-	blogs: TblogsColumnProps[];
-}) {
+export default function BlogListings() {
 	const router = useRouter();
+	const [blogs, setBlogs] = useState<TblogsColumnProps[]>([]);
+
+	useEffect(() => {
+		const fetchBlogs = async () => {
+			try {
+				const response = await getBlogs();
+				setBlogs(response.blogs);
+			} catch (error: unknown) {
+				console.error("Error fetching blogs:", error);
+			}
+		};
+
+		fetchBlogs();
+	}, []);
 
 	const formatedBlog = blogs.map((blog) => ({
 		id: blog.id,
