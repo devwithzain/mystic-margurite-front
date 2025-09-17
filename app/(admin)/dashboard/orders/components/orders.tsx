@@ -1,11 +1,29 @@
+"use client";
 import { TordersProps } from "@/types";
+import { useEffect, useState } from "react";
+import getorders from "@/actions/get-orders";
 import { formatUSD } from "@/lib/formate-price";
 import Heading from "@/components/admin/heading";
 import { Separator } from "@/components/ui/separator";
 import { DataTable } from "@/components/ui/data-table";
 import { columns } from "@/container/admin/orders/columns";
 
-export default function Orders({ orders }: { orders: TordersProps[] }) {
+export default function Orders() {
+	const [orders, setOrders] = useState<TordersProps[]>([]);
+
+	useEffect(() => {
+		const fetchOrders = async () => {
+			try {
+				const response = await getorders();
+				setOrders(response);
+			} catch (error: unknown) {
+				console.error("Error fetching orders:", error);
+			}
+		};
+
+		fetchOrders();
+	}, []);
+
 	const formattedOrders = orders.map((order) => ({
 		id: order.id,
 		name: order.checkout_details?.first_name || "N/A",

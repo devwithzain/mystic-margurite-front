@@ -1,14 +1,27 @@
 "use client";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import { TproductColumnProps } from "@/types";
+import getProducts from "@/actions/get-products";
 import RoundButton from "@/components/ui/client/round-button";
 
-export default function Products({
-	products,
-}: {
-	products?: TproductColumnProps[];
-}) {
+export default function Products() {
+	const [products, setProducts] = useState<TproductColumnProps[]>([]);
+
+	useEffect(() => {
+		const fetchProducts = async () => {
+			try {
+				const response = await getProducts();
+				setProducts(response.products);
+			} catch (error: unknown) {
+				console.error("Error fetching products:", error);
+			}
+		};
+
+		fetchProducts();
+	}, []);
+
 	return (
 		<div className="w-full padding-y padding-x">
 			<div className="flex items-center justify-center flex-col gap-10">

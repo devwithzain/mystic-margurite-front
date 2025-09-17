@@ -1,10 +1,10 @@
 "use client";
 import Image from "next/image";
+import toast from "react-hot-toast";
 import { Order, OrderItem } from "@/types";
 import { getToken } from "@/lib/get-token";
 import { useEffect, useState } from "react";
 import RoundButton from "@/components/ui/client/round-button";
-import toast from "react-hot-toast";
 
 export default function OrderPage() {
 	const token = getToken("authToken");

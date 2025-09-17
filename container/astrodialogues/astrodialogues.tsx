@@ -2,13 +2,30 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import getBlogs from "@/actions/get-blogs";
 import { TblogsColumnProps } from "@/types";
+import { useEffect, useState } from "react";
 
-export default function Astrodialogues({
-	blogs,
-}: {
-	blogs: TblogsColumnProps[];
-}) {
+export default function Astrodialogues() {
+	const [blogs, setBlogs] = useState<TblogsColumnProps[]>([]);
+
+	useEffect(() => {
+		const fetchBlogs = async () => {
+			try {
+				const response = await getBlogs();
+				const filteredBlogs = response.blogs.filter(
+					(blog: TblogsColumnProps) =>
+						blog.category === "Astro dialogues Blogs",
+				);
+				setBlogs(filteredBlogs);
+			} catch (error: unknown) {
+				console.error("Error fetching blogs:", error);
+			}
+		};
+
+		fetchBlogs();
+	}, []);
+
 	return (
 		<div className="w-full padding-x padding-y">
 			<div className="w-full flex justify-center gap-10 items-start">
@@ -30,7 +47,7 @@ export default function Astrodialogues({
 									<div className="w-full relative flex flex-col gap-4">
 										<div className="w-full h-[300px]">
 											<Image
-												src={`http://127.0.0.1:8000/storage/${item?.image}`}
+												src={`http://127.0.0.1:8000/${item?.image}`}
 												alt="blog"
 												className="w-full h-full object-cover"
 												width={1000}

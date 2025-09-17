@@ -1,13 +1,33 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
+import getBlogs from "@/actions/get-blogs";
 import { TblogsColumnProps } from "@/types";
+import { useEffect, useState } from "react";
 
-export default function Blogs({ blogs }: { blogs: TblogsColumnProps[] }) {
+export default function Blogs() {
 	const blogsPerPage = 6;
+	const [blogs, setBlogs] = useState<TblogsColumnProps[]>([]);
+
+	useEffect(() => {
+		const fetchBlogs = async () => {
+			try {
+				const response = await getBlogs();
+				const filteredBlogs = response.blogs.filter(
+					(blog: TblogsColumnProps) =>
+						blog.category !== "Astro dialogues Blogs",
+				);
+				setBlogs(filteredBlogs);
+			} catch (error: unknown) {
+				console.error("Error fetching blogs:", error);
+			}
+		};
+
+		fetchBlogs();
+	}, []);
+
 	const [searchTerm, setSearchTerm] = useState("");
 	const [currentPage, setCurrentPage] = useState(1);
 	const [selectedMonth, setSelectedMonth] = useState("");
@@ -148,7 +168,7 @@ export default function Blogs({ blogs }: { blogs: TblogsColumnProps[] }) {
 						<div className="w-full mb-10 p-6 rounded-lg shadow-lg border border-[#7a74ef] bg-white flex gap-8 items-center">
 							<div className="w-[400px] h-[300px] relative">
 								<Image
-									src={`http://127.0.0.1:8000/storage/${latestBlog?.image}`}
+									src={`http://127.0.0.1:8000/${latestBlog?.image}`}
 									alt={latestBlog?.title || "blog"}
 									className="w-full h-full object-cover rounded-lg"
 									width={400}
@@ -195,7 +215,7 @@ export default function Blogs({ blogs }: { blogs: TblogsColumnProps[] }) {
 									<div className="w-full relative flex flex-col gap-4">
 										<div className="w-full h-[300px]">
 											<Image
-												src={`http://127.0.0.1:8000/storage/${item?.image}`}
+												src={`http://127.0.0.1:8000/${item?.image}`}
 												alt="blog"
 												className="w-full h-full object-cover"
 												width={1000}

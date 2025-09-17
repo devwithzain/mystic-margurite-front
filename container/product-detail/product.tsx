@@ -11,13 +11,7 @@ import useLoginModal from "@/hooks/use-login-modal";
 import { TproductColumnProps, TuserProps } from "@/types";
 import { TextMask, TextReveal } from "@/components/ui/client";
 
-export default function ProductDetail({
-	product,
-	user,
-}: {
-	product: TproductColumnProps | null;
-	user: TuserProps | null;
-}) {
+export default function ProductDetail({ id }: { id: string }) {
 	const { toggleCart, refreshCart } = useCart();
 	const loginModal = useLoginModal();
 	const token = getToken("authToken");
