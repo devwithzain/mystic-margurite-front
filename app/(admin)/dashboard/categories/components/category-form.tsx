@@ -16,6 +16,7 @@ import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Loader2, Trash } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import getCategory from "@/actions/get-category";
 import Heading from "@/components/admin/heading";
 import { Separator } from "@/components/ui/separator";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -23,15 +24,27 @@ import AlertModal from "@/components/admin/alert-modal";
 import { categoryColumnSchema, TcategoryColumnProps } from "@/schemas";
 
 export default function CategoryForm({
-	category,
 	slug,
 }: {
-	category: TcategoryProps | null;
 	slug: { id: string; new: string };
 }) {
 	const router = useRouter();
 	const isNewCategory = slug.id === "new";
 	const [open, setOpen] = useState(false);
+	const [category, setCategory] = useState<TcategoryProps | null>(null);
+
+	useEffect(() => {
+		const fetchCategories = async () => {
+			try {
+				const response = await getCategory(isNewCategory ? null : slug.id);
+				setCategory(response.category);
+			} catch (error: unknown) {
+				console.error("Error fetching category:", error);
+			}
+		};
+
+		fetchCategories();
+	}, []);
 
 	const form = useForm<TcategoryColumnProps>({
 		resolver: zodResolver(categoryColumnSchema),

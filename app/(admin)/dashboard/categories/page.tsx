@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import { prismadb } from "@/lib/prismadb";
 import CategoryListings from "./components/category";
 
 export const metadata: Metadata = {
@@ -8,14 +7,9 @@ export const metadata: Metadata = {
 };
 
 export default async function CategoryPage() {
-	const categories = await prismadb.categories.findMany({
-		orderBy: {
-			created_at: "desc",
-		},
-	});
 	return (
 		<>
-			<CategoryListings categories={categories} />
+			<CategoryListings />
 		</>
 	);
 }

@@ -12,8 +12,6 @@ export async function POST(req: NextRequest) {
       const body = await req.json();
       const { sourceId, amount } = body;
 
-      console.log(body);
-
       const { payment } = await paymentsApi.create({
          idempotencyKey: randomUUID(),
          sourceId,

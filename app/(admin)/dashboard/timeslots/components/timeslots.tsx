@@ -1,19 +1,31 @@
 "use client";
 import { Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
-import Heading from "@/components/admin/heading";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { TtimeslotsColumnProps } from "@/types";
+import Heading from "@/components/admin/heading";
+import getTimeSlots from "@/actions/get-timeslots";
 import { Separator } from "@/components/ui/separator";
 import { DataTable } from "@/components/ui/data-table";
 import { columns } from "@/container/admin/timeslots/columns";
 
-export default function TimeSlotsListings({
-	timeslots,
-}: {
-	timeslots: TtimeslotsColumnProps[];
-}) {
+export default function TimeSlotsListings() {
 	const router = useRouter();
+	const [timeslots, setTimeSlots] = useState<TtimeslotsColumnProps[]>([]);
+
+	useEffect(() => {
+		const fetchTimeSlots = async () => {
+			try {
+				const response = await getTimeSlots();
+				setTimeSlots(response.timeslots);
+			} catch (error: unknown) {
+				console.error("Error fetching time slots:", error);
+			}
+		};
+
+		fetchTimeSlots();
+	}, []);
 
 	const formatedTimeSlots = timeslots.map((timeslot) => ({
 		id: timeslot.id,

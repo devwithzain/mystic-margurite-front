@@ -10,7 +10,6 @@ import {
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
-import { getToken } from "@/lib/get-token";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
@@ -18,6 +17,7 @@ import { Loader2, Trash } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { TtimeslotsColumnProps } from "@/types";
 import Heading from "@/components/admin/heading";
+import getTimeSlot from "@/actions/get-timeslot";
 import { Separator } from "@/components/ui/separator";
 import { zodResolver } from "@hookform/resolvers/zod";
 import AlertModal from "@/components/admin/alert-modal";
@@ -25,7 +25,6 @@ import { timeslotColumnSchema, TtimeslotColumnProps } from "@/schemas";
 
 export default function TimeSlotsForm({
 	slug,
-	timeslot,
 }: {
 	slug: { id: string; new: string };
 	timeslot: TtimeslotsColumnProps | null;
@@ -33,13 +32,30 @@ export default function TimeSlotsForm({
 	const timeslotsId = slug.id;
 	const router = useRouter();
 	const [open, setOpen] = useState(false);
-	const token = getToken("adminAuthToken");
+
+	const [timeslot, setTimeslot] = useState<TtimeslotsColumnProps | null>(null);
+
+	useEffect(() => {
+		const fetchTimeslot = async () => {
+			try {
+				const response = await getTimeSlot(timeslotsId);
+				setTimeslot(response.timeslot);
+			} catch (error: unknown) {
+				console.error("Error fetching timeslot:", error);
+			}
+		};
+
+		fetchTimeslot();
+	}, []);
 
 	const formatedTimeSlot = timeslot
 		? {
 				status: timeslot.status,
 				end_time: timeslot.end_time,
-				date: new Date(timeslot.date),
+				date:
+					typeof timeslot.date === "string"
+						? timeslot.date
+						: new Date(timeslot.date).toISOString().split("T")[0],
 				start_time: timeslot.start_time,
 		  }
 		: null;
@@ -48,16 +64,16 @@ export default function TimeSlotsForm({
 		resolver: zodResolver(timeslotColumnSchema),
 		defaultValues: formatedTimeSlot || {
 			status: "",
-			date: new Date(),
-			start_time: new Date(),
-			end_time: new Date(),
+			date: new Date().toISOString().split("T")[0],
+			start_time: "",
+			end_time: "",
 		},
 	});
 
 	useEffect(() => {
 		if (timeslot) {
 			form.reset({
-				date: new Date(timeslot.date),
+				date: timeslot.date,
 				end_time: timeslot.end_time,
 				start_time: timeslot.start_time,
 				status: timeslot.status,
@@ -76,31 +92,18 @@ export default function TimeSlotsForm({
 	const toastMessage = initialData ? "Timeslot updated." : "Timeslot created.";
 
 	const onSubmits = async (data: TtimeslotColumnProps) => {
-		console.log(data);
 		try {
 			if (initialData) {
 				await axios.post(
 					`http://127.0.0.1:8000/api/timeslot/${timeslotsId}`,
 					data,
-					{
-						headers: {
-							Authorization: `Bearer ${token}`,
-						},
-					},
 				);
 			} else {
-				await axios.post(`http://127.0.0.1:8000/api/timeslot`, data, {
-					headers: {
-						Authorization: `Bearer ${token}`,
-					},
-				});
+				await axios.post(`http://127.0.0.1:8000/api/timeslot`, data);
 			}
 			toast.success(toastMessage);
 			router.push(`/dashboard/timeslots`);
-			console.log(data);
 		} catch (error) {
-			console.log(error);
-			console.error(error);
 			toast.error("Something went wrong");
 		}
 	};
@@ -112,7 +115,6 @@ export default function TimeSlotsForm({
 
 			toast.success("Category deleted");
 		} catch (error) {
-			console.error(error);
 			toast.error("Something went wrong");
 		} finally {
 			setOpen(false);

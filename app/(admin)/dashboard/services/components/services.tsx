@@ -1,19 +1,31 @@
 "use client";
 import { Plus } from "lucide-react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { TserviceColumnProps } from "@/types";
 import { Button } from "@/components/ui/button";
+import getServices from "@/actions/get-services";
 import Heading from "@/components/admin/heading";
 import { Separator } from "@/components/ui/separator";
 import { DataTable } from "@/components/ui/data-table";
 import { columns } from "@/container/admin/services/columns";
 
-export default function ServiceListings({
-	services,
-}: {
-	services: TserviceColumnProps[];
-}) {
+export default function ServiceListings() {
 	const router = useRouter();
+	const [services, setServices] = useState<TserviceColumnProps[]>([]);
+
+	useEffect(() => {
+		const fetchServices = async () => {
+			try {
+				const response = await getServices();
+				setServices(response.services);
+			} catch (error: unknown) {
+				console.error("Error fetching services:", error);
+			}
+		};
+
+		fetchServices();
+	}, []);
 
 	const formatedServices = services.map((service) => ({
 		id: service.id,

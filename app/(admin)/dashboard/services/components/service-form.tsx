@@ -15,8 +15,9 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Loader2, Trash } from "lucide-react";
-import { TServicesColumnProps } from "@/types";
+import { TserviceColumnProps } from "@/types";
 import { Button } from "@/components/ui/button";
+import getService from "@/actions/get-service";
 import Heading from "@/components/admin/heading";
 import { Separator } from "@/components/ui/separator";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -26,13 +27,26 @@ import { servicesColumnSchema, TservicesColumnProps } from "@/schemas";
 
 export default function ServiceForm({
 	slug,
-	service,
 }: {
-	service: TServicesColumnProps | null;
 	slug: { id: string; new: string };
 }) {
 	const serviceId = slug.id;
 	const router = useRouter();
+	const [service, setService] = useState<TserviceColumnProps | null>(null);
+
+	useEffect(() => {
+		const fetchService = async () => {
+			try {
+				const response = await getService(serviceId);
+				setService(response.service);
+			} catch (error: unknown) {
+				console.error("Error fetching service:", error);
+			}
+		};
+
+		fetchService();
+	}, []);
+
 	const [open, setOpen] = useState(false);
 	const [image, setImage] = useState<string[]>([]);
 	const [imageError, setImageError] = useState<string>("");
@@ -110,7 +124,7 @@ export default function ServiceForm({
 			const reader = new FileReader();
 			reader.onload = () => {
 				const base64 = reader.result as string;
-				setImage(base64);
+				setImage([base64]);
 				setPreviewImage(base64);
 			};
 			reader.readAsDataURL(file);
@@ -149,8 +163,12 @@ export default function ServiceForm({
 		formData.append("price", data.price);
 		formData.append("description", data.description);
 
-		if (image.startsWith("data:")) {
-			const blob = dataURLtoBlob(image);
+		if (
+			Array.isArray(image) &&
+			typeof image[0] === "string" &&
+			image[0].startsWith("data:")
+		) {
+			const blob = dataURLtoBlob(image[0]);
 			formData.append("image", blob, "image.png");
 		}
 		try {

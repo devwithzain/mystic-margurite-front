@@ -16,6 +16,7 @@ import { useEffect, useState } from "react";
 import { TproductColumnProps } from "@/types";
 import { Loader2, Trash } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import getProduct from "@/actions/get-product";
 import { Button } from "@/components/ui/button";
 import Heading from "@/components/admin/heading";
 import { Textarea } from "@/components/ui/textarea";
@@ -25,10 +26,8 @@ import AlertModal from "@/components/admin/alert-modal";
 import { productsColumnSchema, TproductsColumnProps } from "@/schemas";
 
 export default function ProductForm({
-	product,
 	slug,
 }: {
-	product: TproductColumnProps | null;
 	slug: { id: string; new: string };
 }) {
 	const router = useRouter();
@@ -37,6 +36,20 @@ export default function ProductForm({
 	const [image, setImage] = useState<string[]>([]);
 	const [imageError, setImageError] = useState<string>("");
 	const [imagesToDelete, setImagesToDelete] = useState<string[]>([]);
+	const [product, setproduct] = useState<TproductColumnProps | null>(null);
+
+	useEffect(() => {
+		const fetchProducts = async () => {
+			try {
+				const response = await getProduct(isNewProduct ? null : slug.id);
+				setproduct(response.product);
+			} catch (error: unknown) {
+				console.error("Error fetching products:", error);
+			}
+		};
+
+		fetchProducts();
+	}, []);
 
 	useEffect(() => {
 		if (product?.image) {

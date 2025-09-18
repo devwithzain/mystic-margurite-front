@@ -2,18 +2,30 @@
 import { Plus } from "lucide-react";
 import { TcategoryProps } from "@/types";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import Heading from "@/components/admin/heading";
+import getCategories from "@/actions/get-categories";
 import { Separator } from "@/components/ui/separator";
 import { DataTable } from "@/components/ui/data-table";
 import { columns } from "@/container/admin/categories/columns";
 
-export default function CategoryListings({
-	categories,
-}: {
-	categories: TcategoryProps[];
-}) {
+export default function CategoryListings() {
 	const router = useRouter();
+	const [categories, setCategories] = useState<TcategoryProps[]>([]);
+
+	useEffect(() => {
+		const fetchCategories = async () => {
+			try {
+				const response = await getCategories();
+				setCategories(response.categories);
+			} catch (error: unknown) {
+				console.error("Error fetching categories:", error);
+			}
+		};
+
+		fetchCategories();
+	}, []);
 
 	const formatedCategories = categories.map((category) => ({
 		id: category.id,

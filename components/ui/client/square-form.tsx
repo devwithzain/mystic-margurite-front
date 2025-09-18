@@ -10,8 +10,8 @@ export default function SquareWrapper({
 }) {
 	return (
 		<PaymentForm
-			applicationId="sandbox-sq0idb-U7Bc6nDaANMepvFNTCQQeA"
-			locationId="sandbox-sq0idb-U7Bc6nDaANMepvFNTCQQeA"
+			applicationId="sandbox-sq0idb-IVbmllY44YzqkyAX3oTG4g"
+			locationId="LZ3934782G2QZ"
 			cardTokenizeResponseReceived={async (tokenResult) => {
 				try {
 					if (tokenResult.status === "OK") {

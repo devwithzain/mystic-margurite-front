@@ -1,11 +1,23 @@
 import { Metadata } from "next";
-import { prismadb } from "@/lib/prismadb";
 import ProductForm from "../components/product-form";
 
 export const metadata: Metadata = {
 	title: "Admin Products - Mystic Marguerite",
 	description: "Mystic Marguerite - Admin Products",
 };
+
+export async function generateStaticParams() {
+	const res = await fetch("http://127.0.0.1:8000/api/products", {
+		cache: "no-store",
+	});
+	const { products } = await res.json();
+
+	const dynamicRoutes = products.map((product: any) => ({
+		id: product.id.toString(),
+	}));
+
+	return [...dynamicRoutes, { id: "new" }];
+}
 
 export default async function ProductFormPage({
 	params,
@@ -14,17 +26,5 @@ export default async function ProductFormPage({
 }) {
 	const { id } = await params;
 
-	const product =
-		id === "new"
-			? null
-			: await prismadb.products.findUnique({
-					where: { id: BigInt(id) },
-			  });
-
-	return (
-		<ProductForm
-			product={product}
-			slug={{ id, new: id === "new" ? "yes" : "no" }}
-		/>
-	);
+	return <ProductForm slug={{ id, new: id === "new" ? "yes" : "no" }} />;
 }
