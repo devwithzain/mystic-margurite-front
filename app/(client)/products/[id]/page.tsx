@@ -8,6 +8,19 @@ export const metadata: Metadata = {
 	description: "Mystice Marguerite - Product Detail",
 };
 
+export async function generateStaticParams() {
+	const res = await fetch("http://127.0.0.1:8000/api/products", {
+		cache: "no-store",
+	});
+	const { products } = await res.json();
+
+	const dynamicRoutes = products.map((product: any) => ({
+		id: product.id.toString(),
+	}));
+
+	return [...dynamicRoutes, { id: "new" }];
+}
+
 export default async function ProductDetailPage({
 	params,
 }: {

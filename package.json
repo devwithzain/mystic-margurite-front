@@ -2,6 +2,7 @@
 	"name": "mystic-marguerite",
 	"version": "0.1.0",
 	"private": true,
+	"homepage": "/new",
 	"scripts": {
 		"dev": "next dev --turbopack",
 		"build": "next build",

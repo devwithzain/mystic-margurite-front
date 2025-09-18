@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { planetryItems } from "@/constants";
 import { Marquee } from "@/components/ui/client";
 import Hero from "@/container/planatery-detail/hero";
 import Planetry from "@/container/planatery-detail/planetry";
@@ -7,6 +8,14 @@ export const metadata: Metadata = {
 	title: "Planetary Meditation Detail - Mystice Marguerite",
 	description: "Mystice Marguerite - Planetary Meditation Detail",
 };
+
+export async function generateStaticParams() {
+	const dynamicRoutes = planetryItems.map((item: any) => ({
+		id: item.id.toString(),
+	}));
+
+	return [...dynamicRoutes, { id: "new" }];
+}
 
 export default async function PlanetaryDetailPage({
 	params,

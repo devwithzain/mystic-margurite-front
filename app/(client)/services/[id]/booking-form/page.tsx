@@ -9,6 +9,19 @@ export const metadata: Metadata = {
 	description: "Mystice Marguerite - Booking",
 };
 
+export async function generateStaticParams() {
+	const res = await fetch("http://127.0.0.1:8000/api/services", {
+		cache: "no-store",
+	});
+	const { services } = await res.json();
+
+	const dynamicRoutes = services.map((service: any) => ({
+		id: service.id.toString(),
+	}));
+
+	return [...dynamicRoutes, { id: "new" }];
+}
+
 export default async function BookingForm({
 	params,
 }: {

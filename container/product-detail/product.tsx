@@ -1,10 +1,11 @@
 "use client";
 import axios from "axios";
 import Image from "next/image";
-import { useState } from "react";
 import toast from "react-hot-toast";
 import { Loader2 } from "lucide-react";
 import { getToken } from "@/lib/get-token";
+import { useEffect, useState } from "react";
+import getProduct from "@/actions/get-product";
 import { formatUSD } from "@/lib/formate-price";
 import { useCart } from "@/context/cart-context";
 import useLoginModal from "@/hooks/use-login-modal";
@@ -12,10 +13,42 @@ import { TproductColumnProps, TuserProps } from "@/types";
 import { TextMask, TextReveal } from "@/components/ui/client";
 
 export default function ProductDetail({ id }: { id: string }) {
-	const { toggleCart, refreshCart } = useCart();
 	const loginModal = useLoginModal();
 	const token = getToken("authToken");
+	const { toggleCart, refreshCart } = useCart();
 	const [loading, setLoading] = useState(false);
+	const [user, setUser] = useState<TuserProps>();
+	const [product, setProduct] = useState<TproductColumnProps>();
+
+	useEffect(() => {
+		const fetchUser = async () => {
+			try {
+				const response = await axios.get("http://127.0.0.1:8000/api/profile", {
+					headers: {
+						Authorization: `Bearer ${token}`,
+					},
+				});
+				setUser(response.data.data);
+			} catch (error: unknown) {
+				console.error("Error fetching user:", error);
+			}
+		};
+
+		fetchUser();
+	}, []);
+
+	useEffect(() => {
+		const fetchProducts = async () => {
+			try {
+				const response = await getProduct(id);
+				setProduct(response.product);
+			} catch (error: unknown) {
+				console.error("Error fetching products:", error);
+			}
+		};
+
+		fetchProducts();
+	}, []);
 
 	const addToCart = async (productId) => {
 		if (!user || !token) {
