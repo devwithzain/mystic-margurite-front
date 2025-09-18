@@ -9,13 +9,13 @@ import {
 import axios from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { TcategoryProps } from "@/types";
 import { useRouter } from "next/navigation";
-import { TcategoryColumnProps } from "@/types";
 import { Button } from "@/components/ui/button";
 import AlertModal from "@/components/admin/alert-modal";
 import { Edit, MoreHorizontal, Trash } from "lucide-react";
 
-export default function CellAction({ data }: { data: TcategoryColumnProps }) {
+export default function CellAction({ data }: { data: TcategoryProps }) {
 	const router = useRouter();
 	const [open, setOpen] = useState(false);
 

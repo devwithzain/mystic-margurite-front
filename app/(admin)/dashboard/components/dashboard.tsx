@@ -30,19 +30,19 @@ export default function Dashboard() {
 
 	const formattedOrders = orders.map((order) => ({
 		...order,
-		name: order.checkout_detail?.first_name || "N/A",
-		email: order.checkout_detail?.email.toLowerCase() || "N/A",
-		phone_number: order.checkout_detail?.phone || "N/A",
+		name: order.checkout_details?.first_name || "N/A",
+		email: order.checkout_details?.email.toLowerCase() || "N/A",
+		phone_number: order.checkout_details?.phone || "N/A",
 		status: order.status,
 		price: new Intl.NumberFormat("en-US", {
 			currency: "USD",
 		}).format(
-			order.items?.reduce(
+			order.order_items?.reduce(
 				(total, item) => total + Number(item.product?.price) * item.quantity,
 				0,
 			) || 0,
 		),
-		checkout_detail: order.checkout_detail,
+		checkout_detail: order.checkout_details,
 		created_at: order.created_at,
 	}));
 

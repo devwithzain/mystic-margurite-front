@@ -59,14 +59,14 @@ export default function Form({ slug }: { slug: { id: string } }) {
 	useEffect(() => {
 		const fetchTimeSlots = async () => {
 			try {
-				const response = await getTimeSlots(token);
+				const response = await getTimeSlots();
 				setTimeSlots(response.timeslots);
 			} catch (err) {
 				console.error("Error fetching timeslots:", err);
 			}
 		};
 		fetchTimeSlots();
-	}, [token]);
+	}, []);
 
 	useEffect(() => {
 		const fetchService = async () => {
@@ -174,14 +174,13 @@ export default function Form({ slug }: { slug: { id: string } }) {
 	};
 
 	const processBooking = async () => {
-		// don't generate a local session anymore — backend will create the Zoom meeting
 		const bookingData = {
 			user_id: user?.id,
 			service_id: service?.id,
 			cart_items: [{ service_id: service?.id }],
 			time_slot_id: timeslot?.id,
 			...formData,
-			meeting_link: null, // backend will create and override this with the Zoom join_url
+			meeting_link: null,
 			status: "paid",
 		};
 
@@ -191,9 +190,9 @@ export default function Form({ slug }: { slug: { id: string } }) {
 			{ headers: { Authorization: `Bearer ${token}` } },
 		);
 
-		// await axios.post("http://127.0.0.1:8000/api/timeslot", {
-		// 	status: "booked",
-		// });
+		await axios.post("http://127.0.0.1:8000/api/timeslot", {
+			status: "booked",
+		});
 
 		return bookingResponse;
 	};
@@ -446,7 +445,7 @@ export default function Form({ slug }: { slug: { id: string } }) {
 							{timeslots.map((slot) => (
 								<option
 									key={slot.id}
-									value={slot.id}
+									value={String(slot.id)}
 									disabled={
 										slot.status === "booked" || slot.status === "unavailable"
 									}

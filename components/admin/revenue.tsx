@@ -56,7 +56,7 @@ export default function TotalRevenue() {
 
 	const totalRevenue = useMemo(() => {
 		const total = sales.reduce((acc, sale) => {
-			const saleTotal = sale.items.reduce(
+			const saleTotal = sale.order_items.reduce(
 				(
 					itemAcc: number,
 					item: { product?: { price: string }; quantity: number },

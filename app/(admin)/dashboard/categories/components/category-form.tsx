@@ -73,7 +73,7 @@ export default function CategoryForm({
 	const onSubmit = async (data: TcategoryColumnProps) => {
 		try {
 			if (category && !isNewCategory) {
-				await axios.put(`http://127.0.0.1:8000/api/category/${slug.id}`, data);
+				await axios.post(`http://127.0.0.1:8000/api/category/${slug.id}`, data);
 			} else {
 				await axios.post(`http://127.0.0.1:8000/api/category`, data);
 			}

@@ -19,7 +19,7 @@ export async function generateStaticParams() {
 	return [...dynamicRoutes, { id: "new" }];
 }
 
-export default async function ServiceFormPage({
+export default async function BookingFormPage({
 	params,
 }: {
 	params: Promise<{ id: string }>;

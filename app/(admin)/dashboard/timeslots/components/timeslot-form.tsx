@@ -27,7 +27,6 @@ export default function TimeSlotsForm({
 	slug,
 }: {
 	slug: { id: string; new: string };
-	timeslot: TtimeslotsColumnProps | null;
 }) {
 	const timeslotsId = slug.id;
 	const router = useRouter();

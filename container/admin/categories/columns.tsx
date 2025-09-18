@@ -1,10 +1,10 @@
 import CellAction from "./cell-action";
+import { TcategoryProps } from "@/types";
 import { ArrowUpDown } from "lucide-react";
-import { TcategoryColumnProps } from "@/types";
 import { Button } from "@/components/ui/button";
 import { ColumnDef } from "@tanstack/react-table";
 
-export const columns: ColumnDef<TcategoryColumnProps>[] = [
+export const columns: ColumnDef<TcategoryProps>[] = [
 	{
 		accessorKey: "title",
 		header: ({ column }) => {
