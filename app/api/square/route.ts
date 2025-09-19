@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { SquareClient, SquareEnvironment } from "square";
 
 const paymentsApi = new SquareClient({
-   token: process.env.SQUARE_ACCESS_TOKEN,
+   token: 'EAAAl2kzj_7_bUlkEXwc-Ognz6OBPqzIGz0IGDWqlsNqriL-MnlpmaEZ9AIAEhxA',
    environment: SquareEnvironment.Sandbox,
 }).payments;
 

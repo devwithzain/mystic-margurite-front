@@ -41,7 +41,7 @@ export default function Products() {
 								className="flex flex-col items-center gap-4 bg-[#000] relative rounded-lg overflow-hidden shadow-lg hover:shadow-lg">
 								<div className="w-full relative">
 									<Image
-										src={`http://127.0.0.1:8000/storage/${
+										src={`https://mysticmarguerite.com/new/backend/storage/${
 											JSON.parse(item?.image)[0]
 										}`}
 										alt={item?.title}

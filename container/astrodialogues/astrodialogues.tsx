@@ -47,7 +47,7 @@ export default function Astrodialogues() {
 									<div className="w-full relative flex flex-col gap-4">
 										<div className="w-full h-[300px]">
 											<Image
-												src={`http://127.0.0.1:8000/${item?.image}`}
+												src={`https://mysticmarguerite.com/new/backend/${item?.image}`}
 												alt="blog"
 												className="w-full h-full object-cover"
 												width={1000}

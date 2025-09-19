@@ -168,7 +168,7 @@ export default function Blogs() {
 						<div className="w-full mb-10 p-6 rounded-lg shadow-lg border border-[#7a74ef] bg-white flex gap-8 items-center">
 							<div className="w-[400px] h-[300px] relative">
 								<Image
-									src={`http://127.0.0.1:8000/${latestBlog?.image}`}
+									src={`https://mysticmarguerite.com/new/backend/${latestBlog?.image}`}
 									alt={latestBlog?.title || "blog"}
 									className="w-full h-full object-cover rounded-lg"
 									width={400}
@@ -215,7 +215,7 @@ export default function Blogs() {
 									<div className="w-full relative flex flex-col gap-4">
 										<div className="w-full h-[300px]">
 											<Image
-												src={`http://127.0.0.1:8000/${item?.image}`}
+												src={`https://mysticmarguerite.com/new/backend/${item?.image}`}
 												alt="blog"
 												className="w-full h-full object-cover"
 												width={1000}

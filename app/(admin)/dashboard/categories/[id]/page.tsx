@@ -6,10 +6,15 @@ export const metadata: Metadata = {
 	description: "Mystic Marguerite - Admin Categories",
 };
 
+export const revalidate = 60;
+
 export async function generateStaticParams() {
-	const res = await fetch("http://127.0.0.1:8000/api/categories", {
-		cache: "no-store",
-	});
+	const res = await fetch(
+		"https://mysticmarguerite.com/new/backend/api/categories",
+		{
+			revalidate: 60,
+		},
+	);
 	const { categories } = await res.json();
 
 	const dynamicRoutes = categories.map((category: any) => ({

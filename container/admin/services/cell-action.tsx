@@ -21,7 +21,9 @@ export default function CellAction({ data }: { data: TserviceColumnProps }) {
 
 	const onDelete = async () => {
 		try {
-			await axios.delete(`http://127.0.0.1:8000/api/service/${data.id}`);
+			await axios.delete(
+				`https://mysticmarguerite.com/new/backend/api/service/${data.id}`,
+			);
 			toast.success("Content deleted.");
 			router.refresh();
 		} catch (error) {

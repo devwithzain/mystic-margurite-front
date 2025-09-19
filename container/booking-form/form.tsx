@@ -185,12 +185,12 @@ export default function Form({ slug }: { slug: { id: string } }) {
 		};
 
 		const bookingResponse = await axios.post(
-			"http://127.0.0.1:8000/api/placedBooking",
+			"https://mysticmarguerite.com/new/backend/api/placedBooking",
 			bookingData,
 			{ headers: { Authorization: `Bearer ${token}` } },
 		);
 
-		await axios.post("http://127.0.0.1:8000/api/timeslot", {
+		await axios.post("https://mysticmarguerite.com/new/backend/api/timeslot", {
 			status: "booked",
 		});
 
@@ -229,17 +229,20 @@ export default function Form({ slug }: { slug: { id: string } }) {
 		try {
 			setLoading(true);
 
-			const res = await fetch("http://127.0.0.1:8000/api/square/pay", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-					"Accept": "application/json",
+			const res = await fetch(
+				"https://mysticmarguerite.com/new/backend/api/square/pay",
+				{
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+						"Accept": "application/json",
+					},
+					body: JSON.stringify({
+						sourceId: token,
+						amount: total,
+					}),
 				},
-				body: JSON.stringify({
-					sourceId: token,
-					amount: total,
-				}),
-			});
+			);
 
 			const data = await res.json();
 			if (!res.ok) throw new Error(data.error || "Payment failed");
@@ -262,10 +265,13 @@ export default function Form({ slug }: { slug: { id: string } }) {
 			if (!stripe || !elements) return;
 
 			try {
-				await axios.post("http://127.0.0.1:8000/api/payment-intent", {
-					amount: total,
-					currency: "usd",
-				});
+				await axios.post(
+					"https://mysticmarguerite.com/new/backend/api/payment-intent",
+					{
+						amount: total,
+						currency: "usd",
+					},
+				);
 
 				const { error, paymentIntent } = await stripe.confirmPayment({
 					elements,

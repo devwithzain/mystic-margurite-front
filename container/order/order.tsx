@@ -13,11 +13,14 @@ export default function OrderPage() {
 	useEffect(() => {
 		const fetchOrders = async () => {
 			try {
-				const response = await fetch(`http://127.0.0.1:8000/api/user/orders`, {
-					headers: {
-						Authorization: `Bearer ${token}`,
+				const response = await fetch(
+					`https://mysticmarguerite.com/new/backend/api/user/orders`,
+					{
+						headers: {
+							Authorization: `Bearer ${token}`,
+						},
 					},
-				});
+				);
 				const data = await response.json();
 				setOrders(data);
 			} catch (error: unknown) {
@@ -85,7 +88,7 @@ export default function OrderPage() {
 													.map((item: OrderItem, index) => (
 														<Image
 															key={index}
-															src={`http://127.0.0.1:8000/storage/${
+															src={`https://mysticmarguerite.com/new/backend/storage/${
 																item?.product.image
 																	? JSON.parse(item.product.image)[0]
 																	: ""

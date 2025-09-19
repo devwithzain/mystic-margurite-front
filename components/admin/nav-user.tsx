@@ -41,7 +41,7 @@ export function NavUser({ user }: { user: TuserProps }) {
 							<Avatar className="h-8 w-8 rounded-lg">
 								{user.image ? (
 									<AvatarImage
-										src={`http://127.0.0.1:8000/storage/${user.image}`}
+										src={`https://mysticmarguerite.com/new/backend/storage/${user.image}`}
 										alt={user.name}
 									/>
 								) : (
@@ -67,7 +67,7 @@ export function NavUser({ user }: { user: TuserProps }) {
 								<Avatar className="h-8 w-8 rounded-lg">
 									{user.image ? (
 										<AvatarImage
-											src={`http://127.0.0.1:8000/storage/${user.image}`}
+											src={`https://mysticmarguerite.com/new/backend/storage/${user.image}`}
 											alt={user.name}
 										/>
 									) : (

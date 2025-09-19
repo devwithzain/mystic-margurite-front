@@ -1,7 +1,9 @@
-const apiUrl = `http://127.0.0.1:8000/api/newsletter/subscribes`;
+const apiUrl = `https://mysticmarguerite.com/new/backend/api/newsletter/subscribes`;
 
 const getSubscribers = async () => {
-   const response = await fetch(apiUrl);
+   const response = await fetch(apiUrl, {
+      next: { revalidate: 60 },
+   });
    return response.json();
 };
 

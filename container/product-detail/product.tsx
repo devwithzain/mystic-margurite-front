@@ -23,11 +23,14 @@ export default function ProductDetail({ id }: { id: string }) {
 	useEffect(() => {
 		const fetchUser = async () => {
 			try {
-				const response = await axios.get("http://127.0.0.1:8000/api/profile", {
-					headers: {
-						Authorization: `Bearer ${token}`,
+				const response = await axios.get(
+					"https://mysticmarguerite.com/new/backend/api/profile",
+					{
+						headers: {
+							Authorization: `Bearer ${token}`,
+						},
 					},
-				});
+				);
 				setUser(response.data.data);
 			} catch (error: unknown) {
 				console.error("Error fetching user:", error);
@@ -59,7 +62,7 @@ export default function ProductDetail({ id }: { id: string }) {
 		try {
 			setLoading(true);
 			const response = await axios.post(
-				`http://127.0.0.1:8000/api/cart`,
+				`https://mysticmarguerite.com/new/backend/api/cart`,
 				{
 					user_id: user?.id,
 					product_id: productId,
@@ -96,7 +99,7 @@ export default function ProductDetail({ id }: { id: string }) {
 				<>
 					<div className="w-[700px]">
 						<Image
-							src={`http://127.0.0.1:8000/storage/${
+							src={`https://mysticmarguerite.com/new/backend/storage/${
 								product?.image ? JSON.parse(product.image)[0] : ""
 							}`}
 							alt={product?.title || "product img"}

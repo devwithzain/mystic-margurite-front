@@ -1,8 +1,10 @@
-const apiUrl = `http://127.0.0.1:8000/api/timeslots`;
+const apiUrl = `https://mysticmarguerite.com/new/backend/api/timeslots`;
 
 const getTimeSlots = async () => {
    try {
-      const response = await fetch(apiUrl);
+      const response = await fetch(apiUrl, {
+         next: { revalidate: 60 },
+      });
       const data = await response.json();
       return data;
    } catch (error) {

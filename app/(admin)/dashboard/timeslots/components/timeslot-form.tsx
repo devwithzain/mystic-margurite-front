@@ -94,11 +94,14 @@ export default function TimeSlotsForm({
 		try {
 			if (initialData) {
 				await axios.post(
-					`http://127.0.0.1:8000/api/timeslot/${timeslotsId}`,
+					`https://mysticmarguerite.com/new/backend/api/timeslot/${timeslotsId}`,
 					data,
 				);
 			} else {
-				await axios.post(`http://127.0.0.1:8000/api/timeslot`, data);
+				await axios.post(
+					`https://mysticmarguerite.com/new/backend/api/timeslot`,
+					data,
+				);
 			}
 			toast.success(toastMessage);
 			router.push(`/dashboard/timeslots`);
@@ -109,7 +112,9 @@ export default function TimeSlotsForm({
 
 	const onDelete = async () => {
 		try {
-			await axios.delete(`http://127.0.0.1:8000/api/timeslot/${timeslotsId}`);
+			await axios.delete(
+				`https://mysticmarguerite.com/new/backend/api/timeslot/${timeslotsId}`,
+			);
 			router.push(`/dashboard/timeslots`);
 
 			toast.success("Category deleted");

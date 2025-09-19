@@ -31,11 +31,14 @@ export default function Setting() {
 	useEffect(() => {
 		const fetchUser = async () => {
 			try {
-				const response = await axios.get("http://127.0.0.1:8000/api/profile", {
-					headers: {
-						Authorization: `Bearer ${token}`,
+				const response = await axios.get(
+					"https://mysticmarguerite.com/new/backend/api/profile",
+					{
+						headers: {
+							Authorization: `Bearer ${token}`,
+						},
 					},
-				});
+				);
 				setUser(response.data.data);
 			} catch (error: unknown) {
 				console.error("Error fetching user:", error);
@@ -65,7 +68,7 @@ export default function Setting() {
 
 	useEffect(() => {
 		if (user?.image) {
-			const imageUrl = `http://127.0.0.1:8000/storage/${user.image}`;
+			const imageUrl = `https://mysticmarguerite.com/new/backend/storage/${user.image}`;
 			setImageUrl(imageUrl);
 			setPreviewImage(imageUrl);
 		}
@@ -122,7 +125,7 @@ export default function Setting() {
 			}
 
 			await axios.post(
-				`http://127.0.0.1:8000/api/profile/update/${user?.id}`,
+				`https://mysticmarguerite.com/new/backend/api/profile/update/${user?.id}`,
 				formData,
 				{
 					headers: {

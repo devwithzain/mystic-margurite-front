@@ -73,9 +73,15 @@ export default function CategoryForm({
 	const onSubmit = async (data: TcategoryColumnProps) => {
 		try {
 			if (category && !isNewCategory) {
-				await axios.post(`http://127.0.0.1:8000/api/category/${slug.id}`, data);
+				await axios.post(
+					`https://mysticmarguerite.com/new/backend/api/category/${slug.id}`,
+					data,
+				);
 			} else {
-				await axios.post(`http://127.0.0.1:8000/api/category`, data);
+				await axios.post(
+					`https://mysticmarguerite.com/new/backend/api/category`,
+					data,
+				);
 			}
 			toast.success(toastMessage);
 			router.push(`/dashboard/categories`);
@@ -88,7 +94,9 @@ export default function CategoryForm({
 	const onDelete = async () => {
 		try {
 			if (!isNewCategory) {
-				await axios.delete(`http://127.0.0.1:8000/api/category/${slug.id}`);
+				await axios.delete(
+					`https://mysticmarguerite.com/new/backend/api/category/${slug.id}`,
+				);
 				router.push(`/dashboard/categories`);
 				toast.success("Category deleted");
 			}

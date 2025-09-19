@@ -7,9 +7,12 @@ export const metadata: Metadata = {
 };
 
 export async function generateStaticParams() {
-	const res = await fetch("http://127.0.0.1:8000/api/bookings", {
-		cache: "no-store",
-	});
+	const res = await fetch(
+		"https://mysticmarguerite.com/new/backend/api/bookings",
+		{
+			next: { revalidate: 60 },
+		},
+	);
 	const { bookings } = await res.json();
 
 	const dynamicRoutes = bookings.map((booking: any) => ({

@@ -1,12 +1,13 @@
-import axios from 'axios';
 export const getUserData = async (token: string | undefined | null) => {
    try {
-      const response = await axios.get(`http://127.0.0.1:8000/api/profile`, {
+      const response = await fetch(`https://mysticmarguerite.com/new/backend/api/profile`, {
          headers: {
             Authorization: `Bearer ${token}`,
          },
+         next: { revalidate: 60 },
       });
-      return response.data.data;
+      const data = await response.json();
+      return data;
    } catch (error) {
       console.error("Error fetching user data:", error);
       return null;

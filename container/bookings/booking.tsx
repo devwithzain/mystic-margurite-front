@@ -14,7 +14,7 @@ export default function BookingPage() {
 		const fetchBookings = async () => {
 			try {
 				const response = await fetch(
-					`http://127.0.0.1:8000/api/user/bookings`,
+					`https://mysticmarguerite.com/new/backend/api/user/bookings`,
 					{
 						headers: {
 							Authorization: `Bearer ${token}`,
@@ -86,7 +86,7 @@ export default function BookingPage() {
 													{order.items.map((item, index) => (
 														<Image
 															key={index}
-															src={`http://127.0.0.1:8000/storage/${item.service.image}`}
+															src={`https://mysticmarguerite.com/new/backend/storage/${item.service.image}`}
 															alt="serviceImg"
 															className="w-auto h-20 object-fill"
 															width={200}

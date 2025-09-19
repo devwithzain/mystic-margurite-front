@@ -1,7 +1,9 @@
-const apiUrl = `http://127.0.0.1:8000/api/admin/booking`;
+const apiUrl = `https://mysticmarguerite.com/new/backend/api/admin/booking`;
 
 const getBooking = async (id: string) => {
-   const response = await fetch(`${apiUrl}/${id}`);
+   const response = await fetch(`${apiUrl}/${id}`, {
+      next: { revalidate: 60 },
+   });
    return response.json();
 };
 

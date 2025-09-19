@@ -30,11 +30,14 @@ export default function Account() {
 	useEffect(() => {
 		const fetchAdmin = async () => {
 			try {
-				const response = await axios.get("http://127.0.0.1:8000/api/profile", {
-					headers: {
-						Authorization: `Bearer ${token}`,
+				const response = await axios.get(
+					"https://mysticmarguerite.com/new/backend/api/profile",
+					{
+						headers: {
+							Authorization: `Bearer ${token}`,
+						},
 					},
-				});
+				);
 				setAdmin(response.data.data);
 			} catch (error: unknown) {
 				console.error("Error fetching admin:", error);
@@ -64,7 +67,7 @@ export default function Account() {
 
 	useEffect(() => {
 		if (admin?.image) {
-			const imageUrl = `http://127.0.0.1:8000/storage/${admin.image}`;
+			const imageUrl = `https://mysticmarguerite.com/new/backend/storage/${admin.image}`;
 			setImageUrl(imageUrl);
 			setPreviewImage(imageUrl);
 		}
@@ -121,7 +124,7 @@ export default function Account() {
 			}
 
 			await axios.post(
-				`http://127.0.0.1:8000/api/profile/update/${admin?.id}`,
+				`https://mysticmarguerite.com/new/backend/api/profile/update/${admin?.id}`,
 				formData,
 				{
 					headers: {
